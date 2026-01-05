@@ -18,10 +18,10 @@ SetupWifiNetDevice (const NodeContainer &nodes)
 
   // 2. Setup WiFi MAC and Standard
   WifiHelper wifi;
-  wifi.SetStandard (WIFI_STANDARD_80211b);
+  wifi.SetStandard (WIFI_STANDARD_80211p);
   wifi.SetRemoteStationManager ("ns3::ConstantRateWifiManager", "DataMode",
-                                StringValue ("DsssRate1Mbps"), "ControlMode",
-                                StringValue ("DsssRate1Mbps"));
+                                StringValue ("OfdmRate9Mbps"), "ControlMode",
+                                StringValue ("OfdmRate9Mbps"));
 
   WifiMacHelper wifiMac;
   wifiMac.SetType ("ns3::AdhocWifiMac");
