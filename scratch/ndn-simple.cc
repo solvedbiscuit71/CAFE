@@ -11,28 +11,9 @@
 
 #include "ns3/netanim-module.h"
 
+#include "scratch-utils.h"
+
 namespace ns3 {
-
-void
-NetDeviceSetup(const NodeContainer& nodes) {
-  // 1. Setup Wireless Channel and Physical Layer
-  YansWifiChannelHelper wifiChannel = YansWifiChannelHelper::Default ();
-  YansWifiPhyHelper wifiPhy;
-  wifiPhy.SetChannel (wifiChannel.Create ());
-
-  // 2. Setup WiFi MAC and Standard (802.11b as an example)
-  WifiHelper wifi;
-  wifi.SetStandard (WIFI_STANDARD_80211b);
-  wifi.SetRemoteStationManager ("ns3::ConstantRateWifiManager", "DataMode",
-                                StringValue ("DsssRate1Mbps"), "ControlMode",
-                                StringValue ("DsssRate1Mbps"));
-
-  WifiMacHelper wifiMac;
-  wifiMac.SetType ("ns3::AdhocWifiMac");
-
-  // 3. Install WiFi on Nodes
-  NetDeviceContainer devices = wifi.Install (wifiPhy, wifiMac, nodes);
-}
 
 void
 MobilitySetup(const NodeContainer& nodes) {
@@ -53,11 +34,6 @@ MobilitySetup(const NodeContainer& nodes) {
 int
 main (int argc, char *argv[])
 {
-  // setting default parameters for PointToPoint links and channels
-  Config::SetDefault ("ns3::PointToPointNetDevice::DataRate", StringValue ("1Mbps"));
-  Config::SetDefault ("ns3::PointToPointChannel::Delay", StringValue ("10ms"));
-  Config::SetDefault ("ns3::DropTailQueue<Packet>::MaxSize", StringValue ("20p"));
-
   // Read optional command-line parameters (e.g., enable visualizer with ./waf --run=<> --visualize
   CommandLine cmd;
   cmd.Parse (argc, argv);
@@ -67,7 +43,7 @@ main (int argc, char *argv[])
   nodes.Create (3);
 
   // Install NetDevice and Mobility
-  NetDeviceSetup(nodes);
+  SetupWifiNetDevice(nodes);
   MobilitySetup(nodes);
   
   // Install NDN stack on all nodes
