@@ -176,6 +176,12 @@ public:
   void
   SetDefaultRoutes(bool needSet);
 
+  /**
+   * \brief Set flag indicating necessity to set all wifi netdevice as ad-hoc face
+   */
+  void
+  SetWifiAsAdhoc(bool needSet);
+
   static KeyChain&
   getKeyChain();
 
@@ -241,6 +247,11 @@ private:
   shared_ptr<Face>
   PointToPointNetDeviceCallback(Ptr<Node> node, Ptr<L3Protocol> ndn,
                                 Ptr<NetDevice> netDevice) const;
+
+  shared_ptr<Face>
+  AdhocWifiNetDeviceCallback(Ptr<Node> node, Ptr<L3Protocol> ndn,
+                                Ptr<NetDevice> netDevice) const;
+
   shared_ptr<Face>
   createAndRegisterFace(Ptr<Node> node, Ptr<L3Protocol> ndn, Ptr<NetDevice> device) const;
 
@@ -255,6 +266,7 @@ private:
   ObjectFactory m_ndnFactory;
 
   bool m_needSetDefaultRoutes;
+  bool m_setWifiAsAdhoc;
   size_t m_maxCsSize = 100;
 
   typedef std::function<std::unique_ptr<nfd::cs::Policy>()> PolicyCreationCallback;

@@ -90,3 +90,4 @@ toggle
 version.cache
 
 .cache/
+*LOG

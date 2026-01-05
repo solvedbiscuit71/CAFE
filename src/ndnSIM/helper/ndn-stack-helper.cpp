@@ -26,6 +26,7 @@
 #include "ns3/point-to-point-channel.h"
 #include "ns3/node-list.h"
 #include "ns3/simulator.h"
+#include "ns3/wifi-net-device.h"
 
 #if HAVE_NS3_VISUALIZER
 #include "../../visualizer/model/visual-simulator-impl.h"
@@ -53,6 +54,7 @@ StackHelper::StackHelper()
   : m_isForwarderStatusManagerDisabled(false)
   , m_isStrategyChoiceManagerDisabled(false)
   , m_needSetDefaultRoutes(false)
+  , m_setWifiAsAdhoc(false)
 {
   setCustomNdnCxxClocks();
 
@@ -66,6 +68,9 @@ StackHelper::StackHelper()
   m_netDeviceCallbacks.push_back(
     std::make_pair(PointToPointNetDevice::GetTypeId(),
                    MakeCallback(&StackHelper::PointToPointNetDeviceCallback, this)));
+  m_netDeviceCallbacks.push_back(
+    std::make_pair(WifiNetDevice::GetTypeId(),
+                   MakeCallback(&StackHelper::AdhocWifiNetDeviceCallback, this)));
   // default callback will be fired if non of others callbacks fit or did the job
 }
 
@@ -92,6 +97,13 @@ StackHelper::SetDefaultRoutes(bool needSet)
 {
   NS_LOG_FUNCTION(this << needSet);
   m_needSetDefaultRoutes = needSet;
+}
+
+void
+StackHelper::SetWifiAsAdhoc(bool needSet)
+{
+  NS_LOG_FUNCTION(this << needSet);
+  m_setWifiAsAdhoc = needSet;
 }
 
 void
@@ -248,6 +260,41 @@ StackHelper::DefaultNetDeviceCallback(Ptr<Node> node, Ptr<L3Protocol> ndn,
   auto transport = make_unique<NetDeviceTransport>(node, netDevice,
                                                    constructFaceUri(netDevice),
                                                    "netdev://[ff:ff:ff:ff:ff:ff]");
+
+  auto face = std::make_shared<Face>(std::move(linkService), std::move(transport));
+  face->setMetric(1);
+
+  ndn->addFace(face);
+  NS_LOG_LOGIC("Node " << node->GetId() << ": added Face as face #"
+                       << face->getLocalUri());
+
+  return face;
+}
+
+shared_ptr<Face>
+StackHelper::AdhocWifiNetDeviceCallback(Ptr<Node> node, Ptr<L3Protocol> ndn,
+                                      Ptr<NetDevice> netDevice) const
+{
+  if (!m_setWifiAsAdhoc) {
+    return DefaultNetDeviceCallback(node, ndn, netDevice);
+  }
+
+  NS_LOG_DEBUG("Creating ad-hoc wifi Face on node " << node->GetId());
+
+  // Create an ndnSIM-specific transport instance
+  ::nfd::face::GenericLinkService::Options opts;
+  opts.allowFragmentation = true;
+  opts.allowReassembly = true;
+  opts.allowCongestionMarking = true;
+
+  auto linkService = make_unique<::nfd::face::GenericLinkService>(opts);
+
+  auto transport = make_unique<NetDeviceTransport>(node, netDevice,
+                                                   constructFaceUri(netDevice),
+                                                   "netdev://[ff:ff:ff:ff:ff:ff]",
+                                                   ::ndn::nfd::FACE_SCOPE_NON_LOCAL,
+                                                   ::ndn::nfd::FACE_PERSISTENCY_PERSISTENT,
+                                                   ::ndn::nfd::LINK_TYPE_AD_HOC);
 
   auto face = std::make_shared<Face>(std::move(linkService), std::move(transport));
   face->setMetric(1);
