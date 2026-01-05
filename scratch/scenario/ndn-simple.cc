@@ -9,10 +9,12 @@
 #include "ns3/wifi-module.h"
 #include "ns3/mobility-module.h"
 
+#include "ns3/netanim-module.h"
+
 namespace ns3 {
 
 void
-ScenarioSetup(const NodeContainer& nodes) {
+NetDeviceSetup(const NodeContainer& nodes) {
   // 1. Setup Wireless Channel and Physical Layer
   YansWifiChannelHelper wifiChannel = YansWifiChannelHelper::Default ();
   YansWifiPhyHelper wifiPhy;
@@ -30,8 +32,10 @@ ScenarioSetup(const NodeContainer& nodes) {
 
   // 3. Install WiFi on Nodes
   NetDeviceContainer devices = wifi.Install (wifiPhy, wifiMac, nodes);
+}
 
-  // 4. IMPORTANT: Set Mobility (Nodes need positions for Wireless to work)
+void
+MobilitySetup(const NodeContainer& nodes) {
   MobilityHelper mobility;
 
   // 1. Create a list of positions
@@ -63,7 +67,8 @@ main (int argc, char *argv[])
   nodes.Create (3);
 
   // Install NetDevice and Mobility
-  ScenarioSetup(nodes);
+  NetDeviceSetup(nodes);
+  MobilitySetup(nodes);
   
   // Install NDN stack on all nodes
   ndn::StackHelper ndnHelper;
@@ -91,7 +96,10 @@ main (int argc, char *argv[])
   producerHelper.SetAttribute ("PayloadSize", StringValue ("1024"));
   producerHelper.Install (nodes.Get (2)); // last node
 
-  Simulator::Stop (Seconds (20.0));
+  Simulator::Stop (Seconds (5.0));
+
+  // NetAnim
+  AnimationInterface anim("netanim/ndn-simple.xml");
 
   Simulator::Run ();
   Simulator::Destroy ();
