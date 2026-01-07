@@ -40,6 +40,13 @@ namespace ns3 {
 
 class Node;
 
+enum NodeType : uint8_t {
+  NODE_TYPE_NONE      = std::numeric_limits<uint8_t>::max(),
+  NODE_TYPE_VEHICLE   = 0,
+  NODE_TYPE_RSU       = 1,
+  NODE_TYPE_BACKBONE  = 2,
+};
+
 namespace ndn {
 
 class L3Protocol;
@@ -177,10 +184,10 @@ public:
   SetDefaultRoutes(bool needSet);
 
   /**
-   * \brief Set flag indicating necessity to set all wifi netdevice as ad-hoc face
+   * \brief Set node type indicating context for face creation
    */
   void
-  SetWifiAsAdhoc(bool needSet);
+  SetNodeType(NodeType nodeType);
 
   static KeyChain&
   getKeyChain();
@@ -249,7 +256,7 @@ private:
                                 Ptr<NetDevice> netDevice) const;
 
   shared_ptr<Face>
-  AdhocWifiNetDeviceCallback(Ptr<Node> node, Ptr<L3Protocol> ndn,
+  WifiNetDeviceCallback(Ptr<Node> node, Ptr<L3Protocol> ndn,
                                 Ptr<NetDevice> netDevice) const;
 
   shared_ptr<Face>
@@ -266,7 +273,7 @@ private:
   ObjectFactory m_ndnFactory;
 
   bool m_needSetDefaultRoutes;
-  bool m_setWifiAsAdhoc;
+  NodeType m_nodeType;
   size_t m_maxCsSize = 100;
 
   typedef std::function<std::unique_ptr<nfd::cs::Policy>()> PolicyCreationCallback;

@@ -48,9 +48,9 @@ main (int argc, char *argv[])
   
   // Install NDN stack on all nodes
   ndn::StackHelper ndnHelper;
-  ndnHelper.SetDefaultRoutes (true);
-  ndnHelper.SetWifiAsAdhoc(true);
-  ndnHelper.InstallAll ();
+  ndnHelper.SetDefaultRoutes(true);
+  ndnHelper.SetNodeType(NODE_TYPE_VEHICLE);
+  ndnHelper.Install(nodes);
 
   // Choosing forwarding strategy
   ndn::StrategyChoiceHelper::InstallAll ("/prefix", "/localhost/nfd/strategy/multicast");

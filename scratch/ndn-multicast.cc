@@ -66,11 +66,16 @@ main (int argc, char *argv[])
   adhocNodes.Add(rsu);
   SetupWifiNetDevice(adhocNodes);
 
-  ndn::StackHelper ndnHelper;
-  ndnHelper.SetDefaultRoutes(true);
-  ndnHelper.SetWifiAsAdhoc(true);
-  ndnHelper.InstallAll();
-  
+  ndn::StackHelper rsuHelper;
+  rsuHelper.SetDefaultRoutes(true);
+  rsuHelper.SetNodeType(NODE_TYPE_RSU);
+  rsuHelper.Install(rsu);
+
+  ndn::StackHelper vehicleHelper;
+  vehicleHelper.SetDefaultRoutes(true);
+  vehicleHelper.SetNodeType(NODE_TYPE_RSU);
+  vehicleHelper.Install(vehicle);
+
   ndn::StrategyChoiceHelper::InstallAll("/", "/localhost/nfd/strategy/multicast");
 
   // * Install Application

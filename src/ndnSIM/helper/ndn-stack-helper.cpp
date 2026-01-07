@@ -54,7 +54,7 @@ StackHelper::StackHelper()
   : m_isForwarderStatusManagerDisabled(false)
   , m_isStrategyChoiceManagerDisabled(false)
   , m_needSetDefaultRoutes(false)
-  , m_setWifiAsAdhoc(false)
+  , m_nodeType(NODE_TYPE_NONE)
 {
   setCustomNdnCxxClocks();
 
@@ -70,7 +70,7 @@ StackHelper::StackHelper()
                    MakeCallback(&StackHelper::PointToPointNetDeviceCallback, this)));
   m_netDeviceCallbacks.push_back(
     std::make_pair(WifiNetDevice::GetTypeId(),
-                   MakeCallback(&StackHelper::AdhocWifiNetDeviceCallback, this)));
+                   MakeCallback(&StackHelper::WifiNetDeviceCallback, this)));
   // default callback will be fired if non of others callbacks fit or did the job
 }
 
@@ -100,10 +100,10 @@ StackHelper::SetDefaultRoutes(bool needSet)
 }
 
 void
-StackHelper::SetWifiAsAdhoc(bool needSet)
+StackHelper::SetNodeType(NodeType nodeType)
 {
-  NS_LOG_FUNCTION(this << needSet);
-  m_setWifiAsAdhoc = needSet;
+  NS_LOG_FUNCTION(this << nodeType);
+  m_nodeType = nodeType;
 }
 
 void
@@ -272,10 +272,10 @@ StackHelper::DefaultNetDeviceCallback(Ptr<Node> node, Ptr<L3Protocol> ndn,
 }
 
 shared_ptr<Face>
-StackHelper::AdhocWifiNetDeviceCallback(Ptr<Node> node, Ptr<L3Protocol> ndn,
+StackHelper::WifiNetDeviceCallback(Ptr<Node> node, Ptr<L3Protocol> ndn,
                                       Ptr<NetDevice> netDevice) const
 {
-  if (!m_setWifiAsAdhoc) {
+  if (m_nodeType == NODE_TYPE_NONE) {
     return DefaultNetDeviceCallback(node, ndn, netDevice);
   }
 
