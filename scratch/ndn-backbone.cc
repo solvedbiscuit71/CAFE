@@ -75,7 +75,7 @@ main (int argc, char *argv[])
 
   ndn::StackHelper vehicleHelper;
   vehicleHelper.SetDefaultRoutes(true);
-  vehicleHelper.SetNodeType(NODE_TYPE_RSU);
+  vehicleHelper.SetNodeType(NODE_TYPE_VEHICLE);
   vehicleHelper.Install(vehicle);
 
   ndn::StackHelper backBoneHelper;

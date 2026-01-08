@@ -23,9 +23,8 @@
 namespace ns3 {
 
 /*
- * Vehilce#0 should sent interest to special multicast
- * RSU#0 should listen while RSU#1 should listen on broadcast
- * RSU#0 should reply with Data while RSU#1 shouldn't
+ * Vehilce#0 should sent interest to multicast_v2v
+ * Vehilce#1 shoudl sent data back however RSU#0 should drop the packet at transport
  */
 int
 main (int argc, char *argv[])
@@ -40,7 +39,7 @@ main (int argc, char *argv[])
   rsu.Create(2);
   
   NodeContainer vehicle;
-  vehicle.Create(1);
+  vehicle.Create(2);
 
   MobilityHelper rsuMobility;
   Ptr<ListPositionAllocator> positionAlloc = CreateObject<ListPositionAllocator> ();
@@ -55,6 +54,11 @@ main (int argc, char *argv[])
   vehicle0Mobility->SetPosition(Vector (0.0, 0.0, 0.0));
   vehicle0Mobility->SetVelocity(Vector (24.0, 0.0, 0.0));
   vehicle.Get(0)->AggregateObject(vehicle0Mobility);
+
+  Ptr<ConstantVelocityMobilityModel> vehicle1Mobility = CreateObject<ConstantVelocityMobilityModel>();
+  vehicle1Mobility->SetPosition(Vector (20.0, 0.0, 0.0));
+  vehicle1Mobility->SetVelocity(Vector (24.0, 0.0, 0.0));
+  vehicle.Get(1)->AggregateObject(vehicle1Mobility);
 
   // * Install Network Stack
   SetDefaultP2PConfig();
@@ -73,7 +77,7 @@ main (int argc, char *argv[])
 
   ndn::StackHelper vehicleHelper;
   vehicleHelper.SetDefaultRoutes(true);
-  vehicleHelper.SetNodeType(NODE_TYPE_RSU);
+  vehicleHelper.SetNodeType(NODE_TYPE_VEHICLE);
   vehicleHelper.Install(vehicle);
 
   ndn::StrategyChoiceHelper::InstallAll("/", "/localhost/nfd/strategy/multicast");
@@ -88,6 +92,7 @@ main (int argc, char *argv[])
   producerHelper.SetPrefix("/prefix");
   producerHelper.SetAttribute("PayloadSize", StringValue("1024"));
   producerHelper.Install(rsu);
+  producerHelper.Install(vehicle.Get(1));
 
   // * Enable NetAnim
   AnimationInterface anim ("netanim/ndn-multicast.xml");

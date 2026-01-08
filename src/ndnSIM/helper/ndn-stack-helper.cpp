@@ -232,10 +232,9 @@ StackHelper::RemoveFaceCreateCallback(TypeId netDeviceType,
 }
 
 std::string
-constructFaceUri(Ptr<NetDevice> netDevice)
+constructFaceUri(const Address& address)
 {
   std::string uri = "netdev://";
-  Address address = netDevice->GetAddress();
   if (Mac48Address::IsMatchingType(address)) {
     uri += "[" + boost::lexical_cast<std::string>(Mac48Address::ConvertFrom(address)) + "]";
   }
@@ -243,6 +242,12 @@ constructFaceUri(Ptr<NetDevice> netDevice)
   return uri;
 }
 
+std::string
+constructFaceUri(Ptr<NetDevice> netDevice)
+{
+  Address address = netDevice->GetAddress();
+  return constructFaceUri(address);
+}
 
 shared_ptr<Face>
 StackHelper::DefaultNetDeviceCallback(Ptr<Node> node, Ptr<L3Protocol> ndn,
@@ -266,8 +271,10 @@ StackHelper::DefaultNetDeviceCallback(Ptr<Node> node, Ptr<L3Protocol> ndn,
   face->setMetric(1);
 
   ndn->addFace(face);
-  NS_LOG_LOGIC("Node " << node->GetId() << ": added Face as face #"
-                       << face->getLocalUri());
+  NS_LOG_LOGIC("Node " << node->GetId() << ": added Face as face ("
+                       << face->getId() << ","
+                       << face->getLocalUri() << "," 
+                       << face->getRemoteUri() << ")");
 
   return face;
 }
@@ -290,9 +297,18 @@ StackHelper::WifiNetDeviceCallback(Ptr<Node> node, Ptr<L3Protocol> ndn,
 
   auto linkService = make_unique<::nfd::face::GenericLinkService>(opts);
 
+
+  Address remoteAddress;
+  if (m_nodeType == NODE_TYPE_VEHICLE) {
+    remoteAddress = MulticastGroup::MULTICAST_V2V;
+  } else {
+    remoteAddress = MulticastGroup::MULTICAST_V2I;
+  }
+
   auto transport = make_unique<WifiNetDeviceTransport>(node, netDevice,
                                                    constructFaceUri(netDevice),
-                                                   "netdev://[ff:ff:ff:ff:ff:ff]",
+                                                   constructFaceUri(remoteAddress),
+                                                   remoteAddress,
                                                    ::ndn::nfd::FACE_SCOPE_NON_LOCAL,
                                                    ::ndn::nfd::FACE_PERSISTENCY_PERSISTENT,
                                                    ::ndn::nfd::LINK_TYPE_AD_HOC);
@@ -301,8 +317,10 @@ StackHelper::WifiNetDeviceCallback(Ptr<Node> node, Ptr<L3Protocol> ndn,
   face->setMetric(1);
 
   ndn->addFace(face);
-  NS_LOG_LOGIC("Node " << node->GetId() << ": added Face as face #"
-                       << face->getLocalUri());
+  NS_LOG_LOGIC("Node " << node->GetId() << ": added Face as face ("
+                       << face->getId() << ","
+                       << face->getLocalUri() << "," 
+                       << face->getRemoteUri() << ")");
 
   return face;
 }
@@ -340,8 +358,10 @@ StackHelper::PointToPointNetDeviceCallback(Ptr<Node> node, Ptr<L3Protocol> ndn,
   face->setMetric(1);
 
   ndn->addFace(face);
-  NS_LOG_LOGIC("Node " << node->GetId() << ": added Face as face #"
-                       << face->getLocalUri());
+  NS_LOG_LOGIC("Node " << node->GetId() << ": added Face as face ("
+                       << face->getId() << ","
+                       << face->getLocalUri() << "," 
+                       << face->getRemoteUri() << ")");
 
   return face;
 }

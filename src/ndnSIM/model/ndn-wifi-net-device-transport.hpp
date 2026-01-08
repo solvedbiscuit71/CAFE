@@ -20,6 +20,7 @@
 #ifndef NDN_WIFI_NET_DEVICE_TRANSPORT_HPP
 #define NDN_WIFI_NET_DEVICE_TRANSPORT_HPP
 
+#include "ns3/address.h"
 #include "ns3/mac48-address.h"
 #include "ns3/ndnSIM/model/ndn-common.hpp"
 #include "ns3/ndnSIM/NFD/daemon/face/transport.hpp"
@@ -46,6 +47,7 @@ public:
   WifiNetDeviceTransport(Ptr<Node> node, const Ptr<NetDevice>& netDevice,
                      const std::string& localUri,
                      const std::string& remoteUri,
+                     const Address& remoteAddress,
                      ::ndn::nfd::FaceScope scope = ::ndn::nfd::FACE_SCOPE_NON_LOCAL,
                      ::ndn::nfd::FacePersistency persistency = ::ndn::nfd::FACE_PERSISTENCY_PERSISTENT,
                      ::ndn::nfd::LinkType linkType = ::ndn::nfd::LINK_TYPE_POINT_TO_POINT);

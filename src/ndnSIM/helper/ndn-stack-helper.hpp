@@ -21,6 +21,7 @@
 #define NDNSIM_HELPER_NDN_STACK_HELPER_HPP
 
 #include "ns3/ndnSIM/model/ndn-common.hpp"
+#include "ns3/ndnSIM/model/ndn-context.hpp"
 
 #include "ns3/ptr.h"
 #include "ns3/object-factory.h"
@@ -39,13 +40,6 @@ class Policy;
 namespace ns3 {
 
 class Node;
-
-enum NodeType : uint8_t {
-  NODE_TYPE_NONE      = std::numeric_limits<uint8_t>::max(),
-  NODE_TYPE_VEHICLE   = 0,
-  NODE_TYPE_RSU       = 1,
-  NODE_TYPE_BACKBONE  = 2,
-};
 
 namespace ndn {
 

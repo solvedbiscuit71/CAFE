@@ -40,12 +40,13 @@ WifiNetDeviceTransport::WifiNetDeviceTransport(Ptr<Node> node,
                                        const Ptr<NetDevice>& netDevice,
                                        const std::string& localUri,
                                        const std::string& remoteUri,
+                                       const Address& remoteAddress,
                                        ::ndn::nfd::FaceScope scope,
                                        ::ndn::nfd::FacePersistency persistency,
                                        ::ndn::nfd::LinkType linkType)
   : m_netDevice(netDevice)
   , m_node(node)
-  , m_remoteAddress(Mac48Address(remoteUri.data()))
+  , m_remoteAddress(remoteAddress)
 {
   this->setLocalUri(FaceUri(localUri));
   this->setRemoteUri(FaceUri(remoteUri));
