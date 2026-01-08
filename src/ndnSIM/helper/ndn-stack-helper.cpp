@@ -34,6 +34,7 @@
 
 #include "model/ndn-l3-protocol.hpp"
 #include "model/ndn-net-device-transport.hpp"
+#include "model/ndn-wifi-net-device-transport.hpp"
 #include "utils/ndn-time.hpp"
 #include "utils/dummy-keychain.hpp"
 
@@ -289,7 +290,7 @@ StackHelper::WifiNetDeviceCallback(Ptr<Node> node, Ptr<L3Protocol> ndn,
 
   auto linkService = make_unique<::nfd::face::GenericLinkService>(opts);
 
-  auto transport = make_unique<NetDeviceTransport>(node, netDevice,
+  auto transport = make_unique<WifiNetDeviceTransport>(node, netDevice,
                                                    constructFaceUri(netDevice),
                                                    "netdev://[ff:ff:ff:ff:ff:ff]",
                                                    ::ndn::nfd::FACE_SCOPE_NON_LOCAL,
