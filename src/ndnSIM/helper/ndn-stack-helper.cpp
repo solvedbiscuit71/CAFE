@@ -295,23 +295,34 @@ StackHelper::WifiNetDeviceCallback(Ptr<Node> node, Ptr<L3Protocol> ndn,
   opts.allowReassembly = true;
   opts.allowCongestionMarking = true;
 
-  auto linkService = make_unique<::nfd::face::GenericLinkService>(opts);
-
 
   Address remoteAddress;
   if (m_nodeType == NODE_TYPE_VEHICLE) {
     remoteAddress = MulticastGroup::MULTICAST_V2V;
-  } else {
-    remoteAddress = MulticastGroup::MULTICAST_V2I;
+    auto linkService = make_unique<::nfd::face::GenericLinkService>(opts);
+
+    auto transport = make_unique<WifiNetDeviceTransport>(node, netDevice,
+                                                     constructFaceUri(netDevice),
+                                                     constructFaceUri(remoteAddress),
+                                                     remoteAddress);
+
+    auto face = std::make_shared<Face>(std::move(linkService), std::move(transport));
+    face->setMetric(1);
+
+    ndn->addFace(face);
+    NS_LOG_LOGIC("Node " << node->GetId() << ": added Face as face ("
+                         << face->getId() << ","
+                         << face->getLocalUri() << "," 
+                         << face->getRemoteUri() << ")");
   }
+
+  remoteAddress = MulticastGroup::MULTICAST_V2I;
+  auto linkService = make_unique<::nfd::face::GenericLinkService>(opts);
 
   auto transport = make_unique<WifiNetDeviceTransport>(node, netDevice,
                                                    constructFaceUri(netDevice),
                                                    constructFaceUri(remoteAddress),
-                                                   remoteAddress,
-                                                   ::ndn::nfd::FACE_SCOPE_NON_LOCAL,
-                                                   ::ndn::nfd::FACE_PERSISTENCY_PERSISTENT,
-                                                   ::ndn::nfd::LINK_TYPE_AD_HOC);
+                                                   remoteAddress);
 
   auto face = std::make_shared<Face>(std::move(linkService), std::move(transport));
   face->setMetric(1);
