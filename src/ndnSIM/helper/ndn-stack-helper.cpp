@@ -314,6 +314,12 @@ StackHelper::WifiNetDeviceCallback(Ptr<Node> node, Ptr<L3Protocol> ndn,
                          << face->getId() << ","
                          << face->getLocalUri() << "," 
                          << face->getRemoteUri() << ")");
+
+    // Since this face is not returned by the function,
+    // we need to set the default route with lowest priority here.
+    if (m_needSetDefaultRoutes) {
+      FibHelper::AddRoute(node, "/", face, std::numeric_limits<int32_t>::max());
+    }
   }
 
   remoteAddress = MulticastGroup::MULTICAST_V2I;
