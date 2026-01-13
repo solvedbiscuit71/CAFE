@@ -1,6 +1,7 @@
 *.pyc
 .waf3-*
 .waf-1*
+!.waf-tools
 *~
 .DS_Store
 docs/doxygen.warnings.log
