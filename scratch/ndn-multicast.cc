@@ -22,6 +22,10 @@
 
 namespace ns3 {
 
+/*
+ * Vehilce#0 should sent interest to multicast_v2v
+ * Vehilce#1 shoudl sent data back however RSU#0 should drop the packet at transport
+ */
 int
 main (int argc, char *argv[])
 {
@@ -32,19 +36,15 @@ main (int argc, char *argv[])
 
   // * Creating nodes
   NodeContainer rsu;
-  rsu.Create(3);
+  rsu.Create(2);
   
-  NodeContainer backBone;
-  backBone.Create(1);
-
   NodeContainer vehicle;
-  vehicle.Create(1);
+  vehicle.Create(2);
 
   MobilityHelper rsuMobility;
   Ptr<ListPositionAllocator> positionAlloc = CreateObject<ListPositionAllocator> ();
   positionAlloc->Add (Vector (0.0, 0.0, 0.0));
   positionAlloc->Add (Vector (80.0, 0.0, 0.0));
-  positionAlloc->Add (Vector (160.0, 0.0, 0.0));
 
   rsuMobility.SetPositionAllocator (positionAlloc);
   rsuMobility.SetMobilityModel ("ns3::ConstantPositionMobilityModel");
@@ -55,14 +55,15 @@ main (int argc, char *argv[])
   vehicle0Mobility->SetVelocity(Vector (24.0, 0.0, 0.0));
   vehicle.Get(0)->AggregateObject(vehicle0Mobility);
 
+  Ptr<ConstantVelocityMobilityModel> vehicle1Mobility = CreateObject<ConstantVelocityMobilityModel>();
+  vehicle1Mobility->SetPosition(Vector (20.0, 0.0, 0.0));
+  vehicle1Mobility->SetVelocity(Vector (24.0, 0.0, 0.0));
+  vehicle.Get(1)->AggregateObject(vehicle1Mobility);
+
   // * Install Network Stack
   SetDefaultP2PConfig();
   PointToPointHelper p2p;
   p2p.Install(rsu.Get(0), rsu.Get(1));
-  p2p.Install(rsu.Get(1), rsu.Get(2));
-  p2p.Install(rsu.Get(0), backBone.Get(0));
-  p2p.Install(rsu.Get(1), backBone.Get(0));
-  p2p.Install(rsu.Get(2), backBone.Get(0));
   
   NodeContainer adhocNodes;
   adhocNodes.Add(vehicle);
@@ -70,6 +71,7 @@ main (int argc, char *argv[])
   SetupWifiNetDevice(adhocNodes);
 
   ndn::StackHelper rsuHelper;
+  rsuHelper.SetDefaultRoutes(true);
   rsuHelper.SetNodeType(NODE_TYPE_RSU);
   rsuHelper.Install(rsu);
 
@@ -78,17 +80,7 @@ main (int argc, char *argv[])
   vehicleHelper.SetNodeType(NODE_TYPE_VEHICLE);
   vehicleHelper.Install(vehicle);
 
-  ndn::StackHelper backBoneHelper;
-  backBoneHelper.SetNodeType(NODE_TYPE_BACKBONE);
-  backBoneHelper.Install(backBone);
-  
-  ndn::StrategyChoiceHelper::InstallAll("/", "/localhost/nfd/strategy/best-route");
-  
-  NodeContainer routableNodes;
-  routableNodes.Add(rsu);
-  routableNodes.Add(backBone);
-  ndn::GlobalRoutingHelper ndnRoutingHelper;
-  ndnRoutingHelper.Install(routableNodes);
+  ndn::StrategyChoiceHelper::InstallAll("/", "/localhost/nfd/strategy/multicast");
 
   // * Install Application
   ndn::AppHelper consumerHelper("ns3::ndn::ConsumerCbr");
@@ -96,19 +88,16 @@ main (int argc, char *argv[])
   consumerHelper.SetAttribute("Frequency", StringValue("1"));
   consumerHelper.Install(vehicle.Get(0));
   
-  
   ndn::AppHelper producerHelper("ns3::ndn::Producer");
   producerHelper.SetPrefix("/prefix");
   producerHelper.SetAttribute("PayloadSize", StringValue("1024"));
-  producerHelper.Install(backBone.Get(0));
-  
-  ndnRoutingHelper.AddOrigin("/prefix", backBone.Get(0));
-  ndnRoutingHelper.CalculateAllPossibleRoutes();
+  producerHelper.Install(rsu);
+  producerHelper.Install(vehicle.Get(1));
 
   // * Enable NetAnim
-  AnimationInterface anim ("netanim/ndn-backbone.xml");
+  AnimationInterface anim ("netanim/ndn-multicast.xml");
 
-  Simulator::Stop (Seconds (10.0));
+  Simulator::Stop (Seconds (5.0));
   Simulator::Run ();
   Simulator::Destroy ();
 

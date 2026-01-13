@@ -34,6 +34,7 @@
 
 #include "model/ndn-l3-protocol.hpp"
 #include "model/ndn-net-device-transport.hpp"
+#include "model/ndn-wifi-net-device-transport.hpp"
 #include "utils/ndn-time.hpp"
 #include "utils/dummy-keychain.hpp"
 
@@ -54,7 +55,7 @@ StackHelper::StackHelper()
   : m_isForwarderStatusManagerDisabled(false)
   , m_isStrategyChoiceManagerDisabled(false)
   , m_needSetDefaultRoutes(false)
-  , m_setWifiAsAdhoc(false)
+  , m_nodeType(NODE_TYPE_NONE)
 {
   setCustomNdnCxxClocks();
 
@@ -70,7 +71,7 @@ StackHelper::StackHelper()
                    MakeCallback(&StackHelper::PointToPointNetDeviceCallback, this)));
   m_netDeviceCallbacks.push_back(
     std::make_pair(WifiNetDevice::GetTypeId(),
-                   MakeCallback(&StackHelper::AdhocWifiNetDeviceCallback, this)));
+                   MakeCallback(&StackHelper::WifiNetDeviceCallback, this)));
   // default callback will be fired if non of others callbacks fit or did the job
 }
 
@@ -100,10 +101,10 @@ StackHelper::SetDefaultRoutes(bool needSet)
 }
 
 void
-StackHelper::SetWifiAsAdhoc(bool needSet)
+StackHelper::SetNodeType(NodeType nodeType)
 {
-  NS_LOG_FUNCTION(this << needSet);
-  m_setWifiAsAdhoc = needSet;
+  NS_LOG_FUNCTION(this << nodeType);
+  m_nodeType = nodeType;
 }
 
 void
@@ -231,10 +232,9 @@ StackHelper::RemoveFaceCreateCallback(TypeId netDeviceType,
 }
 
 std::string
-constructFaceUri(Ptr<NetDevice> netDevice)
+constructFaceUri(const Address& address)
 {
   std::string uri = "netdev://";
-  Address address = netDevice->GetAddress();
   if (Mac48Address::IsMatchingType(address)) {
     uri += "[" + boost::lexical_cast<std::string>(Mac48Address::ConvertFrom(address)) + "]";
   }
@@ -242,6 +242,12 @@ constructFaceUri(Ptr<NetDevice> netDevice)
   return uri;
 }
 
+std::string
+constructFaceUri(Ptr<NetDevice> netDevice)
+{
+  Address address = netDevice->GetAddress();
+  return constructFaceUri(address);
+}
 
 shared_ptr<Face>
 StackHelper::DefaultNetDeviceCallback(Ptr<Node> node, Ptr<L3Protocol> ndn,
@@ -265,17 +271,19 @@ StackHelper::DefaultNetDeviceCallback(Ptr<Node> node, Ptr<L3Protocol> ndn,
   face->setMetric(1);
 
   ndn->addFace(face);
-  NS_LOG_LOGIC("Node " << node->GetId() << ": added Face as face #"
-                       << face->getLocalUri());
+  NS_LOG_LOGIC("Node " << node->GetId() << ": added Face as face ("
+                       << face->getId() << ","
+                       << face->getLocalUri() << "," 
+                       << face->getRemoteUri() << ")");
 
   return face;
 }
 
 shared_ptr<Face>
-StackHelper::AdhocWifiNetDeviceCallback(Ptr<Node> node, Ptr<L3Protocol> ndn,
+StackHelper::WifiNetDeviceCallback(Ptr<Node> node, Ptr<L3Protocol> ndn,
                                       Ptr<NetDevice> netDevice) const
 {
-  if (!m_setWifiAsAdhoc) {
+  if (m_nodeType == NODE_TYPE_NONE) {
     return DefaultNetDeviceCallback(node, ndn, netDevice);
   }
 
@@ -287,21 +295,49 @@ StackHelper::AdhocWifiNetDeviceCallback(Ptr<Node> node, Ptr<L3Protocol> ndn,
   opts.allowReassembly = true;
   opts.allowCongestionMarking = true;
 
+
+  Address remoteAddress;
+  if (m_nodeType == NODE_TYPE_VEHICLE) {
+    remoteAddress = MulticastGroup::MULTICAST_V2V;
+    auto linkService = make_unique<::nfd::face::GenericLinkService>(opts);
+
+    auto transport = make_unique<WifiNetDeviceTransport>(node, netDevice,
+                                                     constructFaceUri(netDevice),
+                                                     constructFaceUri(remoteAddress),
+                                                     remoteAddress);
+
+    auto face = std::make_shared<Face>(std::move(linkService), std::move(transport));
+    face->setMetric(1);
+
+    ndn->addFace(face);
+    NS_LOG_LOGIC("Node " << node->GetId() << ": added Face as face ("
+                         << face->getId() << ","
+                         << face->getLocalUri() << "," 
+                         << face->getRemoteUri() << ")");
+
+    // Since this face is not returned by the function,
+    // we need to set the default route with lowest priority here.
+    if (m_needSetDefaultRoutes) {
+      FibHelper::AddRoute(node, "/", face, std::numeric_limits<int32_t>::max());
+    }
+  }
+
+  remoteAddress = MulticastGroup::MULTICAST_V2I;
   auto linkService = make_unique<::nfd::face::GenericLinkService>(opts);
 
-  auto transport = make_unique<NetDeviceTransport>(node, netDevice,
+  auto transport = make_unique<WifiNetDeviceTransport>(node, netDevice,
                                                    constructFaceUri(netDevice),
-                                                   "netdev://[ff:ff:ff:ff:ff:ff]",
-                                                   ::ndn::nfd::FACE_SCOPE_NON_LOCAL,
-                                                   ::ndn::nfd::FACE_PERSISTENCY_PERSISTENT,
-                                                   ::ndn::nfd::LINK_TYPE_AD_HOC);
+                                                   constructFaceUri(remoteAddress),
+                                                   remoteAddress);
 
   auto face = std::make_shared<Face>(std::move(linkService), std::move(transport));
   face->setMetric(1);
 
   ndn->addFace(face);
-  NS_LOG_LOGIC("Node " << node->GetId() << ": added Face as face #"
-                       << face->getLocalUri());
+  NS_LOG_LOGIC("Node " << node->GetId() << ": added Face as face ("
+                       << face->getId() << ","
+                       << face->getLocalUri() << "," 
+                       << face->getRemoteUri() << ")");
 
   return face;
 }
@@ -339,8 +375,10 @@ StackHelper::PointToPointNetDeviceCallback(Ptr<Node> node, Ptr<L3Protocol> ndn,
   face->setMetric(1);
 
   ndn->addFace(face);
-  NS_LOG_LOGIC("Node " << node->GetId() << ": added Face as face #"
-                       << face->getLocalUri());
+  NS_LOG_LOGIC("Node " << node->GetId() << ": added Face as face ("
+                       << face->getId() << ","
+                       << face->getLocalUri() << "," 
+                       << face->getRemoteUri() << ")");
 
   return face;
 }
