@@ -1,7 +1,9 @@
 #ifndef SCRATCH_UTILS_H
 #define SCRATCH_UTILS_H
 
+#include "ns3/constant-position-mobility-model.h"
 #include "ns3/node-container.h"
+#include "ns3/ns2-mobility-helper.h"
 #include "ns3/string.h"
 #include "ns3/wifi-module.h"
 #include "ns3/config.h"
@@ -37,6 +39,88 @@ SetDefaultP2PConfig()
   Config::SetDefault ("ns3::PointToPointNetDevice::DataRate", StringValue ("1Mbps"));
   Config::SetDefault ("ns3::PointToPointChannel::Delay", StringValue ("10ms"));
   Config::SetDefault ("ns3::DropTailQueue<Packet>::MaxSize", StringValue ("20p"));
+}
+
+using NodeLifetime = std::map<uint32_t, std::pair<double, double>>;
+
+inline void 
+ParseMobilityTrace(const std::string& traceFile,
+                   uint32_t& numNodes,
+                   NodeLifetime& nodeLifetime,
+                   double& duration)
+{
+  double time;
+  uint32_t nodeId;
+  std::ifstream file(traceFile);
+  std::string line;
+
+  std::map<uint32_t, double> firstSeen;
+  std::map<uint32_t, double> lastSeen;
+
+  while (std::getline(file, line))
+  {
+    if (line.find("$node_(") != std::string::npos)
+    {
+
+      if (sscanf(line.c_str(), "$ns_ at %lf \"$node_(%u)", &time, &nodeId) == 2)
+      {
+        if (firstSeen.find(nodeId) == firstSeen.end())
+        {
+          firstSeen[nodeId] = time;
+        }
+        lastSeen[nodeId] = time;
+      }
+    }
+  }
+
+  for (auto const& [nodeId, stopTime] : lastSeen)
+  {
+    nodeLifetime[nodeId] = {firstSeen[nodeId], stopTime};
+  }
+
+  duration = time;
+  numNodes = nodeLifetime.size();
+
+  std::cout << "Parsed mobility trace.\n"
+            << "Found " << numNodes << " nodes.\n"
+            << "Simulation duration set to " << duration << " seconds."
+            << std::endl;
+}
+
+inline NodeContainer 
+createNodeWith(uint32_t numMobilityNodes, std::string traceFile)
+{
+  NodeContainer nodes;
+  nodes.Create(numMobilityNodes);
+
+  // Create Ns2MobilityHelper with the specified trace log file as parameter
+  Ns2MobilityHelper mobilityHelper = Ns2MobilityHelper(traceFile);
+  mobilityHelper.Install(nodes.Begin(), nodes.End());
+  return nodes;
+}
+
+inline NodeContainer 
+createNodeAt(uint32_t numRSUNodes, std::vector<Vector>& positions)
+{
+  NodeContainer nodes;
+    for (const auto& pos : positions) {
+        // Create a new node for the RSU
+      Ptr<Node> node = CreateObject<Node>();
+        nodes.Add(node);
+
+        // Install a static mobility model on the RSU node
+        Ptr<MobilityModel> mobility = node->GetObject<MobilityModel>();
+        if (!mobility) {
+            // If the node doesn't have a mobility model, add one
+          Ptr<ConstantPositionMobilityModel> positionModel = CreateObject<ConstantPositionMobilityModel>();
+            node->AggregateObject(positionModel);
+            mobility = positionModel;
+        }
+
+        // Set the position of the RSU
+        mobility->SetPosition(pos);
+    }
+    return nodes;
 }
 
 }

@@ -19,18 +19,43 @@ main (int argc, char *argv[])
   // CommandLine cmd;
   // cmd.Parse (argc, argv);
 
-  // * Creating nodes
-  // NodeContainer nodes;
-  // nodes.Create (numOfNodes)
+  // * Options
+  // Input stream
+  // TODO: **** Change the filename ****
+  std::string traceFile = "trace/template.tcl";
 
+  // Output stream (ignored by git)
+  // TODO: **** Change the filename ****
+  std::string animFile = "netanim/template.xml";
+
+  // * Creating nodes
+  // Create RSU nodes
+  std::vector<Vector> rsuPositions;
+  // TODO: **** Change RSU position ****
+  rsuPositions.push_back(Vector(0.0, 0.0, 0.0));
+  uint32_t numRsu = rsuPositions.size();
+
+  NodeContainer rsuNodes = createNodeAt(numRsu, rsuPositions);
+
+  // Create Mobility nodes
+  uint32_t numVehicles;
+  double   duration;
+  NodeLifetime vehicleLifetime;
+
+  ParseMobilityTrace(traceFile,
+                     numVehicles,
+                     vehicleLifetime,
+                     duration);
+  NodeContainer vehicleNodes = createNodeWith(numVehicles, traceFile);
+  
   // * Install Network Stack
 
   // * Install Application
 
   // * Enable NetAnim
-  // AnimationInterface anim ("netanim/template.xml");
+  AnimationInterface anim (animFile);
 
-  Simulator::Stop (Seconds (0.0));
+  Simulator::Stop (Seconds (duration));
   Simulator::Run ();
   Simulator::Destroy ();
 
