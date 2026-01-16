@@ -7,6 +7,7 @@
 #include "ns3/string.h"
 #include "ns3/wifi-module.h"
 #include "ns3/config.h"
+#include "ns3/netanim-module.h"
 
 namespace ns3 {
 
@@ -121,6 +122,22 @@ createNodeAt(uint32_t numRSUNodes, std::vector<Vector>& positions)
         mobility->SetPosition(pos);
     }
     return nodes;
+}
+
+inline void 
+setNodesColor(AnimationInterface& anim, const NodeContainer& nodes, uint8_t red, uint8_t green, uint8_t blue)
+{
+    for (uint32_t i = 0; i < nodes.GetN(); ++i) {
+        uint32_t nodeId = nodes.Get(i)->GetId();
+        anim.UpdateNodeColor(nodeId, red, green, blue);
+    }
+}
+
+inline void 
+setNodeColor(AnimationInterface& anim, Ptr<Node> node, uint8_t red, uint8_t green, uint8_t blue)
+{
+    uint32_t nodeId = node->GetId();
+    anim.UpdateNodeColor(nodeId, red, green, blue);
 }
 
 }

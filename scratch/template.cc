@@ -54,6 +54,8 @@ main (int argc, char *argv[])
 
   // * Enable NetAnim
   AnimationInterface anim (animFile);
+  setNodesColor(anim, vehicleNodes, 255, 0, 0); // vehicle's color = red
+  setNodesColor(anim, rsuNodes, 0, 0, 255);     // RSU's color = blue
 
   Simulator::Stop (Seconds (duration));
   Simulator::Run ();
