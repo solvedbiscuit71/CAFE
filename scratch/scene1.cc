@@ -13,6 +13,10 @@
 
 namespace ns3 {
 
+  // ----------------------------------------------------------------
+  // Distance Calculation Formula
+  // ----------------------------------------------------------------
+
 double f(double r, double w, double delta) {
   return (2.0 * std::sqrt(r * r - w * w)) + delta;
 }
