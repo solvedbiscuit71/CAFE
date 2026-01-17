@@ -27,19 +27,20 @@
 #include "ns3/object.h"
 
 namespace ns3 {
-  
-class CafContext : public Object {
-public:
-  enum NodeType : uint8_t {
-    NODE_TYPE_NONE      = std::numeric_limits<uint8_t>::max(),
-    NODE_TYPE_VEHICLE   = 0,
-    NODE_TYPE_RSU       = 1,
-    NODE_TYPE_BACKBONE  = 2,
-  };
+namespace caf {
 
+enum NodeType : uint8_t {
+  NODE_TYPE_NONE      = std::numeric_limits<uint8_t>::max(),
+  NODE_TYPE_VEHICLE   = 0,
+  NODE_TYPE_RSU       = 1,
+  NODE_TYPE_BACKBONE  = 2,
+};
+
+class Context : public Object {
+public:
   static TypeId GetTypeId (void);
   
-  CafContext() : m_type(NODE_TYPE_NONE) {}
+  Context() : m_type(NODE_TYPE_NONE) {}
   
   void SetNodeType(NodeType type) { m_type = type; }
   NodeType GetNodeType() const { return m_type; }
@@ -49,21 +50,21 @@ private:
 };
 
 void
-setupCafContext(Node node, std::function<void(Ptr<CafContext>)> configCallback);
+setupContext(Node node, std::function<void(Ptr<Context>)> configCallback);
 
 void
-setupCafContext(NodeContainer container, std::function<void(Ptr<CafContext>)> configCallback);
+setupContext(NodeContainer container, std::function<void(Ptr<Context>)> configCallback);
 
 class NodeTypeHeader : public Header {
 public:
   NodeTypeHeader()
-    : m_role(CafContext::NODE_TYPE_NONE) { }
-  NodeTypeHeader(CafContext::NodeType role)
+    : m_role(NODE_TYPE_NONE) { }
+  NodeTypeHeader(NodeType role)
     : m_role(role) { }
   virtual ~NodeTypeHeader() {}
 
-  void SetNodeType(CafContext::NodeType role) { m_role = role; }
-  CafContext::NodeType GetNodeType() const { return m_role; }
+  void SetNodeType(NodeType role) { m_role = role; }
+  NodeType GetNodeType() const { return m_role; }
 
   static TypeId GetTypeId(void);
 
@@ -74,7 +75,7 @@ public:
   virtual uint32_t Deserialize(Buffer::Iterator start) override;
 
 private:
-  CafContext::NodeType m_role;
+  NodeType m_role;
 };
 
 class MulticastGroup {
@@ -83,6 +84,8 @@ public:
     static const ns3::Address MULTICAST_V2V;
     static const ns3::Address MULTICAST_V2I;
 };
-}
+
+} // namespace caf
+} // namespace ns3
 
 #endif // NDNSIM_NDN_CONTEXT_H

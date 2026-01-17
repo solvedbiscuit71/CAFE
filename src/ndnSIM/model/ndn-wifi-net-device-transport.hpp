@@ -76,7 +76,7 @@ private:
   Ptr<Node> m_node;
   Ptr<NetDevice> m_netDevice;
   Address m_remoteAddress;
-  CafContext::NodeType m_nodeType;
+  caf::NodeType m_nodeType;
 };
 
 } // namespace ndn

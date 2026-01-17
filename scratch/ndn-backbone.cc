@@ -33,20 +33,20 @@ main (int argc, char *argv[])
   // * Creating nodes
   NodeContainer rsu;
   rsu.Create(3);
-  setupCafContext(rsu, [](Ptr<CafContext> ctx) {
-    ctx->SetNodeType(CafContext::NODE_TYPE_RSU);
+  caf::setupContext(rsu, [](Ptr<caf::Context> ctx) {
+    ctx->SetNodeType(caf::NODE_TYPE_RSU);
   });
   
   NodeContainer backBone;
   backBone.Create(1);
-  setupCafContext(backBone, [](Ptr<CafContext> ctx) {
-    ctx->SetNodeType(CafContext::NODE_TYPE_BACKBONE);
+  caf::setupContext(backBone, [](Ptr<caf::Context> ctx) {
+    ctx->SetNodeType(caf::NODE_TYPE_BACKBONE);
   });
 
   NodeContainer vehicle;
   vehicle.Create(1);
-  setupCafContext(vehicle, [](Ptr<CafContext> ctx) {
-    ctx->SetNodeType(CafContext::NODE_TYPE_VEHICLE);
+  caf::setupContext(vehicle, [](Ptr<caf::Context> ctx) {
+    ctx->SetNodeType(caf::NODE_TYPE_VEHICLE);
   });
 
   MobilityHelper rsuMobility;

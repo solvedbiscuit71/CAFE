@@ -277,10 +277,10 @@ shared_ptr<Face>
 StackHelper::WifiNetDeviceCallback(Ptr<Node> node, Ptr<L3Protocol> ndn,
                                       Ptr<NetDevice> netDevice) const
 {
-  Ptr<CafContext> ctx = node->GetObject<CafContext>();
+  Ptr<caf::Context> ctx = node->GetObject<caf::Context>();
   NS_ABORT_MSG_IF(!ctx, "CafContext must be aggregated to the node before starting NDN.");
 
-  if (ctx->GetNodeType() == CafContext::NODE_TYPE_NONE) {
+  if (ctx->GetNodeType() == caf::NODE_TYPE_NONE) {
     return DefaultNetDeviceCallback(node, ndn, netDevice);
   }
 
@@ -294,8 +294,8 @@ StackHelper::WifiNetDeviceCallback(Ptr<Node> node, Ptr<L3Protocol> ndn,
 
 
   Address remoteAddress;
-  if (ctx->GetNodeType() == CafContext::NODE_TYPE_VEHICLE) {
-    remoteAddress = MulticastGroup::MULTICAST_V2V;
+  if (ctx->GetNodeType() == caf::NODE_TYPE_VEHICLE) {
+    remoteAddress = caf::MulticastGroup::MULTICAST_V2V;
     auto linkService = make_unique<::nfd::face::GenericLinkService>(opts);
 
     auto transport = make_unique<WifiNetDeviceTransport>(node, netDevice, remoteAddress);
@@ -316,7 +316,7 @@ StackHelper::WifiNetDeviceCallback(Ptr<Node> node, Ptr<L3Protocol> ndn,
     }
   }
 
-  remoteAddress = MulticastGroup::MULTICAST_V2I;
+  remoteAddress = caf::MulticastGroup::MULTICAST_V2I;
   auto linkService = make_unique<::nfd::face::GenericLinkService>(opts);
 
   auto transport = make_unique<WifiNetDeviceTransport>(node, netDevice, remoteAddress);

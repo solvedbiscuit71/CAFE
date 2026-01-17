@@ -46,17 +46,17 @@ WifiNetDeviceTransport::WifiNetDeviceTransport(Ptr<Node> node,
   : m_node(node)
   , m_netDevice(netDevice)
   , m_remoteAddress(remoteAddress)
-  , m_nodeType(CafContext::NODE_TYPE_NONE)
+  , m_nodeType(caf::NODE_TYPE_NONE)
 {
   this->setLocalUri(FaceUri(constructFaceUri(netDevice)));
   this->setRemoteUri(FaceUri(constructFaceUri(remoteAddress)));
   this->setScope(scope);
   this->setPersistency(persistency);
   this->setLinkType(linkType);
-  NodeTypeHeader header;
+  caf::NodeTypeHeader header;
   this->setMtu(m_netDevice->GetMtu() - header.GetSerializedSize()); // use netDevice's MTU - header size
   
-  Ptr<CafContext> ctx = node->GetObject<CafContext>();
+  Ptr<caf::Context> ctx = node->GetObject<caf::Context>();
   NS_ABORT_MSG_IF(!ctx, "CafContext must be aggregated to the node before starting NDN.");
   m_nodeType = ctx->GetNodeType();
 
@@ -122,7 +122,7 @@ WifiNetDeviceTransport::doSend(const Block& packet)
 
   // convert NFD packet to NS3 packet
   BlockHeader header(packet);
-  NodeTypeHeader nodeType(m_nodeType);
+  caf::NodeTypeHeader nodeType(m_nodeType);
 
   Ptr<ns3::Packet> ns3Packet = Create<ns3::Packet>();
   ns3Packet->AddHeader(header);
@@ -151,7 +151,7 @@ WifiNetDeviceTransport::receiveFromNetDevice(Ptr<NetDevice> device,
   // Convert NS3 packet to NFD packet
   Ptr<ns3::Packet> packet = p->Copy();
 
-  NodeTypeHeader senderNodeType;
+  caf::NodeTypeHeader senderNodeType;
   packet->RemoveHeader(senderNodeType);
 
   BlockHeader header;

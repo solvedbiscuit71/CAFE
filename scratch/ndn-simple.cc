@@ -42,8 +42,8 @@ main (int argc, char *argv[])
   // Creating nodes
   NodeContainer nodes;
   nodes.Create (3);
-  setupCafContext(nodes, [](Ptr<CafContext> ctx) {
-    ctx->SetNodeType(CafContext::NODE_TYPE_RSU);
+  caf::setupContext(nodes, [](Ptr<caf::Context> ctx) {
+    ctx->SetNodeType(caf::NODE_TYPE_RSU);
   });
 
   // Install NetDevice and Mobility
