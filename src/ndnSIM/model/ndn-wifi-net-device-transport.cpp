@@ -20,6 +20,7 @@
 #include "ndn-wifi-net-device-transport.hpp"
 
 #include "../helper/ndn-stack-helper.hpp"
+#include "model/ndn-context.hpp"
 #include "ndn-block-header.hpp"
 #include "../utils/ndn-ns3-packet-tag.hpp"
 
@@ -42,16 +43,22 @@ WifiNetDeviceTransport::WifiNetDeviceTransport(Ptr<Node> node,
                                        ::ndn::nfd::FaceScope scope,
                                        ::ndn::nfd::FacePersistency persistency,
                                        ::ndn::nfd::LinkType linkType)
-  : m_netDevice(netDevice)
-  , m_node(node)
+  : m_node(node)
+  , m_netDevice(netDevice)
   , m_remoteAddress(remoteAddress)
+  , m_nodeType(CafContext::NODE_TYPE_NONE)
 {
   this->setLocalUri(FaceUri(constructFaceUri(netDevice)));
   this->setRemoteUri(FaceUri(constructFaceUri(remoteAddress)));
   this->setScope(scope);
   this->setPersistency(persistency);
   this->setLinkType(linkType);
-  this->setMtu(m_netDevice->GetMtu()); // Use the MTU of the netDevice
+  NodeTypeHeader header;
+  this->setMtu(m_netDevice->GetMtu() - header.GetSerializedSize()); // use netDevice's MTU - header size
+  
+  Ptr<CafContext> ctx = node->GetObject<CafContext>();
+  NS_ABORT_MSG_IF(!ctx, "CafContext must be aggregated to the node before starting NDN.");
+  m_nodeType = ctx->GetNodeType();
 
   // Get send queue capacity for congestion marking
   PointerValue txQueueAttribute;
@@ -115,9 +122,11 @@ WifiNetDeviceTransport::doSend(const Block& packet)
 
   // convert NFD packet to NS3 packet
   BlockHeader header(packet);
+  NodeTypeHeader nodeType(m_nodeType);
 
   Ptr<ns3::Packet> ns3Packet = Create<ns3::Packet>();
   ns3Packet->AddHeader(header);
+  ns3Packet->AddHeader(nodeType);
 
   // send the NS3 packet
   m_netDevice->Send(ns3Packet, m_remoteAddress,
@@ -141,6 +150,9 @@ WifiNetDeviceTransport::receiveFromNetDevice(Ptr<NetDevice> device,
 
   // Convert NS3 packet to NFD packet
   Ptr<ns3::Packet> packet = p->Copy();
+
+  NodeTypeHeader senderNodeType;
+  packet->RemoveHeader(senderNodeType);
 
   BlockHeader header;
   packet->RemoveHeader(header);

@@ -20,6 +20,7 @@
 #ifndef NDN_WIFI_NET_DEVICE_TRANSPORT_HPP
 #define NDN_WIFI_NET_DEVICE_TRANSPORT_HPP
 
+#include "model/ndn-context.hpp"
 #include "ns3/address.h"
 #include "ns3/mac48-address.h"
 #include "ns3/ndnSIM/model/ndn-common.hpp"
@@ -72,9 +73,10 @@ private:
                        const Address& from, const Address& to,
                        NetDevice::PacketType packetType);
 
-  Ptr<NetDevice> m_netDevice; ///< \brief Smart pointer to NetDevice
   Ptr<Node> m_node;
+  Ptr<NetDevice> m_netDevice;
   Address m_remoteAddress;
+  CafContext::NodeType m_nodeType;
 };
 
 } // namespace ndn

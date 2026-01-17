@@ -96,7 +96,6 @@ main (int argc, char *argv[])
   producerHelper.SetPrefix("/prefix");
   producerHelper.SetAttribute("PayloadSize", StringValue("1024"));
   producerHelper.Install(rsu);
-  producerHelper.Install(vehicle.Get(1));
 
   // * Enable NetAnim
   AnimationInterface anim ("netanim/ndn-multicast.xml");

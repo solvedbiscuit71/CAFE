@@ -54,6 +54,29 @@ setupCafContext(Node node, std::function<void(Ptr<CafContext>)> configCallback);
 void
 setupCafContext(NodeContainer container, std::function<void(Ptr<CafContext>)> configCallback);
 
+class NodeTypeHeader : public Header {
+public:
+  NodeTypeHeader()
+    : m_role(CafContext::NODE_TYPE_NONE) { }
+  NodeTypeHeader(CafContext::NodeType role)
+    : m_role(role) { }
+  virtual ~NodeTypeHeader() {}
+
+  void SetNodeType(CafContext::NodeType role) { m_role = role; }
+  CafContext::NodeType GetNodeType() const { return m_role; }
+
+  static TypeId GetTypeId(void);
+
+  virtual TypeId GetInstanceTypeId(void) const override { return GetTypeId(); }
+  virtual void Print(std::ostream &os) const override { os << "NodeType=" << m_role; }
+  virtual uint32_t GetSerializedSize(void) const override { return 1; }
+  virtual void Serialize(Buffer::Iterator start) const override;
+  virtual uint32_t Deserialize(Buffer::Iterator start) override;
+
+private:
+  CafContext::NodeType m_role;
+};
+
 class MulticastGroup {
 public:
     static const ns3::Address MULTICAST_ALL;
