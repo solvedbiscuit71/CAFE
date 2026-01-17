@@ -21,9 +21,66 @@
 #include "ns3/mac48-address.h"
 
 namespace ns3 {
+namespace caf {
+
+TypeId 
+Context::GetTypeId(void)
+{
+  static TypeId tid = TypeId("ns3::CafContext")
+    .SetParent<Object>()
+    .SetGroupName("caf")
+    .AddConstructor<Context>()
+  ;
+  return tid;
+}
+
+void
+setupContext(Ptr<Node> node, std::function<void(Ptr<Context>)> configCallback)
+{
+    ns3::Ptr<Context> context = CreateObject<Context>();
+    configCallback(context);
+    node->AggregateObject(context);
+}
+
+void
+setupContext(NodeContainer container, 
+                std::function<void(Ptr<Context>)> configCallback) 
+{
+    for (auto it = container.Begin(); it != container.End(); ++it) {
+        ns3::Ptr<Node> node = *it;
+        ns3::Ptr<Context> context = CreateObject<Context>();
+        configCallback(context);
+        node->AggregateObject(context);
+    }
+}
+
+TypeId 
+NodeTypeHeader::GetTypeId(void)
+{
+  static TypeId tid = TypeId("ns3::NodeTypeHeader")
+    .SetParent<Header>()
+    .SetGroupName("Caf")
+    .AddConstructor<NodeTypeHeader>()
+  ;
+  return tid;
+}
+
+void 
+NodeTypeHeader::Serialize(Buffer::Iterator start) const
+{ 
+  start.WriteU8(static_cast<uint8_t>(m_role)); 
+}
+
+uint32_t 
+NodeTypeHeader::Deserialize(Buffer::Iterator start)
+{
+  m_role = static_cast<NodeType>(start.ReadU8());
+  return 1;
+}
 
 const ns3::Address MulticastGroup::MULTICAST_ALL = ns3::Mac48Address("01:00:5e:00:17:aa");
 const ns3::Address MulticastGroup::MULTICAST_V2V = ns3::Mac48Address("01:00:5e:00:17:ab");
 const ns3::Address MulticastGroup::MULTICAST_V2I = ns3::Mac48Address("01:00:5e:00:17:ac");   
 
+} // namespace caf
 } // namespace ns3

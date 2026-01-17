@@ -1,5 +1,6 @@
 // ndn-simple.cpp
 
+#include "model/ndn-context.hpp"
 #include "ns3/core-module.h"
 #include "ns3/network-module.h"
 #include "ns3/node-container.h"
@@ -41,6 +42,9 @@ main (int argc, char *argv[])
   // Creating nodes
   NodeContainer nodes;
   nodes.Create (3);
+  caf::setupContext(nodes, [](Ptr<caf::Context> ctx) {
+    ctx->SetNodeType(caf::NODE_TYPE_RSU);
+  });
 
   // Install NetDevice and Mobility
   SetupWifiNetDevice(nodes);
@@ -49,7 +53,6 @@ main (int argc, char *argv[])
   // Install NDN stack on all nodes
   ndn::StackHelper ndnHelper;
   ndnHelper.SetDefaultRoutes(true);
-  ndnHelper.SetNodeType(NODE_TYPE_VEHICLE);
   ndnHelper.Install(nodes);
 
   // Choosing forwarding strategy

@@ -20,6 +20,7 @@
 #ifndef NDN_WIFI_NET_DEVICE_TRANSPORT_HPP
 #define NDN_WIFI_NET_DEVICE_TRANSPORT_HPP
 
+#include "model/ndn-context.hpp"
 #include "ns3/address.h"
 #include "ns3/mac48-address.h"
 #include "ns3/ndnSIM/model/ndn-common.hpp"
@@ -45,9 +46,8 @@ class WifiNetDeviceTransport : public nfd::face::Transport
 {
 public:
   WifiNetDeviceTransport(Ptr<Node> node, const Ptr<NetDevice>& netDevice,
-                     const std::string& localUri,
-                     const std::string& remoteUri,
                      const Address& remoteAddress,
+                     caf::TransportFilter filter = caf::ALLOW_ALL,
                      ::ndn::nfd::FaceScope scope = ::ndn::nfd::FACE_SCOPE_NON_LOCAL,
                      ::ndn::nfd::FacePersistency persistency = ::ndn::nfd::FACE_PERSISTENCY_PERSISTENT,
                      ::ndn::nfd::LinkType linkType = ::ndn::nfd::LINK_TYPE_AD_HOC);
@@ -74,9 +74,11 @@ private:
                        const Address& from, const Address& to,
                        NetDevice::PacketType packetType);
 
-  Ptr<NetDevice> m_netDevice; ///< \brief Smart pointer to NetDevice
   Ptr<Node> m_node;
+  Ptr<NetDevice> m_netDevice;
   Address m_remoteAddress;
+  caf::NodeType m_nodeType;
+  caf::TransportFilter m_filter;
 };
 
 } // namespace ndn

@@ -177,12 +177,6 @@ public:
   void
   SetDefaultRoutes(bool needSet);
 
-  /**
-   * \brief Set node type indicating context for face creation
-   */
-  void
-  SetNodeType(NodeType nodeType);
-
   static KeyChain&
   getKeyChain();
 
@@ -267,7 +261,6 @@ private:
   ObjectFactory m_ndnFactory;
 
   bool m_needSetDefaultRoutes;
-  NodeType m_nodeType;
   size_t m_maxCsSize = 100;
 
   typedef std::function<std::unique_ptr<nfd::cs::Policy>()> PolicyCreationCallback;
@@ -278,6 +271,21 @@ private:
   typedef std::list<std::pair<TypeId, FaceCreateCallback>> NetDeviceCallbackList;
   NetDeviceCallbackList m_netDeviceCallbacks;
 };
+
+
+/**
+ * @brief create a face uri for the given address in the following format
+ *        netdev://[address]
+ */
+std::string
+constructFaceUri(const Address& address);
+
+/**
+ * @brief create a face uri for the given netdevice in the following format
+ *        netdev://[address]
+ */
+std::string
+constructFaceUri(Ptr<NetDevice> netDevice);
 
 } // namespace ndn
 } // namespace ns3

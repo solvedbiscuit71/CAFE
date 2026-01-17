@@ -37,9 +37,15 @@ main (int argc, char *argv[])
   // * Creating nodes
   NodeContainer rsu;
   rsu.Create(2);
+  caf::setupContext(rsu, [](Ptr<caf::Context> ctx) {
+    ctx->SetNodeType(caf::NODE_TYPE_RSU);
+  });
   
   NodeContainer vehicle;
   vehicle.Create(2);
+  caf::setupContext(vehicle, [](Ptr<caf::Context> ctx) {
+    ctx->SetNodeType(caf::NODE_TYPE_VEHICLE);
+  });
 
   MobilityHelper rsuMobility;
   Ptr<ListPositionAllocator> positionAlloc = CreateObject<ListPositionAllocator> ();
@@ -72,12 +78,10 @@ main (int argc, char *argv[])
 
   ndn::StackHelper rsuHelper;
   rsuHelper.SetDefaultRoutes(true);
-  rsuHelper.SetNodeType(NODE_TYPE_RSU);
   rsuHelper.Install(rsu);
 
   ndn::StackHelper vehicleHelper;
   vehicleHelper.SetDefaultRoutes(true);
-  vehicleHelper.SetNodeType(NODE_TYPE_VEHICLE);
   vehicleHelper.Install(vehicle);
 
   ndn::StrategyChoiceHelper::InstallAll("/", "/localhost/nfd/strategy/multicast");
@@ -92,7 +96,6 @@ main (int argc, char *argv[])
   producerHelper.SetPrefix("/prefix");
   producerHelper.SetAttribute("PayloadSize", StringValue("1024"));
   producerHelper.Install(rsu);
-  producerHelper.Install(vehicle.Get(1));
 
   // * Enable NetAnim
   AnimationInterface anim ("netanim/ndn-multicast.xml");

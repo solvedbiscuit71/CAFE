@@ -19,8 +19,10 @@
 
 #include "ndn-stack-helper.hpp"
 
+#include "model/ndn-context.hpp"
 #include "ns3/log.h"
 #include "ns3/names.h"
+#include "ns3/node.h"
 #include "ns3/string.h"
 #include "ns3/point-to-point-net-device.h"
 #include "ns3/point-to-point-channel.h"
@@ -55,7 +57,6 @@ StackHelper::StackHelper()
   : m_isForwarderStatusManagerDisabled(false)
   , m_isStrategyChoiceManagerDisabled(false)
   , m_needSetDefaultRoutes(false)
-  , m_nodeType(NODE_TYPE_NONE)
 {
   setCustomNdnCxxClocks();
 
@@ -98,13 +99,6 @@ StackHelper::SetDefaultRoutes(bool needSet)
 {
   NS_LOG_FUNCTION(this << needSet);
   m_needSetDefaultRoutes = needSet;
-}
-
-void
-StackHelper::SetNodeType(NodeType nodeType)
-{
-  NS_LOG_FUNCTION(this << nodeType);
-  m_nodeType = nodeType;
 }
 
 void
@@ -283,7 +277,10 @@ shared_ptr<Face>
 StackHelper::WifiNetDeviceCallback(Ptr<Node> node, Ptr<L3Protocol> ndn,
                                       Ptr<NetDevice> netDevice) const
 {
-  if (m_nodeType == NODE_TYPE_NONE) {
+  Ptr<caf::Context> ctx = node->GetObject<caf::Context>();
+  NS_ABORT_MSG_IF(!ctx, "CafContext must be aggregated to the node before starting NDN.");
+
+  if (ctx->GetNodeType() == caf::NODE_TYPE_NONE) {
     return DefaultNetDeviceCallback(node, ndn, netDevice);
   }
 
@@ -297,20 +294,17 @@ StackHelper::WifiNetDeviceCallback(Ptr<Node> node, Ptr<L3Protocol> ndn,
 
 
   Address remoteAddress;
-  if (m_nodeType == NODE_TYPE_VEHICLE) {
-    remoteAddress = MulticastGroup::MULTICAST_V2V;
+  if (ctx->GetNodeType() == caf::NODE_TYPE_VEHICLE) {
+    remoteAddress = caf::MulticastGroup::MULTICAST_V2V;
     auto linkService = make_unique<::nfd::face::GenericLinkService>(opts);
 
-    auto transport = make_unique<WifiNetDeviceTransport>(node, netDevice,
-                                                     constructFaceUri(netDevice),
-                                                     constructFaceUri(remoteAddress),
-                                                     remoteAddress);
+    auto transport = make_unique<WifiNetDeviceTransport>(node, netDevice, remoteAddress);
 
     auto face = std::make_shared<Face>(std::move(linkService), std::move(transport));
     face->setMetric(1);
 
     ndn->addFace(face);
-    NS_LOG_LOGIC("Node " << node->GetId() << ": added Face as face ("
+    NS_LOG_LOGIC("Node " << node->GetId() << ": added V2V Face as face ("
                          << face->getId() << ","
                          << face->getLocalUri() << "," 
                          << face->getRemoteUri() << ")");
@@ -322,19 +316,17 @@ StackHelper::WifiNetDeviceCallback(Ptr<Node> node, Ptr<L3Protocol> ndn,
     }
   }
 
-  remoteAddress = MulticastGroup::MULTICAST_V2I;
+  remoteAddress = caf::MulticastGroup::MULTICAST_V2I;
   auto linkService = make_unique<::nfd::face::GenericLinkService>(opts);
 
-  auto transport = make_unique<WifiNetDeviceTransport>(node, netDevice,
-                                                   constructFaceUri(netDevice),
-                                                   constructFaceUri(remoteAddress),
-                                                   remoteAddress);
+  // allow packet whose sender-node-type is not equal to node-type
+  auto transport = make_unique<WifiNetDeviceTransport>(node, netDevice, remoteAddress, caf::ALLOW_DIFFERENT);
 
   auto face = std::make_shared<Face>(std::move(linkService), std::move(transport));
   face->setMetric(1);
 
   ndn->addFace(face);
-  NS_LOG_LOGIC("Node " << node->GetId() << ": added Face as face ("
+  NS_LOG_LOGIC("Node " << node->GetId() << ": added V2I Face as face ("
                        << face->getId() << ","
                        << face->getLocalUri() << "," 
                        << face->getRemoteUri() << ")");

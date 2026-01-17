@@ -20,6 +20,7 @@
 #include "ndn-wifi-net-device-transport.hpp"
 
 #include "../helper/ndn-stack-helper.hpp"
+#include "model/ndn-context.hpp"
 #include "ndn-block-header.hpp"
 #include "../utils/ndn-ns3-packet-tag.hpp"
 
@@ -38,22 +39,28 @@ namespace ndn {
 
 WifiNetDeviceTransport::WifiNetDeviceTransport(Ptr<Node> node,
                                        const Ptr<NetDevice>& netDevice,
-                                       const std::string& localUri,
-                                       const std::string& remoteUri,
                                        const Address& remoteAddress,
+                                       caf::TransportFilter filter,
                                        ::ndn::nfd::FaceScope scope,
                                        ::ndn::nfd::FacePersistency persistency,
                                        ::ndn::nfd::LinkType linkType)
-  : m_netDevice(netDevice)
-  , m_node(node)
+  : m_node(node)
+  , m_netDevice(netDevice)
   , m_remoteAddress(remoteAddress)
+  , m_nodeType(caf::NODE_TYPE_NONE)
+  , m_filter(filter)
 {
-  this->setLocalUri(FaceUri(localUri));
-  this->setRemoteUri(FaceUri(remoteUri));
+  this->setLocalUri(FaceUri(constructFaceUri(netDevice)));
+  this->setRemoteUri(FaceUri(constructFaceUri(remoteAddress)));
   this->setScope(scope);
   this->setPersistency(persistency);
   this->setLinkType(linkType);
-  this->setMtu(m_netDevice->GetMtu()); // Use the MTU of the netDevice
+  caf::NodeTypeHeader header;
+  this->setMtu(m_netDevice->GetMtu() - header.GetSerializedSize()); // use netDevice's MTU - header size
+  
+  Ptr<caf::Context> ctx = node->GetObject<caf::Context>();
+  NS_ABORT_MSG_IF(!ctx, "CafContext must be aggregated to the node before starting NDN.");
+  m_nodeType = ctx->GetNodeType();
 
   // Get send queue capacity for congestion marking
   PointerValue txQueueAttribute;
@@ -117,13 +124,29 @@ WifiNetDeviceTransport::doSend(const Block& packet)
 
   // convert NFD packet to NS3 packet
   BlockHeader header(packet);
+  caf::NodeTypeHeader nodeType(m_nodeType);
 
   Ptr<ns3::Packet> ns3Packet = Create<ns3::Packet>();
   ns3Packet->AddHeader(header);
+  ns3Packet->AddHeader(nodeType);
 
   // send the NS3 packet
   m_netDevice->Send(ns3Packet, m_remoteAddress,
                     L3Protocol::ETHERNET_FRAME_TYPE);
+}
+
+inline bool
+dropPacket(caf::TransportFilter filter, caf::NodeType n1, caf::NodeType n2)
+{
+  /*
+   * when filter == ALLOW_SAME (0)
+   *    if n1 == n2 then x = 1 (return 0)
+   *    if n1 != n2 then x = 0 (return 1)
+   * when filter == ALLOW_DIFFERENT (1)
+   *    if n1 == n2 then x = 1 (return 1)
+   *    if n1 != n2 then x = 0 (return 0)
+   */
+  return (n1 == n2) == filter;
 }
 
 // callback
@@ -143,6 +166,14 @@ WifiNetDeviceTransport::receiveFromNetDevice(Ptr<NetDevice> device,
 
   // Convert NS3 packet to NFD packet
   Ptr<ns3::Packet> packet = p->Copy();
+
+  caf::NodeTypeHeader senderNodeType;
+  packet->RemoveHeader(senderNodeType);
+  
+  if (m_filter != caf::ALLOW_ALL && dropPacket(m_filter, m_nodeType, senderNodeType.GetNodeType())) {
+    NS_LOG_LOGIC("Dropping packet: Filter rejected");
+    return;
+  }
 
   BlockHeader header;
   packet->RemoveHeader(header);
