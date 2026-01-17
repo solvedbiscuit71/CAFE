@@ -45,8 +45,6 @@ class WifiNetDeviceTransport : public nfd::face::Transport
 {
 public:
   WifiNetDeviceTransport(Ptr<Node> node, const Ptr<NetDevice>& netDevice,
-                     const std::string& localUri,
-                     const std::string& remoteUri,
                      const Address& remoteAddress,
                      ::ndn::nfd::FaceScope scope = ::ndn::nfd::FACE_SCOPE_NON_LOCAL,
                      ::ndn::nfd::FacePersistency persistency = ::ndn::nfd::FACE_PERSISTENCY_PERSISTENT,

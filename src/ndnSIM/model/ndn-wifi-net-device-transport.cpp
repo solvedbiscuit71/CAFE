@@ -38,8 +38,6 @@ namespace ndn {
 
 WifiNetDeviceTransport::WifiNetDeviceTransport(Ptr<Node> node,
                                        const Ptr<NetDevice>& netDevice,
-                                       const std::string& localUri,
-                                       const std::string& remoteUri,
                                        const Address& remoteAddress,
                                        ::ndn::nfd::FaceScope scope,
                                        ::ndn::nfd::FacePersistency persistency,
@@ -48,8 +46,8 @@ WifiNetDeviceTransport::WifiNetDeviceTransport(Ptr<Node> node,
   , m_node(node)
   , m_remoteAddress(remoteAddress)
 {
-  this->setLocalUri(FaceUri(localUri));
-  this->setRemoteUri(FaceUri(remoteUri));
+  this->setLocalUri(FaceUri(constructFaceUri(netDevice)));
+  this->setRemoteUri(FaceUri(constructFaceUri(remoteAddress)));
   this->setScope(scope);
   this->setPersistency(persistency);
   this->setLinkType(linkType);

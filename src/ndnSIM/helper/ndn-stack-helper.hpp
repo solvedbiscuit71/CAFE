@@ -272,6 +272,21 @@ private:
   NetDeviceCallbackList m_netDeviceCallbacks;
 };
 
+
+/**
+ * @brief create a face uri for the given address in the following format
+ *        netdev://[address]
+ */
+std::string
+constructFaceUri(const Address& address);
+
+/**
+ * @brief create a face uri for the given netdevice in the following format
+ *        netdev://[address]
+ */
+std::string
+constructFaceUri(Ptr<NetDevice> netDevice);
+
 } // namespace ndn
 } // namespace ns3
 
