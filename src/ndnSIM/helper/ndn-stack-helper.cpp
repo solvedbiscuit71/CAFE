@@ -319,7 +319,8 @@ StackHelper::WifiNetDeviceCallback(Ptr<Node> node, Ptr<L3Protocol> ndn,
   remoteAddress = caf::MulticastGroup::MULTICAST_V2I;
   auto linkService = make_unique<::nfd::face::GenericLinkService>(opts);
 
-  auto transport = make_unique<WifiNetDeviceTransport>(node, netDevice, remoteAddress);
+  // allow packet whose sender-node-type is not equal to node-type
+  auto transport = make_unique<WifiNetDeviceTransport>(node, netDevice, remoteAddress, caf::ALLOW_DIFFERENT);
 
   auto face = std::make_shared<Face>(std::move(linkService), std::move(transport));
   face->setMetric(1);

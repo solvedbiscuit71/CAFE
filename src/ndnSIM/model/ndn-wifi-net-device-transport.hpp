@@ -47,6 +47,7 @@ class WifiNetDeviceTransport : public nfd::face::Transport
 public:
   WifiNetDeviceTransport(Ptr<Node> node, const Ptr<NetDevice>& netDevice,
                      const Address& remoteAddress,
+                     caf::TransportFilter filter = caf::ALLOW_ALL,
                      ::ndn::nfd::FaceScope scope = ::ndn::nfd::FACE_SCOPE_NON_LOCAL,
                      ::ndn::nfd::FacePersistency persistency = ::ndn::nfd::FACE_PERSISTENCY_PERSISTENT,
                      ::ndn::nfd::LinkType linkType = ::ndn::nfd::LINK_TYPE_AD_HOC);
@@ -77,6 +78,7 @@ private:
   Ptr<NetDevice> m_netDevice;
   Address m_remoteAddress;
   caf::NodeType m_nodeType;
+  caf::TransportFilter m_filter;
 };
 
 } // namespace ndn

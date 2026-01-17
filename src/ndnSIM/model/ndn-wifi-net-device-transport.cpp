@@ -40,6 +40,7 @@ namespace ndn {
 WifiNetDeviceTransport::WifiNetDeviceTransport(Ptr<Node> node,
                                        const Ptr<NetDevice>& netDevice,
                                        const Address& remoteAddress,
+                                       caf::TransportFilter filter,
                                        ::ndn::nfd::FaceScope scope,
                                        ::ndn::nfd::FacePersistency persistency,
                                        ::ndn::nfd::LinkType linkType)
@@ -47,6 +48,7 @@ WifiNetDeviceTransport::WifiNetDeviceTransport(Ptr<Node> node,
   , m_netDevice(netDevice)
   , m_remoteAddress(remoteAddress)
   , m_nodeType(caf::NODE_TYPE_NONE)
+  , m_filter(filter)
 {
   this->setLocalUri(FaceUri(constructFaceUri(netDevice)));
   this->setRemoteUri(FaceUri(constructFaceUri(remoteAddress)));
@@ -133,6 +135,20 @@ WifiNetDeviceTransport::doSend(const Block& packet)
                     L3Protocol::ETHERNET_FRAME_TYPE);
 }
 
+inline bool
+dropPacket(caf::TransportFilter filter, caf::NodeType n1, caf::NodeType n2)
+{
+  /*
+   * when filter == ALLOW_SAME (0)
+   *    if n1 == n2 then x = 1 (return 0)
+   *    if n1 != n2 then x = 0 (return 1)
+   * when filter == ALLOW_DIFFERENT (1)
+   *    if n1 == n2 then x = 1 (return 1)
+   *    if n1 != n2 then x = 0 (return 0)
+   */
+  return (n1 == n2) == filter;
+}
+
 // callback
 void
 WifiNetDeviceTransport::receiveFromNetDevice(Ptr<NetDevice> device,
@@ -153,6 +169,11 @@ WifiNetDeviceTransport::receiveFromNetDevice(Ptr<NetDevice> device,
 
   caf::NodeTypeHeader senderNodeType;
   packet->RemoveHeader(senderNodeType);
+  
+  if (m_filter != caf::ALLOW_ALL && dropPacket(m_filter, m_nodeType, senderNodeType.GetNodeType())) {
+    NS_LOG_LOGIC("Dropping packet: Filter rejected");
+    return;
+  }
 
   BlockHeader header;
   packet->RemoveHeader(header);

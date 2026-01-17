@@ -36,6 +36,12 @@ enum NodeType : uint8_t {
   NODE_TYPE_BACKBONE  = 2,
 };
 
+enum TransportFilter : uint8_t {
+  ALLOW_ALL       = std::numeric_limits<uint8_t>::max(),
+  ALLOW_SAME      = 0,
+  ALLOW_DIFFERENT = 1,
+};
+
 class Context : public Object {
 public:
   static TypeId GetTypeId (void);
