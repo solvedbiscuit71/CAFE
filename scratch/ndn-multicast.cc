@@ -37,9 +37,15 @@ main (int argc, char *argv[])
   // * Creating nodes
   NodeContainer rsu;
   rsu.Create(2);
+  setupCafContext(rsu, [](Ptr<CafContext> ctx) {
+    ctx->SetNodeType(CafContext::NODE_TYPE_RSU);
+  });
   
   NodeContainer vehicle;
   vehicle.Create(2);
+  setupCafContext(vehicle, [](Ptr<CafContext> ctx) {
+    ctx->SetNodeType(CafContext::NODE_TYPE_VEHICLE);
+  });
 
   MobilityHelper rsuMobility;
   Ptr<ListPositionAllocator> positionAlloc = CreateObject<ListPositionAllocator> ();
@@ -72,12 +78,10 @@ main (int argc, char *argv[])
 
   ndn::StackHelper rsuHelper;
   rsuHelper.SetDefaultRoutes(true);
-  rsuHelper.SetNodeType(NODE_TYPE_RSU);
   rsuHelper.Install(rsu);
 
   ndn::StackHelper vehicleHelper;
   vehicleHelper.SetDefaultRoutes(true);
-  vehicleHelper.SetNodeType(NODE_TYPE_VEHICLE);
   vehicleHelper.Install(vehicle);
 
   ndn::StrategyChoiceHelper::InstallAll("/", "/localhost/nfd/strategy/multicast");

@@ -22,15 +22,37 @@
 
 #include "ns3/ndnSIM/model/ndn-common.hpp"
 #include "ns3/address.h"
+#include "ns3/node-container.h"
+#include "ns3/node.h"
+#include "ns3/object.h"
 
 namespace ns3 {
+  
+class CafContext : public Object {
+public:
+  enum NodeType : uint8_t {
+    NODE_TYPE_NONE      = std::numeric_limits<uint8_t>::max(),
+    NODE_TYPE_VEHICLE   = 0,
+    NODE_TYPE_RSU       = 1,
+    NODE_TYPE_BACKBONE  = 2,
+  };
 
-enum NodeType : uint8_t {
-  NODE_TYPE_NONE      = std::numeric_limits<uint8_t>::max(),
-  NODE_TYPE_VEHICLE   = 0,
-  NODE_TYPE_RSU       = 1,
-  NODE_TYPE_BACKBONE  = 2,
+  static TypeId GetTypeId (void);
+  
+  CafContext() : m_type(NODE_TYPE_NONE) {}
+  
+  void SetNodeType(NodeType type) { m_type = type; }
+  NodeType GetNodeType() const { return m_type; }
+
+private:
+  NodeType m_type;
 };
+
+void
+setupCafContext(Node node, std::function<void(Ptr<CafContext>)> configCallback);
+
+void
+setupCafContext(NodeContainer container, std::function<void(Ptr<CafContext>)> configCallback);
 
 class MulticastGroup {
 public:

@@ -22,6 +22,37 @@
 
 namespace ns3 {
 
+TypeId 
+CafContext::GetTypeId(void)
+{
+  static TypeId tid = TypeId("ns3::CafContext")
+    .SetParent<Object>()
+    .SetGroupName("caf")
+    .AddConstructor<CafContext>()
+  ;
+  return tid;
+}
+
+void
+setupCafContext(Ptr<Node> node, std::function<void(Ptr<CafContext>)> configCallback)
+{
+    ns3::Ptr<CafContext> context = CreateObject<CafContext>();
+    configCallback(context);
+    node->AggregateObject(context);
+}
+
+void
+setupCafContext(NodeContainer container, 
+                std::function<void(Ptr<CafContext>)> configCallback) 
+{
+    for (auto it = container.Begin(); it != container.End(); ++it) {
+        ns3::Ptr<Node> node = *it;
+        ns3::Ptr<CafContext> context = CreateObject<CafContext>();
+        configCallback(context);
+        node->AggregateObject(context);
+    }
+}
+
 const ns3::Address MulticastGroup::MULTICAST_ALL = ns3::Mac48Address("01:00:5e:00:17:aa");
 const ns3::Address MulticastGroup::MULTICAST_V2V = ns3::Mac48Address("01:00:5e:00:17:ab");
 const ns3::Address MulticastGroup::MULTICAST_V2I = ns3::Mac48Address("01:00:5e:00:17:ac");   

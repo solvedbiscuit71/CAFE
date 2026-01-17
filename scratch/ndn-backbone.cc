@@ -33,12 +33,21 @@ main (int argc, char *argv[])
   // * Creating nodes
   NodeContainer rsu;
   rsu.Create(3);
+  setupCafContext(rsu, [](Ptr<CafContext> ctx) {
+    ctx->SetNodeType(CafContext::NODE_TYPE_RSU);
+  });
   
   NodeContainer backBone;
   backBone.Create(1);
+  setupCafContext(backBone, [](Ptr<CafContext> ctx) {
+    ctx->SetNodeType(CafContext::NODE_TYPE_BACKBONE);
+  });
 
   NodeContainer vehicle;
   vehicle.Create(1);
+  setupCafContext(vehicle, [](Ptr<CafContext> ctx) {
+    ctx->SetNodeType(CafContext::NODE_TYPE_VEHICLE);
+  });
 
   MobilityHelper rsuMobility;
   Ptr<ListPositionAllocator> positionAlloc = CreateObject<ListPositionAllocator> ();
@@ -70,16 +79,13 @@ main (int argc, char *argv[])
   SetupWifiNetDevice(adhocNodes);
 
   ndn::StackHelper rsuHelper;
-  rsuHelper.SetNodeType(NODE_TYPE_RSU);
   rsuHelper.Install(rsu);
 
   ndn::StackHelper vehicleHelper;
   vehicleHelper.SetDefaultRoutes(true);
-  vehicleHelper.SetNodeType(NODE_TYPE_VEHICLE);
   vehicleHelper.Install(vehicle);
 
   ndn::StackHelper backBoneHelper;
-  backBoneHelper.SetNodeType(NODE_TYPE_BACKBONE);
   backBoneHelper.Install(backBone);
   
   ndn::StrategyChoiceHelper::InstallAll("/", "/localhost/nfd/strategy/best-route");
