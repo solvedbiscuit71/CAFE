@@ -32,9 +32,9 @@ double h(double r, double w, double delta) {
 int
 main (int argc, char *argv[])
 {
-  const double RADIUS   = 50.0;    // transmission radius (m)
-  const double ROAD_LEN = 1000.0;  // 1 km road
-  const double roadWidth = 21.0;
+  const double txRadius   = 50.0;     // transmission radius
+  const double roadLength = 1000.0;   // 1 km road
+  const double roadWidth  = 21.0;     // six-lane road
 
   std::string traceFile = "trace/scene1.tcl";
   std::string animFile  = "netanim/scene1.xml";
@@ -43,27 +43,29 @@ main (int argc, char *argv[])
   // Command-line parameters
   // ----------------------------------------------------------------
   std::string placement = "one-side";
-
-  double delta = 1.0;
+  double delta = 0.0;
 
   CommandLine cmd;
-  cmd.AddValue("placement", "RSU placement: one-side | both-side | middle", placement);
-  cmd.AddValue("delta", "buffer in meters", delta);
+  cmd.AddValue("placement", "Placement Strategy: one-side | both-side | middle", placement);
+  cmd.AddValue("delta", "Deviation from the maximum distance (in meters)", delta);
   cmd.Parse(argc, argv);
 
   // ----------------------------------------------------------------
   // Select spacing function
   // ----------------------------------------------------------------
-  double dx;
+  double dx, dy;
 
   if (placement == "one-side") {
-    dx = f(RADIUS, roadWidth, delta);
+    dx = f(txRadius, roadWidth, delta);
+    dy = 0.0;
   }
   else if (placement == "both-side") {
-    dx = g(RADIUS, roadWidth, delta);
+    dx = g(txRadius, roadWidth, delta);
+    dy = roadWidth;
   }
   else if (placement == "middle") {
-    dx = h(RADIUS, roadWidth, delta);
+    dx = h(txRadius, roadWidth, delta);
+    dy = 0.0;
   }
   else {
     NS_FATAL_ERROR("Invalid placement strategy: " << placement);
@@ -77,9 +79,11 @@ main (int argc, char *argv[])
   double x = 0.0;
   double y = 0.0;
   double z = 0.0;
-  while (x <= ROAD_LEN) {
+  while (x <= roadLength) {
     rsuPositions.emplace_back(Vector(x, y, z));
     x += dx;
+    y += dy;
+    dy = -dy; // alternate between +/- dy
   }
 
   uint32_t numRsu = rsuPositions.size();
