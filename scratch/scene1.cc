@@ -54,6 +54,9 @@ main (int argc, char *argv[])
   // Select spacing function
   // ----------------------------------------------------------------
   double dx, dy;
+  double x = 0.0;
+  double y = -roadWidth/2;
+  double z = 0.0;
 
   if (placement == "one-side") {
     dx = f(txRadius, roadWidth, delta);
@@ -66,6 +69,7 @@ main (int argc, char *argv[])
   else if (placement == "middle") {
     dx = h(txRadius, roadWidth, delta);
     dy = 0.0;
+    y = 0.0;
   }
   else {
     NS_FATAL_ERROR("Invalid placement strategy: " << placement);
@@ -76,9 +80,6 @@ main (int argc, char *argv[])
   // ----------------------------------------------------------------
   std::vector<Vector> rsuPositions;
 
-  double x = 0.0;
-  double y = 0.0;
-  double z = 0.0;
   while (x <= roadLength) {
     rsuPositions.emplace_back(Vector(x, y, z));
     x += dx;
