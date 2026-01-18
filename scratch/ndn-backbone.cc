@@ -22,6 +22,10 @@
 
 namespace ns3 {
 
+double h(double r, double w, double delta) {
+  return (std::sqrt(4.0 * r * r - w * w)) + delta;
+}
+
 int
 main (int argc, char *argv[])
 {
@@ -49,11 +53,13 @@ main (int argc, char *argv[])
     ctx->SetNodeType(caf::NODE_TYPE_VEHICLE);
   });
 
+  // use middle placement strategy
+  double dx = h(50.0, 3.5, 0.0);
   MobilityHelper rsuMobility;
   Ptr<ListPositionAllocator> positionAlloc = CreateObject<ListPositionAllocator> ();
   positionAlloc->Add (Vector (0.0, 0.0, 0.0));
-  positionAlloc->Add (Vector (80.0, 0.0, 0.0));
-  positionAlloc->Add (Vector (160.0, 0.0, 0.0));
+  positionAlloc->Add (Vector (dx, 0.0, 0.0));
+  positionAlloc->Add (Vector (2 * dx, 0.0, 0.0));
 
   rsuMobility.SetPositionAllocator (positionAlloc);
   rsuMobility.SetMobilityModel ("ns3::ConstantPositionMobilityModel");
@@ -88,7 +94,8 @@ main (int argc, char *argv[])
   ndn::StackHelper backBoneHelper;
   backBoneHelper.Install(backBone);
   
-  ndn::StrategyChoiceHelper::InstallAll("/", "/localhost/nfd/strategy/best-route");
+  ndn::StrategyChoiceHelper::Install(vehicle, "/", "/localhost/nfd/strategy/multicast");
+  ndn::StrategyChoiceHelper::Install(rsu, "/", "/localhost/nfd/strategy/best-route");
   
   NodeContainer routableNodes;
   routableNodes.Add(rsu);

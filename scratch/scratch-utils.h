@@ -34,7 +34,7 @@ SetupWifiNetDevice (const NodeContainer &nodes)
 }
 
 inline void
-SetDefaultP2PConfig()
+SetDefaultP2PConfig ()
 {
   // setting default parameters for PointToPoint links and channels
   Config::SetDefault ("ns3::PointToPointNetDevice::DataRate", StringValue ("1Mbps"));
@@ -44,102 +44,104 @@ SetDefaultP2PConfig()
 
 using NodeLifetime = std::map<uint32_t, std::pair<double, double>>;
 
-inline void 
-ParseMobilityTrace(const std::string& traceFile,
-                   uint32_t& numNodes,
-                   NodeLifetime& nodeLifetime,
-                   double& duration)
+inline void
+ParseMobilityTrace (const std::string &traceFile, uint32_t &numNodes, NodeLifetime &nodeLifetime,
+                    double &duration)
 {
   double time;
   uint32_t nodeId;
-  std::ifstream file(traceFile);
+  std::ifstream file (traceFile);
   std::string line;
 
   std::map<uint32_t, double> firstSeen;
   std::map<uint32_t, double> lastSeen;
 
-  while (std::getline(file, line))
-  {
-    if (line.find("$node_(") != std::string::npos)
+  while (std::getline (file, line))
     {
-
-      if (sscanf(line.c_str(), "$ns_ at %lf \"$node_(%u)", &time, &nodeId) == 2)
-      {
-        if (firstSeen.find(nodeId) == firstSeen.end())
+      if (line.find ("$node_(") != std::string::npos)
         {
-          firstSeen[nodeId] = time;
-        }
-        lastSeen[nodeId] = time;
-      }
-    }
-  }
 
-  for (auto const& [nodeId, stopTime] : lastSeen)
-  {
-    nodeLifetime[nodeId] = {firstSeen[nodeId], stopTime};
-  }
+          if (sscanf (line.c_str (), "$ns_ at %lf \"$node_(%u)", &time, &nodeId) == 2)
+            {
+              if (firstSeen.find (nodeId) == firstSeen.end ())
+                {
+                  firstSeen[nodeId] = time;
+                }
+              lastSeen[nodeId] = time;
+            }
+        }
+    }
+
+  for (auto const &[nodeId, stopTime] : lastSeen)
+    {
+      nodeLifetime[nodeId] = {firstSeen[nodeId], stopTime};
+    }
 
   duration = time;
-  numNodes = nodeLifetime.size();
+  numNodes = nodeLifetime.size ();
 
   std::cout << "Parsed mobility trace.\n"
             << "Found " << numNodes << " nodes.\n"
-            << "Simulation duration set to " << duration << " seconds."
-            << std::endl;
+            << "Simulation duration set to " << duration << " seconds." << std::endl;
 }
 
-inline NodeContainer 
-createNodeWith(uint32_t numMobilityNodes, std::string traceFile)
+inline NodeContainer
+createNodeWith (uint32_t numMobilityNodes, std::string traceFile)
 {
   NodeContainer nodes;
-  nodes.Create(numMobilityNodes);
+  nodes.Create (numMobilityNodes);
 
   // Create Ns2MobilityHelper with the specified trace log file as parameter
-  Ns2MobilityHelper mobilityHelper = Ns2MobilityHelper(traceFile);
-  mobilityHelper.Install(nodes.Begin(), nodes.End());
+  Ns2MobilityHelper mobilityHelper = Ns2MobilityHelper (traceFile);
+  mobilityHelper.Install (nodes.Begin (), nodes.End ());
   return nodes;
 }
 
-inline NodeContainer 
-createNodeAt(uint32_t numRSUNodes, std::vector<Vector>& positions)
+inline NodeContainer
+createNodeAt (uint32_t numRSUNodes, std::vector<Vector> &positions)
 {
   NodeContainer nodes;
-    for (const auto& pos : positions) {
-        // Create a new node for the RSU
-      Ptr<Node> node = CreateObject<Node>();
-        nodes.Add(node);
+  for (const auto &pos : positions)
+    {
+      // Create a new node for the RSU
+      Ptr<Node> node = CreateObject<Node> ();
+      nodes.Add (node);
 
-        // Install a static mobility model on the RSU node
-        Ptr<MobilityModel> mobility = node->GetObject<MobilityModel>();
-        if (!mobility) {
-            // If the node doesn't have a mobility model, add one
-          Ptr<ConstantPositionMobilityModel> positionModel = CreateObject<ConstantPositionMobilityModel>();
-            node->AggregateObject(positionModel);
-            mobility = positionModel;
+      // Install a static mobility model on the RSU node
+      Ptr<MobilityModel> mobility = node->GetObject<MobilityModel> ();
+      if (!mobility)
+        {
+          // If the node doesn't have a mobility model, add one
+          Ptr<ConstantPositionMobilityModel> positionModel =
+              CreateObject<ConstantPositionMobilityModel> ();
+          node->AggregateObject (positionModel);
+          mobility = positionModel;
         }
 
-        // Set the position of the RSU
-        mobility->SetPosition(pos);
+      // Set the position of the RSU
+      mobility->SetPosition (pos);
     }
-    return nodes;
+  return nodes;
 }
 
-inline void 
-setNodesColor(AnimationInterface& anim, const NodeContainer& nodes, uint8_t red, uint8_t green, uint8_t blue)
+inline void
+setNodesColor (AnimationInterface &anim, const NodeContainer &nodes, uint8_t red, uint8_t green,
+               uint8_t blue)
 {
-    for (uint32_t i = 0; i < nodes.GetN(); ++i) {
-        uint32_t nodeId = nodes.Get(i)->GetId();
-        anim.UpdateNodeColor(nodeId, red, green, blue);
+  for (uint32_t i = 0; i < nodes.GetN (); ++i)
+    {
+      uint32_t nodeId = nodes.Get (i)->GetId ();
+      anim.UpdateNodeColor (nodeId, red, green, blue);
     }
 }
 
-inline void 
-setNodeColor(AnimationInterface& anim, Ptr<Node> node, uint8_t red, uint8_t green, uint8_t blue)
+inline void
+setNodeColor (AnimationInterface &anim, Ptr<Node> node, uint8_t red, uint8_t green, uint8_t blue)
 {
-    uint32_t nodeId = node->GetId();
-    anim.UpdateNodeColor(nodeId, red, green, blue);
+  uint32_t nodeId = node->GetId ();
+  anim.UpdateNodeColor (nodeId, red, green, blue);
 }
 
-}
+} // namespace ns3
 
 #endif
