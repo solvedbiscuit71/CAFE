@@ -11,6 +11,9 @@
 #include <vector>
 #include <string>
 
+#include <sstream>
+#include <iomanip>
+
 namespace ns3 {
 
   // ----------------------------------------------------------------
@@ -37,7 +40,6 @@ main (int argc, char *argv[])
   const double roadWidth  = 21.0;     // six-lane road
 
   std::string traceFile = "trace/scene1.tcl";
-  std::string animFile  = "netanim/scene1.xml";
 
   // ----------------------------------------------------------------
   // Command-line parameters
@@ -50,6 +52,12 @@ main (int argc, char *argv[])
   cmd.AddValue("delta", "Deviation from the maximum distance (in meters)", delta);
   cmd.Parse(argc, argv);
 
+  std::ostringstream oss;
+  oss << "netanim/scene1-" << placement << "-"
+      << std::fixed << std::setprecision(1) << delta
+      << ".xml";
+
+  std::string animFile = oss.str();
   // ----------------------------------------------------------------
   // Select spacing function
   // ----------------------------------------------------------------

@@ -1,0 +1,63 @@
+#!/bin/bash
+
+# Stop on first error
+set -e
+
+# -----------------------------
+# Configuration
+# -----------------------------
+SUMO_ROOT="sumo"          # Parent folder containing scene1/, scene2/, ...
+TRACE_DIR="trace"         # Output directory (must already exist)
+TRACE_EXPORTER="/home/vboxuser/sumo/tools/traceExporter.py"
+
+# -----------------------------
+# Argument check
+# -----------------------------
+if [ $# -ne 1 ]; then
+    echo "Usage: $0 <scene_name>"
+    echo "Example: $0 scene1"
+    exit 1
+fi
+
+SCENE_NAME="$1"
+SCENE_DIR="${SUMO_ROOT}/${SCENE_NAME}"
+SUMOCFG_FILE="${SCENE_NAME}.sumocfg"
+
+echo "Running simulation for scene: $SCENE_NAME"
+echo "-----------------------------------"
+
+# -----------------------------
+# Sanity checks
+# -----------------------------
+if [ ! -d "$SCENE_DIR" ]; then
+    echo "Error: Scene directory '$SCENE_DIR' does not exist."
+    exit 1
+fi
+
+if [ ! -d "$TRACE_DIR" ]; then
+    echo "Error: Trace output directory '$TRACE_DIR' does not exist."
+    exit 1
+fi
+
+if [ ! -f "${SCENE_DIR}/${SUMOCFG_FILE}" ]; then
+    echo "Error: SUMO config file '$SUMOCFG_FILE' not found in $SCENE_DIR/"
+    exit 1
+fi
+
+# -----------------------------
+# Run SUMO inside scene folder
+# -----------------------------
+cd "$SCENE_DIR"
+
+sumo -c "$SUMOCFG_FILE" --fcd-output="../../${TRACE_DIR}/${SCENE_NAME}-fcd-trace.xml"
+
+# -----------------------------
+# Convert FCD → ns-2 mobility
+# -----------------------------
+python3 "$TRACE_EXPORTER" \
+    --fcd-input="../../${TRACE_DIR}/${SCENE_NAME}-fcd-trace.xml" \
+    --ns2mobility-output="../../${TRACE_DIR}/${SCENE_NAME}.tcl"
+
+echo "-----------------------------------"
+echo "Simulation completed for $SCENE_NAME"
+echo "Output written to ${TRACE_DIR}/${SCENE_NAME}.tcl"
