@@ -1,63 +1,39 @@
 #!/bin/bash
 
-# Stop on first error
-set -e
+# Path to your SUMO tools
+scene_dir="sumo/$1"
 
-# -----------------------------
-# Configuration
-# -----------------------------
-SUMO_ROOT="sumo"          # Parent folder containing scene1/, scene2/, ...
-TRACE_DIR="trace"         # Output directory (must already exist)
-TRACE_EXPORTER="/home/vboxuser/sumo/tools/traceExporter.py"
-
-# -----------------------------
-# Argument check
-# -----------------------------
-if [ $# -ne 1 ]; then
-    echo "Usage: $0 <scene_name>"
-    echo "Example: $0 scene1"
+if [[ ! -f $TRACE_EXPORTER ]]; then
+    echo "$TRACE_EXPORTER file doesn't exists"
+    echo "export \$TRACE_EXPORTER in your .bashrc"
     exit 1
 fi
 
-SCENE_NAME="$1"
-SCENE_DIR="${SUMO_ROOT}/${SCENE_NAME}"
-SUMOCFG_FILE="${SCENE_NAME}.sumocfg"
+if [[ ! -d "$scene_dir" ]]; then
+    echo "$scene_dir directory doesn't exists"
+    exit 1
+fi
 
-echo "Running simulation for scene: $SCENE_NAME"
+echo "Running simulation"
 echo "-----------------------------------"
 
-# -----------------------------
-# Sanity checks
-# -----------------------------
-if [ ! -d "$SCENE_DIR" ]; then
-    echo "Error: Scene directory '$SCENE_DIR' does not exist."
-    exit 1
+cd "$scene_dir"
+
+# Run SUMO
+sumo -c "$1.sumocfg" --fcd-output="fcd-trace.xml"
+
+# Check if SUMO ran successfully
+if [ $? -ne 0 ]; then
+	echo "Error: SUMO simulation failed."
+	exit
 fi
 
-if [ ! -d "$TRACE_DIR" ]; then
-    echo "Error: Trace output directory '$TRACE_DIR' does not exist."
-    exit 1
-fi
+# Convert the FCD trace to ns2 mobility trace
+python3 "$TRACE_EXPORTER" --fcd-input="fcd-trace.xml" --ns2mobility-output="$1.tcl"
 
-if [ ! -f "${SCENE_DIR}/${SUMOCFG_FILE}" ]; then
-    echo "Error: SUMO config file '$SUMOCFG_FILE' not found in $SCENE_DIR/"
-    exit 1
-fi
-
-# -----------------------------
-# Run SUMO inside scene folder
-# -----------------------------
-cd "$SCENE_DIR"
-
-sumo -c "$SUMOCFG_FILE" --fcd-output="../../${TRACE_DIR}/${SCENE_NAME}-fcd-trace.xml"
-
-# -----------------------------
-# Convert FCD → ns-2 mobility
-# -----------------------------
-python3 "$TRACE_EXPORTER" \
-    --fcd-input="../../${TRACE_DIR}/${SCENE_NAME}-fcd-trace.xml" \
-    --ns2mobility-output="../../${TRACE_DIR}/${SCENE_NAME}.tcl"
+# Remove fcd-trace.xml file and move .tcl file into trace directory
+rm fcd-trace.xml
+mv "$1.tcl" ../../trace/
 
 echo "-----------------------------------"
-echo "Simulation completed for $SCENE_NAME"
-echo "Output written to ${TRACE_DIR}/${SCENE_NAME}.tcl"
+echo "Simulation completed."
