@@ -159,6 +159,17 @@ Forwarder::onIncomingInterest(const Interest& interest, const FaceEndpoint& ingr
   // is interest for alert?
   static const Name alertPrefix("/alert");
   if (alertPrefix.isPrefixOf(interest.getName())) {
+    // insert in-record
+    pitEntry->insertOrUpdateInRecord(ingress.face, interest);
+
+    // set PIT expiry timer to the time that the last PIT in-record expires
+    auto lastExpiring = std::max_element(pitEntry->in_begin(), pitEntry->in_end(),
+                                         [] (const auto& a, const auto& b) {
+                                           return a.getExpiry() < b.getExpiry();
+                                         });
+    auto lastExpiryFromNow = lastExpiring->getExpiry() - time::steady_clock::now();
+    this->setExpiryTimer(pitEntry, time::duration_cast<time::milliseconds>(lastExpiryFromNow));
+
     NFD_LOG_DEBUG("onIncomingInterest: Suppress forwarding for interest=" << interest.getName());
     return; 
   }

@@ -1,5 +1,5 @@
-#ifndef ALERT_PRODUCER_CBR_HPP
-#define ALERT_PRODUCER_CBR_HPP
+#ifndef ALERT_CONSUMER_HPP
+#define ALERT_CONSUMER_HPP
 
 #include "ndn-app.hpp"
 #include "ns3/ndnSIM/model/ndn-common.hpp"
@@ -11,12 +11,12 @@
 namespace ns3 {
   
 namespace ndn {
-class AlertProducerCbr : public App {
+class AlertConsumer : public App {
 public:
   static TypeId 
   GetTypeId(void);
 
-  AlertProducerCbr();
+  AlertConsumer();
 
   protected:
   virtual void 
@@ -24,27 +24,21 @@ public:
 
   virtual void 
   StopApplication() override;
+  
+  virtual void 
+  OnData(shared_ptr<const ndn::Data> data) override; 
 
   private:
   void 
-  SendAlert();
+  RegisterInterest();
 
-  Ptr<NormalRandomVariable> m_rand;
-
+  Ptr<UniformRandomVariable> m_rand;
   Name m_prefix;
-  uint32_t m_virtualPayloadSize;
-  Time m_freshness;
-
-  Time m_interval;
-  EventId m_sendEvent;
-  uint32_t m_seq;
-
-  uint32_t m_signature;
-  Name m_keyLocator;
+  Time m_interestLifeTime;
 };
 
 } // namespace ndn
 } // namespace ns3
  
 
-#endif // ALERT_PRODUCER_CBR_HPP
+#endif // ALERT_CONSUMER_HPP

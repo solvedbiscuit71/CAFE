@@ -22,6 +22,14 @@
 
 namespace ns3 {
 
+double f(double r, double w, double delta) {
+  return (2.0 * std::sqrt(r * r - w * w)) + delta;
+}
+
+double g(double r, double w, double delta) {
+  return (std::sqrt(2.0 * r * r - w * w + r * f(r, w, delta))) + delta;
+}
+
 double h(double r, double w, double delta) {
   return (std::sqrt(4.0 * r * r - w * w)) + delta;
 }
@@ -41,12 +49,6 @@ main (int argc, char *argv[])
     ctx->SetNodeType(caf::NODE_TYPE_RSU);
   });
   
-  NodeContainer backBone;
-  backBone.Create(1);
-  caf::setupContext(backBone, [](Ptr<caf::Context> ctx) {
-    ctx->SetNodeType(caf::NODE_TYPE_BACKBONE);
-  });
-
   NodeContainer vehicle;
   vehicle.Create(1);
   caf::setupContext(vehicle, [](Ptr<caf::Context> ctx) {
@@ -54,12 +56,13 @@ main (int argc, char *argv[])
   });
 
   // use middle placement strategy
-  double dx = h(50.0, 3.5, 0.0);
+  double dx = g(50.0, 3.5, 0.0);
+  std::cout << "RSU placed " << dx << "m apart." << std::endl;
   MobilityHelper rsuMobility;
   Ptr<ListPositionAllocator> positionAlloc = CreateObject<ListPositionAllocator> ();
-  positionAlloc->Add (Vector (0.0, 0.0, 0.0));
-  positionAlloc->Add (Vector (dx, 0.0, 0.0));
-  positionAlloc->Add (Vector (2 * dx, 0.0, 0.0));
+  positionAlloc->Add (Vector (0.0, -1.75, 0.0));
+  positionAlloc->Add (Vector (dx, 1.75, 0.0));
+  positionAlloc->Add (Vector (2 * dx, -1.75, 0.0));
 
   rsuMobility.SetPositionAllocator (positionAlloc);
   rsuMobility.SetMobilityModel ("ns3::ConstantPositionMobilityModel");
@@ -67,7 +70,7 @@ main (int argc, char *argv[])
   
   Ptr<ConstantVelocityMobilityModel> vehicle0Mobility = CreateObject<ConstantVelocityMobilityModel>();
   vehicle0Mobility->SetPosition(Vector (0.0, 0.0, 0.0));
-  vehicle0Mobility->SetVelocity(Vector (24.0, 0.0, 0.0));
+  vehicle0Mobility->SetVelocity(Vector(24.0, 0.0, 0.0));
   vehicle.Get(0)->AggregateObject(vehicle0Mobility);
 
   // * Install Network Stack
@@ -75,9 +78,6 @@ main (int argc, char *argv[])
   PointToPointHelper p2p;
   p2p.Install(rsu.Get(0), rsu.Get(1));
   p2p.Install(rsu.Get(1), rsu.Get(2));
-  p2p.Install(rsu.Get(0), backBone.Get(0));
-  p2p.Install(rsu.Get(1), backBone.Get(0));
-  p2p.Install(rsu.Get(2), backBone.Get(0));
   
   NodeContainer adhocNodes;
   adhocNodes.Add(vehicle);
@@ -91,35 +91,21 @@ main (int argc, char *argv[])
   vehicleHelper.SetDefaultRoutes(true);
   vehicleHelper.Install(vehicle);
 
-  ndn::StackHelper backBoneHelper;
-  backBoneHelper.Install(backBone);
+  ndn::StrategyChoiceHelper::InstallAll("/", "/localhost/nfd/strategy/multicast");
   
-  ndn::StrategyChoiceHelper::Install(vehicle, "/", "/localhost/nfd/strategy/multicast");
-  ndn::StrategyChoiceHelper::Install(rsu, "/", "/localhost/nfd/strategy/best-route");
-  
-  NodeContainer routableNodes;
-  routableNodes.Add(rsu);
-  routableNodes.Add(backBone);
-  ndn::GlobalRoutingHelper ndnRoutingHelper;
-  ndnRoutingHelper.Install(routableNodes);
-
   // * Install Application
-  ndn::AppHelper consumerHelper("ns3::ndn::ConsumerCbr");
-  consumerHelper.SetPrefix("/prefix");
-  consumerHelper.SetAttribute("Frequency", StringValue("1"));
-  consumerHelper.Install(vehicle.Get(0));
+  ndn::AppHelper helloConsumer("ns3::ndn::AlertConsumer");
+  helloConsumer.SetAttribute("Prefix", StringValue("/alert/hello"));
+  helloConsumer.SetAttribute("LifeTime", StringValue("60s"));
+  helloConsumer.Install(vehicle.Get(0));
   
   ndn::AppHelper helloProducer("ns3::ndn::AlertProducerCbr");
-  helloProducer.SetAttribute("Prefix", StringValue("/alert/hello"));
+  helloProducer.SetAttribute("Prefix", StringValue("/alert/hello/rsu0"));
   helloProducer.Install(rsu.Get(0));
-  
-  ndn::AppHelper producerHelper("ns3::ndn::Producer");
-  producerHelper.SetPrefix("/prefix");
-  producerHelper.SetAttribute("PayloadSize", StringValue("1024"));
-  producerHelper.Install(backBone.Get(0));
-  
-  ndnRoutingHelper.AddOrigin("/prefix", backBone.Get(0));
-  ndnRoutingHelper.CalculateAllPossibleRoutes();
+  helloProducer.SetAttribute("Prefix", StringValue("/alert/hello/rsu1"));
+  helloProducer.Install(rsu.Get(1));
+  helloProducer.SetAttribute("Prefix", StringValue("/alert/hello/rsu2"));
+  helloProducer.Install(rsu.Get(2));
 
   // * Enable NetAnim
   AnimationInterface anim ("netanim/test-hello.xml");

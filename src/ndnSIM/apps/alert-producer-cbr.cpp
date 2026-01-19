@@ -55,7 +55,12 @@ TypeId AlertProducerCbr::GetTypeId(void) {
   return tid;
 }
 
-AlertProducerCbr::AlertProducerCbr() : m_seq(0) {}
+AlertProducerCbr::AlertProducerCbr() 
+  : m_rand(CreateObject<NormalRandomVariable>()), m_seq(0)
+{
+  m_rand->SetAttribute("Mean", DoubleValue(0.0));
+  m_rand->SetAttribute("Variance", DoubleValue(0.00001)); // std = 1ms = 0.001s
+}
 
 void AlertProducerCbr::StartApplication() {
   App::StartApplication();
@@ -99,8 +104,10 @@ void AlertProducerCbr::SendAlert() {
   m_transmittedDatas(data, this, m_face);
   m_appLink->onReceiveData(*data); // send to Forwarder
 
+  Time jitter = Seconds(m_rand->GetValue());
+  NS_LOG_INFO("node(" << GetNode()->GetId() << ") scheduled next alert with jitter=" << jitter);
   m_sendEvent =
-      Simulator::Schedule(m_interval, &AlertProducerCbr::SendAlert, this);
+      Simulator::Schedule(m_interval + jitter, &AlertProducerCbr::SendAlert, this);
 }
 
 } // namespace ndn
