@@ -27,8 +27,8 @@ TypeId
 Context::GetTypeId(void)
 {
   static TypeId tid = TypeId("ns3::CafContext")
+    .SetGroupName("Caf")
     .SetParent<Object>()
-    .SetGroupName("caf")
     .AddConstructor<Context>()
   ;
   return tid;

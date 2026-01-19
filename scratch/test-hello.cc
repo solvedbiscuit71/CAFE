@@ -109,6 +109,9 @@ main (int argc, char *argv[])
   consumerHelper.SetAttribute("Frequency", StringValue("1"));
   consumerHelper.Install(vehicle.Get(0));
   
+  ndn::AppHelper helloProducer("ns3::ndn::AlertProducerCbr");
+  helloProducer.SetAttribute("Prefix", StringValue("/alert/hello"));
+  helloProducer.Install(rsu.Get(0));
   
   ndn::AppHelper producerHelper("ns3::ndn::Producer");
   producerHelper.SetPrefix("/prefix");
@@ -119,7 +122,7 @@ main (int argc, char *argv[])
   ndnRoutingHelper.CalculateAllPossibleRoutes();
 
   // * Enable NetAnim
-  AnimationInterface anim ("netanim/ndn-backbone.xml");
+  AnimationInterface anim ("netanim/test-hello.xml");
 
   Simulator::Stop (Seconds (10.0));
   Simulator::Run ();

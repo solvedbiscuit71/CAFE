@@ -98,7 +98,7 @@ main (int argc, char *argv[])
   producerHelper.Install(rsu);
 
   // * Enable NetAnim
-  AnimationInterface anim ("netanim/ndn-multicast.xml");
+  AnimationInterface anim ("netanim/test-transport.xml");
 
   Simulator::Stop (Seconds (5.0));
   Simulator::Run ();
