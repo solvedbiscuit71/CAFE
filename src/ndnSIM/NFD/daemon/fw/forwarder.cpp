@@ -403,16 +403,41 @@ Forwarder::onIncomingData(const Data& data, const FaceEndpoint& ingress)
 void
 Forwarder::onDataUnsolicited(const Data& data, const FaceEndpoint& ingress)
 {
-  // accept to cache?
-  auto decision = m_unsolicitedDataPolicy->decide(ingress.face, data);
-  if (decision == fw::UnsolicitedDataDecision::CACHE) {
-    // CS insert
-    m_cs.insert(data, true);
-  }
+  static const Name alertPrefix("/alert");
+  
+  // is data an alert packet?
+  if (alertPrefix.isPrefixOf(data.getName())) {
+    NFD_LOG_DEBUG("onDataUnsolicited in=" << ingress << " data=" << data.getName()
+                  << " decision=PUSH");
 
-  NFD_LOG_DEBUG("onDataUnsolicited in=" << ingress << " data=" << data.getName()
-                << " decision=" << decision);
-  ++m_counters.nUnsolicitedData;
+    // iterate through all faces
+    for (auto& face : m_faceTable) {
+      // forward to face which are NON_LOCAL and AD_HOC i.e. WifiNetDeviceTransport
+      // TODO: provide the context for face i.e. V2I and V2V
+      if (face.getScope() != ndn::nfd::FACE_SCOPE_NON_LOCAL ||
+          face.getLinkType() != ndn::nfd::LINK_TYPE_AD_HOC) {
+        continue;
+      }
+      
+      NFD_LOG_DEBUG("onDataUnsolicited: Pushing alert to face=" << face.getId());
+      this->onOutgoingData(data, face);
+    }
+    
+    // Optional: We might still want to cache it locally
+    // m_cs.insert(data, true);
+
+  } else {
+    // accept to cache?
+    auto decision = m_unsolicitedDataPolicy->decide(ingress.face, data);
+    if (decision == fw::UnsolicitedDataDecision::CACHE) {
+      // CS insert
+      m_cs.insert(data, true);
+    }
+
+    NFD_LOG_DEBUG("onDataUnsolicited in=" << ingress << " data=" << data.getName()
+                  << " decision=" << decision);
+    ++m_counters.nUnsolicitedData;
+  }
 }
 
 bool
