@@ -155,6 +155,13 @@ Forwarder::onIncomingInterest(const Interest& interest, const FaceEndpoint& ingr
     m_strategyChoice.findEffectiveStrategy(*pitEntry).afterReceiveLoopedInterest(ingress, interest, *pitEntry);
     return;
   }
+  
+  // is interest for alert?
+  static const Name alertPrefix("/alert");
+  if (alertPrefix.isPrefixOf(interest.getName())) {
+    NFD_LOG_DEBUG("onIncomingInterest: Suppress forwarding for interest=" << interest.getName());
+    return; 
+  }
 
   // is pending?
   if (!pitEntry->hasInRecords()) {
