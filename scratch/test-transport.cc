@@ -1,6 +1,6 @@
 #include "helper/ndn-app-helper.hpp"
 #include "helper/ndn-global-routing-helper.hpp"
-#include "helper/ndn-stack-helper.hpp"
+#include "helper/caf-stack-helper.hpp"
 #include "helper/ndn-strategy-choice-helper.hpp"
 #include "ns3/constant-velocity-mobility-model.h"
 #include "ns3/core-module.h"
@@ -21,6 +21,14 @@
 #include "scratch-utils.h"
 
 namespace ns3 {
+
+double f(double r, double w, double delta) {
+  return (2.0 * std::sqrt(r * r - w * w)) + delta;
+}
+
+double g(double r, double w, double delta) {
+  return (std::sqrt(2.0 * r * r - w * w + r * f(r, w, delta))) + delta;
+}
 
 /*
  * Vehilce#0 should sent interest to multicast_v2v
@@ -47,10 +55,12 @@ main (int argc, char *argv[])
     ctx->SetNodeType(caf::NODE_TYPE_VEHICLE);
   });
 
+  double dx = g(50.0, 3.5, 0.0);
+  std::cout << "RSU placed " << dx << "m apart." << std::endl;
   MobilityHelper rsuMobility;
   Ptr<ListPositionAllocator> positionAlloc = CreateObject<ListPositionAllocator> ();
-  positionAlloc->Add (Vector (0.0, 0.0, 0.0));
-  positionAlloc->Add (Vector (80.0, 0.0, 0.0));
+  positionAlloc->Add (Vector (0.0, -1.75, 0.0));
+  positionAlloc->Add (Vector (dx, 1.75, 0.0));
 
   rsuMobility.SetPositionAllocator (positionAlloc);
   rsuMobility.SetMobilityModel ("ns3::ConstantPositionMobilityModel");
@@ -76,13 +86,9 @@ main (int argc, char *argv[])
   adhocNodes.Add(rsu);
   SetupWifiNetDevice(adhocNodes);
 
-  ndn::StackHelper rsuHelper;
-  rsuHelper.SetDefaultRoutes(true);
-  rsuHelper.Install(rsu);
-
-  ndn::StackHelper vehicleHelper;
-  vehicleHelper.SetDefaultRoutes(true);
-  vehicleHelper.Install(vehicle);
+  caf::StackHelper stackHelper;
+  stackHelper.Install(rsu, true);
+  stackHelper.Install(vehicle, true);
 
   ndn::StrategyChoiceHelper::InstallAll("/", "/localhost/nfd/strategy/multicast");
 
@@ -91,7 +97,7 @@ main (int argc, char *argv[])
   consumerHelper.SetPrefix("/prefix");
   consumerHelper.SetAttribute("Frequency", StringValue("1"));
   consumerHelper.Install(vehicle.Get(0));
-  
+
   ndn::AppHelper producerHelper("ns3::ndn::Producer");
   producerHelper.SetPrefix("/prefix");
   producerHelper.SetAttribute("PayloadSize", StringValue("1024"));

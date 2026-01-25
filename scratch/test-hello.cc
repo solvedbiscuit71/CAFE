@@ -84,26 +84,11 @@ main (int argc, char *argv[])
   adhocNodes.Add(rsu);
   SetupWifiNetDevice(adhocNodes);
 
-  caf::CafStackHelper helper;
-  helper.Install(rsu);
-  helper.Install(vehicle, true);
+  caf::StackHelper stackHelper;
+  stackHelper.Install(rsu);
+  stackHelper.Install(vehicle, true);
 
   ndn::StrategyChoiceHelper::InstallAll("/", "/localhost/nfd/strategy/multicast");
-  
-  // * Install Application
-  ndn::AppHelper helloConsumer("ns3::ndn::HelloConsumer");
-  helloConsumer.SetAttribute("Prefix", StringValue("/alert/hello"));
-  helloConsumer.SetAttribute("LifeTime", StringValue("60s"));
-  helloConsumer.Install(vehicle.Get(0));
-  
-  ndn::AppHelper helloProducer("ns3::ndn::HelloProducer");
-  helloProducer.SetAttribute("EnableJitter", BooleanValue(true));
-  helloProducer.SetAttribute("Prefix", StringValue("/alert/hello/rsu0"));
-  helloProducer.Install(rsu.Get(0));
-  helloProducer.SetAttribute("Prefix", StringValue("/alert/hello/rsu1"));
-  helloProducer.Install(rsu.Get(1));
-  helloProducer.SetAttribute("Prefix", StringValue("/alert/hello/rsu2"));
-  helloProducer.Install(rsu.Get(2));
 
   // * Enable NetAnim
   AnimationInterface anim ("netanim/test-hello.xml");

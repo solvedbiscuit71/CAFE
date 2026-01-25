@@ -18,10 +18,10 @@ namespace caf {
  * @ingroup caf-helpers
  * @brief Helper class to install CAF stack and configure its parameters
  */
-class CafStackHelper : boost::noncopyable {
+class StackHelper : boost::noncopyable {
 public:
-CafStackHelper();
-virtual ~CafStackHelper();
+StackHelper();
+virtual ~StackHelper();
 
 void
 Install(NodeContainer nodes,
