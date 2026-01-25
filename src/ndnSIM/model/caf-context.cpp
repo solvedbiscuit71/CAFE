@@ -78,9 +78,9 @@ NodeTypeHeader::Deserialize(Buffer::Iterator start)
   return 1;
 }
 
-const ns3::Address MulticastGroup::MULTICAST_ALL = ns3::Mac48Address("01:00:5e:00:17:aa");
-const ns3::Address MulticastGroup::MULTICAST_V2V = ns3::Mac48Address("01:00:5e:00:17:ab");
+const ns3::Address MulticastGroup::MULTICAST_V2V = ns3::Mac48Address("01:00:5e:00:17:aa");
 const ns3::Address MulticastGroup::MULTICAST_V2I = ns3::Mac48Address("01:00:5e:00:17:ac");   
+const ns3::Address MulticastGroup::MULTICAST_V2X = ns3::Mac48Address("01:00:5e:00:17:ae");
 
 } // namespace caf
 } // namespace ns3

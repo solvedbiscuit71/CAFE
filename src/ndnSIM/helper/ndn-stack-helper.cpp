@@ -278,8 +278,9 @@ StackHelper::WifiNetDeviceCallback(Ptr<Node> node, Ptr<L3Protocol> ndn,
                                       Ptr<NetDevice> netDevice) const
 {
   Ptr<caf::Context> ctx = node->GetObject<caf::Context>();
+  caf::NodeType nodeType;
 
-  if (!ctx || ctx->GetNodeType() == caf::NODE_TYPE_NONE) {
+  if (!ctx || (nodeType = ctx->GetNodeType()) == caf::NODE_TYPE_NONE || nodeType == caf::NODE_TYPE_BACKBONE) {
     return DefaultNetDeviceCallback(node, ndn, netDevice);
   }
 
@@ -290,47 +291,27 @@ StackHelper::WifiNetDeviceCallback(Ptr<Node> node, Ptr<L3Protocol> ndn,
   opts.allowFragmentation = true;
   opts.allowReassembly = true;
   opts.allowCongestionMarking = true;
-
-
-  Address remoteAddress;
-  if (ctx->GetNodeType() == caf::NODE_TYPE_VEHICLE) {
-    remoteAddress = caf::MulticastGroup::MULTICAST_V2V;
+  
+  auto createFace = [&](Address remoteAddress, caf::TransportFilter filter) {
     auto linkService = make_unique<::nfd::face::GenericLinkService>(opts);
-
-    auto transport = make_unique<WifiNetDeviceTransport>(node, netDevice, remoteAddress);
-
+    auto transport = make_unique<WifiNetDeviceTransport>(node, netDevice, remoteAddress, filter);
     auto face = std::make_shared<Face>(std::move(linkService), std::move(transport));
     face->setMetric(1);
 
     ndn->addFace(face);
-    NS_LOG_LOGIC("Node " << node->GetId() << ": added V2V Face as face ("
+    NS_LOG_LOGIC("Node " << node->GetId() << ": added Face as face ("
                          << face->getId() << ","
                          << face->getLocalUri() << "," 
                          << face->getRemoteUri() << ")");
+    return face;
+  };
 
-    // Since this face is not returned by the function,
-    // we need to set the default route with lowest priority here.
-    if (m_needSetDefaultRoutes) {
-      FibHelper::AddRoute(node, "/", face, std::numeric_limits<int32_t>::max());
-    }
+  if (nodeType == caf::NODE_TYPE_VEHICLE) {
+    // create V2V face only if node type is vehicle
+    createFace(caf::MulticastGroup::MULTICAST_V2V, caf::ALLOW_SAME);
   }
-
-  remoteAddress = caf::MulticastGroup::MULTICAST_V2I;
-  auto linkService = make_unique<::nfd::face::GenericLinkService>(opts);
-
-  // allow packet whose sender-node-type is not equal to node-type
-  auto transport = make_unique<WifiNetDeviceTransport>(node, netDevice, remoteAddress, caf::ALLOW_DIFFERENT);
-
-  auto face = std::make_shared<Face>(std::move(linkService), std::move(transport));
-  face->setMetric(1);
-
-  ndn->addFace(face);
-  NS_LOG_LOGIC("Node " << node->GetId() << ": added V2I Face as face ("
-                       << face->getId() << ","
-                       << face->getLocalUri() << "," 
-                       << face->getRemoteUri() << ")");
-
-  return face;
+  // create V2I face on both vehicle and rsu
+  return createFace(caf::MulticastGroup::MULTICAST_V2I, caf::ALLOW_DIFFERENT);
 }
 
 shared_ptr<Face>

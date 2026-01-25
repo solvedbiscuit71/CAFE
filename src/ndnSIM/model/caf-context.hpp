@@ -86,9 +86,9 @@ private:
 
 class MulticastGroup {
 public:
-    static const ns3::Address MULTICAST_ALL;
     static const ns3::Address MULTICAST_V2V;
     static const ns3::Address MULTICAST_V2I;
+    static const ns3::Address MULTICAST_V2X;
 };
 
 } // namespace caf
