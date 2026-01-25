@@ -21,7 +21,7 @@
 #define NDNSIM_HELPER_NDN_STACK_HELPER_HPP
 
 #include "ns3/ndnSIM/model/ndn-common.hpp"
-#include "ns3/ndnSIM/model/ndn-context.hpp"
+#include "ns3/ndnSIM/model/caf-context.hpp"
 
 #include "ns3/ptr.h"
 #include "ns3/object-factory.h"

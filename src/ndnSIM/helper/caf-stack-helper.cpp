@@ -1,5 +1,5 @@
 #include "caf-stack-helper.hpp"
-#include "model/ndn-context.hpp"
+#include "model/caf-context.hpp"
 #include "src/ndnSIM/helper/ndn-stack-helper.hpp"
 
 namespace ns3 {

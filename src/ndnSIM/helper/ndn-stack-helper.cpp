@@ -19,7 +19,7 @@
 
 #include "ndn-stack-helper.hpp"
 
-#include "model/ndn-context.hpp"
+#include "model/caf-context.hpp"
 #include "ns3/log.h"
 #include "ns3/names.h"
 #include "ns3/node.h"

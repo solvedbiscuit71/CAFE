@@ -17,8 +17,8 @@
  * ndnSIM, e.g., in COPYING.md file.  If not, see <http://www.gnu.org/licenses/>.
  **/
 
-#ifndef NDNSIM_NDN_CONTEXT_H
-#define NDNSIM_NDN_CONTEXT_H
+#ifndef CAF_CONTEXT_HPP
+#define CAF_CONTEXT_HPP
 
 #include "ns3/ndnSIM/model/ndn-common.hpp"
 #include "ns3/address.h"
@@ -94,4 +94,4 @@ public:
 } // namespace caf
 } // namespace ns3
 
-#endif // NDNSIM_NDN_CONTEXT_H
+#endif // CAF_CONTEXT_HPP

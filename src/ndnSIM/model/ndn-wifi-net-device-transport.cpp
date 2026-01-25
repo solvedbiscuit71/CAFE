@@ -20,7 +20,7 @@
 #include "ndn-wifi-net-device-transport.hpp"
 
 #include "../helper/ndn-stack-helper.hpp"
-#include "model/ndn-context.hpp"
+#include "model/caf-context.hpp"
 #include "ndn-block-header.hpp"
 #include "../utils/ndn-ns3-packet-tag.hpp"
 

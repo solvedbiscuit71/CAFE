@@ -20,7 +20,7 @@
 #ifndef NDN_WIFI_NET_DEVICE_TRANSPORT_HPP
 #define NDN_WIFI_NET_DEVICE_TRANSPORT_HPP
 
-#include "model/ndn-context.hpp"
+#include "model/caf-context.hpp"
 #include "ns3/address.h"
 #include "ns3/mac48-address.h"
 #include "ns3/ndnSIM/model/ndn-common.hpp"

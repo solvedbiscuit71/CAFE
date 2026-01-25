@@ -2,7 +2,7 @@
 #define CAF_STACK_HELPER_HPP
 
 #include "ns3/ndnSIM/model/ndn-common.hpp"
-#include "ns3/ndnSIM/model/ndn-context.hpp"
+#include "ns3/ndnSIM/model/caf-context.hpp"
 #include "ns3/node-container.h"
 #include "ndn-stack-helper.hpp"
 

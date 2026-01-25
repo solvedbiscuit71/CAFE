@@ -17,7 +17,7 @@
  * ndnSIM, e.g., in COPYING.md file.  If not, see <http://www.gnu.org/licenses/>.
  **/
 
-#include "ndn-context.hpp"
+#include "caf-context.hpp"
 #include "ns3/mac48-address.h"
 
 namespace ns3 {
