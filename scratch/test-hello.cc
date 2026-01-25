@@ -1,6 +1,6 @@
 #include "helper/ndn-app-helper.hpp"
 #include "helper/ndn-global-routing-helper.hpp"
-#include "helper/ndn-stack-helper.hpp"
+#include "helper/caf-stack-helper.hpp"
 #include "helper/ndn-strategy-choice-helper.hpp"
 #include "ns3/constant-velocity-mobility-model.h"
 #include "ns3/core-module.h"
@@ -84,12 +84,9 @@ main (int argc, char *argv[])
   adhocNodes.Add(rsu);
   SetupWifiNetDevice(adhocNodes);
 
-  ndn::StackHelper rsuHelper;
-  rsuHelper.Install(rsu);
-
-  ndn::StackHelper vehicleHelper;
-  vehicleHelper.SetDefaultRoutes(true);
-  vehicleHelper.Install(vehicle);
+  caf::CafStackHelper helper;
+  helper.Install(rsu);
+  helper.Install(vehicle, true);
 
   ndn::StrategyChoiceHelper::InstallAll("/", "/localhost/nfd/strategy/multicast");
   

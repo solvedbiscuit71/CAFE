@@ -278,9 +278,8 @@ StackHelper::WifiNetDeviceCallback(Ptr<Node> node, Ptr<L3Protocol> ndn,
                                       Ptr<NetDevice> netDevice) const
 {
   Ptr<caf::Context> ctx = node->GetObject<caf::Context>();
-  NS_ABORT_MSG_IF(!ctx, "CafContext must be aggregated to the node before starting NDN.");
 
-  if (ctx->GetNodeType() == caf::NODE_TYPE_NONE) {
+  if (!ctx || ctx->GetNodeType() == caf::NODE_TYPE_NONE) {
     return DefaultNetDeviceCallback(node, ndn, netDevice);
   }
 
