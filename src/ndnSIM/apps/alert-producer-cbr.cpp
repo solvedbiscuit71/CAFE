@@ -6,9 +6,6 @@
 #include "ns3/simulator.h"
 #include "ns3/boolean.h"
 
-#include "ns3/ndnSIM/helper/ndn-stack-helper.hpp"
-#include "ns3/ndnSIM/utils/ndn-ns3-packet-tag.hpp"
-
 NS_LOG_COMPONENT_DEFINE("ndn.AlertProducerCbr");
 
 namespace ns3 {

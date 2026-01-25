@@ -99,7 +99,7 @@ main (int argc, char *argv[])
   helloConsumer.SetAttribute("LifeTime", StringValue("60s"));
   helloConsumer.Install(vehicle.Get(0));
   
-  ndn::AppHelper helloProducer("ns3::ndn::AlertProducerCbr");
+  ndn::AppHelper helloProducer("ns3::ndn::HelloProducer");
   helloProducer.SetAttribute("EnableJitter", BooleanValue(true));
   helloProducer.SetAttribute("Prefix", StringValue("/alert/hello/rsu0"));
   helloProducer.Install(rsu.Get(0));

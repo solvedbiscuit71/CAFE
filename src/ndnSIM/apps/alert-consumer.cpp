@@ -5,9 +5,6 @@
 #include "ns3/string.h"
 #include "ns3/uinteger.h"
 
-#include "ns3/ndnSIM/helper/ndn-stack-helper.hpp"
-#include "ns3/ndnSIM/utils/ndn-ns3-packet-tag.hpp"
-
 NS_LOG_COMPONENT_DEFINE("ndn.AlertConsumer");
 
 namespace ns3 {
