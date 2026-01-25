@@ -18,26 +18,29 @@ public:
 
   AlertProducerCbr();
 
-  protected:
+private:
+  Ptr<NormalRandomVariable> m_rand;
+  Time m_interval;
+  bool m_jitter;
+  EventId m_sendEvent;
+
+  void 
+  sendAlert();
+
+protected:
   virtual void 
   StartApplication() override;
 
   virtual void 
   StopApplication() override;
+  
+  virtual void
+  doSend();
 
-  private:
-  void 
-  SendAlert();
-
-  Ptr<NormalRandomVariable> m_rand;
-
+  uint32_t m_seq;
   Name m_prefix;
   uint32_t m_virtualPayloadSize;
   Time m_freshness;
-
-  Time m_interval;
-  EventId m_sendEvent;
-  uint32_t m_seq;
 
   uint32_t m_signature;
   Name m_keyLocator;

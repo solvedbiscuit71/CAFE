@@ -100,6 +100,7 @@ main (int argc, char *argv[])
   helloConsumer.Install(vehicle.Get(0));
   
   ndn::AppHelper helloProducer("ns3::ndn::AlertProducerCbr");
+  helloProducer.SetAttribute("EnableJitter", BooleanValue(true));
   helloProducer.SetAttribute("Prefix", StringValue("/alert/hello/rsu0"));
   helloProducer.Install(rsu.Get(0));
   helloProducer.SetAttribute("Prefix", StringValue("/alert/hello/rsu1"));

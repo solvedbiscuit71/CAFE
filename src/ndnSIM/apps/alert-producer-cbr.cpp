@@ -4,6 +4,7 @@
 #include "ns3/uinteger.h"
 #include "ns3/double.h"
 #include "ns3/simulator.h"
+#include "ns3/boolean.h"
 
 #include "ns3/ndnSIM/helper/ndn-stack-helper.hpp"
 #include "ns3/ndnSIM/utils/ndn-ns3-packet-tag.hpp"
@@ -29,6 +30,10 @@ TypeId AlertProducerCbr::GetTypeId(void) {
                         TimeValue(Seconds(1.0)),
                         MakeTimeAccessor(&AlertProducerCbr::m_interval),
                         MakeTimeChecker())
+          .AddAttribute("EnableJitter", "Add jitter to prevent hidden terminal problem",
+                        BooleanValue(false),
+                        MakeBooleanAccessor(&AlertProducerCbr::m_jitter),
+                        MakeBooleanChecker())
           .AddAttribute(
               "PayloadSize", "Virtual payload size for Content packets",
               UintegerValue(1024),
@@ -62,18 +67,35 @@ AlertProducerCbr::AlertProducerCbr()
   m_rand->SetAttribute("Variance", DoubleValue(0.00001)); // std = 1ms = 0.001s
 }
 
-void AlertProducerCbr::StartApplication() {
+void
+AlertProducerCbr::StartApplication() {
   App::StartApplication();
   m_sendEvent =
-      Simulator::Schedule(Seconds(0.0), &AlertProducerCbr::SendAlert, this);
+      Simulator::Schedule(Seconds(0.0), &AlertProducerCbr::sendAlert, this);
 }
 
-void AlertProducerCbr::StopApplication() {
+void
+AlertProducerCbr::StopApplication() {
   Simulator::Cancel(m_sendEvent);
   App::StopApplication();
 }
 
-void AlertProducerCbr::SendAlert() {
+void
+AlertProducerCbr::sendAlert() {
+  doSend();
+
+  Time jitter = Seconds(0);
+  if (m_jitter) {
+    jitter = Seconds(m_rand->GetValue());
+  }
+  NS_LOG_INFO("node(" << GetNode()->GetId() << ") scheduled next alert after=" << m_interval + jitter);
+  m_sendEvent =
+      Simulator::Schedule(m_interval + jitter, &AlertProducerCbr::sendAlert, this);
+}
+
+void
+AlertProducerCbr::doSend()
+{
   Name dataName(m_prefix);
   dataName.appendSequenceNumber(m_seq++);
 
@@ -103,11 +125,6 @@ void AlertProducerCbr::SendAlert() {
 
   m_transmittedDatas(data, this, m_face);
   m_appLink->onReceiveData(*data); // send to Forwarder
-
-  Time jitter = Seconds(m_rand->GetValue());
-  NS_LOG_INFO("node(" << GetNode()->GetId() << ") scheduled next alert with jitter=" << jitter);
-  m_sendEvent =
-      Simulator::Schedule(m_interval + jitter, &AlertProducerCbr::SendAlert, this);
 }
 
 } // namespace ndn
