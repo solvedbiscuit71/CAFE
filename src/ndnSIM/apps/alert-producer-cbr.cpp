@@ -71,7 +71,7 @@ void
 AlertProducerCbr::StartApplication() {
   App::StartApplication();
   m_sendEvent =
-      Simulator::Schedule(Seconds(0.0), &AlertProducerCbr::sendAlert, this);
+      Simulator::Schedule(Seconds(0.0), &AlertProducerCbr::SendAlert, this);
 }
 
 void
@@ -81,16 +81,15 @@ AlertProducerCbr::StopApplication() {
 }
 
 void
-AlertProducerCbr::sendAlert() {
+AlertProducerCbr::SendAlert() {
   doSend();
 
   Time jitter = Seconds(0);
   if (m_jitter) {
     jitter = Seconds(m_rand->GetValue());
   }
-  NS_LOG_INFO("node(" << GetNode()->GetId() << ") scheduled next alert after=" << m_interval + jitter);
   m_sendEvent =
-      Simulator::Schedule(m_interval + jitter, &AlertProducerCbr::sendAlert, this);
+      Simulator::Schedule(m_interval + jitter, &AlertProducerCbr::SendAlert, this);
 }
 
 void
@@ -118,7 +117,7 @@ AlertProducerCbr::doSend()
   encoder.appendVarNumber(m_signature);
   data->setSignatureValue(encoder.getBuffer());
 
-  NS_LOG_INFO("node(" << GetNode()->GetId() << ") pushing Alert: " << data->getName());
+  NS_LOG_INFO("Send alert: "  << data->getName());
 
   // to create real wire encoding
   data->wireEncode();

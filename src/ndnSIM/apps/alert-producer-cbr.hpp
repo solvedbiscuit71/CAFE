@@ -25,7 +25,7 @@ private:
   EventId m_sendEvent;
 
   void 
-  sendAlert();
+  SendAlert();
 
 protected:
   virtual void 

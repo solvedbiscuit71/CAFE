@@ -53,12 +53,20 @@ AlertConsumer::StopApplication() { App::StopApplication(); }
 void
 AlertConsumer::OnData(shared_ptr<const ndn::Data> data)
 {
-  NS_LOG_INFO("Alert Received: " << data->getName());
+  doReceive(data);
+
+  // Call trace source
   m_receivedDatas(data, this, m_face);
 
   // Because the previous PIT entry was satisfied and cleared,
   // we must immediately express interest again to stay "subscribed".
   RegisterInterest();
+}
+
+void
+AlertConsumer::doReceive(shared_ptr<const ndn::Data> data)
+{
+  NS_LOG_INFO("Received alert: " << data->getName());
 }
 
 void 
@@ -72,7 +80,7 @@ AlertConsumer::RegisterInterest() {
   time::milliseconds interestLifeTime(m_interestLifeTime.GetMilliSeconds());
   interest->setInterestLifetime(interestLifeTime);
 
-  NS_LOG_INFO("node(" << GetNode()->GetId() << ") express Interest: " << interest->getName());
+  NS_LOG_INFO("Inject interest: " << interest->getName());
 
   m_transmittedInterests(interest, this, m_face);
   m_appLink->onReceiveInterest(*interest);

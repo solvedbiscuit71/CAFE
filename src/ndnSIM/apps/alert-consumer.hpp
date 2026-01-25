@@ -27,6 +27,9 @@ public:
   
   virtual void 
   OnData(shared_ptr<const ndn::Data> data) override; 
+  
+  virtual void
+  doReceive(shared_ptr<const ndn::Data> data);
 
   private:
   void 
