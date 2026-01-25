@@ -1,0 +1,41 @@
+#!/usr/bin/python3
+
+import argparse
+import sys
+import os
+
+def filter_ns3_log():
+    # 1. Setup Argument Parser
+    parser = argparse.ArgumentParser(description='Filter ns-3 logs by Node ID.')
+    parser.add_argument('filename', help='Path to the log file')
+    parser.add_argument('node_id', type=str, help='The Node ID to keep (e.g., "1")')
+    
+    args = parser.parse_args()
+
+    if not os.path.exists(args.filename):
+        print(f"Error: File '{args.filename}' not found.")
+        sys.exit(1)
+
+    filtered_lines = []
+
+    # 2. Read and Filter
+    # The log format is usually: +[Time]s [NodeID] [Class]:[Function]
+    try:
+        with open(args.filename, 'r') as file:
+            for line in file:
+                parts = line.split()
+                # Check if line has enough parts and the second part is our Node ID
+                if len(parts) > 1 and parts[1] == args.node_id:
+                    filtered_lines.append(line)
+        
+        # 3. Write back to the same file
+        with open(args.filename, 'w') as file:
+            file.writelines(filtered_lines)
+            
+        print(f"Successfully filtered node {args.node_id}. {len(filtered_lines)} lines kept.")
+
+    except Exception as e:
+        print(f"An error occurred: {e}")
+
+if __name__ == "__main__":
+    filter_ns3_log()
