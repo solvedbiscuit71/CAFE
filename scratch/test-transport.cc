@@ -2,12 +2,14 @@
 #include "helper/ndn-global-routing-helper.hpp"
 #include "helper/caf-stack-helper.hpp"
 #include "helper/ndn-strategy-choice-helper.hpp"
+#include "ns3/application-container.h"
 #include "ns3/constant-velocity-mobility-model.h"
 #include "ns3/core-module.h"
 #include "ns3/mobility-helper.h"
 #include "ns3/network-module.h"
 #include "ns3/node-container.h"
 #include "ns3/node.h"
+#include "ns3/nstime.h"
 #include "ns3/object.h"
 #include "ns3/point-to-point-helper.h"
 #include "ns3/point-to-point-module.h"
@@ -96,12 +98,14 @@ main (int argc, char *argv[])
   ndn::AppHelper consumerHelper("ns3::ndn::ConsumerCbr");
   consumerHelper.SetPrefix("/prefix");
   consumerHelper.SetAttribute("Frequency", StringValue("1"));
-  consumerHelper.Install(vehicle.Get(0));
+  ApplicationContainer apps = consumerHelper.Install(vehicle.Get(0));
+  apps.Start(Seconds(1.0));
 
   ndn::AppHelper producerHelper("ns3::ndn::Producer");
   producerHelper.SetPrefix("/prefix");
   producerHelper.SetAttribute("PayloadSize", StringValue("1024"));
-  producerHelper.Install(rsu);
+  apps = producerHelper.Install(rsu);
+  apps.Start(Seconds(1.0));
 
   // * Enable NetAnim
   AnimationInterface anim ("netanim/test-transport.xml");

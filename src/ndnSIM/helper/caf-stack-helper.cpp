@@ -58,7 +58,7 @@ StackHelper::SetupRSU(Ptr<Node> node)
 
   ApplicationContainer apps = helloProducer.Install(node);
   // i.e. start time should alter to ensure consecutive RSUs don't fire at the same time
-  apps.Start(Seconds(node->GetId() % 2 == 0 ? 0.0 : 0.005));
+  apps.Start(Seconds(1.0 + (node->GetId() % 2 == 0 ? 0.0 : 0.005)));
 
   NS_LOG_DEBUG("Installed HelloProducer on node(" << node->GetId() << ")");
 }
@@ -71,7 +71,7 @@ StackHelper::SetupVehicle(Ptr<Node> node)
   helloConsumer.SetAttribute("LifeTime", StringValue("60s"));
 
   ApplicationContainer apps = helloConsumer.Install(node);
-  apps.Start(Seconds(0.0));
+  apps.Start(Seconds(1.0));
 
   NS_LOG_DEBUG("Installed HelloConsumer on node(" << node->GetId() << ")");
 }
