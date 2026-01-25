@@ -94,7 +94,7 @@ main (int argc, char *argv[])
   ndn::StrategyChoiceHelper::InstallAll("/", "/localhost/nfd/strategy/multicast");
   
   // * Install Application
-  ndn::AppHelper helloConsumer("ns3::ndn::AlertConsumer");
+  ndn::AppHelper helloConsumer("ns3::ndn::HelloConsumer");
   helloConsumer.SetAttribute("Prefix", StringValue("/alert/hello"));
   helloConsumer.SetAttribute("LifeTime", StringValue("60s"));
   helloConsumer.Install(vehicle.Get(0));
