@@ -8,6 +8,7 @@
 #include "ns3/log.h"
 #include "ns3/nstime.h"
 #include "ns3/string.h"
+#include "ns3/uinteger.h"
 #include <string>
 
 NS_LOG_COMPONENT_DEFINE("caf.StackHelper");
@@ -50,15 +51,27 @@ StackHelper::Install(NodeContainer nodes, bool SetDefaultRoutes, size_t maxCsSiz
   }
 }
 
+double
+calculateIRTF(double payloadSize, double headerSize=226, double txRate=3e6)
+{
+  // headerSize=226 based on empirical evidence
+  // IEEE802.11p standard uses txRate=3e6 (3Mbps) 
+  // +40μs buffer for propagation, preamble, and header
+  return (headerSize + payloadSize) * 8 / txRate + 40e-6;
+}
+
 void
 StackHelper::SetupRSU(Ptr<Node> node)
 {
+  double payloadSize = 256;
+
   ndn::AppHelper helloProducer("ns3::ndn::HelloProducer");
   helloProducer.SetAttribute("Prefix", StringValue("/alert/hello/rsu/" + std::to_string(node->GetId())));
+  helloProducer.SetAttribute("PayloadSize", UintegerValue(payloadSize));
 
   ApplicationContainer apps = helloProducer.Install(node);
   // i.e. start time should alter to ensure consecutive RSUs don't fire at the same time
-  apps.Start(Seconds(1.0 + (node->GetId() % 2 == 0 ? 0.0 : 0.005)));
+  apps.Start(Seconds(1.0 + (node->GetId() % 2 == 0 ? 0.0 : calculateIRTF(payloadSize))));
 
   NS_LOG_DEBUG("Installed HelloProducer on node(" << node->GetId() << ")");
 }

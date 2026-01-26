@@ -15,16 +15,16 @@ inline void
 SetupWifiNetDevice (const NodeContainer &nodes)
 {
   // 1. Setup Wireless Channel and Physical Layer
-  YansWifiChannelHelper wifiChannel = YansWifiChannelHelper::Default ();
   YansWifiPhyHelper wifiPhy;
+  YansWifiChannelHelper wifiChannel = YansWifiChannelHelper::Default ();
   wifiPhy.SetChannel (wifiChannel.Create ());
 
   // 2. Setup WiFi MAC and Standard
   WifiHelper wifi;
   wifi.SetStandard (WIFI_STANDARD_80211p);
-  wifi.SetRemoteStationManager ("ns3::ConstantRateWifiManager", "DataMode",
-                                StringValue ("OfdmRate9Mbps"), "ControlMode",
-                                StringValue ("OfdmRate9Mbps"));
+  wifi.SetRemoteStationManager ("ns3::ConstantRateWifiManager",
+                                "DataMode", StringValue ("OfdmRate6Mbps"),
+                                "ControlMode", StringValue ("OfdmRate6Mbps"));
 
   WifiMacHelper wifiMac;
   wifiMac.SetType ("ns3::AdhocWifiMac");

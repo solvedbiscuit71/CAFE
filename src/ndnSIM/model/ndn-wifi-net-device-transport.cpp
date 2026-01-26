@@ -119,9 +119,6 @@ WifiNetDeviceTransport::doClose()
 void
 WifiNetDeviceTransport::doSend(const Block& packet)
 {
-  NS_LOG_FUNCTION(this << "Sending packet from netDevice with URI"
-                  << this->getLocalUri());
-
   // convert NFD packet to NS3 packet
   BlockHeader header(packet);
   caf::NodeTypeHeader nodeType(m_nodeType);
@@ -129,6 +126,9 @@ WifiNetDeviceTransport::doSend(const Block& packet)
   Ptr<ns3::Packet> ns3Packet = Create<ns3::Packet>();
   ns3Packet->AddHeader(header);
   ns3Packet->AddHeader(nodeType);
+
+  NS_LOG_DEBUG("Sending packet(size="<< ns3Packet->GetSize() << ") "
+               << "from netDevice with URI" << this->getLocalUri());
 
   // send the NS3 packet
   m_netDevice->Send(ns3Packet, m_remoteAddress,
