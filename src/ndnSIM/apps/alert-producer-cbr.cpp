@@ -20,37 +20,31 @@ TypeId AlertProducerCbr::GetTypeId(void) {
           .SetGroupName("Caf")
           .SetParent<App>()
           .AddConstructor<AlertProducerCbr>()
-          .AddAttribute(
-              "Prefix", "Prefix to use for alerts", StringValue("/alert"),
-              MakeNameAccessor(&AlertProducerCbr::m_prefix), MakeNameChecker())
+          .AddAttribute("Prefix", "Prefix to use for alerts",
+                        StringValue("/alert"),
+                        MakeNameAccessor(&AlertProducerCbr::m_prefix),
+                        MakeNameChecker())
           .AddAttribute("Interval", "Interval between alerts",
-                        TimeValue(Seconds(1.0)),
+                        StringValue("1s"),
                         MakeTimeAccessor(&AlertProducerCbr::m_interval),
                         MakeTimeChecker())
           .AddAttribute("EnableJitter", "Add jitter to prevent hidden terminal problem",
                         BooleanValue(false),
                         MakeBooleanAccessor(&AlertProducerCbr::m_jitter),
                         MakeBooleanChecker())
-          .AddAttribute(
-              "PayloadSize", "Virtual payload size for Content packets",
-              UintegerValue(1024),
-              MakeUintegerAccessor(&AlertProducerCbr::m_virtualPayloadSize),
-              MakeUintegerChecker<uint32_t>())
-          .AddAttribute(
-              "Freshness",
-              "Freshness of data packets, if 0, then unlimited freshness",
-              TimeValue(Seconds(0)),
-              MakeTimeAccessor(&AlertProducerCbr::m_freshness),
-              MakeTimeChecker())
-          .AddAttribute("Signature",
-                        "Fake signature, 0 valid signature (default), other "
-                        "values application-specific",
+          .AddAttribute("PayloadSize", "Virtual payload size for Content packets",
+                        UintegerValue(1024),
+                        MakeUintegerAccessor(&AlertProducerCbr::m_virtualPayloadSize),
+                        MakeUintegerChecker<uint32_t>())
+          .AddAttribute("Freshness", "Freshness of data packets, if 0, then unlimited freshness",
+                        StringValue("0s"),
+                        MakeTimeAccessor(&AlertProducerCbr::m_freshness),
+                        MakeTimeChecker())
+          .AddAttribute("Signature", "Fake signature, 0 valid signature (default), other values application-specific",
                         UintegerValue(0),
                         MakeUintegerAccessor(&AlertProducerCbr::m_signature),
                         MakeUintegerChecker<uint32_t>())
-          .AddAttribute("KeyLocator",
-                        "Name to be used for key locator.  If root, then key "
-                        "locator is not used",
+          .AddAttribute("KeyLocator", "Name to be used for key locator.  If root, then key locator is not used",
                         NameValue(),
                         MakeNameAccessor(&AlertProducerCbr::m_keyLocator),
                         MakeNameChecker());

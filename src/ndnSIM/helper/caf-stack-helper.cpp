@@ -67,6 +67,7 @@ StackHelper::SetupRSU(Ptr<Node> node)
 
   ndn::AppHelper helloProducer("ns3::ndn::HelloProducer");
   helloProducer.SetAttribute("Prefix", StringValue("/alert/hello/rsu/" + std::to_string(node->GetId())));
+  helloProducer.SetAttribute("Interval", StringValue("1s"));
   helloProducer.SetAttribute("PayloadSize", UintegerValue(payloadSize));
 
   ApplicationContainer apps = helloProducer.Install(node);
@@ -81,7 +82,7 @@ StackHelper::SetupVehicle(Ptr<Node> node)
 {
   ndn::AppHelper helloConsumer("ns3::ndn::HelloConsumer");
   helloConsumer.SetAttribute("Prefix", StringValue("/alert/hello/rsu"));
-  helloConsumer.SetAttribute("LifeTime", StringValue("60s"));
+  helloConsumer.SetAttribute("LifeTime", StringValue("3s"));
 
   ApplicationContainer apps = helloConsumer.Install(node);
   apps.Start(Seconds(1.0));

@@ -19,11 +19,12 @@ TypeId AlertConsumer::GetTypeId(void) {
           .SetGroupName("Caf")
           .SetParent<App>()
           .AddConstructor<AlertConsumer>()
-          .AddAttribute(
-              "Prefix", "Prefix to use for alerts", StringValue("/alert"),
-              MakeNameAccessor(&AlertConsumer::m_prefix), MakeNameChecker())
+          .AddAttribute("Prefix", "Prefix to use for alerts",
+                        StringValue("/alert"),
+                        MakeNameAccessor(&AlertConsumer::m_prefix),
+                        MakeNameChecker())
           .AddAttribute("LifeTime", "LifeTime for interest packet",
-                        StringValue("2s"),
+                        StringValue("60s"),
                         MakeTimeAccessor(&AlertConsumer::m_interestLifeTime),
                         MakeTimeChecker());
 
@@ -34,6 +35,11 @@ AlertConsumer::AlertConsumer()
   : m_rand(CreateObject<UniformRandomVariable>())
 {
 
+}
+
+AlertConsumer::~AlertConsumer()
+{
+  Simulator::Cancel(m_eventId);
 }
 
 void
@@ -81,6 +87,24 @@ AlertConsumer::RegisterInterest() {
 
   m_transmittedInterests(interest, this, m_face);
   m_appLink->onReceiveInterest(*interest);
+  
+  Simulator::Cancel(m_eventId);
+  m_eventId = Simulator::Schedule(m_interestLifeTime, &AlertConsumer::OnTimeout, this);
+}
+
+void
+AlertConsumer::OnTimeout() {
+ if (handleTimeout()) {
+   RegisterInterest();
+ }
+}
+
+bool
+AlertConsumer::handleTimeout() {
+ NS_LOG_DEBUG("Interest timeout: " << m_prefix);
+ 
+ // By default, all re-inject the interest
+ return true;
 }
 
 } // namespace ndn

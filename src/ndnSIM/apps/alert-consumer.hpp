@@ -17,6 +17,8 @@ public:
   GetTypeId(void);
 
   AlertConsumer();
+  
+  virtual ~AlertConsumer();
 
   protected:
   virtual void 
@@ -28,16 +30,30 @@ public:
   virtual void 
   OnData(shared_ptr<const ndn::Data> data) override; 
   
+  /**
+   * \brief doReceive should be override by subclass
+   */
   virtual void
   doReceive(shared_ptr<const ndn::Data> data);
+
+  /**
+   * \brief handleTimeout should be override by subclass
+   * Returns true to re-inject the interest
+   */
+  virtual bool
+  handleTimeout();
 
   private:
   void 
   RegisterInterest();
+  
+  void
+  OnTimeout();
 
   Ptr<UniformRandomVariable> m_rand;
   Name m_prefix;
   Time m_interestLifeTime;
+  EventId m_eventId;
 };
 
 } // namespace ndn
