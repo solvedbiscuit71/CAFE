@@ -18,7 +18,11 @@
  **/
 
 #include "caf-context.hpp"
+
+#include "ns3/log.h"
 #include "ns3/mac48-address.h"
+
+NS_LOG_COMPONENT_DEFINE("caf.Context");
 
 namespace ns3 {
 namespace caf {
@@ -26,7 +30,7 @@ namespace caf {
 TypeId 
 Context::GetTypeId(void)
 {
-  static TypeId tid = TypeId("ns3::CafContext")
+  static TypeId tid = TypeId("caf::Context")
     .SetGroupName("Caf")
     .SetParent<Object>()
     .AddConstructor<Context>()
@@ -37,21 +41,22 @@ Context::GetTypeId(void)
 void
 setupContext(Ptr<Node> node, std::function<void(Ptr<Context>)> configCallback)
 {
-    ns3::Ptr<Context> context = CreateObject<Context>();
-    configCallback(context);
-    node->AggregateObject(context);
+    Ptr<Context> ctx = node->GetObject<Context>();
+    if (!ctx) {
+      ctx = CreateObject<Context>();
+      node->AggregateObject(ctx);
+    }
+    configCallback(ctx);
+    NS_LOG_DEBUG("Configured context object on node ("<< node->GetId() <<")");
 }
 
 void
 setupContext(NodeContainer container, 
                 std::function<void(Ptr<Context>)> configCallback) 
 {
-    for (auto it = container.Begin(); it != container.End(); ++it) {
-        ns3::Ptr<Node> node = *it;
-        ns3::Ptr<Context> context = CreateObject<Context>();
-        configCallback(context);
-        node->AggregateObject(context);
-    }
+  for (auto it = container.Begin(); it != container.End(); ++it) {
+    setupContext(*it, configCallback);
+  }
 }
 
 TypeId 

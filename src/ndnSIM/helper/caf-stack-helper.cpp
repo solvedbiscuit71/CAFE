@@ -26,14 +26,23 @@ StackHelper::Install(NodeContainer nodes, bool SetDefaultRoutes, size_t maxCsSiz
 {
   m_helper.SetDefaultRoutes(SetDefaultRoutes);
   m_helper.setCsSize(maxCsSize);
-  m_helper.Install(nodes);
 
-  for (NodeContainer::Iterator i = nodes.Begin(); i != nodes.End(); ++i) {
-    Ptr<Node> node = *i;
+  for (NodeContainer::Iterator it = nodes.Begin(); it != nodes.End(); ++it) {
+    Ptr<Node> node = *it;
 
     Ptr<Context> ctx = node->GetObject<caf::Context>();
     NS_ABORT_MSG_IF(!ctx, "CafContext must be aggregated to the node before calling CafStackHelper");
     
+    // skip setup on inactive nodes
+    if (ctx && ctx->GetNodeStatus() == caf::NODE_STATUS_INACTIVE) {
+      NS_LOG_DEBUG("Skip setup on node("<< node->GetId() <<")");
+      continue;
+    }
+
+    // install L3Protocol stack
+    m_helper.Install(node);
+    
+    // install application
     switch (ctx->GetNodeType()) {
       case NODE_TYPE_VEHICLE:
         SetupVehicle(node);

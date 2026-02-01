@@ -30,29 +30,40 @@ namespace ns3 {
 namespace caf {
 
 enum NodeType : uint8_t {
-  NODE_TYPE_NONE      = std::numeric_limits<uint8_t>::max(),
-  NODE_TYPE_VEHICLE   = 0,
-  NODE_TYPE_RSU       = 1,
-  NODE_TYPE_BACKBONE  = 2,
+  NODE_TYPE_NONE      = 0,
+  NODE_TYPE_VEHICLE   = 1,
+  NODE_TYPE_RSU       = 2,
+  NODE_TYPE_BACKBONE  = 3,
+};
+
+enum NodeStatus : uint8_t {
+  NODE_STATUS_UNKNOWN  = 0,
+  NODE_STATUS_ACTIVE   = 1,
+  NODE_STATUS_INACTIVE = 2,
 };
 
 enum TransportFilter : uint8_t {
-  ALLOW_ALL       = std::numeric_limits<uint8_t>::max(),
-  ALLOW_SAME      = 0,
-  ALLOW_DIFFERENT = 1,
+  ALLOW_ALL       = 0,
+  ALLOW_SAME      = 1,
+  ALLOW_DIFFERENT = 2,
 };
 
 class Context : public Object {
 public:
   static TypeId GetTypeId (void);
   
-  Context() : m_type(NODE_TYPE_NONE) {}
+  Context() 
+    : m_type(NODE_TYPE_NONE), m_status(NODE_STATUS_UNKNOWN) {}
   
   void SetNodeType(NodeType type) { m_type = type; }
   NodeType GetNodeType() const { return m_type; }
+  
+  void SetNodeStatus(NodeStatus status) { m_status = status; }
+  NodeStatus GetNodeStatus() const { return m_status; }
 
 private:
   NodeType m_type;
+  NodeStatus m_status;
 };
 
 void
