@@ -23,6 +23,12 @@ public:
 StackHelper();
 virtual ~StackHelper();
 
+bool
+getEnableHello();
+
+void
+setEnableHello(bool enableHello);
+
 void
 Install(NodeContainer nodes,
         bool SetDefaultRoutes = false,
@@ -39,6 +45,7 @@ void
 SetupBackbone(Ptr<Node> node);
 
 ndn::StackHelper m_helper;
+bool m_enableHello;
 
 };
 

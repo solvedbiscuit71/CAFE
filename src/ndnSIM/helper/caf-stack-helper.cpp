@@ -17,9 +17,16 @@ namespace ns3 {
 namespace caf {
 
 StackHelper::StackHelper() 
-  : m_helper() {}
+  : m_helper(), m_enableHello(false) {}
 
 StackHelper::~StackHelper() {}
+
+
+bool
+StackHelper::getEnableHello() { return m_enableHello; }
+
+void
+StackHelper::setEnableHello(bool enableHello) { m_enableHello = enableHello; }
 
 void
 StackHelper::Install(NodeContainer nodes, bool SetDefaultRoutes, size_t maxCsSize)
@@ -72,6 +79,10 @@ calculateIRTF(double payloadSize, double headerSize=226, double txRate=3e6)
 void
 StackHelper::SetupRSU(Ptr<Node> node)
 {
+  // guard condition
+  if (!m_enableHello)
+    return;
+
   double payloadSize = 256;
 
   ndn::AppHelper helloProducer("ns3::ndn::HelloProducer");
@@ -89,6 +100,10 @@ StackHelper::SetupRSU(Ptr<Node> node)
 void
 StackHelper::SetupVehicle(Ptr<Node> node) 
 {
+  // guard condition
+  if (!m_enableHello)
+    return;
+
   ndn::AppHelper helloConsumer("ns3::ndn::HelloConsumer");
   helloConsumer.SetAttribute("Prefix", StringValue("/alert/hello/rsu"));
   helloConsumer.SetAttribute("LifeTime", StringValue("3s"));
