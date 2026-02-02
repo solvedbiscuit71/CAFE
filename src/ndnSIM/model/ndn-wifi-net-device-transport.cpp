@@ -138,15 +138,17 @@ WifiNetDeviceTransport::doSend(const Block& packet)
 inline bool
 dropPacket(caf::TransportFilter filter, caf::NodeType n1, caf::NodeType n2)
 {
-  /*
-   * when filter == ALLOW_SAME (0)
-   *    if n1 == n2 then x = 1 (return 0)
-   *    if n1 != n2 then x = 0 (return 1)
-   * when filter == ALLOW_DIFFERENT (1)
-   *    if n1 == n2 then x = 1 (return 1)
-   *    if n1 != n2 then x = 0 (return 0)
-   */
-  return (n1 == n2) == filter;
+  switch (filter) {
+    case caf::ALLOW_SAME:
+      // drop if n1 is not same as n2
+      return n1 != n2;
+    case caf::ALLOW_DIFFERENT:
+      // drop if n1 is same as n2
+      return n1 == n2;
+    case caf::ALLOW_ALL:
+    default:
+      return false;
+  }
 }
 
 // callback
@@ -171,8 +173,14 @@ WifiNetDeviceTransport::receiveFromNetDevice(Ptr<NetDevice> device,
   packet->RemoveHeader(senderNodeType);
   
   if (m_filter != caf::ALLOW_ALL && dropPacket(m_filter, m_nodeType, senderNodeType.GetNodeType())) {
-    NS_LOG_LOGIC("Dropping packet: Filter rejected");
+    NS_LOG_DEBUG("Filter rejected (" << (int)m_filter << ","
+                                     << (int)m_nodeType << ","
+                                     << (int)senderNodeType.GetNodeType() << "): Drop packet");
     return;
+  } else {
+    NS_LOG_DEBUG("Filter accepted (" << (int)m_filter << ","
+                                     << (int)m_nodeType << ","
+                                     << (int)senderNodeType.GetNodeType() << "): Forward packet");
   }
 
   BlockHeader header;
