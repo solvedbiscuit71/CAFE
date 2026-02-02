@@ -83,7 +83,12 @@ StackHelper::SetupRSU(Ptr<Node> node)
   if (!m_enableHello)
     return;
 
-  double payloadSize = 256;
+  /**
+   * BSM (Basic Safety Message) are typically very small 50-100 bytes.
+   * Given, current use case doesn't use the data content, we will restrict it
+   * to 64 bytes.
+   */
+  double payloadSize = 64;
 
   ndn::AppHelper helloProducer("ns3::ndn::HelloProducer");
   helloProducer.SetAttribute("Prefix", StringValue("/alert/hello/rsu/" + std::to_string(node->GetId())));

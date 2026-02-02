@@ -40,7 +40,6 @@ double h(double r, double w, double delta) {
 int
 main (int argc, char *argv[])
 {
-
   // * Read optional command-line parameters
   // CommandLine cmd;
   // cmd.Parse (argc, argv);
@@ -58,7 +57,7 @@ main (int argc, char *argv[])
   rsu.Get(1)->GetObject<caf::Context>()->SetNodeStatus(caf::NODE_STATUS_INACTIVE);
   
   NodeContainer vehicle;
-  vehicle.Create(1);
+  vehicle.Create(2);
   caf::setupContext(vehicle, [](Ptr<caf::Context> ctx) {
     ctx->SetNodeType(caf::NODE_TYPE_VEHICLE);
     ctx->SetNodeStatus(caf::NODE_STATUS_ACTIVE);
@@ -82,6 +81,11 @@ main (int argc, char *argv[])
   vehicle0Mobility->SetVelocity(Vector(24.0, 0.0, 0.0));
   vehicle.Get(0)->AggregateObject(vehicle0Mobility);
 
+  Ptr<ConstantVelocityMobilityModel> vehicle1Mobility = CreateObject<ConstantVelocityMobilityModel>();
+  vehicle1Mobility->SetPosition(Vector (20.0, 0.0, 0.0));
+  vehicle1Mobility->SetVelocity(Vector(24.0, 0.0, 0.0));
+  vehicle.Get(1)->AggregateObject(vehicle1Mobility);
+
   // * Install Network Stack
   SetDefaultP2PConfig();
   PointToPointHelper p2p;
@@ -94,11 +98,29 @@ main (int argc, char *argv[])
   SetupWifiNetDevice(adhocNodes);
 
   caf::StackHelper stackHelper;
+  stackHelper.setEnableHello(true); // enable hello producer and consumer
   stackHelper.Install(rsu);
   stackHelper.Install(vehicle, true);
 
   ndn::StrategyChoiceHelper::Install(vehicle, "/", "/localhost/nfd/strategy/multicast");
 
+  ndn::AppHelper consumerHelper("ns3::ndn::ConsumerCbr");
+  // Consumer will request /prefix/0, /prefix/1, ...
+  consumerHelper.SetPrefix("/prefix");
+  consumerHelper.SetAttribute("Frequency", StringValue("1"));
+  auto apps = consumerHelper.Install(vehicle.Get(0));
+
+  apps.Start(Seconds(1.0)); // start the consumer app at 1 second mark
+  apps.Stop(Seconds(10.0)); // stop the consumer app at 10 seconds mark
+
+  ndn::AppHelper producerHelper("ns3::ndn::Producer");
+  // Producer will reply to all requests starting with /prefix
+  producerHelper.SetPrefix("/prefix");
+  producerHelper.SetAttribute("PayloadSize", StringValue("1024"));
+  producerHelper.Install(vehicle.Get(1));
+  producerHelper.Install(rsu.Get(0));
+  producerHelper.Install(rsu.Get(2));
+  
   // * Enable NetAnim
   AnimationInterface anim ("netanim/scratch.xml");
 

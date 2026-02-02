@@ -162,7 +162,7 @@ WifiNetDeviceTransport::receiveFromNetDevice(Ptr<NetDevice> device,
   NS_LOG_FUNCTION(device << p << protocol << from << to << packetType);
   
   if (to != m_remoteAddress) {
-    NS_LOG_LOGIC("Dropping packet: Destination address " << to << " does not match remote address " << m_remoteAddress);    
+    NS_LOG_DEBUG("Dropping packet: Destination address " << to << " does not match remote address " << m_remoteAddress);    
     return;
   }
 
