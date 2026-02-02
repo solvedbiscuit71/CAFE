@@ -1,7 +1,35 @@
 #!/bin/bash
 
-NS_LOG="ndn.HelloConsumer:ndn.HelloProducer:ndn.Consumer:ndn.Producer" ./waf --run="$1" 2> hello.log
-NS_LOG="ndn.Consumer:ndn.Producer" ./waf --run="$1" 2> app.log
-NS_LOG="ndn.WifiNetDeviceTransport:WifiNetDevice" ./waf --run="$1" 2> wifi.log
-NS_LOG="YansWifiPhy:YansWifiChannel" ./waf --run="$1" 2> phy.log
-NS_LOG="InterferenceHelper" ./waf --run="$1" 2> inf.log
+# Define log components
+log_components=(
+  "caf.StackHelper"
+  "caf.Context"
+
+  "ndn.StackHelper"
+  "ndn.FibHelper"
+
+  "ndn.Consumer"
+  "ndn.Producer"
+  "ndn.AlertConsumer"
+  "ndn.AlertProducer"
+  "ndn.HelloConsumer"
+  "ndn.HelloProducer"
+  
+  "ndn-cxx.nfd.Forwarder"
+
+  "ndn.WifiNetDeviceTransport"
+  "WifiNetDevice"
+
+  "YansWifiPhy"
+  "YansWifiChannel"
+  "InterferenceHelper"
+)
+
+# Save the old IFS, set the new one to ':', join, then restore IFS
+saved_ifs=$IFS
+IFS=":"
+component_names="${log_components[*]}"
+IFS=$saved_ifs
+
+# Run ns3
+NS_LOG="$component_names" ./waf --run="$1" 2> "export.log"

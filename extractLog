@@ -4,38 +4,57 @@ import argparse
 import sys
 import os
 
-def filter_ns3_log():
-    # 1. Setup Argument Parser
-    parser = argparse.ArgumentParser(description='Filter ns-3 logs by Node ID.')
-    parser.add_argument('filename', help='Path to the log file')
-    parser.add_argument('node_id', type=str, help='The Node ID to keep (e.g., "1")')
-    
-    args = parser.parse_args()
+log_components={ 
+  "caf.StackHelper": "csh",
+  "caf.Context": "cc",
 
-    if not os.path.exists(args.filename):
-        print(f"Error: File '{args.filename}' not found.")
-        sys.exit(1)
+  "ndn.StackHelper": "nsh",
+  "ndn.FibHelper": "nfh",
 
-    filtered_lines = []
+  "ndn.Consumer": "nc",
+  "ndn.Producer": "np",
+  "ndn.AlertConsumer": "nac",
+  "ndn.AlertProducer": "nap",
+  "ndn.HelloConsumer": "nhc",
+  "ndn.HelloProducer": "nhp",
 
-    # 2. Read and Filter
-    # The log format is usually: +[Time]s [NodeID] [Class]:[Function]
-    try:
-        with open(args.filename, 'r') as file:
-            for line in file:
-                parts = line.split()
-                # Check if line has enough parts and the second part is our Node ID
-                if len(parts) > 1 and parts[1] == args.node_id:
-                    filtered_lines.append(line)
-        
-        # 3. Write back to the same file
-        with open(args.filename, 'w') as file:
-            file.writelines(filtered_lines)
-            
-        print(f"Successfully filtered node {args.node_id}. {len(filtered_lines)} lines kept.")
+  "ndn-cxx.nfd.Forwarder": "nfd",
 
-    except Exception as e:
-        print(f"An error occurred: {e}")
+  "ndn.WifiNetDeviceTransport": "wndt",
+  "WifiNetDevice": "wnd",
 
-if __name__ == "__main__":
-    filter_ns3_log()
+  "YansWifiPhy": "ywp",
+  "YansWifiChannel": "ywc",
+  "InterferenceHelper": "ih",
+}
+
+# 1. Setup Argument Parser
+parser = argparse.ArgumentParser()
+parser.add_argument('components', nargs='+', choices=list(log_components.values()), help='Components to filter')
+
+args = parser.parse_args()
+
+filename = "export.log"
+components = set(args.components)
+
+if not os.path.exists(filename):
+    print(f"Error: File '{filename}' not found.")
+    sys.exit(1)
+
+filtered_lines = []
+
+# 2. Read and Filter
+# The log format is usually: +[Time]s [NodeID] [Class]:[Function]
+try:
+    with open(filename, 'r') as file, open('extract.log','w') as tee:
+        for line in file:
+            parts = line.split()
+            # Check if line has enough parts (minimum 3) and the third part is contains class:function
+            if len(parts) > 2:
+                class_name = parts[2].split(':')[0]
+                short_hand = log_components[class_name]
+                if short_hand in components:
+                    tee.write(line)
+                    print(line, end='')
+except Exception as e:
+    print(f"An error occurred: {e}")
