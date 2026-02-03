@@ -7,6 +7,7 @@
 #include "ns3/string.h"
 #include "ns3/wifi-module.h"
 #include "ns3/config.h"
+#include "model/caf-context.hpp"
 #include "ns3/netanim-module.h"
 
 namespace ns3 {
@@ -30,7 +31,13 @@ SetupWifiNetDevice (const NodeContainer &nodes)
   wifiMac.SetType ("ns3::AdhocWifiMac");
 
   // 3. Install WiFi on Nodes
-  NetDeviceContainer devices = wifi.Install (wifiPhy, wifiMac, nodes);
+  for (auto it = nodes.Begin(); it != nodes.End(); ++it) {
+    auto node = *it;
+    Ptr<caf::Context> ctx = node->GetObject<caf::Context>();
+    if (ctx && ctx->GetNodeStatus() == caf::NODE_STATUS_ACTIVE) {
+      wifi.Install (wifiPhy, wifiMac, node);
+    }
+  }
 }
 
 inline void

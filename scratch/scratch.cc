@@ -91,8 +91,9 @@ main (int argc, char *argv[])
   // * Install Network Stack
   SetDefaultP2PConfig();
   PointToPointHelper p2p;
-  p2p.Install(rsu.Get(0), rsu.Get(1));
-  p2p.Install(rsu.Get(1), rsu.Get(2));
+  // @assume RSU1 is under maintainence
+  // p2p.Install(rsu.Get(0), rsu.Get(1));
+  // p2p.Install(rsu.Get(1), rsu.Get(2));
   
   NodeContainer adhocNodes;
   adhocNodes.Add(vehicle);
