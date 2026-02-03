@@ -10,9 +10,11 @@
 #include "ns3/network-module.h"
 #include "ns3/node-container.h"
 #include "ns3/node.h"
+#include "ns3/nstime.h"
 #include "ns3/object.h"
 #include "ns3/point-to-point-helper.h"
 #include "ns3/point-to-point-module.h"
+#include "ns3/random-variable-stream.h"
 #include "ns3/string.h"
 #include "ns3/vector.h"
 #include "ns3/wifi-module.h"
@@ -109,8 +111,20 @@ main (int argc, char *argv[])
   consumerHelper.SetPrefix("/prefix");
   consumerHelper.SetAttribute("Frequency", StringValue("1"));
   auto apps = consumerHelper.Install(vehicle.Get(0));
+  
+  /**
+   * To model real world scenario, we need to add randomness to the equation.
+   */
+  Ptr<NormalRandomVariable> rng = CreateObject<NormalRandomVariable>();
+  rng->SetAttribute("Mean", DoubleValue(0.0));
+  rng->SetAttribute("Variance", DoubleValue(0.0001)); // std = 10ms; var = 0.01 ^ 2 = 0.0001
 
-  apps.Start(Seconds(1.0)); // start the consumer app at 1 second mark
+
+  // start the consumer app at random seconds
+  for (auto it = apps.Begin(); it != apps.End(); ++it) {
+    auto app = *it;
+    app->SetStartTime(Seconds(1.0 + rng->GetValue()));
+  }
   apps.Stop(Seconds(10.0)); // stop the consumer app at 10 seconds mark
 
   ndn::AppHelper producerHelper("ns3::ndn::Producer");

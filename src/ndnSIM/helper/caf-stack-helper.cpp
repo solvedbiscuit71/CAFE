@@ -92,12 +92,20 @@ StackHelper::SetupRSU(Ptr<Node> node)
 
   ndn::AppHelper helloProducer("ns3::ndn::HelloProducer");
   helloProducer.SetAttribute("Prefix", StringValue("/alert/hello/rsu/" + std::to_string(node->GetId())));
-  helloProducer.SetAttribute("Interval", StringValue("1s"));
+  helloProducer.SetAttribute("Interval", StringValue("200ms"));
   helloProducer.SetAttribute("PayloadSize", UintegerValue(payloadSize));
 
   ApplicationContainer apps = helloProducer.Install(node);
   // i.e. start time should alter to ensure consecutive RSUs don't fire at the same time
-  apps.Start(Seconds(1.0 + (node->GetId() % 2 == 0 ? 0.0 : calculateIRTF(payloadSize))));
+  // apps.Start(Seconds(1.0 + (node->GetId() % 2 == 0 ? 0.0 : calculateIRTF(payloadSize))));
+  
+  /**
+   * Even RSU are phase 0ms while odd RSU are phase 50ms
+   * which means
+   * even RSU := 0,    200,    400,    600, ...
+   * odd RSU :=    100,    300,    500,    700, ...
+   */
+  apps.Start(Seconds(1.0 + (node->GetId() % 2 == 0 ? 0.0 : 0.1)));
 
   NS_LOG_DEBUG("Installed HelloProducer on node(" << node->GetId() << ")");
 }
