@@ -119,7 +119,7 @@ StackHelper::SetupVehicle(Ptr<Node> node)
 
   ndn::AppHelper helloConsumer("ns3::ndn::HelloConsumer");
   helloConsumer.SetAttribute("Prefix", StringValue("/alert/hello/rsu"));
-  helloConsumer.SetAttribute("LifeTime", StringValue("3s"));
+  helloConsumer.SetAttribute("LifeTime", StringValue("500ms"));
 
   ApplicationContainer apps = helloConsumer.Install(node);
   apps.Start(Seconds(1.0));

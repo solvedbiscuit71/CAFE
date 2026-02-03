@@ -1,5 +1,5 @@
 #include "hello-consumer.hpp"
-#include "src/ndnSIM/apps/alert-consumer.hpp"
+#include "ns3/simulator.h"
 
 NS_LOG_COMPONENT_DEFINE("ndn.HelloConsumer");
 
@@ -25,7 +25,18 @@ HelloConsumer::HelloConsumer()
 void
 HelloConsumer::doReceive(shared_ptr<const ndn::Data> data)
 {
-  NS_LOG_INFO("Received hello: " << data->getName());
+  NS_LOG_INFO("Received message: " << data->getName());
+  
+  m_lastReceived = Simulator::Now();
+}
+
+bool
+HelloConsumer::handleTimeout()
+{
+  NS_LOG_INFO("Timeout: last message received at " << m_lastReceived.GetSeconds());
+
+  // re-inject the interest
+  return true;
 }
 
 } // namespace ndn

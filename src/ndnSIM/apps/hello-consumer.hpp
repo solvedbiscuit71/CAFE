@@ -2,6 +2,7 @@
 #define HELLO_CONSUMER_HPP
 
 #include "ns3/ndnSIM/apps/alert-consumer.hpp"
+#include "ns3/nstime.h"
 
 namespace ns3 {
   
@@ -13,9 +14,15 @@ public:
 
   HelloConsumer();
 
-  protected:
+protected:
   virtual void
   doReceive(shared_ptr<const ndn::Data> data) override;
+
+  virtual bool
+  handleTimeout() override;
+  
+private:
+  Time m_lastReceived;
 };
 
 } // namespace ndn
