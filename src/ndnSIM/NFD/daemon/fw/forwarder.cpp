@@ -38,6 +38,15 @@
 
 #include "face/null-face.hpp"
 
+/**
+ * ns3 namespace
+ */
+#include "ns3/simulator.h"
+#include "ns3/node-list.h"
+#include "ns3/node.h"
+#include "ns3/ptr.h"
+#include "model/caf-context.hpp"
+
 namespace nfd {
 
 NFD_LOG_INIT(Forwarder);
@@ -96,6 +105,8 @@ Forwarder::~Forwarder() = default;
 void
 Forwarder::onIncomingInterest(const Interest& interest, const FaceEndpoint& ingress)
 {
+  static const Name alertPrefix("/alert");
+
   // receive Interest
   NFD_LOG_DEBUG("onIncomingInterest in=" << ingress << " interest=" << interest.getName());
   interest.setTag(make_shared<lp::IncomingFaceIdTag>(ingress.face.getId()));
@@ -156,9 +167,20 @@ Forwarder::onIncomingInterest(const Interest& interest, const FaceEndpoint& ingr
     return;
   }
   
-  // is interest for alert?
-  static const Name alertPrefix("/alert");
-  if (alertPrefix.isPrefixOf(interest.getName())) {
+  // resolve the ns-3 Node and Context
+  uint32_t nodeId = ns3::Simulator::GetContext();
+  ns3::Ptr<ns3::Node> node = nullptr;
+  ns3::Ptr<ns3::caf::Context> ctx = nullptr;
+
+  if (nodeId != 0xffffffff) { 
+    node = ns3::NodeList::GetNode(nodeId);
+  }
+  if (node != nullptr) {
+    ctx = node->GetObject<ns3::caf::Context>();
+  }
+  
+  // is interest for alert and context exists?
+  if (alertPrefix.isPrefixOf(interest.getName()) && ctx) {
     // insert in-record
     pitEntry->insertOrUpdateInRecord(ingress.face, interest);
 
@@ -422,9 +444,21 @@ void
 Forwarder::onDataUnsolicited(const Data& data, const FaceEndpoint& ingress)
 {
   static const Name alertPrefix("/alert");
-  
-  // is data an alert packet?
-  if (alertPrefix.isPrefixOf(data.getName())) {
+
+  // resolve the ns-3 Node and Context
+  uint32_t nodeId = ns3::Simulator::GetContext();
+  ns3::Ptr<ns3::Node> node = nullptr;
+  ns3::Ptr<ns3::caf::Context> ctx = nullptr;
+
+  if (nodeId != 0xffffffff) { 
+    node = ns3::NodeList::GetNode(nodeId);
+  }
+  if (node != nullptr) {
+    ctx = node->GetObject<ns3::caf::Context>();
+  }
+
+  // is data an alert packet and context exists?
+  if (alertPrefix.isPrefixOf(data.getName()) && ctx) {
     NFD_LOG_DEBUG("onDataUnsolicited in=" << ingress << " data=" << data.getName()
                   << " decision=PUSH");
 
