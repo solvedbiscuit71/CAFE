@@ -19,8 +19,14 @@ TypeId HelloConsumer::GetTypeId(void) {
   return tid;
 }
 
-HelloConsumer::HelloConsumer()
-{ }
+void
+HelloConsumer::StartApplication()
+{
+  AlertConsumer::StartApplication();
+
+  Ptr<Node> node = this->GetNode();
+  m_ctx = node->GetObject<caf::Context>();
+}
 
 void
 HelloConsumer::doReceive(shared_ptr<const ndn::Data> data)
@@ -28,12 +34,14 @@ HelloConsumer::doReceive(shared_ptr<const ndn::Data> data)
   NS_LOG_INFO("Received message: " << data->getName());
   
   m_lastReceived = Simulator::Now();
+  m_ctx->SetReceivedHello(true);
 }
 
 bool
 HelloConsumer::handleTimeout()
 {
   NS_LOG_INFO("Timeout: last message received at " << m_lastReceived.GetSeconds());
+  m_ctx->SetReceivedHello(false);
 
   // re-inject the interest
   return true;

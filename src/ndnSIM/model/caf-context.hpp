@@ -53,17 +53,21 @@ public:
   static TypeId GetTypeId (void);
   
   Context() 
-    : m_type(NODE_TYPE_NONE), m_status(NODE_STATUS_UNKNOWN) {}
+    : m_type(NODE_TYPE_NONE), m_status(NODE_STATUS_UNKNOWN), m_receivedHello(false) {}
   
   void SetNodeType(NodeType type) { m_type = type; }
   NodeType GetNodeType() const { return m_type; }
   
   void SetNodeStatus(NodeStatus status) { m_status = status; }
   NodeStatus GetNodeStatus() const { return m_status; }
+  
+  void SetReceivedHello(bool receivedHello) { m_receivedHello = receivedHello; }
+  bool GetReceivedHello() { return m_receivedHello; }
 
 private:
   NodeType m_type;
   NodeStatus m_status;
+  bool m_receivedHello;
 };
 
 void
