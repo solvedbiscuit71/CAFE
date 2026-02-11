@@ -42,6 +42,7 @@ Context::GetTypeId(void)
 const std::string Context::V2V_FACE = "V2V";
 const std::string Context::V2I_FACE = "V2I";
 const std::string Context::V2X_FACE = "V2X";
+const std::string Context::UNDEFINED_FACE = "UNDEFINED";
 
 void
 Context::SetFaceIdContext(nfd::face::FaceId faceId, std::string context)
@@ -67,7 +68,7 @@ Context::getContextFor(nfd::face::FaceId faceId)
   if (it != m_faceContextMap.left.end()) {
     return it->second;
   }
-  return nullptr;
+  return UNDEFINED_FACE;
 }
 
 void

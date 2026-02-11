@@ -65,6 +65,7 @@ public:
   static const std::string V2V_FACE;
   static const std::string V2I_FACE;
   static const std::string V2X_FACE;
+  static const std::string UNDEFINED_FACE;
   
   Context() 
     : m_type(NODE_TYPE_NONE), m_status(NODE_STATUS_UNKNOWN), m_receivedHello(false) {}
