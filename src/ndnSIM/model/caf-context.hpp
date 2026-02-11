@@ -20,11 +20,16 @@
 #ifndef CAF_CONTEXT_HPP
 #define CAF_CONTEXT_HPP
 
+#include "face/face-common.hpp"
 #include "ns3/ndnSIM/model/ndn-common.hpp"
 #include "ns3/address.h"
 #include "ns3/node-container.h"
 #include "ns3/node.h"
 #include "ns3/object.h"
+
+#include <boost/bimap.hpp>
+#include <boost/bimap/unordered_set_of.hpp>
+
 
 namespace ns3 {
 namespace caf {
@@ -48,9 +53,18 @@ enum TransportFilter : uint8_t {
   ALLOW_DIFFERENT = 2,
 };
 
+using FaceIdContextMap = boost::bimap<
+    boost::bimaps::unordered_set_of<nfd::face::FaceId>, 
+    boost::bimaps::unordered_set_of<std::string>
+>;
+
 class Context : public Object {
 public:
   static TypeId GetTypeId (void);
+
+  static const std::string V2V_FACE;
+  static const std::string V2I_FACE;
+  static const std::string V2X_FACE;
   
   Context() 
     : m_type(NODE_TYPE_NONE), m_status(NODE_STATUS_UNKNOWN), m_receivedHello(false) {}
@@ -63,10 +77,15 @@ public:
   
   void SetReceivedHello(bool receivedHello) { m_receivedHello = receivedHello; }
   bool GetReceivedHello() { return m_receivedHello; }
+  
+  void SetFaceIdContext(nfd::face::FaceId faceId, std::string context);
+  nfd::face::FaceId getFaceIdFor(std::string context);
+  std::string getContextFor(nfd::face::FaceId faceId);
 
 private:
   NodeType m_type;
   NodeStatus m_status;
+  FaceIdContextMap m_faceContextMap;
   bool m_receivedHello;
 };
 

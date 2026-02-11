@@ -19,6 +19,7 @@
 
 #include "caf-context.hpp"
 
+#include "face/face-common.hpp"
 #include "ns3/log.h"
 #include "ns3/mac48-address.h"
 
@@ -36,6 +37,37 @@ Context::GetTypeId(void)
     .AddConstructor<Context>()
   ;
   return tid;
+}
+
+const std::string Context::V2V_FACE = "V2V";
+const std::string Context::V2I_FACE = "V2I";
+const std::string Context::V2X_FACE = "V2X";
+
+void
+Context::SetFaceIdContext(nfd::face::FaceId faceId, std::string context)
+{
+  NS_LOG_DEBUG("Mapped faceId=" << faceId << " with context=" << context);
+  m_faceContextMap.insert(FaceIdContextMap::value_type(faceId, context));
+}
+
+nfd::face::FaceId
+Context::getFaceIdFor(std::string context)
+{
+  auto it = m_faceContextMap.right.find(context);
+  if (it != m_faceContextMap.right.end()) {
+    return it->second;
+  }
+  return 0;
+}
+
+std::string
+Context::getContextFor(nfd::face::FaceId faceId)
+{
+  auto it = m_faceContextMap.left.find(faceId);
+  if (it != m_faceContextMap.left.end()) {
+    return it->second;
+  }
+  return nullptr;
 }
 
 void

@@ -308,10 +308,13 @@ StackHelper::WifiNetDeviceCallback(Ptr<Node> node, Ptr<L3Protocol> ndn,
 
   if (nodeType == caf::NODE_TYPE_VEHICLE) {
     // create V2V face only if node type is vehicle
-    createFace(caf::MulticastGroup::MULTICAST_V2V, caf::ALLOW_SAME);
+    auto face = createFace(caf::MulticastGroup::MULTICAST_V2V, caf::ALLOW_SAME);
+    ctx->SetFaceIdContext(face->getId(), caf::Context::V2V_FACE);
   }
   // create V2I face on both vehicle and rsu
-  return createFace(caf::MulticastGroup::MULTICAST_V2I, caf::ALLOW_DIFFERENT);
+  auto face = createFace(caf::MulticastGroup::MULTICAST_V2I, caf::ALLOW_DIFFERENT);
+  ctx->SetFaceIdContext(face->getId(), caf::Context::V2I_FACE);
+  return face;
 }
 
 shared_ptr<Face>
@@ -352,6 +355,16 @@ StackHelper::PointToPointNetDeviceCallback(Ptr<Node> node, Ptr<L3Protocol> ndn,
                        << face->getLocalUri() << "," 
                        << face->getRemoteUri() << ")");
 
+  // Set faceId -> context mapping
+  Ptr<caf::Context> ctx = node->GetObject<caf::Context>();
+
+  if (ctx) {
+    auto fromNodeId = std::to_string(device->GetNode()->GetId());
+    auto toNodeId = std::to_string(remoteNetDevice->GetNode()->GetId());
+    auto context = "P2P(" + fromNodeId + "," + toNodeId + ")";
+    
+    ctx->SetFaceIdContext(face->getId(), context);
+  }
   return face;
 }
 
