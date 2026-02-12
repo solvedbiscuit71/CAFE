@@ -187,6 +187,13 @@ NFD_PUBLIC_WITH_TESTS_ELSE_PRIVATE: // pipelines
   NFD_VIRTUAL_WITH_TESTS void
   onInterestFinalize(const shared_ptr<pit::Entry>& pitEntry);
 
+  /** \brief incoming Alert pipeline
+   *  \param data the incoming Alert, must be well-formed and created with make_shared
+   *  \param ingress face on which \p alert was received and endpoint of the sender
+   */
+  NFD_VIRTUAL_WITH_TESTS void
+  OnIncomingAlert(const Data& data, const FaceEndpoint& ingress);
+
   /** \brief incoming Data pipeline
    *  \param data the incoming Data, must be well-formed and created with make_shared
    *  \param ingress face on which \p data was received and endpoint of the sender

@@ -102,11 +102,23 @@ Forwarder::Forwarder(FaceTable& faceTable)
 
 Forwarder::~Forwarder() = default;
 
+static const Name AlertPrefix("/alert");
+
+bool
+isAlert(const Data& data) 
+{
+  return AlertPrefix.isPrefixOf(data.getName());
+}
+
+bool
+forAlert(const Interest& interest) 
+{
+  return AlertPrefix.isPrefixOf(interest.getName());
+}
+
 void
 Forwarder::onIncomingInterest(const Interest& interest, const FaceEndpoint& ingress)
 {
-  static const Name alertPrefix("/alert");
-
   // receive Interest
   NFD_LOG_DEBUG("onIncomingInterest in=" << ingress << " interest=" << interest.getName());
   interest.setTag(make_shared<lp::IncomingFaceIdTag>(ingress.face.getId()));
@@ -180,7 +192,7 @@ Forwarder::onIncomingInterest(const Interest& interest, const FaceEndpoint& ingr
   }
   
   // is interest for alert and context exists?
-  if (alertPrefix.isPrefixOf(interest.getName()) && ctx) {
+  if (forAlert(interest) && ctx) {
     // insert in-record
     pitEntry->insertOrUpdateInRecord(ingress.face, interest);
 
@@ -347,6 +359,52 @@ Forwarder::onInterestFinalize(const shared_ptr<pit::Entry>& pitEntry)
 }
 
 void
+Forwarder::OnIncomingAlert(const Data& data, const FaceEndpoint& ingress)
+{
+  // resolve the ns-3 Node and Context
+  uint32_t nodeId = ns3::Simulator::GetContext();
+  ns3::Ptr<ns3::Node> node = nullptr;
+  ns3::Ptr<ns3::caf::Context> ctx = nullptr;
+
+  if (nodeId != 0xffffffff) { 
+    node = ns3::NodeList::GetNode(nodeId);
+  }
+  if (node != nullptr) {
+    ctx = node->GetObject<ns3::caf::Context>();
+  }
+
+  // guard condition
+  if (!ctx) {
+    NFD_LOG_DEBUG("OnIncomingAlert in=" << ingress << " data=" << data.getName()
+                  << " decision=drop");
+    return;   
+  }
+
+  // TODO: provide proper condition based on context
+  if (ctx->GetNodeType() != ns3::caf::NODE_TYPE_RSU) {
+    NFD_LOG_DEBUG("OnIncomingAlert in=" << ingress << " data=" << data.getName()
+                  << " decision=drop");
+    return;
+  }
+
+  NFD_LOG_DEBUG("OnIncomingAlert in=" << ingress << " data=" << data.getName()
+                << " decision=forward");
+
+  // iterate through all faces
+  for (auto& face : m_faceTable) {
+    // forward to face which are NON_LOCAL and AD_HOC i.e. WifiNetDeviceTransport
+    // TODO: provide the context for face i.e. V2I and V2V
+    if (face.getScope() != ndn::nfd::FACE_SCOPE_NON_LOCAL ||
+        face.getLinkType() != ndn::nfd::LINK_TYPE_AD_HOC) {
+      continue;
+    }
+    
+    NFD_LOG_DEBUG("OnIncomingAlert: Forward alert to face=" << face.getId());
+    this->onOutgoingData(data, face);
+  }
+}
+
+void
 Forwarder::onIncomingData(const Data& data, const FaceEndpoint& ingress)
 {
   // receive Data
@@ -363,10 +421,16 @@ Forwarder::onIncomingData(const Data& data, const FaceEndpoint& ingress)
     return;
   }
 
+  // if the data packet is an alert packet i.e. prefix=/alert;
+  if (isAlert(data)) {
+    // then we should forward the alert packet based on the ZoR and other context parameters
+    this->OnIncomingAlert(data, ingress);
+  }
+
   // PIT match
   pit::DataMatchResult pitMatches = m_pit.findAllDataMatches(data);
-  if (pitMatches.size() == 0) {
-    // goto Data unsolicited pipeline
+  if (pitMatches.size() == 0 && !isAlert(data)) {
+    // goto Data unsolicited pipeline if not alert packet
     this->onDataUnsolicited(data, ingress);
     return;
   }
@@ -443,53 +507,16 @@ Forwarder::onIncomingData(const Data& data, const FaceEndpoint& ingress)
 void
 Forwarder::onDataUnsolicited(const Data& data, const FaceEndpoint& ingress)
 {
-  static const Name alertPrefix("/alert");
-
-  // resolve the ns-3 Node and Context
-  uint32_t nodeId = ns3::Simulator::GetContext();
-  ns3::Ptr<ns3::Node> node = nullptr;
-  ns3::Ptr<ns3::caf::Context> ctx = nullptr;
-
-  if (nodeId != 0xffffffff) { 
-    node = ns3::NodeList::GetNode(nodeId);
-  }
-  if (node != nullptr) {
-    ctx = node->GetObject<ns3::caf::Context>();
+  // accept to cache?
+  auto decision = m_unsolicitedDataPolicy->decide(ingress.face, data);
+  if (decision == fw::UnsolicitedDataDecision::CACHE) {
+    // CS insert
+    m_cs.insert(data, true);
   }
 
-  // is data an alert packet and context exists?
-  if (alertPrefix.isPrefixOf(data.getName()) && ctx) {
-    NFD_LOG_DEBUG("onDataUnsolicited in=" << ingress << " data=" << data.getName()
-                  << " decision=PUSH");
-
-    // iterate through all faces
-    for (auto& face : m_faceTable) {
-      // forward to face which are NON_LOCAL and AD_HOC i.e. WifiNetDeviceTransport
-      // TODO: provide the context for face i.e. V2I and V2V
-      if (face.getScope() != ndn::nfd::FACE_SCOPE_NON_LOCAL ||
-          face.getLinkType() != ndn::nfd::LINK_TYPE_AD_HOC) {
-        continue;
-      }
-      
-      NFD_LOG_DEBUG("onDataUnsolicited: Pushing alert to face=" << face.getId());
-      this->onOutgoingData(data, face);
-    }
-    
-    // Optional: We might still want to cache it locally
-    // m_cs.insert(data, true);
-
-  } else {
-    // accept to cache?
-    auto decision = m_unsolicitedDataPolicy->decide(ingress.face, data);
-    if (decision == fw::UnsolicitedDataDecision::CACHE) {
-      // CS insert
-      m_cs.insert(data, true);
-    }
-
-    NFD_LOG_DEBUG("onDataUnsolicited in=" << ingress << " data=" << data.getName()
-                  << " decision=" << decision);
-    ++m_counters.nUnsolicitedData;
-  }
+  NFD_LOG_DEBUG("onDataUnsolicited in=" << ingress << " data=" << data.getName()
+                << " decision=" << decision);
+  ++m_counters.nUnsolicitedData;
 }
 
 bool
