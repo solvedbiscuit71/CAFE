@@ -361,16 +361,18 @@ Forwarder::onInterestFinalize(const shared_ptr<pit::Entry>& pitEntry)
 void
 Forwarder::OnIncomingAlert(const Data& data, const FaceEndpoint& ingress)
 {
+  using namespace ns3;
+
   // resolve the ns-3 Node and Context
-  uint32_t nodeId = ns3::Simulator::GetContext();
-  ns3::Ptr<ns3::Node> node = nullptr;
-  ns3::Ptr<ns3::caf::Context> ctx = nullptr;
+  uint32_t nodeId = Simulator::GetContext();
+  Ptr<Node> node = nullptr;
+  Ptr<caf::Context> ctx = nullptr;
 
   if (nodeId != 0xffffffff) { 
-    node = ns3::NodeList::GetNode(nodeId);
+    node = NodeList::GetNode(nodeId);
   }
   if (node != nullptr) {
-    ctx = node->GetObject<ns3::caf::Context>();
+    ctx = node->GetObject<caf::Context>();
   }
 
   // guard condition
@@ -381,27 +383,25 @@ Forwarder::OnIncomingAlert(const Data& data, const FaceEndpoint& ingress)
   }
 
   // TODO: provide proper condition based on context
-  if (ctx->GetNodeType() != ns3::caf::NODE_TYPE_RSU) {
+  if (ctx->GetNodeType() != caf::NODE_TYPE_RSU) {
     NFD_LOG_DEBUG("OnIncomingAlert in=" << ingress << " data=" << data.getName()
                   << " decision=drop");
     return;
   }
 
-  NFD_LOG_DEBUG("OnIncomingAlert in=" << ingress << " data=" << data.getName()
-                << " decision=forward");
-
-  // iterate through all faces
-  for (auto& face : m_faceTable) {
-    // forward to face which are NON_LOCAL and AD_HOC i.e. WifiNetDeviceTransport
-    // TODO: provide the context for face i.e. V2I and V2V
-    if (face.getScope() != ndn::nfd::FACE_SCOPE_NON_LOCAL ||
-        face.getLinkType() != ndn::nfd::LINK_TYPE_AD_HOC) {
-      continue;
-    }
-    
-    NFD_LOG_DEBUG("OnIncomingAlert: Forward alert to face=" << face.getId());
-    this->onOutgoingData(data, face);
+  // TODO: forward to V2I or V2V based on context
+  FaceId faceId = ctx->getFaceIdFor(caf::Context::V2I_FACE);
+  if (!faceId) {
+    NFD_LOG_DEBUG("OnIncomingAlert in=" << ingress << " data=" << data.getName()
+                  << " decision=drop");
+    return;
   }
+
+  Face& face = *m_faceTable.get(faceId);
+  NFD_LOG_DEBUG("OnIncomingAlert in=" << ingress << " data=" << data.getName() 
+                << " decision=forward to " << caf::Context::V2I_FACE);
+
+  this->onOutgoingData(data, face);
 }
 
 void
