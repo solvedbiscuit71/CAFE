@@ -22,6 +22,7 @@
 #ifndef NDN_CXX_LP_FIELDS_HPP
 #define NDN_CXX_LP_FIELDS_HPP
 
+#include "lp/tlv.hpp"
 #include "ndn-cxx/lp/field-decl.hpp"
 
 #include "ndn-cxx/lp/cache-policy.hpp"
@@ -30,6 +31,7 @@
 #include "ndn-cxx/lp/prefix-announcement-header.hpp"
 
 #include <boost/mpl/set.hpp>
+#include <cstdint>
 
 namespace ndn {
 namespace lp {
@@ -123,6 +125,39 @@ typedef FieldDecl<field_location_tags::Header,
                   NonNegativeIntegerTag> HopCountTagField;
 BOOST_CONCEPT_ASSERT((Field<HopCountTagField>));
 
+// Sender info
+typedef FieldDecl<field_location_tags::Header,
+                  uint8_t,
+                  tlv::SenderType,
+                  false,
+                  NonNegativeIntegerTag,
+                  NonNegativeIntegerTag> SenderTypeField;
+BOOST_CONCEPT_ASSERT((Field<SenderTypeField>));
+
+// typedef FieldDecl<field_location_tags::Header,
+//                   uint64_t,
+//                   tlv::SenderLongitude,
+//                   false,
+//                   NonNegativeIntegerTag,
+//                   NonNegativeIntegerTag> SenderLongitudeField;
+// BOOST_CONCEPT_ASSERT((Field<SenderLongitudeField>));
+//
+// typedef FieldDecl<field_location_tags::Header,
+//                   uint64_t,
+//                   tlv::SenderLatitude,
+//                   false,
+//                   NonNegativeIntegerTag,
+//                   NonNegativeIntegerTag> SenderLatitudeField;
+// BOOST_CONCEPT_ASSERT((Field<SenderLatitudeField>));
+//
+// typedef FieldDecl<field_location_tags::Header,
+//                   uint64_t,
+//                   tlv::SenderAltitude,
+//                   false,
+//                   NonNegativeIntegerTag,
+//                   NonNegativeIntegerTag> SenderAltitudeField;
+// BOOST_CONCEPT_ASSERT((Field<SenderAltitudeField>));
+
 typedef FieldDecl<field_location_tags::Header,
                   GeoTag,
                   tlv::GeoTag> GeoTagField;
@@ -156,7 +191,11 @@ typedef boost::mpl::set<
   NonDiscoveryField,
   PrefixAnnouncementField,
   HopCountTagField,
-  GeoTagField
+  GeoTagField,
+  SenderTypeField
+  // SenderLongitudeField,
+  // SenderLatitudeField,
+  // SenderAltitudeField
   > FieldSet;
 
 } // namespace lp

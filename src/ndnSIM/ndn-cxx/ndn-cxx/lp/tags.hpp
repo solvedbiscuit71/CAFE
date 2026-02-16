@@ -27,6 +27,7 @@
 #include "ndn-cxx/lp/geo-tag.hpp"
 #include "ndn-cxx/lp/prefix-announcement-header.hpp"
 #include "ndn-cxx/tag.hpp"
+#include <cstdint>
 
 namespace ndn {
 namespace lp {
@@ -79,6 +80,29 @@ typedef SimpleTag<PrefixAnnouncementHeader, 15> PrefixAnnouncementTag;
  * This tag can be attached to Interest, Data, Nack.
  */
 typedef SimpleTag<uint64_t, 0x60000000> HopCountTag;
+
+/**
+ * \class Sender Info
+ * \brief a packet tag for sender type, longitude, latitude, altitude
+ * 
+ * This tag can be attached to Data.
+ */
+typedef SimpleTag<uint8_t,  0x70000001> SenderTypeTag;
+
+// class SenderPosition {
+// public:
+//   static constexpr int
+//   getTypeId() noexcept
+//   {
+//     return 0x70000002;
+//   }
+//
+//   uint64_t longitude;
+//   uint64_t latitude;
+//   uint64_t altitude;
+// };
+//
+// typedef SimpleTag<SenderPosition, 0x70000002> SenderPositionTag;
 
 /** \class GeoTag
  *  \brief a packet tag for GeoTag field

@@ -27,6 +27,8 @@
 
 #include "algorithm.hpp"
 #include "best-route-strategy.hpp"
+#include "common.hpp"
+#include "lp/fields.hpp"
 #include "scope-prefix.hpp"
 #include "strategy.hpp"
 #include "common/global.hpp"
@@ -382,6 +384,11 @@ Forwarder::OnIncomingAlert(const Data& data, const FaceEndpoint& ingress)
     return;   
   }
 
+  auto senderType = data.getTag<lp::SenderTypeTag>();
+  if (senderType != nullptr) {
+    NFD_LOG_DEBUG("OnIncomingAlert senderType=" << (int)senderType->get());
+  }
+
   // TODO: provide proper condition based on context
   if (ctx->GetNodeType() != caf::NODE_TYPE_RSU) {
     NFD_LOG_DEBUG("OnIncomingAlert in=" << ingress << " data=" << data.getName()
@@ -400,6 +407,8 @@ Forwarder::OnIncomingAlert(const Data& data, const FaceEndpoint& ingress)
   Face& face = *m_faceTable.get(faceId);
   NFD_LOG_DEBUG("OnIncomingAlert in=" << ingress << " data=" << data.getName() 
                 << " decision=forward to " << caf::Context::V2I_FACE);
+
+  data.setTag(make_shared<lp::SenderTypeTag>(ctx->GetNodeType()));
 
   this->onOutgoingData(data, face);
 }

@@ -50,6 +50,12 @@ enum {
   TxSequence = 840,
   NonDiscovery = 844,
   PrefixAnnouncement = 848,
+  
+  // Sender Info
+  SenderType = 871,
+  // SenderLongitude = 872,
+  // SenderLatitude = 873,
+  // SenderAltitude = 874,
 };
 
 enum {

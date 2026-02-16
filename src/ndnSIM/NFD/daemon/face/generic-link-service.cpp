@@ -24,7 +24,9 @@
  */
 
 #include "generic-link-service.hpp"
+#include "lp/fields.hpp"
 
+#include <memory>
 #include <ndn-cxx/lp/pit-token.hpp>
 #include <ndn-cxx/lp/tags.hpp>
 
@@ -197,6 +199,19 @@ GenericLinkService::encodeLpFields(const ndn::PacketBase& netPkt, lp::Packet& lp
       lpPacket.add<lp::GeoTagField>(*geoTag);
     }
   }
+
+  // encode sender info
+  auto senderType = netPkt.getTag<lp::SenderTypeTag>();
+  if (senderType != nullptr) {
+    lpPacket.set<lp::SenderTypeField>(*senderType);
+  }
+  
+  // auto senderPosition = netPkt.getTag<lp::SenderPositionTag>();
+  // if (senderPosition != nullptr) {
+  //   lpPacket.set<lp::SenderLongitudeField>(senderPosition->get().longitude);
+  //   lpPacket.set<lp::SenderLatitudeField>(senderPosition->get().latitude);
+  //   lpPacket.set<lp::SenderAltitudeField>(senderPosition->get().altitude);
+  // }
 }
 
 void
@@ -493,6 +508,20 @@ GenericLinkService::decodeData(const Block& netPkt, const lp::Packet& firstPkt,
       NFD_LOG_FACE_WARN("received PrefixAnnouncement, but self-learning disabled: IGNORE");
     }
   }
+  
+  // decode sender info
+  if (firstPkt.has<lp::SenderTypeField>()) {
+    data->setTag(make_shared<lp::SenderTypeTag>(firstPkt.get<lp::SenderTypeField>()));
+  }
+
+  // if (firstPkt.has<lp::SenderLongitudeField>() && firstPkt.has<lp::SenderLatitudeField>() && firstPkt.has<lp::SenderAltitudeField>()) {
+  //   auto senderPosition = make_shared<lp::SenderPosition>();
+  //   senderPosition->longitude = firstPkt.get<lp::SenderLongitudeField>();
+  //   senderPosition->latitude = firstPkt.get<lp::SenderLatitudeField>();
+  //   senderPosition->altitude = firstPkt.get<lp::SenderAltitudeField>();
+  //
+  //   data->setTag(senderPosition);
+  // }
 
   this->receiveData(*data, endpointId);
 }
