@@ -29,14 +29,20 @@
 #include "best-route-strategy.hpp"
 #include "common.hpp"
 #include "lp/fields.hpp"
+#include "lp/sender-position-tag.hpp"
+#include "ns3/mobility-model.h"
+#include "ns3/node-printer.h"
+#include "ns3/vector.h"
 #include "scope-prefix.hpp"
 #include "strategy.hpp"
 #include "common/global.hpp"
 #include "common/logger.hpp"
 #include "table/cleanup.hpp"
 
+#include <memory>
 #include <ndn-cxx/lp/pit-token.hpp>
 #include <ndn-cxx/lp/tags.hpp>
+#include <tuple>
 
 #include "face/null-face.hpp"
 
@@ -369,9 +375,15 @@ Forwarder::OnIncomingAlert(const Data& data, const FaceEndpoint& ingress)
   uint32_t nodeId = Simulator::GetContext();
   Ptr<Node> node = nullptr;
   Ptr<caf::Context> ctx = nullptr;
+  Ptr<MobilityModel> mobility = nullptr;
+  Vector nodePosition;
 
   if (nodeId != 0xffffffff) { 
     node = NodeList::GetNode(nodeId);
+    mobility = node->GetObject<MobilityModel>();
+    if (mobility != nullptr) {
+      nodePosition = mobility->GetPosition();
+    }
   }
   if (node != nullptr) {
     ctx = node->GetObject<caf::Context>();
@@ -387,6 +399,15 @@ Forwarder::OnIncomingAlert(const Data& data, const FaceEndpoint& ingress)
   auto senderType = data.getTag<lp::SenderTypeTag>();
   if (senderType != nullptr) {
     NFD_LOG_DEBUG("OnIncomingAlert senderType=" << (int)senderType->get());
+  }
+
+  auto senderPosition = data.getTag<lp::SenderPositionTag>();
+  if (senderPosition != nullptr) {
+    auto [x,y,z] = senderPosition->getPos();
+    NFD_LOG_DEBUG("OnIncomingAlert sendPosition={"
+                  <<  "x:" << x << ","
+                  <<  "y:" << y << ","
+                  <<  "z:" << z << "}");
   }
 
   // TODO: provide proper condition based on context
@@ -409,6 +430,11 @@ Forwarder::OnIncomingAlert(const Data& data, const FaceEndpoint& ingress)
                 << " decision=forward to " << caf::Context::V2I_FACE);
 
   data.setTag(make_shared<lp::SenderTypeTag>(ctx->GetNodeType()));
+  if (mobility != nullptr) {
+    data.setTag(make_shared<lp::SenderPositionTag>(
+      std::make_tuple(nodePosition.x, nodePosition.y, nodePosition.z)
+    ));
+  }
 
   this->onOutgoingData(data, face);
 }

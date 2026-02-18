@@ -22,6 +22,7 @@
 #ifndef NDN_CXX_LP_FIELDS_HPP
 #define NDN_CXX_LP_FIELDS_HPP
 
+#include "lp/sender-position-tag.hpp"
 #include "lp/tlv.hpp"
 #include "ndn-cxx/lp/field-decl.hpp"
 
@@ -125,39 +126,6 @@ typedef FieldDecl<field_location_tags::Header,
                   NonNegativeIntegerTag> HopCountTagField;
 BOOST_CONCEPT_ASSERT((Field<HopCountTagField>));
 
-// Sender info
-typedef FieldDecl<field_location_tags::Header,
-                  uint8_t,
-                  tlv::SenderType,
-                  false,
-                  NonNegativeIntegerTag,
-                  NonNegativeIntegerTag> SenderTypeField;
-BOOST_CONCEPT_ASSERT((Field<SenderTypeField>));
-
-// typedef FieldDecl<field_location_tags::Header,
-//                   uint64_t,
-//                   tlv::SenderLongitude,
-//                   false,
-//                   NonNegativeIntegerTag,
-//                   NonNegativeIntegerTag> SenderLongitudeField;
-// BOOST_CONCEPT_ASSERT((Field<SenderLongitudeField>));
-//
-// typedef FieldDecl<field_location_tags::Header,
-//                   uint64_t,
-//                   tlv::SenderLatitude,
-//                   false,
-//                   NonNegativeIntegerTag,
-//                   NonNegativeIntegerTag> SenderLatitudeField;
-// BOOST_CONCEPT_ASSERT((Field<SenderLatitudeField>));
-//
-// typedef FieldDecl<field_location_tags::Header,
-//                   uint64_t,
-//                   tlv::SenderAltitude,
-//                   false,
-//                   NonNegativeIntegerTag,
-//                   NonNegativeIntegerTag> SenderAltitudeField;
-// BOOST_CONCEPT_ASSERT((Field<SenderAltitudeField>));
-
 typedef FieldDecl<field_location_tags::Header,
                   GeoTag,
                   tlv::GeoTag> GeoTagField;
@@ -172,6 +140,23 @@ typedef FieldDecl<field_location_tags::Fragment,
                   std::pair<Buffer::const_iterator, Buffer::const_iterator>,
                   tlv::Fragment> FragmentField;
 BOOST_CONCEPT_ASSERT((Field<FragmentField>));
+
+/** \brief Declare the sender info
+ * 
+ *  Used for geoforwarding logic inside the our CAF Engine.
+ */
+typedef FieldDecl<field_location_tags::Header,
+                  uint8_t,
+                  tlv::SenderType,
+                  false,
+                  NonNegativeIntegerTag,
+                  NonNegativeIntegerTag> SenderTypeField;
+BOOST_CONCEPT_ASSERT((Field<SenderTypeField>));
+
+typedef FieldDecl<field_location_tags::Header,
+                  SenderPositionTag,
+                  tlv::SenderPosition> SenderPositionField;
+BOOST_CONCEPT_ASSERT((Field<SenderPositionField>));
 
 /** \brief Set of all field declarations.
  */
@@ -192,7 +177,8 @@ typedef boost::mpl::set<
   PrefixAnnouncementField,
   HopCountTagField,
   GeoTagField,
-  SenderTypeField
+  SenderTypeField,
+  SenderPositionField
   // SenderLongitudeField,
   // SenderLatitudeField,
   // SenderAltitudeField

@@ -22,6 +22,7 @@
 #ifndef NDN_CXX_LP_TAGS_HPP
 #define NDN_CXX_LP_TAGS_HPP
 
+#include "lp/sender-position-tag.hpp"
 #include "ndn-cxx/lp/cache-policy.hpp"
 #include "ndn-cxx/lp/empty-value.hpp"
 #include "ndn-cxx/lp/geo-tag.hpp"
@@ -81,35 +82,27 @@ typedef SimpleTag<PrefixAnnouncementHeader, 15> PrefixAnnouncementTag;
  */
 typedef SimpleTag<uint64_t, 0x60000000> HopCountTag;
 
-/**
- * \class Sender Info
- * \brief a packet tag for sender type, longitude, latitude, altitude
- * 
- * This tag can be attached to Data.
- */
-typedef SimpleTag<uint8_t,  0x70000001> SenderTypeTag;
-
-// class SenderPosition {
-// public:
-//   static constexpr int
-//   getTypeId() noexcept
-//   {
-//     return 0x70000002;
-//   }
-//
-//   uint64_t longitude;
-//   uint64_t latitude;
-//   uint64_t altitude;
-// };
-//
-// typedef SimpleTag<SenderPosition, 0x70000002> SenderPositionTag;
-
 /** \class GeoTag
  *  \brief a packet tag for GeoTag field
  *
  * This tag can be attached to Interest, Data, Nack.
  */
 class GeoTag; // 0x60000001, defined directly in geo-tag.hpp
+
+/**
+ * \class Sender Type
+ * \brief a packet tag for sender type
+ * 
+ * This tag can be attached to Data.
+ */
+typedef SimpleTag<uint8_t,  0x70000000> SenderTypeTag;
+
+/** \class Sender Position
+ *  \brief a packet tag for sender position std::tuple<double,double,double>
+ *  
+ *  This tag can be attached to Data.
+ */
+class SenderPositionTag; // 0x70000001, defined directly in sender-position-tag.hpp
 
 } // namespace lp
 } // namespace ndn

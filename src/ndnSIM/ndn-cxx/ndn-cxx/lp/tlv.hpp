@@ -51,11 +51,10 @@ enum {
   NonDiscovery = 844,
   PrefixAnnouncement = 848,
   
+  // CAFE
   // Sender Info
-  SenderType = 871,
-  // SenderLongitude = 872,
-  // SenderLatitude = 873,
-  // SenderAltitude = 874,
+  SenderType = 1070,
+  SenderPosition = 1071,
 };
 
 enum {
