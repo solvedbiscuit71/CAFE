@@ -22,7 +22,6 @@
 #ifndef NDN_CXX_LP_FIELDS_HPP
 #define NDN_CXX_LP_FIELDS_HPP
 
-#include "lp/sender-position-tag.hpp"
 #include "lp/tlv.hpp"
 #include "ndn-cxx/lp/field-decl.hpp"
 
@@ -30,6 +29,8 @@
 #include "ndn-cxx/lp/geo-tag.hpp"
 #include "ndn-cxx/lp/nack-header.hpp"
 #include "ndn-cxx/lp/prefix-announcement-header.hpp"
+#include "ndn-cxx/lp/sender-position-tag.hpp"
+#include "ndn-cxx/lp/destination-nodes-tag.hpp"
 
 #include <boost/mpl/set.hpp>
 #include <cstdint>
@@ -158,6 +159,11 @@ typedef FieldDecl<field_location_tags::Header,
                   tlv::SenderPosition> SenderPositionField;
 BOOST_CONCEPT_ASSERT((Field<SenderPositionField>));
 
+typedef FieldDecl<field_location_tags::Header,
+                  DestinationNodesTag,
+                  tlv::DestinationNodes> DestinationNodesField;
+BOOST_CONCEPT_ASSERT((Field<DestinationNodesField>));
+
 /** \brief Set of all field declarations.
  */
 typedef boost::mpl::set<
@@ -177,11 +183,12 @@ typedef boost::mpl::set<
   PrefixAnnouncementField,
   HopCountTagField,
   GeoTagField,
+  // CAFE
+  // Sender Info
   SenderTypeField,
-  SenderPositionField
-  // SenderLongitudeField,
-  // SenderLatitudeField,
-  // SenderAltitudeField
+  SenderPositionField,
+  // Routing Info
+  DestinationNodesField
   > FieldSet;
 
 } // namespace lp

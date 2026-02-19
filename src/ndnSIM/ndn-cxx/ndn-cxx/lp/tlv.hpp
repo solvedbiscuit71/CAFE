@@ -55,6 +55,8 @@ enum {
   // Sender Info
   SenderType = 1070,
   SenderPosition = 1071,
+  // Routing Info
+  DestinationNodes = 1072,
 };
 
 enum {

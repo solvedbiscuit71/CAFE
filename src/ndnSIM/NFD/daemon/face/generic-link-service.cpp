@@ -211,6 +211,12 @@ GenericLinkService::encodeLpFields(const ndn::PacketBase& netPkt, lp::Packet& lp
   if (senderPosition != nullptr) {
     lpPacket.add<lp::SenderPositionField>(*senderPosition);
   }
+  
+  // encode routing info
+  auto destinationNodes = netPkt.getTag<lp::DestinationNodesTag>();
+  if (destinationNodes != nullptr) {
+    lpPacket.add<lp::DestinationNodesField>(*destinationNodes);
+  }
 }
 
 void
@@ -515,6 +521,11 @@ GenericLinkService::decodeData(const Block& netPkt, const lp::Packet& firstPkt,
 
   if (firstPkt.has<lp::SenderPositionField>()) {
     data->setTag(make_shared<lp::SenderPositionTag>(firstPkt.get<lp::SenderPositionField>()));
+  }
+  
+  // decode routing info
+  if (firstPkt.has<lp::DestinationNodesField>()) {
+    data->setTag(make_shared<lp::DestinationNodesTag>(firstPkt.get<lp::DestinationNodesField>()));
   }
 
   this->receiveData(*data, endpointId);

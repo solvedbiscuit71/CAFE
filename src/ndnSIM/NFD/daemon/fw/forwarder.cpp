@@ -30,6 +30,7 @@
 #include "common.hpp"
 #include "lp/fields.hpp"
 #include "lp/sender-position-tag.hpp"
+#include "lp/destination-nodes-tag.hpp"
 #include "ns3/mobility-model.h"
 #include "ns3/node-printer.h"
 #include "ns3/vector.h"
@@ -42,7 +43,10 @@
 #include <memory>
 #include <ndn-cxx/lp/pit-token.hpp>
 #include <ndn-cxx/lp/tags.hpp>
+#include <ostream>
+#include <sstream>
 #include <tuple>
+#include <unordered_set>
 
 #include "face/null-face.hpp"
 
@@ -396,6 +400,7 @@ Forwarder::OnIncomingAlert(const Data& data, const FaceEndpoint& ingress)
     return;   
   }
 
+  // TODO: read sender info and routing info
   auto senderType = data.getTag<lp::SenderTypeTag>();
   if (senderType != nullptr) {
     NFD_LOG_DEBUG("OnIncomingAlert senderType=" << (int)senderType->get());
@@ -409,6 +414,19 @@ Forwarder::OnIncomingAlert(const Data& data, const FaceEndpoint& ingress)
                   <<  "y:" << y << ","
                   <<  "z:" << z << "}");
   }
+  
+  auto destinationNodes = data.getTag<lp::DestinationNodesTag>();
+  if (destinationNodes != nullptr) {
+    auto nodes = destinationNodes->get();
+    std::ostringstream oss;
+    oss << "{";
+    for (auto nodeId: nodes) {
+      oss << nodeId << ",";
+    }
+    oss << "}";
+    NFD_LOG_DEBUG("OnIncomingAlert destination=" << oss.str());
+  }
+
 
   // TODO: provide proper condition based on context
   if (ctx->GetNodeType() != caf::NODE_TYPE_RSU) {
@@ -429,11 +447,18 @@ Forwarder::OnIncomingAlert(const Data& data, const FaceEndpoint& ingress)
   NFD_LOG_DEBUG("OnIncomingAlert in=" << ingress << " data=" << data.getName() 
                 << " decision=forward to " << caf::Context::V2I_FACE);
 
+  // TODO: set sender and routing info
   data.setTag(make_shared<lp::SenderTypeTag>(ctx->GetNodeType()));
   if (mobility != nullptr) {
     data.setTag(make_shared<lp::SenderPositionTag>(
       std::make_tuple(nodePosition.x, nodePosition.y, nodePosition.z)
     ));
+  }
+  
+  if (node != nullptr) {
+    auto destinationNodes = make_shared<lp::DestinationNodesTag>();
+    destinationNodes->add(node->GetId());
+    data.setTag(destinationNodes);
   }
 
   this->onOutgoingData(data, face);

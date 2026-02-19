@@ -104,6 +104,13 @@ typedef SimpleTag<uint8_t,  0x70000000> SenderTypeTag;
  */
 class SenderPositionTag; // 0x70000001, defined directly in sender-position-tag.hpp
 
+/** \class Destination Nodes
+ *  \brief a packet tag for list of destination node id
+ *  
+ *  This tag can be attached to Data.
+ */
+class DestinationNodesTag; // 0x70000002, defined directly in destination-nodes-tag.hpp
+
 } // namespace lp
 } // namespace ndn
 
