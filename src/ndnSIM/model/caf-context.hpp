@@ -30,6 +30,7 @@
 #include <boost/bimap.hpp>
 #include <boost/bimap/unordered_set_of.hpp>
 
+#include "caf-routing.hpp"
 
 namespace ns3 {
 namespace caf {
@@ -80,8 +81,10 @@ public:
   bool GetReceivedHello() { return m_receivedHello; }
   
   void SetFaceIdContext(nfd::face::FaceId faceId, std::string context);
-  nfd::face::FaceId getFaceIdFor(std::string context);
-  std::string getContextFor(nfd::face::FaceId faceId);
+  nfd::face::FaceId GetFaceIdFor(std::string context);
+  std::string GetContextFor(nfd::face::FaceId faceId);
+  
+  static Graph* GetRoutingInfo();
 
 private:
   NodeType m_type;

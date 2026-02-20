@@ -29,6 +29,7 @@
 #include "ns3/node-list.h"
 #include "ns3/simulator.h"
 #include "ns3/wifi-net-device.h"
+#include <sstream>
 
 #if HAVE_NS3_VISUALIZER
 #include "../../visualizer/model/visual-simulator-impl.h"
@@ -359,11 +360,22 @@ StackHelper::PointToPointNetDeviceCallback(Ptr<Node> node, Ptr<L3Protocol> ndn,
   Ptr<caf::Context> ctx = node->GetObject<caf::Context>();
 
   if (ctx) {
-    auto fromNodeId = std::to_string(device->GetNode()->GetId());
-    auto toNodeId = std::to_string(remoteNetDevice->GetNode()->GetId());
-    auto context = "P2P(" + fromNodeId + "," + toNodeId + ")";
+    auto fromNodeId = device->GetNode()->GetId();
+    auto toNodeId = remoteNetDevice->GetNode()->GetId();
+
+    std::ostringstream oss;
+    oss << "P2P("<< fromNodeId << "," << toNodeId << ")";
+    ctx->SetFaceIdContext(face->getId(), oss.str());
     
-    ctx->SetFaceIdContext(face->getId(), context);
+    auto G = caf::Context::GetRoutingInfo();
+    (*G)[fromNodeId].push_back(caf::Face { 
+      face->getId(),
+      toNodeId,
+      1  // assume unweighted graph, can be change based on channel's data rate
+    });
+    
+    NS_LOG_LOGIC("Added face("<<face->getId()<<") "
+                 "into Context::Graph["<<fromNodeId<<"]");
   }
   return face;
 }

@@ -436,7 +436,7 @@ Forwarder::OnIncomingAlert(const Data& data, const FaceEndpoint& ingress)
   }
 
   // TODO: forward to V2I or V2V based on context
-  FaceId faceId = ctx->getFaceIdFor(caf::Context::V2I_FACE);
+  FaceId faceId = ctx->GetFaceIdFor(caf::Context::V2I_FACE);
   if (!faceId) {
     NFD_LOG_DEBUG("OnIncomingAlert in=" << ingress << " data=" << data.getName()
                   << " decision=drop");

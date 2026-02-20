@@ -52,7 +52,7 @@ Context::SetFaceIdContext(nfd::face::FaceId faceId, std::string context)
 }
 
 nfd::face::FaceId
-Context::getFaceIdFor(std::string context)
+Context::GetFaceIdFor(std::string context)
 {
   auto it = m_faceContextMap.right.find(context);
   if (it != m_faceContextMap.right.end()) {
@@ -62,13 +62,20 @@ Context::getFaceIdFor(std::string context)
 }
 
 std::string
-Context::getContextFor(nfd::face::FaceId faceId)
+Context::GetContextFor(nfd::face::FaceId faceId)
 {
   auto it = m_faceContextMap.left.find(faceId);
   if (it != m_faceContextMap.left.end()) {
     return it->second;
   }
   return UNDEFINED_FACE;
+}
+
+Graph*
+Context::GetRoutingInfo()
+{
+  static Graph m_graph;
+  return &m_graph;
 }
 
 void
