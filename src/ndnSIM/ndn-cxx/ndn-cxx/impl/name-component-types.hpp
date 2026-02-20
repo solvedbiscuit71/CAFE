@@ -375,6 +375,8 @@ ComponentTypeTable::ComponentTypeTable()
   set(tlv::TimestampNameComponent, ct56);
   static const DecimalComponentType ct58(tlv::SequenceNumNameComponent, "SequenceNumNameComponent", "seq");
   set(tlv::SequenceNumNameComponent, ct58);
+  static const DecimalComponentType ct1073(tlv::ZoRNameComponent, "ZorNameComponent", "zor");
+  set(tlv::SequenceNumNameComponent, ct1073);
 }
 
 /**

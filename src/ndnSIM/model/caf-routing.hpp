@@ -20,17 +20,10 @@
 #ifndef CAF_ROUTING_HPP
 #define CAF_ROUTING_HPP
 
-#include "face/face-common.hpp"
-#include "ns3/ndnSIM/model/ndn-common.hpp"
-#include "ns3/address.h"
-#include "ns3/node-container.h"
-#include "ns3/node.h"
-#include "ns3/object.h"
-
-#include <boost/bimap.hpp>
-#include <boost/bimap/unordered_set_of.hpp>
+#include <cstdint>
+#include <vector>
 #include <unordered_set>
-
+#include <unordered_map>
 
 namespace ns3 {
 namespace caf {

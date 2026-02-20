@@ -17,12 +17,11 @@
  * ndnSIM, e.g., in COPYING.md file.  If not, see <http://www.gnu.org/licenses/>.
  **/
 
-#include "caf-routing.hpp"
-
-#include "face/face-common.hpp"
-#include "ns3/log.h"
-#include "ns3/mac48-address.h"
+#include <limits>
 #include <queue>
+
+#include "ns3/log.h"
+#include "caf-routing.hpp"
 
 NS_LOG_COMPONENT_DEFINE("caf.Routing");
 
