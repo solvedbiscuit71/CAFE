@@ -31,9 +31,6 @@
 #include "lp/fields.hpp"
 #include "lp/sender-position-tag.hpp"
 #include "lp/destination-nodes-tag.hpp"
-#include "ns3/mobility-model.h"
-#include "ns3/node-printer.h"
-#include "ns3/vector.h"
 #include "scope-prefix.hpp"
 #include "strategy.hpp"
 #include "common/global.hpp"
@@ -43,23 +40,8 @@
 #include <memory>
 #include <ndn-cxx/lp/pit-token.hpp>
 #include <ndn-cxx/lp/tags.hpp>
-#include <ostream>
-#include <sstream>
-#include <tuple>
-#include <unordered_set>
 
 #include "face/null-face.hpp"
-
-/**
- * ns3 namespace
- */
-#include "ns3/simulator.h"
-#include "ns3/node-list.h"
-#include "ns3/node.h"
-#include "ns3/ptr.h"
-#include "model/caf-context.hpp"
-#include "model/caf-zor.hpp"
-#include "model/caf-routing.hpp"
 
 namespace nfd {
 
@@ -85,24 +67,6 @@ static bool
 forAlert(const Interest& interest) 
 {
   return ALERT_PREFIX.isPrefixOf(interest.getName());
-}
-
-// @assume isAlert(data) == true
-static std::unique_ptr<ns3::caf::ZoR>
-extractZoR(const Data& data)
-{
-  int i;
-  const auto& name = data.getName();
-  for (i=name.size()-1; i>=0; --i) {
-    if (name.get(i).isZoR()) {
-      break;
-    }
-  }
-  // has ZoR name component
-  if (i != -1) {
-    return name.get(i).toZoR();
-  }
-  return nullptr;
 }
 
 Forwarder::Forwarder(FaceTable& faceTable)
@@ -211,20 +175,8 @@ Forwarder::onIncomingInterest(const Interest& interest, const FaceEndpoint& ingr
     return;
   }
   
-  // resolve the ns-3 Node and Context
-  uint32_t nodeId = ns3::Simulator::GetContext();
-  ns3::Ptr<ns3::Node> node = nullptr;
-  ns3::Ptr<ns3::caf::Context> ctx = nullptr;
-
-  if (nodeId != 0xffffffff) { 
-    node = ns3::NodeList::GetNode(nodeId);
-  }
-  if (node != nullptr) {
-    ctx = node->GetObject<ns3::caf::Context>();
-  }
-  
-  // is interest for alert and context exists?
-  if (forAlert(interest) && ctx) {
+  // is interest for alert?
+  if (forAlert(interest)) {
     // insert in-record
     pitEntry->insertOrUpdateInRecord(ingress.face, interest);
 
@@ -388,80 +340,6 @@ Forwarder::onInterestFinalize(const shared_ptr<pit::Entry>& pitEntry)
   // PIT delete
   pitEntry->expiryTimer.cancel();
   m_pit.erase(pitEntry.get());
-}
-
-bool
-Forwarder::OnIncomingAlert(const Data& data, const FaceEndpoint& ingress)
-{
-  using namespace ns3;
-
-  // extract ZoR
-  auto zor = extractZoR(data);
-
-  // resolve the ns-3 Node and Context
-  uint32_t nodeId = Simulator::GetContext();
-
-  Ptr<Node> node = nullptr;
-  Ptr<caf::Context> ctx = nullptr;
-
-  if (nodeId != 0xffffffff) { 
-    node = NodeList::GetNode(nodeId);
-    if (node != nullptr) {
-      ctx = node->GetObject<caf::Context>();
-    }
-  }
-
-  // guard condition
-  if (!node || !ctx) {
-    NFD_LOG_DEBUG("OnIncomingAlert in=" << ingress << " data=" << data.getName()
-                  << " decision=drop");
-    return false;
-  }
-  
-  // delegate forwarding to node-specific handler
-  switch (ctx->GetNodeType()) {
-    case caf::NODE_TYPE_VEHICLE:
-      AlertVehicleHandler(data, *zor, *node, *ctx);
-      break;
-    case caf::NODE_TYPE_RSU:
-      AlertRsuHandler(data, *zor, *node, *ctx);
-      break;
-    case caf::NODE_TYPE_BACKBONE:
-    case caf::NODE_TYPE_NONE:
-      break;
-  }
-
-  // if ZoR is nullptr, then alert is local scoped
-  if (zor == nullptr) {
-    return true;
-  }
-
-  // check whether inside ZoR
-  Ptr<MobilityModel> mobility = node->GetObject<MobilityModel>();
-  if (mobility != nullptr) {
-    Vector v = mobility->GetPosition();
-    return zor->contains({static_cast<float>(v.x), static_cast<float>(v.y)});
-  }
-  return false;
-}
-
-void
-Forwarder::AlertVehicleHandler(const Data& data, const ns3::caf::ZoR& zor,
-                               const ns3::Node& node, const ns3::caf::Context& ctx)
-{
-  using namespace ns3;
-  
-  return;
-}
-
-void
-Forwarder::AlertRsuHandler(const Data& data, const ns3::caf::ZoR& zor,
-                           const ns3::Node& node, const ns3::caf::Context& ctx)
-{
-  using namespace ns3;
-
-  auto& v2i = *m_faceTable.get(ctx.GetFaceIdFor(caf::Context::V2I_FACE));
-  this->onOutgoingData(data, v2i);
 }
 
 void
