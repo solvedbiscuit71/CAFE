@@ -17,8 +17,8 @@ public:
   HelloProducer();
 
 protected:
-  virtual void
-  doSend() override;
+  virtual std::shared_ptr<Data>
+  AlertSupplier() override;
 };
 
 } // namespace ndn

@@ -1,5 +1,6 @@
+#include "ns3/log.h"
+
 #include "hello-producer.hpp"
-#include "alert-producer-cbr.hpp"
 
 NS_LOG_COMPONENT_DEFINE("ndn.HelloProducer");
 
@@ -22,8 +23,8 @@ HelloProducer::GetTypeId(void) {
 HelloProducer::HelloProducer()
 {}
 
-void
-HelloProducer::doSend()
+std::shared_ptr<Data>
+HelloProducer::AlertSupplier()
 {
   Name dataName(m_prefix);
   dataName.appendSequenceNumber(m_seq++);
@@ -31,31 +32,11 @@ HelloProducer::doSend()
   auto data = std::make_shared<Data>();
   data->setName(dataName);
   data->setFreshnessPeriod(time::milliseconds(m_freshness.GetMilliSeconds()));
-
   data->setContent(make_shared<::ndn::Buffer>(m_virtualPayloadSize));
 
-  SignatureInfo signatureInfo(static_cast< ::ndn::tlv::SignatureTypeValue>(255));
-
-  if (m_keyLocator.size() > 0) {
-    signatureInfo.setKeyLocator(m_keyLocator);
-  }
-
-  data->setSignatureInfo(signatureInfo);
-
-  ::ndn::EncodingEstimator estimator;
-  ::ndn::EncodingBuffer encoder(estimator.appendVarNumber(m_signature), 0);
-  encoder.appendVarNumber(m_signature);
-  data->setSignatureValue(encoder.getBuffer());
-
-  NS_LOG_INFO("Send hello: "  << data->getName());
-
-  // to create real wire encoding
-  data->wireEncode();
-
-  m_transmittedDatas(data, this, m_face);
-  m_appLink->onReceiveData(*data); // send to Forwarder
+  NS_LOG_LOGIC("Send hello: " << data->getName());
+  return data;
 }
 
 } // namespace ndn
-
 } // namespace ns3

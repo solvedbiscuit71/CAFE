@@ -1,17 +1,19 @@
 #ifndef ALERT_PRODUCER_CBR_HPP
 #define ALERT_PRODUCER_CBR_HPP
 
-#include "ndn-app.hpp"
-#include "ns3/ndnSIM/model/ndn-common.hpp"
-
 #include "ns3/ptr.h"
 #include "ns3/event-id.h"
+#include "ns3/ndnSIM/model/ndn-common.hpp"
 #include "ns3/random-variable-stream.h"
+
+#include "ndn-app.hpp"
+
+#include "alert-producer.hpp"
 
 namespace ns3 {
   
 namespace ndn {
-class AlertProducerCbr : public App {
+class AlertProducerCbr : public AlertProducer {
 public:
   static TypeId 
   GetTypeId(void);
@@ -34,16 +36,13 @@ protected:
   virtual void 
   StopApplication() override;
   
-  virtual void
-  doSend();
+  virtual std::shared_ptr<Data>
+  AlertSupplier() override;
 
   uint32_t m_seq;
   Name m_prefix;
   uint32_t m_virtualPayloadSize;
   Time m_freshness;
-
-  uint32_t m_signature;
-  Name m_keyLocator;
 };
 
 } // namespace ndn

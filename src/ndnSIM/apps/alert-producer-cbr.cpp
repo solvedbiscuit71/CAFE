@@ -5,6 +5,7 @@
 #include "ns3/double.h"
 #include "ns3/simulator.h"
 #include "ns3/boolean.h"
+#include <memory>
 
 NS_LOG_COMPONENT_DEFINE("ndn.AlertProducerCbr");
 
@@ -18,7 +19,7 @@ TypeId AlertProducerCbr::GetTypeId(void) {
   static TypeId tid =
       TypeId("ns3::ndn::AlertProducerCbr")
           .SetGroupName("Caf")
-          .SetParent<App>()
+          .SetParent<AlertProducer>()
           .AddConstructor<AlertProducerCbr>()
           .AddAttribute("Prefix", "Prefix to use for alerts",
                         StringValue("/alert"),
@@ -39,15 +40,7 @@ TypeId AlertProducerCbr::GetTypeId(void) {
           .AddAttribute("Freshness", "Freshness of data packets, if 0, then unlimited freshness",
                         StringValue("0s"),
                         MakeTimeAccessor(&AlertProducerCbr::m_freshness),
-                        MakeTimeChecker())
-          .AddAttribute("Signature", "Fake signature, 0 valid signature (default), other values application-specific",
-                        UintegerValue(0),
-                        MakeUintegerAccessor(&AlertProducerCbr::m_signature),
-                        MakeUintegerChecker<uint32_t>())
-          .AddAttribute("KeyLocator", "Name to be used for key locator.  If root, then key locator is not used",
-                        NameValue(),
-                        MakeNameAccessor(&AlertProducerCbr::m_keyLocator),
-                        MakeNameChecker());
+                        MakeTimeChecker());
   return tid;
 }
 
@@ -60,7 +53,7 @@ AlertProducerCbr::AlertProducerCbr()
 
 void
 AlertProducerCbr::StartApplication() {
-  App::StartApplication();
+  AlertProducer::StartApplication();
   m_sendEvent =
       Simulator::Schedule(Seconds(0.0), &AlertProducerCbr::SendAlert, this);
 }
@@ -68,7 +61,7 @@ AlertProducerCbr::StartApplication() {
 void
 AlertProducerCbr::StopApplication() {
   Simulator::Cancel(m_sendEvent);
-  App::StopApplication();
+  AlertProducer::StopApplication();
 }
 
 void
@@ -83,8 +76,8 @@ AlertProducerCbr::SendAlert() {
       Simulator::Schedule(m_interval + jitter, &AlertProducerCbr::SendAlert, this);
 }
 
-void
-AlertProducerCbr::doSend()
+std::shared_ptr<Data>
+AlertProducerCbr::AlertSupplier()
 {
   Name dataName(m_prefix);
   dataName.appendSequenceNumber(m_seq++);
@@ -92,29 +85,10 @@ AlertProducerCbr::doSend()
   auto data = std::make_shared<Data>();
   data->setName(dataName);
   data->setFreshnessPeriod(time::milliseconds(m_freshness.GetMilliSeconds()));
-
   data->setContent(make_shared<::ndn::Buffer>(m_virtualPayloadSize));
 
-  SignatureInfo signatureInfo(static_cast< ::ndn::tlv::SignatureTypeValue>(255));
-
-  if (m_keyLocator.size() > 0) {
-    signatureInfo.setKeyLocator(m_keyLocator);
-  }
-
-  data->setSignatureInfo(signatureInfo);
-
-  ::ndn::EncodingEstimator estimator;
-  ::ndn::EncodingBuffer encoder(estimator.appendVarNumber(m_signature), 0);
-  encoder.appendVarNumber(m_signature);
-  data->setSignatureValue(encoder.getBuffer());
-
-  NS_LOG_INFO("Send alert: "  << data->getName());
-
-  // to create real wire encoding
-  data->wireEncode();
-
-  m_transmittedDatas(data, this, m_face);
-  m_appLink->onReceiveData(*data); // send to Forwarder
+  NS_LOG_LOGIC("Send alert: " << data->getName());
+  return data;
 }
 
 } // namespace ndn
