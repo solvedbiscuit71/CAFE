@@ -27,6 +27,8 @@
 #include "ndn-cxx/encoding/block-helpers.hpp"
 #include "ndn-cxx/util/time.hpp"
 
+#include "model/caf-zor.hpp"
+
 namespace ndn {
 namespace name {
 
@@ -340,6 +342,12 @@ public: // naming conventions
   isSequenceNumber() const;
 
   /**
+   * @brief Check if the component is a caf::ZoR
+   */
+  bool
+  isZoR() const;
+
+  /**
    * @brief Interpret this name component as a NonNegativeInteger
    * @sa https://named-data.net/doc/NDN-packet-spec/current/tlv.html#non-negative-integer-encoding
    * @return The decoded non-negative integer.
@@ -400,6 +408,12 @@ public: // naming conventions
    */
   uint64_t
   toSequenceNumber() const;
+
+  /**
+   * @brief Interpret as ZoR component using caf::ZoR::deserialize
+   */
+  std::unique_ptr<ns3::caf::ZoR>
+  toZoR() const;
 
   /**
    * @brief Create a component encoded as NonNegativeInteger
@@ -466,6 +480,12 @@ public: // naming conventions
    */
   static Component
   fromSequenceNumber(uint64_t seqNo);
+
+  /**
+   * @brief Create a ZoR component using caf::ZoR::serialize
+   */
+  static Component
+  fromZoR(const ns3::caf::ZoR& zor);
 
 public: // commonly used TLV-TYPEs
   /**

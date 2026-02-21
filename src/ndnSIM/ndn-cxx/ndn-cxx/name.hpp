@@ -25,6 +25,8 @@
 #include "ndn-cxx/name-component.hpp"
 #include "ndn-cxx/util/optional.hpp"
 
+#include "model/caf-zor.hpp"
+
 #include <iterator>
 
 namespace ndn {
@@ -460,6 +462,16 @@ public: // modifiers
   appendSequenceNumber(uint64_t seqNo)
   {
     return append(Component::fromSequenceNumber(seqNo));
+  }
+
+  /**
+   * @brief Append a ZoR component
+   * @return a reference to this name, to allow chaining
+   */
+  Name&
+  appendZoR(const ns3::caf::ZoR& zor)
+  {
+    return append(Component::fromZoR(zor));
   }
 
   /**

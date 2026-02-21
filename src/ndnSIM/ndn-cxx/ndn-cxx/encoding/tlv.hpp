@@ -123,7 +123,7 @@ enum : uint32_t {
   VersionNameComponent     = 54,
   TimestampNameComponent   = 56,
   SequenceNumNameComponent = 58,
-  ZoRNameComponent         = 1073,
+  ZoRNameComponent         = 59, // must be less than 60
 };
 
 /** @brief SignatureType values

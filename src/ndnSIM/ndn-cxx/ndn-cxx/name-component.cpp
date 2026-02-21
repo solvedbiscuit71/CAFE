@@ -268,6 +268,12 @@ Component::isSequenceNumber() const
          (canDecodeTypedConvention() && type() == tlv::SequenceNumNameComponent && isNumber());
 }
 
+bool
+Component::isZoR() const
+{
+  return type() == tlv::ZoRNameComponent;
+}
+
 ////////////////////////////////////////////////////////////////////////////////
 
 uint64_t
@@ -354,6 +360,19 @@ Component::toSequenceNumber() const
   NDN_THROW(Error("Not a SequenceNumber component"));
 }
 
+std::unique_ptr<ns3::caf::ZoR>
+Component::toZoR() const 
+{
+  if (!isZoR()) {
+    NDN_THROW(Error("Not a ZoR component"));
+  }
+
+  // Get the value (payload) bytes from the component
+  std::vector<uint8_t> buf(value_begin(), value_end());
+  
+  return ns3::caf::ZoR::deserialize(buf);
+}
+
 ////////////////////////////////////////////////////////////////////////////////
 
 Component
@@ -420,6 +439,19 @@ Component::fromSequenceNumber(uint64_t seqNo)
   return g_conventionEncoding == Convention::MARKER ?
          fromNumberWithMarker(SEQUENCE_NUMBER_MARKER, seqNo) :
          fromNumber(seqNo, tlv::SequenceNumNameComponent);
+}
+
+Component
+Component::fromZoR(const ns3::caf::ZoR &zor)
+{
+  auto buf = ns3::caf::ZoR::serialize(zor);
+  
+  EncodingBuffer encoder;
+  encoder.prependBytes(buf); // value
+  encoder.prependVarNumber(buf.size()); // length
+  encoder.prependVarNumber(tlv::ZoRNameComponent); // type
+
+  return Component(encoder.block());
 }
 
 ////////////////////////////////////////////////////////////////////////////////
