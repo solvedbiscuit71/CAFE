@@ -39,6 +39,10 @@
 #include "table/dead-nonce-list.hpp"
 #include "table/network-region-table.hpp"
 
+#include "ns3/node.h"
+#include "model/caf-context.hpp"
+#include "model/caf-zor.hpp"
+
 namespace nfd {
 
 namespace fw {
@@ -190,10 +194,29 @@ NFD_PUBLIC_WITH_TESTS_ELSE_PRIVATE: // pipelines
   /** \brief incoming Alert pipeline
    *  \param data the incoming Alert, must be well-formed and created with make_shared
    *  \param ingress face on which \p alert was received and endpoint of the sender
+   *  \return whether the alert is relevent or not to the current node
    */
-  NFD_VIRTUAL_WITH_TESTS void
+  NFD_VIRTUAL_WITH_TESTS bool
   OnIncomingAlert(const Data& data, const FaceEndpoint& ingress);
 
+  /** \brief vehicle handler for \p alert packet
+   *  \param data the incoming Alert, must be well-formed and created with make_shared
+   *  \param zor the ZoR, extracted from name
+   *  \param node the node object, on which the alert packet is received 
+   *  \param ctx the context object, associate with the node
+   */
+  NFD_VIRTUAL_WITH_TESTS void
+  AlertVehicleHandler(const Data& data, const ns3::caf::ZoR& zor, const ns3::Node& node, const ns3::caf::Context& ctx);
+
+  /** \brief RSU handler for \p alert packet
+   *  \param data the incoming Alert, must be well-formed and created with make_shared
+   *  \param zor the ZoR, extracted from name
+   *  \param node the node object, on which the alert packet is received 
+   *  \param ctx the context object, associate with the node
+   */
+  NFD_VIRTUAL_WITH_TESTS void
+  AlertRsuHandler(const Data& data, const ns3::caf::ZoR& zor, const ns3::Node& node, const ns3::caf::Context& ctx);
+  
   /** \brief incoming Data pipeline
    *  \param data the incoming Data, must be well-formed and created with make_shared
    *  \param ingress face on which \p data was received and endpoint of the sender

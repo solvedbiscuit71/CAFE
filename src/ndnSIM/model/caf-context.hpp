@@ -78,11 +78,11 @@ public:
   NodeStatus GetNodeStatus() const { return m_status; }
   
   void SetReceivedHello(bool receivedHello) { m_receivedHello = receivedHello; }
-  bool GetReceivedHello() { return m_receivedHello; }
+  bool GetReceivedHello() const { return m_receivedHello; }
   
   void SetFaceIdContext(nfd::face::FaceId faceId, std::string context);
-  nfd::face::FaceId GetFaceIdFor(std::string context);
-  std::string GetContextFor(nfd::face::FaceId faceId);
+  nfd::face::FaceId GetFaceIdFor(std::string context) const;
+  std::string GetContextFor(nfd::face::FaceId faceId) const;
   
   static Graph* GetRoutingInfo();
 

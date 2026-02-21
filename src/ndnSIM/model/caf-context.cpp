@@ -52,7 +52,7 @@ Context::SetFaceIdContext(nfd::face::FaceId faceId, std::string context)
 }
 
 nfd::face::FaceId
-Context::GetFaceIdFor(std::string context)
+Context::GetFaceIdFor(std::string context) const
 {
   auto it = m_faceContextMap.right.find(context);
   if (it != m_faceContextMap.right.end()) {
@@ -62,7 +62,7 @@ Context::GetFaceIdFor(std::string context)
 }
 
 std::string
-Context::GetContextFor(nfd::face::FaceId faceId)
+Context::GetContextFor(nfd::face::FaceId faceId) const
 {
   auto it = m_faceContextMap.left.find(faceId);
   if (it != m_faceContextMap.left.end()) {

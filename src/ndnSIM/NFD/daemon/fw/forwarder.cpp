@@ -58,6 +58,8 @@
 #include "ns3/node.h"
 #include "ns3/ptr.h"
 #include "model/caf-context.hpp"
+#include "model/caf-zor.hpp"
+#include "model/caf-routing.hpp"
 
 namespace nfd {
 
@@ -69,6 +71,38 @@ static Name
 getDefaultStrategyName()
 {
   return fw::BestRouteStrategy::getStrategyName();
+}
+
+static const Name ALERT_PREFIX("/alert");
+
+static bool
+isAlert(const Data& data) 
+{
+  return ALERT_PREFIX.isPrefixOf(data.getName());
+}
+
+static bool
+forAlert(const Interest& interest) 
+{
+  return ALERT_PREFIX.isPrefixOf(interest.getName());
+}
+
+// @assume isAlert(data) == true
+static std::unique_ptr<ns3::caf::ZoR>
+extractZoR(const Data& data)
+{
+  int i;
+  const auto& name = data.getName();
+  for (i=name.size()-1; i>=0; --i) {
+    if (name.get(i).isZoR()) {
+      break;
+    }
+  }
+  // has ZoR name component
+  if (i != -1) {
+    return name.get(i).toZoR();
+  }
+  return nullptr;
 }
 
 Forwarder::Forwarder(FaceTable& faceTable)
@@ -113,20 +147,6 @@ Forwarder::Forwarder(FaceTable& faceTable)
 }
 
 Forwarder::~Forwarder() = default;
-
-static const Name AlertPrefix("/alert");
-
-bool
-isAlert(const Data& data) 
-{
-  return AlertPrefix.isPrefixOf(data.getName());
-}
-
-bool
-forAlert(const Interest& interest) 
-{
-  return AlertPrefix.isPrefixOf(interest.getName());
-}
 
 void
 Forwarder::onIncomingInterest(const Interest& interest, const FaceEndpoint& ingress)
@@ -370,98 +390,78 @@ Forwarder::onInterestFinalize(const shared_ptr<pit::Entry>& pitEntry)
   m_pit.erase(pitEntry.get());
 }
 
-void
+bool
 Forwarder::OnIncomingAlert(const Data& data, const FaceEndpoint& ingress)
 {
   using namespace ns3;
 
+  // extract ZoR
+  auto zor = extractZoR(data);
+
   // resolve the ns-3 Node and Context
   uint32_t nodeId = Simulator::GetContext();
+
   Ptr<Node> node = nullptr;
   Ptr<caf::Context> ctx = nullptr;
-  Ptr<MobilityModel> mobility = nullptr;
-  Vector nodePosition;
 
   if (nodeId != 0xffffffff) { 
     node = NodeList::GetNode(nodeId);
-    mobility = node->GetObject<MobilityModel>();
-    if (mobility != nullptr) {
-      nodePosition = mobility->GetPosition();
+    if (node != nullptr) {
+      ctx = node->GetObject<caf::Context>();
     }
-  }
-  if (node != nullptr) {
-    ctx = node->GetObject<caf::Context>();
   }
 
   // guard condition
-  if (!ctx) {
+  if (!node || !ctx) {
     NFD_LOG_DEBUG("OnIncomingAlert in=" << ingress << " data=" << data.getName()
                   << " decision=drop");
-    return;   
-  }
-
-  // TODO: read sender info and routing info
-  auto senderType = data.getTag<lp::SenderTypeTag>();
-  if (senderType != nullptr) {
-    NFD_LOG_DEBUG("OnIncomingAlert senderType=" << (int)senderType->get());
-  }
-
-  auto senderPosition = data.getTag<lp::SenderPositionTag>();
-  if (senderPosition != nullptr) {
-    auto [x,y,z] = senderPosition->getPos();
-    NFD_LOG_DEBUG("OnIncomingAlert sendPosition={"
-                  <<  "x:" << x << ","
-                  <<  "y:" << y << ","
-                  <<  "z:" << z << "}");
+    return false;
   }
   
-  auto destinationNodes = data.getTag<lp::DestinationNodesTag>();
-  if (destinationNodes != nullptr) {
-    auto nodes = destinationNodes->get();
-    std::ostringstream oss;
-    oss << "{";
-    for (auto nodeId: nodes) {
-      oss << nodeId << ",";
-    }
-    oss << "}";
-    NFD_LOG_DEBUG("OnIncomingAlert destination=" << oss.str());
+  // delegate forwarding to node-specific handler
+  switch (ctx->GetNodeType()) {
+    case caf::NODE_TYPE_VEHICLE:
+      AlertVehicleHandler(data, *zor, *node, *ctx);
+      break;
+    case caf::NODE_TYPE_RSU:
+      AlertRsuHandler(data, *zor, *node, *ctx);
+      break;
+    case caf::NODE_TYPE_BACKBONE:
+    case caf::NODE_TYPE_NONE:
+      break;
   }
 
-
-  // TODO: provide proper condition based on context
-  if (ctx->GetNodeType() != caf::NODE_TYPE_RSU) {
-    NFD_LOG_DEBUG("OnIncomingAlert in=" << ingress << " data=" << data.getName()
-                  << " decision=drop");
-    return;
+  // if ZoR is nullptr, then alert is local scoped
+  if (zor == nullptr) {
+    return true;
   }
 
-  // TODO: forward to V2I or V2V based on context
-  FaceId faceId = ctx->GetFaceIdFor(caf::Context::V2I_FACE);
-  if (!faceId) {
-    NFD_LOG_DEBUG("OnIncomingAlert in=" << ingress << " data=" << data.getName()
-                  << " decision=drop");
-    return;
-  }
-
-  Face& face = *m_faceTable.get(faceId);
-  NFD_LOG_DEBUG("OnIncomingAlert in=" << ingress << " data=" << data.getName() 
-                << " decision=forward to " << caf::Context::V2I_FACE);
-
-  // TODO: set sender and routing info
-  data.setTag(make_shared<lp::SenderTypeTag>(ctx->GetNodeType()));
+  // check whether inside ZoR
+  Ptr<MobilityModel> mobility = node->GetObject<MobilityModel>();
   if (mobility != nullptr) {
-    data.setTag(make_shared<lp::SenderPositionTag>(
-      std::make_tuple(nodePosition.x, nodePosition.y, nodePosition.z)
-    ));
+    Vector v = mobility->GetPosition();
+    return zor->contains({static_cast<float>(v.x), static_cast<float>(v.y)});
   }
-  
-  if (node != nullptr) {
-    auto destinationNodes = make_shared<lp::DestinationNodesTag>();
-    destinationNodes->add(node->GetId());
-    data.setTag(destinationNodes);
-  }
+  return false;
+}
 
-  this->onOutgoingData(data, face);
+void
+Forwarder::AlertVehicleHandler(const Data& data, const ns3::caf::ZoR& zor,
+                               const ns3::Node& node, const ns3::caf::Context& ctx)
+{
+  using namespace ns3;
+  
+  return;
+}
+
+void
+Forwarder::AlertRsuHandler(const Data& data, const ns3::caf::ZoR& zor,
+                           const ns3::Node& node, const ns3::caf::Context& ctx)
+{
+  using namespace ns3;
+
+  auto& v2i = *m_faceTable.get(ctx.GetFaceIdFor(caf::Context::V2I_FACE));
+  this->onOutgoingData(data, v2i);
 }
 
 void
@@ -484,13 +484,16 @@ Forwarder::onIncomingData(const Data& data, const FaceEndpoint& ingress)
   // if the data packet is an alert packet i.e. prefix=/alert;
   if (isAlert(data)) {
     // then we should forward the alert packet based on the ZoR and other context parameters
-    this->OnIncomingAlert(data, ingress);
+    bool relevent = this->OnIncomingAlert(data, ingress);
+    
+    // return if alert packet is not relevent
+    if (!relevent) return;
   }
 
   // PIT match
   pit::DataMatchResult pitMatches = m_pit.findAllDataMatches(data);
-  if (pitMatches.size() == 0 && !isAlert(data)) {
-    // goto Data unsolicited pipeline if not alert packet
+  if (pitMatches.size() == 0) {
+    // goto Data unsolicited pipeline
     this->onDataUnsolicited(data, ingress);
     return;
   }
