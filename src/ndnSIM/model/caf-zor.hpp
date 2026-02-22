@@ -68,9 +68,10 @@ template <typename T> T read(const std::vector<uint8_t> &buf, size_t &offset) {
 }
 
 enum ZoRType : uint8_t {
-  CIRCLE = 0b00000001,
-  POLYGON = 0b00000010,
-  COMPOSITE = 0b00000100,
+  NEIGHBOR =  0b00000001,
+  CIRCLE =    0b00000010,
+  POLYGON =   0b00000100,
+  COMPOSITE = 0b00001000,
 };
 
 class ZoR {
@@ -86,6 +87,27 @@ public:
 
   static std::vector<uint8_t> serialize(const ZoR &);
   static std::unique_ptr<ZoR> deserialize(const std::vector<uint8_t> &);
+};
+
+/**
+ * \class NeighborZoR indicates next-hop neighbor
+ * forwarder on receiving a NeighborZoR checks the incoming face scope
+ * if scope is LOCAL then forward to all NON_LOCAL faces
+ */
+class NeighborZoR : public ZoR {
+public:
+  NeighborZoR() = default;
+
+  ZoRType getType() const override { return NEIGHBOR; }
+  size_t size() const override;
+
+  // contains, coveredBy, distanceToBoundary don't make sense
+  bool contains(const Point &p) const override { return false; }
+  bool coveredBy(const Point &center, float radius) const override { return false; }
+  float distanceToBoundary(const Point &p) const override { return 0.0f; }
+
+  void serialize(std::vector<uint8_t> &buf) const override;
+  static std::unique_ptr<NeighborZoR> deserialize(const std::vector<uint8_t> &buf, size_t &offset);
 };
 
 class CircleZoR : public ZoR {

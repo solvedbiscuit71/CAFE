@@ -19,6 +19,12 @@ public:
 protected:
   virtual std::shared_ptr<Data>
   AlertSupplier() override;
+
+  uint32_t m_seq;
+  Name m_prefix;
+  uint32_t m_virtualPayloadSize;
+  Time m_freshness;
+
 };
 
 } // namespace ndn

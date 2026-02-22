@@ -21,10 +21,6 @@ TypeId AlertProducerCbr::GetTypeId(void) {
           .SetGroupName("Caf")
           .SetParent<AlertProducer>()
           .AddConstructor<AlertProducerCbr>()
-          .AddAttribute("Prefix", "Prefix to use for alerts",
-                        StringValue("/alert"),
-                        MakeNameAccessor(&AlertProducerCbr::m_prefix),
-                        MakeNameChecker())
           .AddAttribute("Interval", "Interval between alerts",
                         StringValue("1s"),
                         MakeTimeAccessor(&AlertProducerCbr::m_interval),
@@ -32,20 +28,12 @@ TypeId AlertProducerCbr::GetTypeId(void) {
           .AddAttribute("EnableJitter", "Add jitter to prevent hidden terminal problem",
                         BooleanValue(false),
                         MakeBooleanAccessor(&AlertProducerCbr::m_jitter),
-                        MakeBooleanChecker())
-          .AddAttribute("PayloadSize", "Virtual payload size for Content packets",
-                        UintegerValue(1024),
-                        MakeUintegerAccessor(&AlertProducerCbr::m_virtualPayloadSize),
-                        MakeUintegerChecker<uint32_t>())
-          .AddAttribute("Freshness", "Freshness of data packets, if 0, then unlimited freshness",
-                        StringValue("0s"),
-                        MakeTimeAccessor(&AlertProducerCbr::m_freshness),
-                        MakeTimeChecker());
+                        MakeBooleanChecker());
   return tid;
 }
 
 AlertProducerCbr::AlertProducerCbr() 
-  : m_rand(CreateObject<NormalRandomVariable>()), m_seq(0)
+  : m_rand(CreateObject<NormalRandomVariable>())
 {
   m_rand->SetAttribute("Mean", DoubleValue(0.0));
   m_rand->SetAttribute("Variance", DoubleValue(0.00001)); // std = 1ms = 0.001s
@@ -76,21 +64,5 @@ AlertProducerCbr::SendAlert() {
       Simulator::Schedule(m_interval + jitter, &AlertProducerCbr::SendAlert, this);
 }
 
-std::shared_ptr<Data>
-AlertProducerCbr::AlertSupplier()
-{
-  Name dataName(m_prefix);
-  dataName.appendSequenceNumber(m_seq++);
-
-  auto data = std::make_shared<Data>();
-  data->setName(dataName);
-  data->setFreshnessPeriod(time::milliseconds(m_freshness.GetMilliSeconds()));
-  data->setContent(make_shared<::ndn::Buffer>(m_virtualPayloadSize));
-
-  NS_LOG_LOGIC("Send alert: " << data->getName());
-  return data;
-}
-
 } // namespace ndn
-
 } // namespace ns3

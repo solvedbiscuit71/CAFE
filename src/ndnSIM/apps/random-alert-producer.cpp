@@ -82,6 +82,8 @@ RandomAlertProducer::AlertSupplier()
   dataName.appendSequenceNumber(m_seq++);
   if (m_zor) {
     dataName.appendZoR(*m_zor);
+  } else {
+    dataName.appendZoR(caf::NeighborZoR());
   }
 
   auto data = std::make_shared<Data>();

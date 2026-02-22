@@ -47,6 +47,22 @@ float Point::distanceFromLine(const Point &a, const Point &b) const {
   return distanceFromPoint(closest);
 }
 
+size_t NeighborZoR::size() const {
+  size_t size = 0;
+  size += sizeof(ZoRType); // type
+  return size;
+}
+
+void NeighborZoR::serialize(std::vector<uint8_t> &buf) const {
+  uint8_t tag = getType();
+  write<uint8_t>(buf, tag);
+}
+
+std::unique_ptr<NeighborZoR>
+NeighborZoR::deserialize(const std::vector<uint8_t> &buf, size_t &offset) {
+  return std::make_unique<NeighborZoR>();
+}
+
 size_t CircleZoR::size() const {
   size_t size = 0;
   size += center.size() + sizeof(float); // value
@@ -224,14 +240,23 @@ CompositeZoR::deserialize(const std::vector<uint8_t> &buf, size_t &offset) {
   for (uint8_t i = 0; i < count; ++i) {
     uint8_t tag = read<uint8_t>(buf, offset);
 
-    if (tag == CIRCLE)
-      components.emplace_back(CircleZoR::deserialize(buf, offset));
-    else if (tag == POLYGON)
-      components.emplace_back(PolygonZoR::deserialize(buf, offset));
-    else if (tag == COMPOSITE)
-      components.emplace_back(CompositeZoR::deserialize(buf, offset));
-    else
-      NS_FATAL_ERROR("CompositeZoR: Unknown ZoRType=" << (int)tag);
+    switch (tag) {
+      case NEIGHBOR:
+        components.emplace_back(NeighborZoR::deserialize(buf, offset));
+        break;
+      case CIRCLE:
+        components.emplace_back(CircleZoR::deserialize(buf, offset));
+        break;
+      case POLYGON:
+        components.emplace_back(PolygonZoR::deserialize(buf, offset));
+        break;
+      case COMPOSITE:
+        components.emplace_back(CompositeZoR::deserialize(buf, offset));
+        break;
+      default:
+        NS_FATAL_ERROR("Unknown ZoRType=" << (int)tag);
+        break;
+    }
   }
   return std::make_unique<CompositeZoR>(std::move(components));
 }
@@ -240,14 +265,17 @@ std::unique_ptr<ZoR> ZoR::deserialize(const std::vector<uint8_t> &buf) {
   size_t offset = 0;
   uint8_t tag = read<uint8_t>(buf, offset);
 
-  if (tag == CIRCLE) {
-    return CircleZoR::deserialize(buf, offset);
-  } else if (tag == POLYGON) {
-    return PolygonZoR::deserialize(buf, offset);
-  } else if (tag == COMPOSITE) {
-    return CompositeZoR::deserialize(buf, offset);
-  } else {
-    return nullptr;
+  switch (tag) {
+    case NEIGHBOR:
+      return NeighborZoR::deserialize(buf, offset);
+    case CIRCLE:
+      return CircleZoR::deserialize(buf, offset);
+    case POLYGON:
+      return PolygonZoR::deserialize(buf, offset);
+    case COMPOSITE:
+      return CompositeZoR::deserialize(buf, offset);
+    default:
+      return nullptr;
   }
 }
 
