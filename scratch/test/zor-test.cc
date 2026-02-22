@@ -2,10 +2,9 @@
 #include "model/caf-zor.hpp"
 
 #include "ndn-cxx/name.hpp"
-#include "scratch-utils.h"
 #include <memory>
 
-namespace ns3 {
+#include "test.h"
 
 std::vector<uint8_t>
 sampleZoR ()
@@ -25,12 +24,9 @@ sampleZoR ()
   return ZoR::serialize (zor);
 }
 
-int
-main (int argc, char *argv[])
+void
+ZoRTest ()
 {
-  // * Read optional command-line parameters
-  // CommandLine cmd;
-  // cmd.Parse (argc, argv);
   using namespace ns3::caf;
 
   std::unique_ptr<ZoR> zor = ZoR::deserialize (sampleZoR ());
@@ -62,14 +58,4 @@ main (int argc, char *argv[])
     std::cout << restoredZoR->distanceToBoundary(veh1) << ' '
               << restoredZoR->distanceToBoundary(veh2) << std::endl; // veh1 < veh2
   }
-
-  return 0;
-}
-
-} // namespace ns3
-
-int
-main (int argc, char *argv[])
-{
-  return ns3::main (argc, argv);
 }

@@ -7,6 +7,8 @@
 
 #include "model/caf-routing.hpp"
 
+#include "test.h"
+
 using namespace ns3::caf;
 
 // ------------------------------------------------------
@@ -55,8 +57,8 @@ simulate(Graph& graph, DestinationNodes& nodes, NodeId sourceId)
     }
 }
 
-int
-main()
+void
+MiraTest()
 {
     Graph G;
     
@@ -86,5 +88,4 @@ main()
     
     DestinationNodes dNodes{2, 7, 3, 5};
     simulate(G, dNodes, 1);
-    return 0;
 }
