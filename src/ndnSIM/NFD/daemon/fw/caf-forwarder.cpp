@@ -23,12 +23,15 @@
  * NFD, e.g., in COPYING.md file.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include "core/common.hpp"
 #include "face/face-endpoint.hpp"
 #include "forwarder.hpp"
 
 /**
  * ns3 namespace
  */
+#include "lp/sender-position-tag.hpp"
+#include "lp/tags.hpp"
 #include "ns3/simulator.h"
 #include "ns3/node-list.h"
 #include "ns3/node.h"
@@ -38,6 +41,8 @@
 #include "model/caf-context.hpp"
 #include "model/caf-zor.hpp"
 #include "model/caf-routing.hpp"
+#include <memory>
+#include <tuple>
 
 namespace nfd {
 
@@ -64,6 +69,8 @@ extractZoR(const Data& data)
 bool
 Forwarder::OnIncomingAlert(const Data& data, const FaceEndpoint& ingress)
 {
+  NFD_LOG_DEBUG("OnIncomingAlert: in=" << ingress << " alert=" << data.getName());
+
   using namespace ns3;
 
   // extract ZoR
@@ -84,14 +91,44 @@ Forwarder::OnIncomingAlert(const Data& data, const FaceEndpoint& ingress)
 
   // guard condition
   if (!node || !ctx) {
-    NFD_LOG_DEBUG("OnIncomingAlert in=" << ingress << " alert=" << data.getName()
-                  << " decision=drop");
+    NFD_LOG_DEBUG("OnIncomingAlert: either node or ctx is nullptr; decision=drop");
     return false;
   }
 
   // if ZoR is nullptr, then alert is local scoped
   if (zor == nullptr) {
+    NFD_LOG_DEBUG("OnIncomingAlert: zor is nullptr; decision=drop");
     return true;
+  }
+  
+  if (zor->getType() == caf::NEIGHBOR) {
+    // from a NON_LOCAL face then don't forward
+    if (ingress.face.getScope() == ::ndn::nfd::FACE_SCOPE_NON_LOCAL) {
+      NFD_LOG_DEBUG("NeighborHandler: incoming face is non-local; decision=drop");
+      return true;
+    }
+    NFD_LOG_DEBUG("NeighborHandler: incoming face is local; decision=broadcast");
+    
+    // set sender info:
+    // In case of hello message, sender position can be used for
+    // predictive handoff where packet are delayed until the handover occurs
+    data.setTag(make_shared<lp::SenderTypeTag>(ctx->GetNodeType()));
+    Ptr<MobilityModel> mobility = node->GetObject<MobilityModel>();
+    if (mobility != nullptr) {
+      Vector v = mobility->GetPosition();
+      data.setTag(make_shared<lp::SenderPositionTag>(
+        std::make_tuple(v.x, v.y, v.z)
+      ));
+    }
+    
+    // forward to all NON_LOCAL faces
+    for (auto& face: m_faceTable) {
+      if (face.getScope() == ::ndn::nfd::FACE_SCOPE_NON_LOCAL) {
+        this->onOutgoingData(data, face);
+      }
+    }
+
+    return false;
   }
   
   // delegate forwarding to node-specific handler
@@ -121,8 +158,7 @@ Forwarder::AlertVehicleHandler(const Data& data, const FaceEndpoint& ingress,
                                const ns3::caf::ZoR& zor, const ns3::Node& node, const ns3::caf::Context& ctx)
 {
   using namespace ns3;
-  NFD_LOG_DEBUG("VehicleHandler " << " alert=" << data.getName()
-                << " decision=drop");
+  NFD_LOG_DEBUG("VehicleHandler: decision=drop");
   
   return;
 }
@@ -132,11 +168,9 @@ Forwarder::AlertRsuHandler(const Data& data, const FaceEndpoint& ingress,
                            const ns3::caf::ZoR& zor, const ns3::Node& node, const ns3::caf::Context& ctx)
 {
   using namespace ns3;
-  NFD_LOG_DEBUG("RsuHandler " << " alert=" << data.getName()
-                << " decision=forward to V2I");
+  NFD_LOG_DEBUG("RsuHandler: decision=drop");
 
-  auto& v2i = *m_faceTable.get(ctx.GetFaceIdFor(caf::Context::V2I_FACE));
-  this->onOutgoingData(data, v2i);
+  return;
 }
 
 }
