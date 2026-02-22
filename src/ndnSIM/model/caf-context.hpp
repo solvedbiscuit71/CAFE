@@ -57,6 +57,7 @@ enum TransportFilter : uint8_t {
 };
 
 static const double defaultTxRadius = 50.0;
+static const double defaultTxRate = 3 * 1e6;
 
 using FaceIdContextMap = boost::bimap<
     boost::bimaps::unordered_set_of<nfd::face::FaceId>, 
@@ -108,6 +109,12 @@ public:
    * @brief Cancel the schedule callback and erase the name
    */
   void Cancel(const ndn::Name& name);
+  
+  /**
+   * @brief Remove name -> id mapping
+   * Used by the event to remove the entry on expire
+   */
+  void Complete(const ndn::Name& name);
 
 private:
   std::unordered_map<ndn::Name, ns3::EventId> m_pendingEvents;
@@ -128,7 +135,8 @@ public:
       m_status(NODE_STATUS_UNKNOWN),
       m_alertStore(100),
       m_receivedHello(false),
-      m_txRadius(caf::defaultTxRadius) {}
+      m_txRadius(caf::defaultTxRadius),
+      m_txRate(caf::defaultTxRate) {}
   
   void SetNodeType(NodeType type) { m_type = type; }
   NodeType GetNodeType() const { return m_type; }
@@ -145,6 +153,9 @@ public:
   
   void SetTxRadius(double txRadius) { m_txRadius = txRadius; }
   double GetTxRadius() const { return m_txRadius; }
+
+  void SetTxRate(double txRate) { m_txRate = txRate; }
+  double GetTxRate() const { return m_txRate; }
   
   AlertStore* GetAlertStore() { return &m_alertStore; };
   DeferredRegistry* GetDeferredRegistry() { return &m_registry; };
@@ -160,6 +171,7 @@ private:
   DeferredRegistry m_registry;
   bool m_receivedHello;
   double m_txRadius;
+  double m_txRate;
 };
 
 void

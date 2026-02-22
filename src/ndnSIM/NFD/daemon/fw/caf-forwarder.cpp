@@ -33,6 +33,7 @@
 #include "lp/destination-nodes-tag.hpp"
 #include "lp/sender-position-tag.hpp"
 #include "lp/tags.hpp"
+#include "ns3/nstime.h"
 #include "ns3/simulator.h"
 #include "ns3/node-list.h"
 #include "ns3/node.h"
@@ -68,11 +69,11 @@ extractZoR(const Data& data)
 }
 
 static bool
-checkInside(const ns3::Node& node, const ns3::caf::ZoR& zor)
+checkInside(ns3::Ptr<ns3::Node> node, const ns3::caf::ZoR& zor)
 {
   using namespace ns3;
 
-  Ptr<MobilityModel> mobility = node.GetObject<MobilityModel>();
+  Ptr<MobilityModel> mobility = node->GetObject<MobilityModel>();
   if (mobility != nullptr) {
     Vector v = mobility->GetPosition();
     return zor.contains({static_cast<float>(v.x), static_cast<float>(v.y)});
@@ -80,11 +81,20 @@ checkInside(const ns3::Node& node, const ns3::caf::ZoR& zor)
   return false;
 }
 
+static ns3::caf::Point
+convertToPoint(ns3::Vector v) {
+  return ns3::caf::Point{static_cast<float>(v.x), static_cast<float>(v.y)};
+}
+
+static ns3::caf::Point
+convertToPoint(std::tuple<double, double, double> v) {
+  auto [x,y,z] = v;
+  return ns3::caf::Point{static_cast<float>(x), static_cast<float>(y)};
+}
+
 bool
 Forwarder::OnIncomingAlert(const Data& data, const FaceEndpoint& ingress)
 {
-  NFD_LOG_DEBUG("OnIncomingAlert: in=" << ingress << " alert=" << data.getName());
-
   using namespace ns3;
 
   // extract ZoR
@@ -105,40 +115,28 @@ Forwarder::OnIncomingAlert(const Data& data, const FaceEndpoint& ingress)
 
   // guard condition
   if (!node || !ctx) {
-    NFD_LOG_DEBUG("OnIncomingAlert: either node or ctx is nullptr; decision=drop");
+    NFD_LOG_DEBUG("in=" << ingress << " alert=" << data.getName() << " decision=drop reason='Either node or ctx is nullptr'");
     return false;
   }
 
   // if ZoR is nullptr, then alert is local scoped
   if (zor == nullptr) {
-    NFD_LOG_DEBUG("OnIncomingAlert: zor is nullptr; decision=drop");
+    NFD_LOG_DEBUG("in=" << ingress << " alert=" << data.getName() << " decision=drop reason='Zor is nullptr'");
     return true;
   }
   
   if (zor->getType() == caf::NEIGHBOR) {
     // from a NON_LOCAL face then don't forward
     if (ingress.face.getScope() == ::ndn::nfd::FACE_SCOPE_NON_LOCAL) {
-      NFD_LOG_DEBUG("NeighborHandler: incoming face is non-local; decision=drop");
+      NFD_LOG_DEBUG("in=" << ingress << " alert=" << data.getName() << " decision=drop reason='Neighbor zor'");
       return true;
     }
-    NFD_LOG_DEBUG("NeighborHandler: incoming face is local; decision=broadcast");
     
-    // set sender info:
-    // In case of hello message, sender position can be used for
-    // predictive handoff where packet are delayed until the handover occurs
-    data.setTag(make_shared<lp::SenderTypeTag>(ctx->GetNodeType()));
-    Ptr<MobilityModel> mobility = node->GetObject<MobilityModel>();
-    if (mobility != nullptr) {
-      Vector v = mobility->GetPosition();
-      data.setTag(make_shared<lp::SenderPositionTag>(
-        std::make_tuple(v.x, v.y, v.z)
-      ));
-    }
-    
+    NFD_LOG_DEBUG("in=" << ingress << " alert=" << data.getName() << " decision=broadcast");
     // forward to all NON_LOCAL faces
     for (auto& face: m_faceTable) {
       if (face.getScope() == ::ndn::nfd::FACE_SCOPE_NON_LOCAL) {
-        this->onOutgoingData(data, face);
+        this->OnOutgoingAlert(data, face, node, ctx);
       }
     }
     return false;
@@ -148,9 +146,9 @@ Forwarder::OnIncomingAlert(const Data& data, const FaceEndpoint& ingress)
   // delegate forwarding to node-specific handler
   switch (ctx->GetNodeType()) {
     case caf::NODE_TYPE_VEHICLE:
-      return AlertVehicleHandler(data, ingress, *zor, *node, *ctx);
+      return AlertVehicleHandler(data, ingress, *zor, node, ctx);
     case caf::NODE_TYPE_RSU:
-      return AlertRsuHandler(data, ingress, *zor, *node, *ctx);
+      return AlertRsuHandler(data, ingress, *zor, node, ctx);
     case caf::NODE_TYPE_BACKBONE:
     case caf::NODE_TYPE_NONE:
       break;
@@ -160,54 +158,156 @@ Forwarder::OnIncomingAlert(const Data& data, const FaceEndpoint& ingress)
   return false;
 }
 
-bool
-Forwarder::AlertVehicleHandler(const Data& data, const FaceEndpoint& ingress, 
-                               const ns3::caf::ZoR& zor, const ns3::Node& node, ns3::caf::Context& ctx)
+void
+Forwarder::OnOutgoingAlert(const Data& data, Face& egress, ns3::Ptr<ns3::Node> node, ns3::Ptr<ns3::caf::Context> ctx)
 {
   using namespace ns3;
-  NFD_LOG_DEBUG("VehicleHandler: decision=drop");
+  NFD_LOG_DEBUG("out=" << egress.getId() << " alert=" << data.getName());
+
+  data.setTag(make_shared<lp::SenderTypeTag>(ctx->GetNodeType()));
+  Ptr<MobilityModel> mobility = node->GetObject<MobilityModel>();
+  if (mobility != nullptr) {
+    Vector v = mobility->GetPosition();
+    data.setTag(make_shared<lp::SenderPositionTag>(
+      std::make_tuple(v.x, v.y, v.z)
+    ));
+  }
   
-  return checkInside(node, zor);
+  this->onOutgoingData(data, egress);
+}
+
+void
+Forwarder::DeferredOutgoingAlert(shared_ptr<const Data> data, shared_ptr<Face> egress, ns3::Ptr<ns3::Node> node, ns3::Ptr<ns3::caf::Context> ctx)
+{
+  NFD_LOG_DEBUG("timer expired");
+
+  // mark schedule tranmission as completed
+  auto registry = ctx->GetDeferredRegistry();
+  registry->Complete(data->getName());
+
+  this->OnOutgoingAlert(*data, *egress, node, ctx);
+}
+
+bool
+Forwarder::AlertVehicleHandler(const Data& data, const FaceEndpoint& ingress, 
+                               const ns3::caf::ZoR& zor, ns3::Ptr<ns3::Node> node, ns3::Ptr<ns3::caf::Context> ctx)
+{
+  using namespace ns3;
+  
+  // is duplicate?
+  const Name& name = data.getName();
+  auto as = ctx->GetAlertStore();
+  if (!as->InsertOrUpdate(name)) {
+    // cancel schedule transmission
+    auto registry = ctx->GetDeferredRegistry();
+    if (registry->IsRegistered(name)) {
+      NFD_LOG_DEBUG("timer cancelled");
+      registry->Cancel(name);
+    }
+
+    NFD_LOG_DEBUG("in=" << ingress << " alert=" << data.getName() << " decision=drop reason='Duplication alert'");
+    return false;
+  }
+  
+  // check whether RSU available?
+  if (ctx->GetReceivedHello()) {
+    auto v2i = ctx->GetFaceIdFor(ctx->V2I_FACE);
+    if (v2i != 0) {
+      auto& face = *m_faceTable.get(v2i);
+      data.removeTag<lp::DestinationNodesTag>();
+
+      NFD_LOG_DEBUG("in=" << ingress << " alert=" << data.getName() << " decision=forward");
+      this->OnOutgoingAlert(data, face, node, ctx);
+    }
+    return checkInside(node, zor);
+  }
+  
+  // extract sender and node position
+  caf::Point senderPos, nodePos;
+
+  auto mobility = node->GetObject<MobilityModel>();
+  if (mobility != nullptr) {
+    nodePos = convertToPoint(mobility->GetPosition());
+  }
+
+  auto senderPosTag = data.getTag<lp::SenderPositionTag>();
+  // if senderPosTag is not present, forward to V2V immediately
+  if (senderPosTag == nullptr) {
+    auto v2v = ctx->GetFaceIdFor(ctx->V2V_FACE);
+    if (v2v != 0) {
+      auto& face = *m_faceTable.get(v2v);
+      NFD_LOG_DEBUG("in=" << ingress << " alert=" << data.getName() << " decision=forward");
+      this->OnOutgoingAlert(data, face, node, ctx);
+    }
+    return zor.contains(nodePos);
+  } else {
+    senderPos = convertToPoint(senderPosTag->getPos());
+  }
+  
+  if (!zor.contains(nodePos)) {
+    if (zor.contains(senderPos) || zor.distanceToBoundary(senderPos) < zor.distanceToBoundary(nodePos)) {
+      NFD_LOG_DEBUG("in=" << ingress << " alert=" << data.getName() << " decision=drop reason='Sender is closer'");
+      return false;
+    }
+  }
+
+  // compute the deferred delay
+  auto dist = nodePos.distanceFromPoint(senderPos);
+  auto tMax_in_ms = (data.wireEncode().size() * 8) / ctx->GetTxRate() * 1e3 + 2; // 2ms (accounting for lower layer headers + CSMA/CA backoff + propagation)
+  auto delay_in_ms = 2 * tMax_in_ms * std::clamp((1 - dist / ctx->GetTxRadius()), 0.0, 1.0); // 2 * ( .. ) because RTT
+  
+  NFD_LOG_DEBUG("in=" << ingress << " alert=" << data.getName() << " decision=deferred until "<<delay_in_ms<<"ms");
+
+  auto v2v = ctx->GetFaceIdFor(ctx->V2V_FACE);
+  if (v2v != 0) {
+    auto& face = *m_faceTable.get(v2v);
+
+    EventId event = Simulator::Schedule(ns3::NanoSeconds(delay_in_ms * 1e6), 
+      &Forwarder::DeferredOutgoingAlert, this, data.shared_from_this(), face.shared_from_this(), node, ctx);
+    
+    auto registry = ctx->GetDeferredRegistry();
+    registry->Register(name, event);
+  }
+  return zor.contains(nodePos);
 }
 
 bool
 Forwarder::AlertRsuHandler(const Data& data, const FaceEndpoint& ingress, 
-                           const ns3::caf::ZoR& zor, const ns3::Node& node, ns3::caf::Context& ctx)
+                           const ns3::caf::ZoR& zor, ns3::Ptr<ns3::Node> node, ns3::Ptr<ns3::caf::Context> ctx)
 {
   using namespace ns3;
 
   // is duplicate?
-  auto as = ctx.GetAlertStore();
+  auto as = ctx->GetAlertStore();
   if (!as->InsertOrUpdate(data.getName())) {
-    NFD_LOG_DEBUG("RsuHandler: duplicate alert; decision=drop");
+    NFD_LOG_DEBUG("in=" << ingress << " alert=" << data.getName() << " decision=drop reason='Duplicate alert'");
     return false;
   }
 
   auto dstNodesTag = data.getTag<lp::DestinationNodesTag>();
   if (dstNodesTag == nullptr) {
     dstNodesTag = make_shared<lp::DestinationNodesTag>();
-    dstNodesTag->set(caf::ComputeDestinationNodes(*ctx.GetPositionInfo(), ctx.GetTxRadius(), zor));
+    dstNodesTag->set(caf::ComputeDestinationNodes(*ctx->GetPositionInfo(), ctx->GetTxRadius(), zor));
   }
   
   // if node in dstNodesTag then forward the message to V2I face
   // TODO: what if there are unreachable node? we should send via V2I again
-  if (dstNodesTag->contains(node.GetId())) {
-    auto v2i = ctx.GetFaceIdFor(ctx.V2I_FACE);
+  if (dstNodesTag->contains(node->GetId())) {
+    auto v2i = ctx->GetFaceIdFor(ctx->V2I_FACE);
     if (v2i != 0) {
       auto& face = *m_faceTable.get(v2i);
       data.removeTag<lp::DestinationNodesTag>();
 
-      NFD_LOG_DEBUG("RsuHandler: forward to V2I(id="<< v2i <<")");
-      this->onOutgoingData(data, face);
+      this->OnOutgoingAlert(data, face, node, ctx);
       
       // remove current nodeId from destination list
-      dstNodesTag->remove(node.GetId());
+      dstNodesTag->remove(node->GetId());
     }
   }
   
   // MIRA (MST Based Inter Routing Algorithm) is applied to compute all outgoing faces
   // TODO: we should have a fallback face (i.e. V2I) for unreachable node
-  auto entries = caf::Mira(*ctx.GetRoutingInfo(), dstNodesTag->get(), node.GetId());
+  auto entries = caf::Mira(*ctx->GetRoutingInfo(), dstNodesTag->get(), node->GetId());
   
   for (auto& entry: entries) {
     dstNodesTag->set(entry.second);
@@ -215,8 +315,7 @@ Forwarder::AlertRsuHandler(const Data& data, const FaceEndpoint& ingress,
     
     auto& face = *m_faceTable.get(entry.first);
 
-    NFD_LOG_DEBUG("RsuHandler: forward to face(" << face.getId() << ")");
-    this->onOutgoingData(data, face);
+    this->OnOutgoingAlert(data, face, node, ctx);
   }
 
   return checkInside(node, zor);

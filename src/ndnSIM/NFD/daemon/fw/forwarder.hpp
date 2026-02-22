@@ -28,6 +28,7 @@
 
 #include "face-table.hpp"
 #include "forwarder-counters.hpp"
+#include "ns3/ptr.h"
 #include "unsolicited-data-policy.hpp"
 #include "common/config-file.hpp"
 #include "face/face-endpoint.hpp"
@@ -42,6 +43,7 @@
 #include "ns3/node.h"
 #include "model/caf-context.hpp"
 #include "model/caf-zor.hpp"
+#include <memory>
 
 namespace nfd {
 
@@ -199,6 +201,20 @@ NFD_PUBLIC_WITH_TESTS_ELSE_PRIVATE: // pipelines
   NFD_VIRTUAL_WITH_TESTS bool
   OnIncomingAlert(const Data& data, const FaceEndpoint& ingress);
 
+  /** \brief outgoing Alert pipeline
+   *  \param data the outgoing Alert, must be well-formed and created with make_shared
+   *  \param egress face on which \p alert will be send
+   */
+  NFD_VIRTUAL_WITH_TESTS void
+  OnOutgoingAlert(const Data& data, Face& egress, ns3::Ptr<ns3::Node> node, ns3::Ptr<ns3::caf::Context> ctx);
+
+  /** \brief outgoing Alert pipeline
+   *  \param data the outgoing Alert, must be well-formed and created with make_shared
+   *  \param egress face on which \p alert will be send
+   */
+  NFD_VIRTUAL_WITH_TESTS void
+  DeferredOutgoingAlert(shared_ptr<const Data> data, shared_ptr<Face> egress, ns3::Ptr<ns3::Node> node, ns3::Ptr<ns3::caf::Context> ctx);
+
   /** \brief vehicle handler for \p alert packet
    *  \param data the incoming Alert, must be well-formed and created with make_shared
    *  \param zor the ZoR, extracted from name
@@ -206,7 +222,7 @@ NFD_PUBLIC_WITH_TESTS_ELSE_PRIVATE: // pipelines
    *  \param ctx the context object, associate with the node
    */
   NFD_VIRTUAL_WITH_TESTS bool
-  AlertVehicleHandler(const Data& data, const FaceEndpoint& ingress, const ns3::caf::ZoR& zor, const ns3::Node& node, ns3::caf::Context& ctx);
+  AlertVehicleHandler(const Data& data, const FaceEndpoint& ingress, const ns3::caf::ZoR& zor, ns3::Ptr<ns3::Node> node, ns3::Ptr<ns3::caf::Context> ctx); 
 
   /** \brief RSU handler for \p alert packet
    *  \param data the incoming Alert, must be well-formed and created with make_shared
@@ -215,7 +231,7 @@ NFD_PUBLIC_WITH_TESTS_ELSE_PRIVATE: // pipelines
    *  \param ctx the context object, associate with the node
    */
   NFD_VIRTUAL_WITH_TESTS bool
-  AlertRsuHandler(const Data& data, const FaceEndpoint& ingress, const ns3::caf::ZoR& zor, const ns3::Node& node, ns3::caf::Context& ctx);
+  AlertRsuHandler(const Data& data, const FaceEndpoint& ingress, const ns3::caf::ZoR& zor, ns3::Ptr<ns3::Node> node, ns3::Ptr<ns3::caf::Context> ctx);
   
   /** \brief incoming Data pipeline
    *  \param data the incoming Data, must be well-formed and created with make_shared

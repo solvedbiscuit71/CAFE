@@ -43,10 +43,8 @@ SetupWifiNetDevice (const NodeContainer &nodes)
 inline void
 SetDefaultP2PConfig ()
 {
-  // setting default parameters for PointToPoint links and channels
-  Config::SetDefault ("ns3::PointToPointNetDevice::DataRate", StringValue ("1Mbps"));
-  Config::SetDefault ("ns3::PointToPointChannel::Delay", StringValue ("10ms"));
-  Config::SetDefault ("ns3::DropTailQueue<Packet>::MaxSize", StringValue ("20p"));
+  // setting default parameters for PointToPoint links and channels (Fast Ethernet)
+  Config::SetDefault ("ns3::PointToPointNetDevice::DataRate", StringValue ("100Mbps"));
 }
 
 using NodeLifetime = std::map<uint32_t, std::pair<double, double>>;

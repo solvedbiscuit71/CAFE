@@ -86,6 +86,15 @@ DeferredRegistry::Cancel(const ndn::Name& name)
   }
 }
 
+void 
+DeferredRegistry::Complete(const ndn::Name& name)
+{
+  auto it = m_pendingEvents.find(name);
+  if (it != m_pendingEvents.end()) {
+    m_pendingEvents.erase(it);
+  }
+}
+
 TypeId 
 Context::GetTypeId(void)
 {
