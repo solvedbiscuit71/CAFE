@@ -21,6 +21,7 @@
 #define CAF_CONTEXT_HPP
 
 #include "face/face-common.hpp"
+#include "ns3/event-id.h"
 #include "ns3/ndnSIM/model/ndn-common.hpp"
 #include "ns3/address.h"
 #include "ns3/node-container.h"
@@ -91,6 +92,28 @@ private:
     std::unordered_map<ndn::Name, std::list<ndn::Name>::iterator> m_lookup;
 };
 
+class DeferredRegistry {
+public: 
+  /**
+   * @brief Add name -> id mapping
+   */
+  void Register(const ndn::Name& name, const ns3::EventId& id);
+  
+  /**
+   * @brief Check whether name exists
+   */
+  bool IsRegistered(const ndn::Name& name);
+
+  /**
+   * @brief Cancel the schedule callback and erase the name
+   */
+  void Cancel(const ndn::Name& name);
+
+private:
+  std::unordered_map<ndn::Name, ns3::EventId> m_pendingEvents;
+};
+
+
 class Context : public Object {
 public:
   static TypeId GetTypeId (void);
@@ -124,6 +147,7 @@ public:
   double GetTxRadius() const { return m_txRadius; }
   
   AlertStore* GetAlertStore() { return &m_alertStore; };
+  DeferredRegistry* GetDeferredRegistry() { return &m_registry; };
 
   static Graph* GetRoutingInfo();
   static NodePosition* GetPositionInfo();
@@ -133,6 +157,7 @@ private:
   NodeStatus m_status;
   FaceIdContextMap m_faceContextMap;
   AlertStore m_alertStore;
+  DeferredRegistry m_registry;
   bool m_receivedHello;
   double m_txRadius;
 };

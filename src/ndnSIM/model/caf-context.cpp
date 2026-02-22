@@ -64,6 +64,28 @@ AlertStore::evictOldest() {
   m_order.pop_back();
 } 
 
+void 
+DeferredRegistry::Register(const ndn::Name& name, const ns3::EventId& id)
+{
+  m_pendingEvents[name] = id;
+}
+
+bool 
+DeferredRegistry::IsRegistered(const ndn::Name& name)
+{
+  return m_pendingEvents.find(name) != m_pendingEvents.end();
+}
+
+void 
+DeferredRegistry::Cancel(const ndn::Name& name)
+{
+  auto it = m_pendingEvents.find(name);
+  if (it != m_pendingEvents.end()) {
+    ns3::Simulator::Cancel(it->second);
+    m_pendingEvents.erase(it);
+  }
+}
+
 TypeId 
 Context::GetTypeId(void)
 {
