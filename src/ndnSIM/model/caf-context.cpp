@@ -78,6 +78,13 @@ Context::GetRoutingInfo()
   return &m_graph;
 }
 
+NodePosition*
+Context::GetPositionInfo()
+{
+  static NodePosition m_nodePositions;
+  return &m_nodePositions;
+}
+
 void
 setupContext(Ptr<Node> node, std::function<void(Ptr<Context>)> configCallback)
 {

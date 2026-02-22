@@ -36,13 +36,13 @@ Install(NodeContainer nodes,
 
 private:
 void
-SetupRSU(Ptr<Node> node);
+SetupRSU(Ptr<Node> node, Ptr<Context> ctx);
 
 void
-SetupVehicle(Ptr<Node> node);
+SetupVehicle(Ptr<Node> node, Ptr<Context> ctx);
 
 void
-SetupBackbone(Ptr<Node> node);
+SetupBackbone(Ptr<Node> node, Ptr<Context> ctx);
 
 ndn::StackHelper m_helper;
 bool m_enableHello;

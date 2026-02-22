@@ -85,6 +85,7 @@ public:
   std::string GetContextFor(nfd::face::FaceId faceId) const;
   
   static Graph* GetRoutingInfo();
+  static NodePosition* GetPositionInfo();
 
 private:
   NodeType m_type;

@@ -25,6 +25,8 @@
 #include <unordered_set>
 #include <unordered_map>
 
+#include "model/caf-zor.hpp"
+
 namespace ns3 {
 namespace caf {
   
@@ -38,12 +40,15 @@ struct Face {
   Cost linkCost;
 };
 
+using NodePosition = std::unordered_map<NodeId, Point>;
 using Graph = std::unordered_map<NodeId, std::vector<Face>>;
 using DestinationNodes = std::unordered_set<NodeId>;
-using CostNodePair = std::pair<Cost,NodeId>;
 
 std::unordered_map<FaceId,DestinationNodes>
-Mira(Graph G, DestinationNodes destinationNodes, NodeId sourceId);
+Mira(const Graph& G, const DestinationNodes& destinationNodes, NodeId sourceId);
+
+DestinationNodes
+ComputeDestinationNodes(const NodePosition& rsuPositions, float txRadius, const ZoR& zor);
 
 } // namespace caf
 } // namespace ns3

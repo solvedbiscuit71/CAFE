@@ -28,6 +28,8 @@ NS_LOG_COMPONENT_DEFINE("caf.Routing");
 namespace ns3 {
 namespace caf {
 
+using CostNodePair = std::pair<Cost,NodeId>;
+
 /**
  * @param graph should be stored on the node (we can use GlobalHelper to populate this; later we can use routing algorithms)
  * @param destinationNodes should be attached along the packet (usually a LP Header)
@@ -35,7 +37,7 @@ namespace caf {
  * @return list of outgoing face id and their respective destinationNodes (which should be attached as LP header)
  */
 std::unordered_map<FaceId,DestinationNodes>
-Mira(Graph G, DestinationNodes destinationNodes, NodeId sourceId)
+Mira(const Graph& G, const DestinationNodes& destinationNodes, NodeId sourceId)
 {
     // initialize distance
     const Cost MAX = std::numeric_limits<Cost>::max();
@@ -116,6 +118,26 @@ Mira(Graph G, DestinationNodes destinationNodes, NodeId sourceId)
     }
 
     return result;
+}
+
+/**
+ * @param rsuPosition list of RSU (id, position)
+ * @param txRadius transmission radius of RSU
+ * @param zor Zone of Relevance object
+ * @return list of rsu id which covers the given \p zor object
+ */
+DestinationNodes
+ComputeDestinationNodes(const NodePosition& rsuPositions, float txRadius, const ZoR& zor)
+{
+    DestinationNodes dstNodes;
+    
+    for (const auto& it: rsuPositions) {
+        if (zor.coveredBy(it.second, txRadius)) {
+            dstNodes.emplace(it.first);
+        }
+    }
+
+    return dstNodes;
 }
 
 } // namespace caf

@@ -3,6 +3,7 @@
 #include "helper/caf-stack-helper.hpp"
 #include "helper/ndn-strategy-choice-helper.hpp"
 #include "model/caf-context.hpp"
+#include "model/caf-zor.hpp"
 #include "ns3/constant-velocity-mobility-model.h"
 #include "ns3/core-module.h"
 #include "ns3/ipv4-address.h"
@@ -24,6 +25,7 @@
 
 #include "scratch-utils.h"
 #include <cstdint>
+#include <memory>
 
 namespace ns3 {
 
@@ -60,13 +62,13 @@ main (int argc, char *argv[])
   std::cout << "RSU placed " << dx << "m apart." << std::endl;
   MobilityHelper rsuMobility;
   Ptr<ListPositionAllocator> positionAlloc = CreateObject<ListPositionAllocator> ();
-  positionAlloc->Add (Vector (  0,   0,   0));
-  positionAlloc->Add (Vector (  0,  dx,   0));
-  positionAlloc->Add (Vector ( dx,   0,   0));
-  positionAlloc->Add (Vector (  0, -dx,   0));
-  positionAlloc->Add (Vector ( dx, -dx,   0));
-  positionAlloc->Add (Vector ( dx,  dx,   0));
-  positionAlloc->Add (Vector (-dx,  dx,   0));
+  positionAlloc->Add (Vector (  0,   0,   0)); // RSU 0
+  positionAlloc->Add (Vector (  0,  dx,   0)); // RSU 1
+  positionAlloc->Add (Vector ( dx,   0,   0)); // RSU 2
+  positionAlloc->Add (Vector (  0, -dx,   0)); // RSU 3
+  positionAlloc->Add (Vector ( dx, -dx,   0)); // RSU 4
+  positionAlloc->Add (Vector ( dx,  dx,   0)); // RSU 5
+  positionAlloc->Add (Vector (-dx,  dx,   0)); // RSU 6
 
   rsuMobility.SetPositionAllocator (positionAlloc);
   rsuMobility.SetMobilityModel ("ns3::ConstantPositionMobilityModel");
@@ -91,6 +93,23 @@ main (int argc, char *argv[])
   stackHelper.setEnableHello(true); // enable hello producer and consumer
   stackHelper.Install(rsu);
   
+  // * Build ZoR
+  caf::CompositeZoR zor;
+  float dxx = static_cast<float>(dx);
+
+  zor.append(std::make_unique<caf::PolygonZoR>(std::vector<caf::Point>{
+    {5,dxx+5},
+    {5,dxx-5},
+    {-dxx-5,dxx+5},
+    {-dxx-5,dxx-5},
+  }));
+  zor.append(std::make_unique<caf::PolygonZoR>(std::vector<caf::Point>{
+    {dxx+5,5},
+    {dxx-5,5},
+    {dxx+5,-dxx-5},
+    {dxx-5,-dxx-5},
+  }));
+  
   // * Enable NetAnim
   AnimationInterface anim ("netanim/mira-sim.xml");
 
@@ -110,6 +129,20 @@ main (int argc, char *argv[])
     }
     std::cout << std::endl;
   }
+  
+  // Check whether context::NodePosition is populated or not
+  auto P = caf::Context::GetPositionInfo();
+  for (auto& item: *P) {
+    std::cout << "node(" << item.first << ") at {" << item.second.x << "," << item.second.y << "}" << std::endl;
+  }
+  
+  // Compute destination nodes
+  auto dstNodes = caf::ComputeDestinationNodes(*P, 50.0, zor); // 1, 2, 4, 6
+  std::cout << "destination node: ";
+  for (auto nodeId: dstNodes) {
+    std::cout << nodeId << ',';
+  }
+  std::cout << std::endl;
 
   return 0;
 }

@@ -6,6 +6,7 @@
 #include "ns3/application-container.h"
 #include "ns3/boolean.h"
 #include "ns3/log.h"
+#include "ns3/mobility-model.h"
 #include "ns3/nstime.h"
 #include "ns3/string.h"
 #include "ns3/uinteger.h"
@@ -52,13 +53,13 @@ StackHelper::Install(NodeContainer nodes, bool SetDefaultRoutes, size_t maxCsSiz
     // install application
     switch (ctx->GetNodeType()) {
       case NODE_TYPE_VEHICLE:
-        SetupVehicle(node);
+        SetupVehicle(node, ctx);
         break;
       case NODE_TYPE_RSU:
-        SetupRSU(node);
+        SetupRSU(node, ctx);
         break;
       case NODE_TYPE_BACKBONE:
-        SetupBackbone(node);
+        SetupBackbone(node, ctx);
         break;
       case NODE_TYPE_NONE:
       default:
@@ -77,8 +78,17 @@ calculateIRTF(double payloadSize, double headerSize=226, double txRate=3e6)
 }
 
 void
-StackHelper::SetupRSU(Ptr<Node> node)
+StackHelper::SetupRSU(Ptr<Node> node, Ptr<Context> ctx)
 {
+  // configure node position (RSU position is static)
+  Ptr<MobilityModel> mobility = node->GetObject<MobilityModel>();
+  if (mobility != nullptr) {
+    Vector v = mobility->GetPosition();
+
+    auto P = ctx->GetPositionInfo();
+    (*P)[node->GetId()] = Point{static_cast<float>(v.x), static_cast<float>(v.y)};
+  }
+
   // guard condition
   if (!m_enableHello)
     return;
@@ -111,7 +121,7 @@ StackHelper::SetupRSU(Ptr<Node> node)
 }
 
 void
-StackHelper::SetupVehicle(Ptr<Node> node) 
+StackHelper::SetupVehicle(Ptr<Node> node, Ptr<Context> ctx) 
 {
   // guard condition
   if (!m_enableHello)
@@ -128,7 +138,7 @@ StackHelper::SetupVehicle(Ptr<Node> node)
 }
 
 void
-StackHelper::SetupBackbone(Ptr<Node> node)
+StackHelper::SetupBackbone(Ptr<Node> node, Ptr<Context> ctx)
 {
 }
 
