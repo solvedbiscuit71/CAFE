@@ -54,6 +54,8 @@ enum TransportFilter : uint8_t {
   ALLOW_DIFFERENT = 2,
 };
 
+static const double defaultTxRadius = 50.0;
+
 using FaceIdContextMap = boost::bimap<
     boost::bimaps::unordered_set_of<nfd::face::FaceId>, 
     boost::bimaps::unordered_set_of<std::string>
@@ -69,7 +71,7 @@ public:
   static const std::string UNDEFINED_FACE;
   
   Context() 
-    : m_type(NODE_TYPE_NONE), m_status(NODE_STATUS_UNKNOWN), m_receivedHello(false) {}
+    : m_type(NODE_TYPE_NONE), m_status(NODE_STATUS_UNKNOWN), m_receivedHello(false), m_txRadius(defaultTxRadius) {}
   
   void SetNodeType(NodeType type) { m_type = type; }
   NodeType GetNodeType() const { return m_type; }
@@ -84,6 +86,9 @@ public:
   nfd::face::FaceId GetFaceIdFor(std::string context) const;
   std::string GetContextFor(nfd::face::FaceId faceId) const;
   
+  void SetTxRadius(double txRadius) { m_txRadius = txRadius; }
+  double GetTxRadius() const { return m_txRadius; }
+  
   static Graph* GetRoutingInfo();
   static NodePosition* GetPositionInfo();
 
@@ -92,6 +97,7 @@ private:
   NodeStatus m_status;
   FaceIdContextMap m_faceContextMap;
   bool m_receivedHello;
+  double m_txRadius;
 };
 
 void

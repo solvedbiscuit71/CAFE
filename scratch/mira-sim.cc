@@ -1,3 +1,4 @@
+#include "apps/random-alert-producer.hpp"
 #include "helper/ndn-app-helper.hpp"
 #include "helper/ndn-global-routing-helper.hpp"
 #include "helper/caf-stack-helper.hpp"
@@ -15,6 +16,7 @@
 #include "ns3/object.h"
 #include "ns3/point-to-point-helper.h"
 #include "ns3/point-to-point-module.h"
+#include "ns3/ptr.h"
 #include "ns3/random-variable-stream.h"
 #include "ns3/string.h"
 #include "ns3/vector.h"
@@ -90,30 +92,49 @@ main (int argc, char *argv[])
   SetupWifiNetDevice(adhocNodes);
 
   caf::StackHelper stackHelper;
-  stackHelper.setEnableHello(true); // enable hello producer and consumer
+  stackHelper.setEnableHello(false); // enable hello producer and consumer
   stackHelper.Install(rsu);
+
+  // * Install consumer
+  ndn::AppHelper consumerHelper("ns3::ndn::AlertConsumer");
+  consumerHelper.SetAttribute("Prefix", StringValue("/alert/emergency/rsu"));
+  consumerHelper.SetAttribute("LifeTime", StringValue("30s"));
+  
+  auto consumerApps = consumerHelper.Install(rsu);
+  consumerApps.Start(Seconds(1.0));
   
   // * Build ZoR
-  caf::CompositeZoR zor;
+  auto zor = make_shared<caf::CompositeZoR>();
   float dxx = static_cast<float>(dx);
 
-  zor.append(std::make_unique<caf::PolygonZoR>(std::vector<caf::Point>{
+  zor->append(std::make_unique<caf::PolygonZoR>(std::vector<caf::Point>{
     {5,dxx+5},
     {5,dxx-5},
     {-dxx-5,dxx+5},
     {-dxx-5,dxx-5},
   }));
-  zor.append(std::make_unique<caf::PolygonZoR>(std::vector<caf::Point>{
+  zor->append(std::make_unique<caf::PolygonZoR>(std::vector<caf::Point>{
     {dxx+5,5},
     {dxx-5,5},
     {dxx+5,-dxx-5},
     {dxx-5,-dxx-5},
   }));
+
+  ndn::AppHelper producerHelper("ns3::ndn::RandomAlertProducer");
+  producerHelper.SetAttribute("Prefix", StringValue("/alert/emergency/rsu/" + std::to_string(rsu.Get(0)->GetId())));
+  producerHelper.SetAttribute("Interval", StringValue("1s"));
+  producerHelper.SetAttribute("PayloadSize", UintegerValue(64));
+  producerHelper.SetAttribute("Threshold", DoubleValue(0.5)); // 50% chance
+  
+  auto producerApps = producerHelper.Install(rsu.Get(0));
+  producerApps.Start(Seconds(1.0));
+  auto app = DynamicCast<ndn::RandomAlertProducer>(producerApps.Get(0));
+  app->SetZoR(zor);
   
   // * Enable NetAnim
   AnimationInterface anim ("netanim/mira-sim.xml");
 
-  Simulator::Stop (Seconds (1.0));
+  Simulator::Stop (Seconds (5.0));
   Simulator::Run ();
   Simulator::Destroy ();
 
@@ -137,7 +158,7 @@ main (int argc, char *argv[])
   }
   
   // Compute destination nodes
-  auto dstNodes = caf::ComputeDestinationNodes(*P, 50.0, zor); // 1, 2, 4, 6
+  auto dstNodes = caf::ComputeDestinationNodes(*P, caf::defaultTxRadius, *zor); // 1, 2, 4, 6
   std::cout << "destination node: ";
   for (auto nodeId: dstNodes) {
     std::cout << nodeId << ',';

@@ -97,6 +97,9 @@ public:
   
   void
   remove(uint32_t nodeId) { m_nodes.erase(nodeId); }
+
+  bool
+  contains(uint32_t nodeId) { return m_nodes.find(nodeId) != m_nodes.end(); }
   
   void
   clear() { m_nodes.clear(); }

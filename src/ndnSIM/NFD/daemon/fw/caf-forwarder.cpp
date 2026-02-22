@@ -30,6 +30,7 @@
 /**
  * ns3 namespace
  */
+#include "lp/destination-nodes-tag.hpp"
 #include "lp/sender-position-tag.hpp"
 #include "lp/tags.hpp"
 #include "ns3/simulator.h"
@@ -168,7 +169,42 @@ Forwarder::AlertRsuHandler(const Data& data, const FaceEndpoint& ingress,
                            const ns3::caf::ZoR& zor, const ns3::Node& node, const ns3::caf::Context& ctx)
 {
   using namespace ns3;
-  NFD_LOG_DEBUG("RsuHandler: decision=drop");
+
+  auto dstNodesTag = data.getTag<lp::DestinationNodesTag>();
+  if (dstNodesTag == nullptr) {
+    dstNodesTag = make_shared<lp::DestinationNodesTag>();
+    dstNodesTag->set(caf::ComputeDestinationNodes(*ctx.GetPositionInfo(), ctx.GetTxRadius(), zor));
+  }
+  
+  // if node in dstNodesTag then forward the message to V2I face
+  // TODO: what if there are unreachable node? we should send via V2I again
+  if (dstNodesTag->contains(node.GetId())) {
+    auto v2i = ctx.GetFaceIdFor(ctx.V2I_FACE);
+    if (v2i != 0) {
+      auto& face = *m_faceTable.get(v2i);
+      data.removeTag<lp::DestinationNodesTag>();
+
+      NFD_LOG_DEBUG("RsuHandler: forward to V2I(id="<< v2i <<")");
+      this->onOutgoingData(data, face);
+      
+      // remove current nodeId from destination list
+      dstNodesTag->remove(node.GetId());
+    }
+  }
+  
+  // MIRA (MST Based Inter Routing Algorithm) is applied to compute all outgoing faces
+  // TODO: we should have a fallback face (i.e. V2I) for unreachable node
+  auto entries = caf::Mira(*ctx.GetRoutingInfo(), dstNodesTag->get(), node.GetId());
+  
+  for (auto& entry: entries) {
+    dstNodesTag->set(entry.second);
+    data.setTag(dstNodesTag);
+    
+    auto& face = *m_faceTable.get(entry.first);
+
+    NFD_LOG_DEBUG("RsuHandler: forward to face(" << face.getId() << ")");
+    this->onOutgoingData(data, face);
+  }
 
   return;
 }
