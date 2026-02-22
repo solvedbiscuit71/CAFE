@@ -67,6 +67,19 @@ extractZoR(const Data& data)
   return nullptr;
 }
 
+static bool
+checkInside(const ns3::Node& node, const ns3::caf::ZoR& zor)
+{
+  using namespace ns3;
+
+  Ptr<MobilityModel> mobility = node.GetObject<MobilityModel>();
+  if (mobility != nullptr) {
+    Vector v = mobility->GetPosition();
+    return zor.contains({static_cast<float>(v.x), static_cast<float>(v.y)});
+  }
+  return false;
+}
+
 bool
 Forwarder::OnIncomingAlert(const Data& data, const FaceEndpoint& ingress)
 {
@@ -128,47 +141,47 @@ Forwarder::OnIncomingAlert(const Data& data, const FaceEndpoint& ingress)
         this->onOutgoingData(data, face);
       }
     }
-
     return false;
   }
   
+  // ZoR is geo-graphic (circle, polygon, composite, ...)
   // delegate forwarding to node-specific handler
   switch (ctx->GetNodeType()) {
     case caf::NODE_TYPE_VEHICLE:
-      AlertVehicleHandler(data, ingress, *zor, *node, *ctx);
-      break;
+      return AlertVehicleHandler(data, ingress, *zor, *node, *ctx);
     case caf::NODE_TYPE_RSU:
-      AlertRsuHandler(data, ingress, *zor, *node, *ctx);
-      break;
+      return AlertRsuHandler(data, ingress, *zor, *node, *ctx);
     case caf::NODE_TYPE_BACKBONE:
     case caf::NODE_TYPE_NONE:
       break;
   }
 
-  // check whether inside ZoR
-  Ptr<MobilityModel> mobility = node->GetObject<MobilityModel>();
-  if (mobility != nullptr) {
-    Vector v = mobility->GetPosition();
-    return zor->contains({static_cast<float>(v.x), static_cast<float>(v.y)});
-  }
+  // cancel further processing the alert packet
   return false;
 }
 
-void
+bool
 Forwarder::AlertVehicleHandler(const Data& data, const FaceEndpoint& ingress, 
-                               const ns3::caf::ZoR& zor, const ns3::Node& node, const ns3::caf::Context& ctx)
+                               const ns3::caf::ZoR& zor, const ns3::Node& node, ns3::caf::Context& ctx)
 {
   using namespace ns3;
   NFD_LOG_DEBUG("VehicleHandler: decision=drop");
   
-  return;
+  return checkInside(node, zor);
 }
 
-void
+bool
 Forwarder::AlertRsuHandler(const Data& data, const FaceEndpoint& ingress, 
-                           const ns3::caf::ZoR& zor, const ns3::Node& node, const ns3::caf::Context& ctx)
+                           const ns3::caf::ZoR& zor, const ns3::Node& node, ns3::caf::Context& ctx)
 {
   using namespace ns3;
+
+  // is duplicate?
+  auto as = ctx.GetAlertStore();
+  if (!as->InsertOrUpdate(data.getName())) {
+    NFD_LOG_DEBUG("RsuHandler: duplicate alert; decision=drop");
+    return false;
+  }
 
   auto dstNodesTag = data.getTag<lp::DestinationNodesTag>();
   if (dstNodesTag == nullptr) {
@@ -206,7 +219,7 @@ Forwarder::AlertRsuHandler(const Data& data, const FaceEndpoint& ingress,
     this->onOutgoingData(data, face);
   }
 
-  return;
+  return checkInside(node, zor);
 }
 
 }

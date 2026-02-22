@@ -28,6 +28,42 @@ NS_LOG_COMPONENT_DEFINE("caf.Context");
 namespace ns3 {
 namespace caf {
 
+bool
+AlertStore::IsDuplicate(const ndn::Name& name) {
+  return m_lookup.find(name) != m_lookup.end();
+}
+
+bool
+AlertStore::InsertOrUpdate(const ndn::Name& name) {
+  auto it = m_lookup.find(name);
+
+  if (it != m_lookup.end()) {
+    // Move the existing element from its current position to the front.
+    m_order.splice(m_order.begin(), m_order, it->second);
+    
+    return false;
+  }
+
+  m_order.push_front(name);
+  m_lookup[name] = m_order.begin();
+
+  if (m_lookup.size() > m_maxSize) {
+    evictOldest();
+  }
+
+  return true;
+}
+
+void 
+AlertStore::evictOldest() {
+  if (m_order.empty()) return;
+
+  const ndn::Name& oldest = m_order.back();
+  
+  m_lookup.erase(oldest);
+  m_order.pop_back();
+} 
+
 TypeId 
 Context::GetTypeId(void)
 {

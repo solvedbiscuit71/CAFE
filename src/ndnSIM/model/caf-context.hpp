@@ -29,6 +29,7 @@
 
 #include <boost/bimap.hpp>
 #include <boost/bimap/unordered_set_of.hpp>
+#include <cstddef>
 
 #include "caf-routing.hpp"
 
@@ -61,6 +62,35 @@ using FaceIdContextMap = boost::bimap<
     boost::bimaps::unordered_set_of<std::string>
 >;
 
+class AlertStore {
+public:
+    explicit AlertStore(size_t maxSize) : m_maxSize(maxSize) {}
+
+    /**
+     * @brief Checks if a name is a duplicate. 
+     * If not, adds it to the filter and handles LRU eviction.
+     * @return true if exists, false if not.
+     */
+    bool IsDuplicate(const ndn::Name& name);
+
+    /**
+     * @brief Checks if a name is a duplicate. 
+     * If not, adds it to the filter and handles LRU eviction.
+     * @return true if insert, false if update.
+     */
+    bool InsertOrUpdate(const ndn::Name& name);
+    
+    void SetMaxSize(size_t maxSize) { m_maxSize = maxSize; }
+    size_t GetMaxSize() { return m_maxSize; }
+
+private:
+    void evictOldest();
+
+    size_t m_maxSize;
+    std::list<ndn::Name> m_order;
+    std::unordered_map<ndn::Name, std::list<ndn::Name>::iterator> m_lookup;
+};
+
 class Context : public Object {
 public:
   static TypeId GetTypeId (void);
@@ -71,7 +101,11 @@ public:
   static const std::string UNDEFINED_FACE;
   
   Context() 
-    : m_type(NODE_TYPE_NONE), m_status(NODE_STATUS_UNKNOWN), m_receivedHello(false), m_txRadius(defaultTxRadius) {}
+    : m_type(NODE_TYPE_NONE),
+      m_status(NODE_STATUS_UNKNOWN),
+      m_alertStore(100),
+      m_receivedHello(false),
+      m_txRadius(caf::defaultTxRadius) {}
   
   void SetNodeType(NodeType type) { m_type = type; }
   NodeType GetNodeType() const { return m_type; }
@@ -89,6 +123,8 @@ public:
   void SetTxRadius(double txRadius) { m_txRadius = txRadius; }
   double GetTxRadius() const { return m_txRadius; }
   
+  AlertStore* GetAlertStore() { return &m_alertStore; };
+
   static Graph* GetRoutingInfo();
   static NodePosition* GetPositionInfo();
 
@@ -96,6 +132,7 @@ private:
   NodeType m_type;
   NodeStatus m_status;
   FaceIdContextMap m_faceContextMap;
+  AlertStore m_alertStore;
   bool m_receivedHello;
   double m_txRadius;
 };

@@ -138,33 +138,6 @@ main (int argc, char *argv[])
   Simulator::Run ();
   Simulator::Destroy ();
 
-  // Check whether context::Graph is populated or not
-  auto G = caf::Context::GetRoutingInfo();
-  for (auto& item: *G) {
-    std::cout << "node("<<item.first<<"):" << std::endl;
-    for (auto& face: item.second) {
-      std::cout << "| face(" 
-                << face.faceId << ',' 
-                << face.remoteNodeId << ',' 
-                << face.linkCost << ')' << std::endl;
-    }
-    std::cout << std::endl;
-  }
-  
-  // Check whether context::NodePosition is populated or not
-  auto P = caf::Context::GetPositionInfo();
-  for (auto& item: *P) {
-    std::cout << "node(" << item.first << ") at {" << item.second.x << "," << item.second.y << "}" << std::endl;
-  }
-  
-  // Compute destination nodes
-  auto dstNodes = caf::ComputeDestinationNodes(*P, caf::defaultTxRadius, *zor); // 1, 2, 4, 6
-  std::cout << "destination node: ";
-  for (auto nodeId: dstNodes) {
-    std::cout << nodeId << ',';
-  }
-  std::cout << std::endl;
-
   return 0;
 }
 

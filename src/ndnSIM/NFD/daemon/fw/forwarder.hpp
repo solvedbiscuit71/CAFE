@@ -205,8 +205,8 @@ NFD_PUBLIC_WITH_TESTS_ELSE_PRIVATE: // pipelines
    *  \param node the node object, on which the alert packet is received 
    *  \param ctx the context object, associate with the node
    */
-  NFD_VIRTUAL_WITH_TESTS void
-  AlertVehicleHandler(const Data& data, const FaceEndpoint& ingress, const ns3::caf::ZoR& zor, const ns3::Node& node, const ns3::caf::Context& ctx);
+  NFD_VIRTUAL_WITH_TESTS bool
+  AlertVehicleHandler(const Data& data, const FaceEndpoint& ingress, const ns3::caf::ZoR& zor, const ns3::Node& node, ns3::caf::Context& ctx);
 
   /** \brief RSU handler for \p alert packet
    *  \param data the incoming Alert, must be well-formed and created with make_shared
@@ -214,8 +214,8 @@ NFD_PUBLIC_WITH_TESTS_ELSE_PRIVATE: // pipelines
    *  \param node the node object, on which the alert packet is received 
    *  \param ctx the context object, associate with the node
    */
-  NFD_VIRTUAL_WITH_TESTS void
-  AlertRsuHandler(const Data& data, const FaceEndpoint& ingress, const ns3::caf::ZoR& zor, const ns3::Node& node, const ns3::caf::Context& ctx);
+  NFD_VIRTUAL_WITH_TESTS bool
+  AlertRsuHandler(const Data& data, const FaceEndpoint& ingress, const ns3::caf::ZoR& zor, const ns3::Node& node, ns3::caf::Context& ctx);
   
   /** \brief incoming Data pipeline
    *  \param data the incoming Data, must be well-formed and created with make_shared
