@@ -23,6 +23,7 @@
  * NFD, e.g., in COPYING.md file.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include "face/face-endpoint.hpp"
 #include "forwarder.hpp"
 
 /**
@@ -87,23 +88,23 @@ Forwarder::OnIncomingAlert(const Data& data, const FaceEndpoint& ingress)
                   << " decision=drop");
     return false;
   }
-  
-  // delegate forwarding to node-specific handler
-  switch (ctx->GetNodeType()) {
-    case caf::NODE_TYPE_VEHICLE:
-      AlertVehicleHandler(data, *zor, *node, *ctx);
-      break;
-    case caf::NODE_TYPE_RSU:
-      AlertRsuHandler(data, *zor, *node, *ctx);
-      break;
-    case caf::NODE_TYPE_BACKBONE:
-    case caf::NODE_TYPE_NONE:
-      break;
-  }
 
   // if ZoR is nullptr, then alert is local scoped
   if (zor == nullptr) {
     return true;
+  }
+  
+  // delegate forwarding to node-specific handler
+  switch (ctx->GetNodeType()) {
+    case caf::NODE_TYPE_VEHICLE:
+      AlertVehicleHandler(data, ingress, *zor, *node, *ctx);
+      break;
+    case caf::NODE_TYPE_RSU:
+      AlertRsuHandler(data, ingress, *zor, *node, *ctx);
+      break;
+    case caf::NODE_TYPE_BACKBONE:
+    case caf::NODE_TYPE_NONE:
+      break;
   }
 
   // check whether inside ZoR
@@ -116,8 +117,8 @@ Forwarder::OnIncomingAlert(const Data& data, const FaceEndpoint& ingress)
 }
 
 void
-Forwarder::AlertVehicleHandler(const Data& data, const ns3::caf::ZoR& zor,
-                               const ns3::Node& node, const ns3::caf::Context& ctx)
+Forwarder::AlertVehicleHandler(const Data& data, const FaceEndpoint& ingress, 
+                               const ns3::caf::ZoR& zor, const ns3::Node& node, const ns3::caf::Context& ctx)
 {
   using namespace ns3;
   NFD_LOG_DEBUG("VehicleHandler " << " alert=" << data.getName()
@@ -127,8 +128,8 @@ Forwarder::AlertVehicleHandler(const Data& data, const ns3::caf::ZoR& zor,
 }
 
 void
-Forwarder::AlertRsuHandler(const Data& data, const ns3::caf::ZoR& zor,
-                           const ns3::Node& node, const ns3::caf::Context& ctx)
+Forwarder::AlertRsuHandler(const Data& data, const FaceEndpoint& ingress, 
+                           const ns3::caf::ZoR& zor, const ns3::Node& node, const ns3::caf::Context& ctx)
 {
   using namespace ns3;
   NFD_LOG_DEBUG("RsuHandler " << " alert=" << data.getName()
