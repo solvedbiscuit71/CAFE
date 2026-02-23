@@ -50,6 +50,9 @@ Mira(const Graph& G, const DestinationNodes& destinationNodes, NodeId sourceId);
 DestinationNodes
 ComputeDestinationNodes(const NodePosition& rsuPositions, float txRadius, const ZoR& zor);
 
+DestinationNodes
+ComputeDestinationNodes(const Graph& G, const NodePosition& rsuPositions, float txRadius, NodeId startNode, const ZoR& zor);
+
 } // namespace caf
 } // namespace ns3
 

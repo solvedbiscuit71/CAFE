@@ -251,9 +251,14 @@ Forwarder::AlertVehicleHandler(const Data& data, const FaceEndpoint& ingress,
     }
   }
 
-  // compute the deferred delay
+  // compute tMax
+  auto tTx = (data.wireEncode().size() * 8) / ctx->GetTxRate(); // transmission delay
+  auto tProp = ctx->GetTxRadius() / (3 * 1e8);                  // propagation delay
+  auto tBuffer = 0.002;                                         // lower-layer headers + CSMA/CA backoff + queueing (empirical)
+  auto tMax_in_ms = (tTx + tProp + tBuffer) * 1e3;
+
+  // compute deferred delay
   auto dist = nodePos.distanceFromPoint(senderPos);
-  auto tMax_in_ms = (data.wireEncode().size() * 8) / ctx->GetTxRate() * 1e3 + 2; // 2ms (accounting for lower layer headers + CSMA/CA backoff + propagation)
   auto delay_in_ms = 2 * tMax_in_ms * std::clamp((1 - dist / ctx->GetTxRadius()), 0.0, 1.0); // 2 * ( .. ) because RTT
   
   NFD_LOG_DEBUG("in=" << ingress << " alert=" << data.getName() << " decision=deferred until "<<delay_in_ms<<"ms");
@@ -287,11 +292,13 @@ Forwarder::AlertRsuHandler(const Data& data, const FaceEndpoint& ingress,
   auto dstNodesTag = data.getTag<lp::DestinationNodesTag>();
   if (dstNodesTag == nullptr) {
     dstNodesTag = make_shared<lp::DestinationNodesTag>();
-    dstNodesTag->set(caf::ComputeDestinationNodes(*ctx->GetPositionInfo(), ctx->GetTxRadius(), zor));
+    
+    // if network has RSU inside ZoR, return them
+    // otherwise return the nearest RSU in the network (it can be the current node)
+    dstNodesTag->set(caf::ComputeDestinationNodes(*ctx->GetRoutingInfo(),*ctx->GetPositionInfo(), ctx->GetTxRadius(), node->GetId(), zor));
   }
   
   // if node in dstNodesTag then forward the message to V2I face
-  // TODO: what if there are unreachable node? we should send via V2I again
   if (dstNodesTag->contains(node->GetId())) {
     auto v2i = ctx->GetFaceIdFor(ctx->V2I_FACE);
     if (v2i != 0) {
@@ -305,17 +312,18 @@ Forwarder::AlertRsuHandler(const Data& data, const FaceEndpoint& ingress,
     }
   }
   
-  // MIRA (MST Based Inter Routing Algorithm) is applied to compute all outgoing faces
-  // TODO: we should have a fallback face (i.e. V2I) for unreachable node
-  auto entries = caf::Mira(*ctx->GetRoutingInfo(), dstNodesTag->get(), node->GetId());
-  
-  for (auto& entry: entries) {
-    dstNodesTag->set(entry.second);
-    data.setTag(dstNodesTag);
+  // compute all outgoing faces for the dstNodes (using MIRA)
+  if (!dstNodesTag->get().empty()) {
+    auto entries = caf::Mira(*ctx->GetRoutingInfo(), dstNodesTag->get(), node->GetId());
     
-    auto& face = *m_faceTable.get(entry.first);
+    for (auto& entry: entries) {
+      dstNodesTag->set(entry.second);
+      data.setTag(dstNodesTag);
+      
+      auto& face = *m_faceTable.get(entry.first);
 
-    this->OnOutgoingAlert(data, face, node, ctx);
+      this->OnOutgoingAlert(data, face, node, ctx);
+    }
   }
 
   return checkInside(node, zor);

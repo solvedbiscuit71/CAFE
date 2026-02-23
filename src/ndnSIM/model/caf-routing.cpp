@@ -22,6 +22,7 @@
 
 #include "ns3/log.h"
 #include "caf-routing.hpp"
+#include "caf-zor.hpp"
 
 NS_LOG_COMPONENT_DEFINE("caf.Routing");
 
@@ -73,8 +74,10 @@ Mira(const Graph& G, const DestinationNodes& destinationNodes, NodeId sourceId)
         
         if (cost > nodeCost) continue;
         
+        if (G.find(nodeId) == G.end()) continue;
+        
         for (const auto& face: G.at(nodeId)) {
-            
+
             Cost& remoteCost = distance.at(face.remoteNodeId);
             
             if (remoteCost > nodeCost + face.linkCost) {
@@ -109,6 +112,7 @@ Mira(const Graph& G, const DestinationNodes& destinationNodes, NodeId sourceId)
         NodeId nodeId = it.first;
         const DestinationNodes& dNodes = it.second;
 
+        if (G.find(nodeId) == G.end()) continue;
         for (const auto& face: G.at(sourceId)) {
             if (face.remoteNodeId == nodeId) {
                 result[face.faceId] = dNodes;
@@ -135,6 +139,73 @@ ComputeDestinationNodes(const NodePosition& rsuPositions, float txRadius, const 
         if (zor.coveredBy(it.second, txRadius)) {
             dstNodes.emplace(it.first);
         }
+    }
+
+    return dstNodes;
+}
+
+/**
+ * @param G network graph
+ * @param rsuPosition list of RSU (id, position)
+ * @param txRadius transmission radius of RSU
+ * @param startNode current Node id
+ * @param zor Zone of Relevance object
+ * @return list of rsu id which covers the given \p zor or rsu's which are closest to \p zor
+ */
+DestinationNodes
+ComputeDestinationNodes(const Graph& G, const NodePosition& rsuPositions, float txRadius, NodeId startNode, const ZoR& zor)
+{
+    DestinationNodes dstNodes;
+
+    /**
+     * Perform BFS traversal
+     */
+    std::unordered_set<NodeId> visited;
+    std::queue<NodeId> que;
+    
+    NodeId nearestNode = std::numeric_limits<NodeId>::max();
+    float minDist = INF;
+    
+    auto compute = [&](NodeId nodeId) {
+        auto it = rsuPositions.find(nodeId);
+        if (it != rsuPositions.end()) {
+            if (zor.contains(it->second)) {
+                dstNodes.emplace(nodeId);
+            } else {
+                auto dist = zor.distanceToBoundary(it->second);
+                if (dist < minDist) {
+                    minDist = dist;
+                    nearestNode = nodeId;
+                }
+            }
+        }
+    };
+
+    visited.insert(startNode);
+    que.push(startNode);
+    compute(startNode);
+
+    while (!que.empty()) {
+        uint32_t curr = que.front();
+        que.pop();
+
+        auto it = G.find(curr);
+        if (it != G.end()) {
+            for (const Face& face : it->second) {
+                if (visited.find(face.remoteNodeId) == visited.end()) {
+                    // unvisited node
+                    visited.insert(face.remoteNodeId);
+                    que.push(face.remoteNodeId);
+                    compute(face.remoteNodeId);
+                }
+            }
+        }
+    }
+    
+    // If dstNodes is empty -> No RSU in the network is inside the ZoR
+    // Fallback to nearest RSU
+    if (dstNodes.empty()) {
+        dstNodes.emplace(nearestNode);
     }
 
     return dstNodes;
