@@ -33,6 +33,7 @@ TypeId AlertProducer::GetTypeId(void) {
 
 void
 AlertProducer::StartApplication() {
+  NS_LOG_DEBUG("StartApplication()");
   App::StartApplication();
 }
 

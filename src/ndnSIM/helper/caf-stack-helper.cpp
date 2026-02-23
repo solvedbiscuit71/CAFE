@@ -10,6 +10,7 @@
 #include "ns3/nstime.h"
 #include "ns3/string.h"
 #include "ns3/uinteger.h"
+#include <cstdint>
 #include <string>
 
 NS_LOG_COMPONENT_DEFINE("caf.StackHelper");
@@ -100,22 +101,21 @@ StackHelper::SetupRSU(Ptr<Node> node, Ptr<Context> ctx)
    */
   double payloadSize = 64;
 
-  ndn::AppHelper helloProducer("ns3::ndn::HelloProducer");
-  helloProducer.SetAttribute("Prefix", StringValue("/alert/hello/rsu/" + std::to_string(node->GetId())));
-  helloProducer.SetAttribute("Interval", StringValue("200ms"));
-  helloProducer.SetAttribute("PayloadSize", UintegerValue(payloadSize));
-
-  ApplicationContainer apps = helloProducer.Install(node);
-  // i.e. start time should alter to ensure consecutive RSUs don't fire at the same time
-  // apps.Start(Seconds(1.0 + (node->GetId() % 2 == 0 ? 0.0 : calculateIRTF(payloadSize))));
-  
   /**
    * Even RSU are phase 0ms while odd RSU are phase 50ms
    * which means
    * even RSU := 0,    200,    400,    600, ...
    * odd RSU :=    100,    300,    500,    700, ...
    */
-  apps.Start(Seconds(1.0 + (node->GetId() % 2 == 0 ? 0.0 : 0.1)));
+  auto startTime_in_ms = MilliSeconds(1000 + (node->GetId() % 2 == 0 ? 0 : 100)); // start from 1sec = 1000ms
+
+  ndn::AppHelper helloProducer("ns3::ndn::HelloProducer");
+  helloProducer.SetAttribute("StartTime", TimeValue(startTime_in_ms));
+  helloProducer.SetAttribute("Prefix", StringValue("/alert/hello/rsu/" + std::to_string(node->GetId())));
+  helloProducer.SetAttribute("Interval", StringValue("200ms"));
+  helloProducer.SetAttribute("PayloadSize", UintegerValue(payloadSize));
+
+  ApplicationContainer apps = helloProducer.Install(node);
 
   NS_LOG_DEBUG("Installed HelloProducer on node(" << node->GetId() << ")");
 }
@@ -128,11 +128,11 @@ StackHelper::SetupVehicle(Ptr<Node> node, Ptr<Context> ctx)
     return;
 
   ndn::AppHelper helloConsumer("ns3::ndn::HelloConsumer");
+  helloConsumer.SetAttribute("StartTime", StringValue("1s"));
   helloConsumer.SetAttribute("Prefix", StringValue("/alert/hello/rsu"));
   helloConsumer.SetAttribute("LifeTime", StringValue("500ms"));
 
   ApplicationContainer apps = helloConsumer.Install(node);
-  apps.Start(Seconds(1.0));
 
   NS_LOG_DEBUG("Installed HelloConsumer on node(" << node->GetId() << ")");
 }

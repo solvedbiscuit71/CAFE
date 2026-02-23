@@ -90,11 +90,11 @@ main (int argc, char *argv[])
 
   // * Install consumer
   ndn::AppHelper consumerHelper("ns3::ndn::AlertConsumer");
+  consumerHelper.SetAttribute("StartTime", StringValue("1s"));
   consumerHelper.SetAttribute("Prefix", StringValue("/alert/emergency/veh"));
   consumerHelper.SetAttribute("LifeTime", StringValue("30s"));
   
   auto consumerApps = consumerHelper.Install(vehicle);
-  consumerApps.Start(Seconds(1.0));
 
   // * Build ZoR
   auto zor = std::make_shared<caf::PolygonZoR>(std::vector<caf::Point>{
@@ -105,13 +105,13 @@ main (int argc, char *argv[])
   });
 
   ndn::AppHelper producerHelper("ns3::ndn::RandomAlertProducer");
+  consumerHelper.SetAttribute("StartTime", StringValue("1s"));
   producerHelper.SetAttribute("Prefix", StringValue("/alert/emergency/veh/" + std::to_string(vehicle.Get(0)->GetId())));
   producerHelper.SetAttribute("Interval", StringValue("0s"));
   producerHelper.SetAttribute("PayloadSize", UintegerValue(64));
   producerHelper.SetAttribute("Threshold", DoubleValue(1.0)); // 100% chance
   
   auto producerApps = producerHelper.Install(vehicle.Get(0));
-  producerApps.Start(Seconds(1.0));
   auto app = DynamicCast<ndn::RandomAlertProducer>(producerApps.Get(0));
   app->SetZoR(zor);
 

@@ -44,6 +44,7 @@ AlertConsumer::~AlertConsumer()
 
 void
 AlertConsumer::StartApplication() {
+  NS_LOG_DEBUG("StartApplication()");
   App::StartApplication();
 
   // Inject the first Interest to prime the PIT
