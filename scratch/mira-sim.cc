@@ -52,7 +52,7 @@ main (int argc, char *argv[])
 
   // * Creating nodes
   NodeContainer rsu;
-  rsu.Create(7);
+  rsu.Create(8);
   
   caf::setupContext(rsu, [](Ptr<caf::Context> ctx) {
     ctx->SetNodeType(caf::NODE_TYPE_RSU);
@@ -60,17 +60,18 @@ main (int argc, char *argv[])
   });
   
   // use middle placement strategy
-  double dx = g(50.0, 3.5, 0.0);
-  std::cout << "RSU placed " << dx << "m apart." << std::endl;
+  // double dx = g(50.0, 3.5, 0.0);
+  // std::cout << "RSU placed " << dx << "m apart." << std::endl;
   MobilityHelper rsuMobility;
   Ptr<ListPositionAllocator> positionAlloc = CreateObject<ListPositionAllocator> ();
-  positionAlloc->Add (Vector (  0,   0,   0)); // RSU 0
-  positionAlloc->Add (Vector (  0,  dx,   0)); // RSU 1
-  positionAlloc->Add (Vector ( dx,   0,   0)); // RSU 2
-  positionAlloc->Add (Vector (  0, -dx,   0)); // RSU 3
-  positionAlloc->Add (Vector ( dx, -dx,   0)); // RSU 4
-  positionAlloc->Add (Vector ( dx,  dx,   0)); // RSU 5
-  positionAlloc->Add (Vector (-dx,  dx,   0)); // RSU 6
+  positionAlloc->Add (Vector (100, 100, 0)); // RSU 0
+  positionAlloc->Add (Vector (200, 100, 0)); // RSU 1
+  positionAlloc->Add (Vector (100, 0, 0)); // RSU 2
+  positionAlloc->Add (Vector (200, 0, 0)); // RSU 3
+  positionAlloc->Add (Vector (0, 0, 0)); // RSU 4
+  positionAlloc->Add (Vector (300, 100, 0)); // RSU 5
+  positionAlloc->Add (Vector (400, 100, 0)); // RSU 6
+  positionAlloc->Add (Vector (300, 0, 0)); // RSU 7
 
   rsuMobility.SetPositionAllocator (positionAlloc);
   rsuMobility.SetMobilityModel ("ns3::ConstantPositionMobilityModel");
@@ -80,12 +81,11 @@ main (int argc, char *argv[])
   PointToPointHelper p2p;
   p2p.Install(rsu.Get(0), rsu.Get(1));
   p2p.Install(rsu.Get(0), rsu.Get(2));
-  p2p.Install(rsu.Get(0), rsu.Get(3));
-  p2p.Install(rsu.Get(1), rsu.Get(5));
-  p2p.Install(rsu.Get(1), rsu.Get(6));
-  p2p.Install(rsu.Get(2), rsu.Get(4));
-  p2p.Install(rsu.Get(2), rsu.Get(5));
-  p2p.Install(rsu.Get(3), rsu.Get(4));
+  p2p.Install(rsu.Get(1), rsu.Get(3));
+  p2p.Install(rsu.Get(2), rsu.Get(3));
+
+  p2p.Install(rsu.Get(5), rsu.Get(6));
+  p2p.Install(rsu.Get(5), rsu.Get(7));
   
   NodeContainer adhocNodes;
   adhocNodes.Add(rsu);
@@ -97,44 +97,45 @@ main (int argc, char *argv[])
 
   // * Install consumer
   ndn::AppHelper consumerHelper("ns3::ndn::AlertConsumer");
+  consumerHelper.SetAttribute("StartTime", StringValue("1s"));
   consumerHelper.SetAttribute("Prefix", StringValue("/alert/emergency/rsu"));
   consumerHelper.SetAttribute("LifeTime", StringValue("30s"));
   
   auto consumerApps = consumerHelper.Install(rsu);
-  consumerApps.Start(Seconds(1.0));
   
   // * Build ZoR
-  auto zor = make_shared<caf::CompositeZoR>();
-  float dxx = static_cast<float>(dx);
-
-  zor->append(std::make_unique<caf::PolygonZoR>(std::vector<caf::Point>{
-    {5,dxx+5},
-    {5,dxx-5},
-    {-dxx-5,dxx+5},
-    {-dxx-5,dxx-5},
-  }));
-  zor->append(std::make_unique<caf::PolygonZoR>(std::vector<caf::Point>{
-    {dxx+5,5},
-    {dxx-5,5},
-    {dxx+5,-dxx-5},
-    {dxx-5,-dxx-5},
-  }));
+  auto zor =std::make_shared<caf::PolygonZoR>(std::vector<caf::Point>{
+    {95,105},
+    {205,105},
+    {205,95},
+    {95,95},
+  });
 
   ndn::AppHelper producerHelper("ns3::ndn::RandomAlertProducer");
-  producerHelper.SetAttribute("Prefix", StringValue("/alert/emergency/rsu/" + std::to_string(rsu.Get(0)->GetId())));
-  producerHelper.SetAttribute("Interval", StringValue("1s"));
+  producerHelper.SetAttribute("StartTime", StringValue("1s"));
+  producerHelper.SetAttribute("Interval", StringValue("0s"));
   producerHelper.SetAttribute("PayloadSize", UintegerValue(64));
-  producerHelper.SetAttribute("Threshold", DoubleValue(0.5)); // 50% chance
+  producerHelper.SetAttribute("Threshold", DoubleValue(1.0)); // 50% chance
   
-  auto producerApps = producerHelper.Install(rsu.Get(0));
-  producerApps.Start(Seconds(1.0));
-  auto app = DynamicCast<ndn::RandomAlertProducer>(producerApps.Get(0));
-  app->SetZoR(zor);
+  NodeContainer producerNodes;
+  producerNodes.Add(rsu.Get(2));
+  producerNodes.Add(rsu.Get(4));
+  producerNodes.Add(rsu.Get(5));
+  producerNodes.Add(rsu.Get(7));
+
+  auto producerApps = producerHelper.Install(producerNodes);
+  for (uint32_t i=0; i<producerApps.GetN(); i++) {
+    auto app = DynamicCast<ndn::RandomAlertProducer>(producerApps.Get(i));
+    app->SetAttribute("Prefix", StringValue("/alert/emergency/rsu/" + std::to_string(app->GetNode()->GetId())));
+    app->SetZoR(zor);
+  }
+  
+  std::cout << "Setup done." << std::endl;
   
   // * Enable NetAnim
   AnimationInterface anim ("netanim/mira-sim.xml");
 
-  Simulator::Stop (Seconds (5.0));
+  Simulator::Stop (Seconds (3.0));
   Simulator::Run ();
   Simulator::Destroy ();
 
