@@ -125,26 +125,6 @@ Mira(const Graph& G, const DestinationNodes& destinationNodes, NodeId sourceId)
 }
 
 /**
- * @param rsuPosition list of RSU (id, position)
- * @param txRadius transmission radius of RSU
- * @param zor Zone of Relevance object
- * @return list of rsu id which covers the given \p zor object
- */
-DestinationNodes
-ComputeDestinationNodes(const NodePosition& rsuPositions, float txRadius, const ZoR& zor)
-{
-    DestinationNodes dstNodes;
-    
-    for (const auto& it: rsuPositions) {
-        if (zor.coveredBy(it.second, txRadius)) {
-            dstNodes.emplace(it.first);
-        }
-    }
-
-    return dstNodes;
-}
-
-/**
  * @param G network graph
  * @param rsuPosition list of RSU (id, position)
  * @param txRadius transmission radius of RSU

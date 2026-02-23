@@ -134,7 +134,7 @@ public:
     : m_type(NODE_TYPE_NONE),
       m_status(NODE_STATUS_UNKNOWN),
       m_alertStore(100),
-      m_receivedHello(false),
+      m_isRsuAvailable(false),
       m_txRadius(caf::defaultTxRadius),
       m_txRate(caf::defaultTxRate) {}
   
@@ -144,8 +144,8 @@ public:
   void SetNodeStatus(NodeStatus status) { m_status = status; }
   NodeStatus GetNodeStatus() const { return m_status; }
   
-  void SetReceivedHello(bool receivedHello) { m_receivedHello = receivedHello; }
-  bool GetReceivedHello() const { return m_receivedHello; }
+  void SetRsuAvailable(bool isRsuAvailable) { m_isRsuAvailable = isRsuAvailable; }
+  bool IsRsuAvailable() const { return m_isRsuAvailable; }
   
   void SetFaceIdContext(nfd::face::FaceId faceId, std::string context);
   nfd::face::FaceId GetFaceIdFor(std::string context) const;
@@ -169,7 +169,7 @@ private:
   FaceIdContextMap m_faceContextMap;
   AlertStore m_alertStore;
   DeferredRegistry m_registry;
-  bool m_receivedHello;
+  bool m_isRsuAvailable;
   double m_txRadius;
   double m_txRate;
 };

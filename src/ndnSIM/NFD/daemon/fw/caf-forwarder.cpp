@@ -115,25 +115,25 @@ Forwarder::OnIncomingAlert(const Data& data, const FaceEndpoint& ingress)
 
   // guard condition
   if (!node || !ctx) {
-    NFD_LOG_DEBUG("in=" << ingress << " alert=" << data.getName() << " decision=drop reason='Either node or ctx is nullptr'");
+    NFD_LOG_DEBUG("in=" << ingress << " alert=" << data.getName() << " decision=drop since either node or ctx is nullptr");
     return false;
   }
 
   // if ZoR is nullptr, then alert is local scoped
   if (zor == nullptr) {
-    NFD_LOG_DEBUG("in=" << ingress << " alert=" << data.getName() << " decision=drop reason='Zor is nullptr'");
+    NFD_LOG_DEBUG("in=" << ingress << " alert=" << data.getName() << " decision=drop since zor is nullptr");
     return true;
   }
   
   if (zor->getType() == caf::NEIGHBOR) {
     // from a NON_LOCAL face then don't forward
     if (ingress.face.getScope() == ::ndn::nfd::FACE_SCOPE_NON_LOCAL) {
-      NFD_LOG_DEBUG("in=" << ingress << " alert=" << data.getName() << " decision=drop reason='Neighbor zor'");
+      NFD_LOG_DEBUG("in=" << ingress << " alert=" << data.getName() << " decision=drop since zor is neighbor-only'");
       return true;
     }
     
-    NFD_LOG_DEBUG("in=" << ingress << " alert=" << data.getName() << " decision=broadcast");
-    // forward to all NON_LOCAL faces
+    // from a LOCAL face then wants to forward alert to all next-hop neighbor
+    // so forward to all NON_LOCAL faces
     for (auto& face: m_faceTable) {
       if (face.getScope() == ::ndn::nfd::FACE_SCOPE_NON_LOCAL) {
         this->OnOutgoingAlert(data, face, node, ctx);
@@ -198,55 +198,62 @@ Forwarder::AlertVehicleHandler(const Data& data, const FaceEndpoint& ingress,
   const Name& name = data.getName();
   auto as = ctx->GetAlertStore();
   if (!as->InsertOrUpdate(name)) {
-    // cancel schedule transmission
-    auto registry = ctx->GetDeferredRegistry();
-    if (registry->IsRegistered(name)) {
-      NFD_LOG_DEBUG("timer cancelled");
-      registry->Cancel(name);
-    }
 
-    NFD_LOG_DEBUG("in=" << ingress << " alert=" << data.getName() << " decision=drop reason='Duplication alert'");
+    auto registry = ctx->GetDeferredRegistry();
+    // if deferred transmission then cancel
+    if (registry->IsRegistered(name)) {
+      NFD_LOG_DEBUG("in= " << ingress << " alert=" << data.getName() << " timer cancelled due to retransmission");
+      registry->Cancel(name);
+    } else {
+      NFD_LOG_DEBUG("in=" << ingress << " alert=" << data.getName() << " decision=drop because duplicate alert");
+    }
     return false;
   }
   
-  // check whether RSU available?
-  if (ctx->GetReceivedHello()) {
+  auto ingressCtx = ctx->GetContextFor(ingress.face.getId());
+  
+  // if not from V2I face, check whether V2I is active?
+  if (ingressCtx != ctx->V2I_FACE && ctx->IsRsuAvailable()) {
     auto v2i = ctx->GetFaceIdFor(ctx->V2I_FACE);
     if (v2i != 0) {
       auto& face = *m_faceTable.get(v2i);
       data.removeTag<lp::DestinationNodesTag>();
 
-      NFD_LOG_DEBUG("in=" << ingress << " alert=" << data.getName() << " decision=forward");
       this->OnOutgoingAlert(data, face, node, ctx);
     }
     return checkInside(node, zor);
   }
   
-  // extract sender and node position
-  caf::Point senderPos, nodePos;
-
+  // extract node position
   auto mobility = node->GetObject<MobilityModel>();
-  if (mobility != nullptr) {
-    nodePos = convertToPoint(mobility->GetPosition());
+  if (mobility == nullptr) {
+    NFD_LOG_DEBUG("in=" << ingress << " alert=" << data.getName() << " decision=drop since mobility is nullptr");
+    return false;
   }
+  auto nodePos = convertToPoint(mobility->GetPosition());
 
+  // extract sender position
   auto senderPosTag = data.getTag<lp::SenderPositionTag>();
-  // if senderPosTag is not present, forward to V2V immediately
   if (senderPosTag == nullptr) {
+    // if NON_LOCAL face received packet without sender position then ignore it
+    if (ingress.face.getScope() != ::ndn::nfd::FACE_SCOPE_LOCAL) {
+      NFD_LOG_DEBUG("in=" << ingress << " alert=" << data.getName() << " decision=drop since sender position is unavailable");
+      return false;
+    }
+
     auto v2v = ctx->GetFaceIdFor(ctx->V2V_FACE);
     if (v2v != 0) {
       auto& face = *m_faceTable.get(v2v);
-      NFD_LOG_DEBUG("in=" << ingress << " alert=" << data.getName() << " decision=forward");
       this->OnOutgoingAlert(data, face, node, ctx);
     }
     return zor.contains(nodePos);
-  } else {
-    senderPos = convertToPoint(senderPosTag->getPos());
   }
+  auto senderPos = convertToPoint(senderPosTag->getPos());
   
+  // geocast check: prevent alert from moving away from the ZoR
   if (!zor.contains(nodePos)) {
     if (zor.contains(senderPos) || zor.distanceToBoundary(senderPos) < zor.distanceToBoundary(nodePos)) {
-      NFD_LOG_DEBUG("in=" << ingress << " alert=" << data.getName() << " decision=drop reason='Sender is closer'");
+      NFD_LOG_DEBUG("in=" << ingress << " alert=" << data.getName() << " decision=drop since sender is closer");
       return false;
     }
   }
@@ -285,7 +292,7 @@ Forwarder::AlertRsuHandler(const Data& data, const FaceEndpoint& ingress,
   // is duplicate?
   auto as = ctx->GetAlertStore();
   if (!as->InsertOrUpdate(data.getName())) {
-    NFD_LOG_DEBUG("in=" << ingress << " alert=" << data.getName() << " decision=drop reason='Duplicate alert'");
+    NFD_LOG_DEBUG("in=" << ingress << " alert=" << data.getName() << " decision=drop because duplicate alert");
     return false;
   }
 

@@ -34,14 +34,14 @@ HelloConsumer::doReceive(shared_ptr<const ndn::Data> data)
   NS_LOG_INFO("Received message: " << data->getName());
   
   m_lastReceived = Simulator::Now();
-  m_ctx->SetReceivedHello(true);
+  m_ctx->SetRsuAvailable(true);
 }
 
 bool
 HelloConsumer::handleTimeout()
 {
   NS_LOG_INFO("Timeout: last message received at " << m_lastReceived.GetSeconds());
-  m_ctx->SetReceivedHello(false);
+  m_ctx->SetRsuAvailable(false);
 
   // re-inject the interest
   return true;
