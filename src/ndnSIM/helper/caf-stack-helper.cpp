@@ -104,15 +104,15 @@ StackHelper::SetupRSU(Ptr<Node> node, Ptr<Context> ctx)
   /**
    * Even RSU are phase 0ms while odd RSU are phase 50ms
    * which means
-   * even RSU := 0,    200,    400,    600, ...
-   * odd RSU :=    100,    300,    500,    700, ...
+   * even RSU := 50,    450,    850,     1250, ...
+   * odd RSU :=     250,    650,    1050,     1450, ...
    */
-  auto startTime_in_ms = MilliSeconds(1000 + (node->GetId() % 2 == 0 ? 0 : 100)); // start from 1sec = 1000ms
+  auto startTime_in_ms = MilliSeconds(50 + (node->GetId() % 2 == 0 ? 0 : 200)); // start from 1sec = 1000ms
 
   ndn::AppHelper helloProducer("ns3::ndn::HelloProducer");
   helloProducer.SetAttribute("StartTime", TimeValue(startTime_in_ms));
   helloProducer.SetAttribute("Prefix", StringValue("/alert/hello/rsu/" + std::to_string(node->GetId())));
-  helloProducer.SetAttribute("Interval", StringValue("200ms"));
+  helloProducer.SetAttribute("Interval", StringValue("400ms"));
   helloProducer.SetAttribute("PayloadSize", UintegerValue(payloadSize));
 
   ApplicationContainer apps = helloProducer.Install(node);
@@ -128,7 +128,7 @@ StackHelper::SetupVehicle(Ptr<Node> node, Ptr<Context> ctx)
     return;
 
   ndn::AppHelper helloConsumer("ns3::ndn::HelloConsumer");
-  helloConsumer.SetAttribute("StartTime", StringValue("1s"));
+  helloConsumer.SetAttribute("StartTime", StringValue("0s"));
   helloConsumer.SetAttribute("Prefix", StringValue("/alert/hello/rsu"));
   helloConsumer.SetAttribute("LifeTime", StringValue("500ms"));
 
