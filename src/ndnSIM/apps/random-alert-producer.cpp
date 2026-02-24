@@ -1,3 +1,4 @@
+#include "model/caf-context.hpp"
 #include "ns3/log.h"
 #include "ns3/random-variable-stream.h"
 #include "ns3/string.h"
@@ -5,8 +6,11 @@
 #include "ns3/double.h"
 #include "ns3/simulator.h"
 #include "ns3/boolean.h"
+#include "ns3/node-list.h"
+#include "ns3/mobility-module.h"
 
 #include "random-alert-producer.hpp"
+#include <tuple>
 
 NS_LOG_COMPONENT_DEFINE("ndn.RandomAlertProducer");
 
@@ -75,6 +79,36 @@ RandomAlertProducer::SendAlert() {
   }
 }
 
+std::tuple<int, int>
+countInside(shared_ptr<caf::ZoR> zor) 
+{
+  int vehCount = 0, rsuCount = 0;
+  for (uint32_t i = 0; i < NodeList::GetNNodes(); ++i) {
+    Ptr<Node> node = NodeList::GetNode(i);
+    Ptr<caf::Context> ctx = node->GetObject<caf::Context>();
+    Ptr<MobilityModel> mobility = node->GetObject<MobilityModel>();
+
+    if (mobility) {
+      Vector pos = mobility->GetPosition();
+      if (zor->contains(caf::Point{static_cast<float>(pos.x), static_cast<float>(pos.y)})) {
+        if (ctx && ctx->GetNodeStatus() == caf::NODE_STATUS_ACTIVE) {
+          switch (ctx->GetNodeType()) {
+            case caf::NODE_TYPE_VEHICLE:
+              vehCount += 1;
+              break;
+            case caf::NODE_TYPE_RSU:
+              rsuCount += 1;
+              break;
+            default:
+              break;
+          }
+        }
+      }
+    }
+  }
+  return std::make_tuple(vehCount, rsuCount);
+}
+
 std::shared_ptr<Data>
 RandomAlertProducer::AlertSupplier()
 {
@@ -91,7 +125,12 @@ RandomAlertProducer::AlertSupplier()
   data->setFreshnessPeriod(time::milliseconds(m_freshness.GetMilliSeconds()));
   data->setContent(make_shared<::ndn::Buffer>(m_virtualPayloadSize));
 
-  NS_LOG_LOGIC("Send alert: " << data->getName());
+  if (m_zor) {
+    auto [vehCount, rsuCount] = countInside(m_zor);
+    NS_LOG_LOGIC("Send alert=" << data->getName() << " vehCount="<< vehCount <<" rsuCount="<< rsuCount <<"");
+  } else {
+    NS_LOG_LOGIC("Send alert=" << data->getName());
+  }
   return data;
 }
 
