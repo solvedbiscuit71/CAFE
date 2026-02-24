@@ -7,6 +7,9 @@ import os
 log_components={ 
   "caf.StackHelper": "csh",
   "caf.Context": "cc",
+  "caf.ZoR": "cz",
+  "caf.Routing": "cr",
+  "caf.Forwarder": "cfd",
 
   "ndn.StackHelper": "nsh",
   "ndn.FibHelper": "nfh",
@@ -17,6 +20,7 @@ log_components={
   "ndn.AlertProducer": "nap",
   "ndn.HelloConsumer": "nhc",
   "ndn.HelloProducer": "nhp",
+  "ndn.RandomAlertProducer": "nrp",
 
   "ndn-cxx.nfd.Forwarder": "nfd",
 

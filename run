@@ -4,6 +4,9 @@
 log_components=(
   "caf.StackHelper"
   "caf.Context"
+  "caf.ZoR"
+  "caf.Routing"
+  "caf.Forwarder"
 
   "ndn.StackHelper"
   "ndn.FibHelper"
@@ -14,6 +17,7 @@ log_components=(
   "ndn.AlertProducer"
   "ndn.HelloConsumer"
   "ndn.HelloProducer"
+  "ndn.RandomAlertProducer"
   
   "ndn-cxx.nfd.Forwarder"
 
