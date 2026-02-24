@@ -84,8 +84,6 @@ AlertConsumer::RegisterInterest() {
   time::milliseconds interestLifeTime(m_interestLifeTime.GetMilliSeconds());
   interest->setInterestLifetime(interestLifeTime);
 
-  NS_LOG_INFO("Inject interest: " << interest->getName());
-
   m_transmittedInterests(interest, this, m_face);
   m_appLink->onReceiveInterest(*interest);
   

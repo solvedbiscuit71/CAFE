@@ -179,7 +179,7 @@ Forwarder::OnOutgoingAlert(const Data& data, Face& egress, ns3::Ptr<ns3::Node> n
 void
 Forwarder::DeferredOutgoingAlert(shared_ptr<const Data> data, shared_ptr<Face> egress, ns3::Ptr<ns3::Node> node, ns3::Ptr<ns3::caf::Context> ctx)
 {
-  NFD_LOG_DEBUG("timer expired");
+  NFD_LOG_DEBUG("alert=" << data->getName() << " timer expired");
 
   // mark schedule tranmission as completed
   auto registry = ctx->GetDeferredRegistry();
@@ -214,6 +214,8 @@ Forwarder::AlertVehicleHandler(const Data& data, const FaceEndpoint& ingress,
   
   // if not from V2I face, check whether V2I is active?
   if (ingressCtx != ctx->V2I_FACE && ctx->IsRsuAvailable()) {
+    NFD_LOG_DEBUG("in=" << ingress << " alert=" << data.getName() << " decision=forward to Rsu");
+
     auto v2i = ctx->GetFaceIdFor(ctx->V2I_FACE);
     if (v2i != 0) {
       auto& face = *m_faceTable.get(v2i);
@@ -307,6 +309,8 @@ Forwarder::AlertRsuHandler(const Data& data, const FaceEndpoint& ingress,
   
   // if node in dstNodesTag then forward the message to V2I face
   if (dstNodesTag->contains(node->GetId())) {
+    NFD_LOG_DEBUG("in=" << ingress << " alert=" << data.getName() << " decision=forward to vehicles");
+
     auto v2i = ctx->GetFaceIdFor(ctx->V2I_FACE);
     if (v2i != 0) {
       auto& face = *m_faceTable.get(v2i);

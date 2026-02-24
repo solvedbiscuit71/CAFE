@@ -32,6 +32,10 @@
 
 namespace ns3 {
 
+double h(double r, double w, double delta) {
+  return (std::sqrt(4.0 * r * r - w * w)) + delta;
+}
+
 void
 countInside(shared_ptr<caf::ZoR> zor) 
 {
@@ -53,17 +57,49 @@ countInside(shared_ptr<caf::ZoR> zor)
 int
 main (int argc, char *argv[])
 {
+  bool enableHello = false;
+  bool disableRsu = false;
+
   // * Read optional command-line parameters
   CommandLine cmd;
+  cmd.AddValue("enableHello", "Whether to enable hello messages or not", enableHello);
+  cmd.AddValue("disableRsu", "Whether to disable RSU or not", disableRsu);
   cmd.Parse (argc, argv);
 
+  std::cout << "enableHello="<<enableHello<<" disableRsu="<<disableRsu<<"" << std::endl;
+
   // * Creating nodes
+  NodeContainer rsu;
+  rsu.Create(5);
+
+  caf::setupContext(rsu, [](Ptr<caf::Context> ctx) {
+    ctx->SetNodeType(caf::NODE_TYPE_RSU);
+    ctx->SetNodeStatus(caf::NODE_STATUS_ACTIVE);
+  });
+
   NodeContainer vehicle;
-  vehicle.Create(15);
+  vehicle.Create(20);
   caf::setupContext(vehicle, [](Ptr<caf::Context> ctx) {
     ctx->SetNodeType(caf::NODE_TYPE_VEHICLE);
     ctx->SetNodeStatus(caf::NODE_STATUS_ACTIVE);
   });
+
+  //@ assume RSU#3 is under maintainence
+  if (disableRsu) {
+    rsu.Get(3)->GetObject<caf::Context>()->SetNodeStatus(caf::NODE_STATUS_INACTIVE);
+  }
+
+  // use middle placement strategy
+  double dx = h(50.0, 10, 0.0);
+  std::cout << "RSU placed " << dx << "m apart." << std::endl;
+  MobilityHelper rsuMobility;
+  Ptr<ListPositionAllocator> positionAlloc = CreateObject<ListPositionAllocator> ();
+  for (uint32_t i=0; i<rsu.GetN(); i++) {
+    positionAlloc->Add (Vector (i * dx, 0.0, 0.0));
+  }
+  rsuMobility.SetPositionAllocator (positionAlloc);
+  rsuMobility.SetMobilityModel ("ns3::ConstantPositionMobilityModel");
+  rsuMobility.Install (rsu);
 
   /**
    * To model real world scenario, we need to add randomness to the equation.
@@ -80,13 +116,25 @@ main (int argc, char *argv[])
   }
 
   // * Install Network Stack
+  SetDefaultP2PConfig();
+  PointToPointHelper p2p;
+  p2p.Install(rsu.Get(0), rsu.Get(1));
+  p2p.Install(rsu.Get(1), rsu.Get(2));
+  if (!disableRsu) {
+    p2p.Install(rsu.Get(2), rsu.Get(3));
+    p2p.Install(rsu.Get(3), rsu.Get(4));
+  }
+
   NodeContainer adhocNodes;
+  adhocNodes.Add(rsu);
   adhocNodes.Add(vehicle);
   SetupWifiNetDevice(adhocNodes);
 
   caf::StackHelper stackHelper;
-  stackHelper.setEnableHello(false); // enable hello producer and consumer
+  stackHelper.setEnableHello(enableHello); // enable hello producer and consumer
+  stackHelper.Install(rsu);
   stackHelper.Install(vehicle, true);
+  
 
   // * Install consumer
   ndn::AppHelper consumerHelper("ns3::ndn::AlertConsumer");
@@ -98,10 +146,10 @@ main (int argc, char *argv[])
 
   // * Build ZoR
   auto zor = std::make_shared<caf::PolygonZoR>(std::vector<caf::Point>{
-    {100,10},
-    {200,10},
-    {200,-10},
-    {100,-10},
+    {300,10},
+    {400,10},
+    {400,-10},
+    {300,-10},
   });
 
   ndn::AppHelper producerHelper("ns3::ndn::RandomAlertProducer");
@@ -116,9 +164,18 @@ main (int argc, char *argv[])
   app->SetZoR(zor);
 
   // * Enable NetAnim
-  AnimationInterface anim ("netanim/geo-sim.xml");
+  AnimationInterface anim ("netanim/healing-sim.xml");
+  if (enableHello) {
+    setNodesColor(anim, rsu, 0, 255, 0); // default: green (active)
+  } else {
+    setNodesColor(anim, rsu, 255, 0, 0); // red (inactive)
+  }
+  if (disableRsu) {
+    setNodesColor(anim, rsu.Get(3), 255, 0, 0); // red (inactive)
+  }
+  setNodesColor(anim, vehicle, 0, 0, 255); // default: blue
   
-  Simulator::Schedule(Seconds(1.0), &countInside, zor);
+  Simulator::Schedule(Seconds(2.0), &countInside, zor);
 
   Simulator::Stop (Seconds (3.0));
   Simulator::Run ();
