@@ -149,7 +149,7 @@ ComputeDestinationNodes(const Graph& G, const NodePosition& rsuPositions, float 
     auto compute = [&](NodeId nodeId) {
         auto it = rsuPositions.find(nodeId);
         if (it != rsuPositions.end()) {
-            if (zor.contains(it->second)) {
+            if (zor.coveredBy(it->second, txRadius)) {
                 dstNodes.emplace(nodeId);
             } else {
                 auto dist = zor.distanceToBoundary(it->second);
