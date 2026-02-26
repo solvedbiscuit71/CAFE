@@ -38,7 +38,7 @@ h (double r, double w, double delta)
 }
 
 void
-InstallApplication(Ptr<Node> node, std::shared_ptr<caf::ZoR> zor, Time startTime, Time stopTime)
+InstallApplication(Ptr<Node> node, std::shared_ptr<caf::ZoR> zor, Time startTime, Time stopTime, double threshold)
 {
   // static variables are initialized only once
   static ndn::AppHelper producerHelper("ns3::ndn::RandomAlertProducer");
@@ -47,7 +47,7 @@ InstallApplication(Ptr<Node> node, std::shared_ptr<caf::ZoR> zor, Time startTime
   producerHelper.SetAttribute("Prefix", StringValue("/alert/emergency/veh/" + std::to_string(node->GetId())));
   producerHelper.SetAttribute("Interval", StringValue("0s")); // only once
   producerHelper.SetAttribute("PayloadSize", UintegerValue(64));
-  producerHelper.SetAttribute("Threshold", DoubleValue(0.05)); // 5% chance
+  producerHelper.SetAttribute("Threshold", DoubleValue(threshold)); // 5% chance
 
   auto app = DynamicCast<ndn::RandomAlertProducer>(producerHelper.Install(node).Get(0));
   app->SetZoR(zor);
@@ -70,6 +70,7 @@ main (int argc, char *argv[])
   bool disableRsu = false;
   double startTime = 60.0;
   double stopTime = 300.0;
+  double threshold = 0.1;
 
   CommandLine cmd;
   cmd.AddValue ("delta", "Deviation from optimal spacing (default: 0.0)", delta);
@@ -77,6 +78,7 @@ main (int argc, char *argv[])
   cmd.AddValue("disableRsu", "Whether to disable RSU or not (default: false)", disableRsu);
   cmd.AddValue("startTime", "Start time (default: 60s)", startTime);
   cmd.AddValue("stopTime", "Stop time (default: 300s)", stopTime);
+  cmd.AddValue("threshold", "Probability threshold for alert producer (default: 0.1)", threshold);
   cmd.Parse (argc, argv);
 
   std::cout << "CLI arguments:" << '\n' 
@@ -84,7 +86,8 @@ main (int argc, char *argv[])
             << "| enableHello="<<enableHello << '\n'
             << "| disableRsu="<<disableRsu << '\n'
             << "| startTime="<<startTime << '\n'
-            << "| stopTime="<<stopTime << std::endl;
+            << "| stopTime="<<stopTime << '\n'
+            << "| threshold="<<threshold << std::endl;
 
   // ------------------------------------------------------------
   // Build animation filename
@@ -237,7 +240,7 @@ main (int argc, char *argv[])
     if (!ctx || ctx->GetNodeType() != caf::NODE_TYPE_VEHICLE)
       continue;
 
-    InstallApplication(node, zor, Seconds(inTime), Seconds(outTime));
+    InstallApplication(node, zor, Seconds(inTime), Seconds(outTime), threshold);
     std::cout << "Install application on vehicle("<< node->GetId() <<") at="<<inTime<<"s" << std::endl;
   }
 
