@@ -29,6 +29,7 @@
 #include "scratch-utils.h"
 #include <cstdint>
 #include <memory>
+#include <vector>
 
 namespace ns3 {
 
@@ -59,7 +60,7 @@ main (int argc, char *argv[])
 
   // * Creating nodes
   NodeContainer vehicle;
-  vehicle.Create(15);
+  vehicle.Create(6);
   caf::setupContext(vehicle, [](Ptr<caf::Context> ctx) {
     ctx->SetNodeType(caf::NODE_TYPE_VEHICLE);
     ctx->SetNodeStatus(caf::NODE_STATUS_ACTIVE);
@@ -68,14 +69,19 @@ main (int argc, char *argv[])
   /**
    * To model real world scenario, we need to add randomness to the equation.
    */
-  Ptr<NormalRandomVariable> rng = CreateObject<NormalRandomVariable>();
-  rng->SetAttribute("Mean", DoubleValue(0.0));
-  rng->SetAttribute("Variance", DoubleValue(10)); // std = 5; var = 5^2 = 25
+  std::vector<caf::Point> position = {
+    {0, 0},
+    {39, 5},
+    {41, -5},
+    {80, 0},
+    {120, 0},
+    {150, 0},
+  };
 
   for (uint32_t i=0; i<vehicle.GetN(); i++) {
     auto m = CreateObject<ConstantVelocityMobilityModel>();
-    m->SetPosition(Vector (20.0 * i + rng->GetValue(), rng->GetValue(), 0.0));
-    m->SetVelocity(Vector(15.0 + rng->GetValue(), 0.0, 0.0));
+    m->SetPosition(Vector (position[i].x, position[i].y, 0.0));
+    m->SetVelocity(Vector(20.0, 0.0, 0.0));
     vehicle.Get(i)->AggregateObject(m);
   }
 
@@ -98,10 +104,10 @@ main (int argc, char *argv[])
 
   // * Build ZoR
   auto zor = std::make_shared<caf::PolygonZoR>(std::vector<caf::Point>{
-    {100,10},
+    {150,10},
     {200,10},
     {200,-10},
-    {100,-10},
+    {150,-10},
   });
 
   ndn::AppHelper producerHelper("ns3::ndn::RandomAlertProducer");
