@@ -85,9 +85,7 @@ ParseMobilityTrace (const std::string &traceFile, uint32_t &numNodes, NodeLifeti
   duration = time;
   numNodes = nodeLifetime.size ();
 
-  std::cout << "Parsed mobility trace.\n"
-            << "Found " << numNodes << " nodes.\n"
-            << "Simulation duration set to " << duration << " seconds." << std::endl;
+  std::cout << "Parsed mobility trace. Found " << numNodes << " nodes." << std::endl;
 }
 
 inline NodeContainer

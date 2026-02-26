@@ -90,3 +90,5 @@ toggle
 version.cache
 
 .cache/
+.ipynb_checkpoints/
+*.ipynb
