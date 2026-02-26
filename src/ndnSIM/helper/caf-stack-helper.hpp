@@ -5,6 +5,7 @@
 #include "ns3/ndnSIM/model/caf-context.hpp"
 #include "ns3/node-container.h"
 #include "ndn-stack-helper.hpp"
+#include "ns3/nstime.h"
 
 
 namespace ns3 {
@@ -23,11 +24,11 @@ public:
 StackHelper();
 virtual ~StackHelper();
 
-bool
-getEnableHello();
+bool getEnableHello() { return m_enableHello; };
+void setEnableHello(bool enableHello) { m_enableHello = enableHello; };
 
-void
-setEnableHello(bool enableHello);
+Time getStartTime() { return m_startTime; };
+void setStartTime(Time startTime) { m_startTime = startTime; };
 
 void
 Install(NodeContainer nodes,
@@ -46,6 +47,7 @@ SetupBackbone(Ptr<Node> node, Ptr<Context> ctx);
 
 ndn::StackHelper m_helper;
 bool m_enableHello;
+Time m_startTime;
 
 };
 

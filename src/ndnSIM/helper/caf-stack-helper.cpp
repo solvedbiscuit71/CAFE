@@ -10,6 +10,7 @@
 #include "ns3/nstime.h"
 #include "ns3/string.h"
 #include "ns3/uinteger.h"
+#include <bits/types/struct_timeval.h>
 #include <cstdint>
 #include <string>
 
@@ -19,16 +20,9 @@ namespace ns3 {
 namespace caf {
 
 StackHelper::StackHelper() 
-  : m_helper(), m_enableHello(false) {}
+  : m_helper(), m_enableHello(false), m_startTime(MilliSeconds(50)) {}
 
 StackHelper::~StackHelper() {}
-
-
-bool
-StackHelper::getEnableHello() { return m_enableHello; }
-
-void
-StackHelper::setEnableHello(bool enableHello) { m_enableHello = enableHello; }
 
 void
 StackHelper::Install(NodeContainer nodes, bool SetDefaultRoutes, size_t maxCsSize)
@@ -96,10 +90,9 @@ StackHelper::SetupRSU(Ptr<Node> node, Ptr<Context> ctx)
 
   /**
    * BSM (Basic Safety Message) are typically very small 50-100 bytes.
-   * Given, current use case doesn't use the data content, we will restrict it
-   * to 64 bytes.
+   * Given, current use case doesn't use the data content, we will restrict it to 0 bytes.
    */
-  double payloadSize = 64;
+  uint32_t payloadSize = 0;
 
   /**
    * Even RSU are phase 0ms while odd RSU are phase 50ms
@@ -107,10 +100,10 @@ StackHelper::SetupRSU(Ptr<Node> node, Ptr<Context> ctx)
    * even RSU := 50,    450,    850,     1250, ...
    * odd RSU :=     250,    650,    1050,     1450, ...
    */
-  auto startTime_in_ms = MilliSeconds(50 + (node->GetId() % 2 == 0 ? 0 : 200)); // start from 1sec = 1000ms
+  auto startTime = m_startTime + MilliSeconds(node->GetId() % 2 == 0 ? 0 : 200);
 
   ndn::AppHelper helloProducer("ns3::ndn::HelloProducer");
-  helloProducer.SetAttribute("StartTime", TimeValue(startTime_in_ms));
+  helloProducer.SetAttribute("StartTime", TimeValue(startTime));
   helloProducer.SetAttribute("Prefix", StringValue("/alert/hello/rsu/" + std::to_string(node->GetId())));
   helloProducer.SetAttribute("Interval", StringValue("400ms"));
   helloProducer.SetAttribute("PayloadSize", UintegerValue(payloadSize));
@@ -128,7 +121,7 @@ StackHelper::SetupVehicle(Ptr<Node> node, Ptr<Context> ctx)
     return;
 
   ndn::AppHelper helloConsumer("ns3::ndn::HelloConsumer");
-  helloConsumer.SetAttribute("StartTime", StringValue("0s"));
+  helloConsumer.SetAttribute("StartTime", TimeValue(m_startTime));
   helloConsumer.SetAttribute("Prefix", StringValue("/alert/hello/rsu"));
   helloConsumer.SetAttribute("LifeTime", StringValue("500ms"));
 

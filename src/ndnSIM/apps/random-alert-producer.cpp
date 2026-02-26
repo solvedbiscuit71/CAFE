@@ -71,6 +71,8 @@ RandomAlertProducer::SendAlert() {
   double x = m_rand->GetValue();
   if (x < m_threshold) {
     doSend();
+  } else {
+    NS_LOG_LOGIC("Don't send alert; condition failed");
   }
 
   // if m_interval is zero then don't schedule
