@@ -193,39 +193,11 @@ Forwarder::AlertVehicleHandler(const Data& data, const FaceEndpoint& ingress,
                                const ns3::caf::ZoR& zor, ns3::Ptr<ns3::Node> node, ns3::Ptr<ns3::caf::Context> ctx)
 {
   using namespace ns3;
-  
-  // is duplicate?
+
+  // extract name and alert store
   const Name& name = data.getName();
   auto as = ctx->GetAlertStore();
-  if (!as->InsertOrUpdate(name)) {
 
-    auto registry = ctx->GetDeferredRegistry();
-    // if deferred transmission then cancel
-    if (registry->IsRegistered(name)) {
-      NFD_LOG_DEBUG("in= " << ingress << " alert=" << data.getName() << " timer cancelled due to retransmission");
-      registry->Cancel(name);
-    } else {
-      NFD_LOG_DEBUG("in=" << ingress << " alert=" << data.getName() << " decision=drop because duplicate alert");
-    }
-    return false;
-  }
-  
-  auto ingressCtx = ctx->GetContextFor(ingress.face.getId());
-  
-  // if not from V2I face, check whether V2I is active?
-  if (ingressCtx != ctx->V2I_FACE && ctx->IsRsuAvailable()) {
-    NFD_LOG_DEBUG("in=" << ingress << " alert=" << data.getName() << " decision=forward to Rsu");
-
-    auto v2i = ctx->GetFaceIdFor(ctx->V2I_FACE);
-    if (v2i != 0) {
-      auto& face = *m_faceTable.get(v2i);
-      data.removeTag<lp::DestinationNodesTag>();
-
-      this->OnOutgoingAlert(data, face, node, ctx);
-    }
-    return checkInside(node, zor);
-  }
-  
   // extract node position
   auto mobility = node->GetObject<MobilityModel>();
   if (mobility == nullptr) {
@@ -243,14 +215,41 @@ Forwarder::AlertVehicleHandler(const Data& data, const FaceEndpoint& ingress,
       return false;
     }
 
+    // otherwise it's the producer of the alert message, send immediately
     auto v2v = ctx->GetFaceIdFor(ctx->V2V_FACE);
     if (v2v != 0) {
       auto& face = *m_faceTable.get(v2v);
       this->OnOutgoingAlert(data, face, node, ctx);
+      
+      // insert to alert store
+      as->InsertOrUpdate(name);
     }
     return zor.contains(nodePos);
   }
   auto senderPos = convertToPoint(senderPosTag->getPos());
+  
+  // is duplicate?
+  if (!as->InsertOrUpdate(name)) {
+    auto registry = ctx->GetDeferredRegistry();
+
+    // if deferred transmission then cancel
+    if (registry->IsRegistered(name)) {
+      // if vehicle outside and node is closer than the sender then don't cancel
+      if (!zor.contains(nodePos)) {
+        if (zor.contains(senderPos) || zor.distanceToBoundary(senderPos) < zor.distanceToBoundary(nodePos)) {
+          NFD_LOG_DEBUG("in= " << ingress << " alert=" << data.getName() << " timer cancelled because sender closer to ZoR");
+          registry->Cancel(name);
+        }
+      } else {
+        NFD_LOG_DEBUG("in= " << ingress << " alert=" << data.getName() << " timer cancelled due to retransmission");
+        registry->Cancel(name);
+      }
+
+    } else {
+      NFD_LOG_DEBUG("in=" << ingress << " alert=" << data.getName() << " decision=drop because duplicate alert");
+    }
+    return false;
+  }
   
   // geocast check: prevent alert from moving away from the ZoR
   if (!zor.contains(nodePos)) {
@@ -260,6 +259,22 @@ Forwarder::AlertVehicleHandler(const Data& data, const FaceEndpoint& ingress,
     }
   }
 
+  auto ingressCtx = ctx->GetContextFor(ingress.face.getId());
+
+  // if not from V2I face, check whether V2I is active?
+  if (ingressCtx != ctx->V2I_FACE && ctx->IsRsuAvailable()) {
+    NFD_LOG_DEBUG("in=" << ingress << " alert=" << data.getName() << " decision=forward to Rsu");
+
+    auto v2i = ctx->GetFaceIdFor(ctx->V2I_FACE);
+    if (v2i != 0) {
+      auto& face = *m_faceTable.get(v2i);
+      data.removeTag<lp::DestinationNodesTag>();
+
+      this->OnOutgoingAlert(data, face, node, ctx);
+    }
+    return checkInside(node, zor);
+  }
+  
   // compute tMax
   auto tTx = (data.wireEncode().size() * 8) / ctx->GetTxRate(); // transmission delay
   auto tProp = ctx->GetTxRadius() / (3 * 1e8);                  // propagation delay
