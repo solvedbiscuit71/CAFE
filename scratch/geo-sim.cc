@@ -104,10 +104,10 @@ main (int argc, char *argv[])
 
   // * Build ZoR
   auto zor = std::make_shared<caf::PolygonZoR>(std::vector<caf::Point>{
-    {150,10},
+    {50,10},
     {200,10},
     {200,-10},
-    {150,-10},
+    {50,-10},
   });
 
   ndn::AppHelper producerHelper("ns3::ndn::RandomAlertProducer");
