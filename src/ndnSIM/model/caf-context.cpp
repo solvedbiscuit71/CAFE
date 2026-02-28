@@ -34,8 +34,8 @@ AlertStore::IsDuplicate(const ndn::Name& name) {
 }
 
 bool
-AlertStore::InsertOrUpdate(const ndn::Name& name) {
-  auto it = m_lookup.find(name);
+AlertStore::InsertOrUpdate(const Entry& entry) {
+  auto it = m_lookup.find(entry.name);
 
   if (it != m_lookup.end()) {
     // Move the existing element from its current position to the front.
@@ -44,8 +44,8 @@ AlertStore::InsertOrUpdate(const ndn::Name& name) {
     return false;
   }
 
-  m_order.push_front(name);
-  m_lookup[name] = m_order.begin();
+  m_order.push_front(entry);
+  m_lookup[entry.name] = m_order.begin();
 
   if (m_lookup.size() > m_maxSize) {
     evictOldest();
@@ -54,13 +54,24 @@ AlertStore::InsertOrUpdate(const ndn::Name& name) {
   return true;
 }
 
+AlertStore::Entry*
+AlertStore::Get(const ndn::Name &name)
+{
+  auto it = m_lookup.find(name);
+
+  if (it != m_lookup.end()) {
+    return &*it->second;
+  }
+  return nullptr;
+}
+
 void 
 AlertStore::evictOldest() {
   if (m_order.empty()) return;
 
-  const ndn::Name& oldest = m_order.back();
+  const Entry& oldest = m_order.back();
   
-  m_lookup.erase(oldest);
+  m_lookup.erase(oldest.name);
   m_order.pop_back();
 } 
 

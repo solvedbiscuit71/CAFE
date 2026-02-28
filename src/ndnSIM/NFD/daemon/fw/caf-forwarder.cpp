@@ -68,19 +68,6 @@ extractZoR(const Data& data)
   return nullptr;
 }
 
-static bool
-checkInside(ns3::Ptr<ns3::Node> node, const ns3::caf::ZoR& zor)
-{
-  using namespace ns3;
-
-  Ptr<MobilityModel> mobility = node->GetObject<MobilityModel>();
-  if (mobility != nullptr) {
-    Vector v = mobility->GetPosition();
-    return zor.contains({static_cast<float>(v.x), static_cast<float>(v.y)});
-  }
-  return false;
-}
-
 static ns3::caf::Point
 convertToPoint(ns3::Vector v) {
   return ns3::caf::Point{static_cast<float>(v.x), static_cast<float>(v.y)};
@@ -90,6 +77,19 @@ static ns3::caf::Point
 convertToPoint(std::tuple<double, double, double> v) {
   auto [x,y,z] = v;
   return ns3::caf::Point{static_cast<float>(x), static_cast<float>(y)};
+}
+
+static bool
+checkInside(ns3::Ptr<ns3::Node> node, const ns3::caf::ZoR& zor)
+{
+  using namespace ns3;
+
+  Ptr<MobilityModel> mobility = node->GetObject<MobilityModel>();
+  if (mobility != nullptr) {
+    Vector v = mobility->GetPosition();
+    return zor.contains(convertToPoint(v));
+  }
+  return false;
 }
 
 bool
@@ -205,6 +205,10 @@ Forwarder::AlertVehicleHandler(const Data& data, const FaceEndpoint& ingress,
     return false;
   }
   auto nodePos = convertToPoint(mobility->GetPosition());
+  
+  // extract sender type
+  auto senderTypeTag = data.getTag<lp::SenderTypeTag>();
+  caf::NodeType senderType = senderTypeTag != nullptr ? static_cast<caf::NodeType>(senderTypeTag->get()) : caf::NODE_TYPE_NONE;
 
   // extract sender position
   auto senderPosTag = data.getTag<lp::SenderPositionTag>();
@@ -222,33 +226,44 @@ Forwarder::AlertVehicleHandler(const Data& data, const FaceEndpoint& ingress,
       this->OnOutgoingAlert(data, face, node, ctx);
       
       // insert to alert store
-      as->InsertOrUpdate(name);
+      as->InsertOrUpdate({name, caf::NODE_TYPE_VEHICLE, nodePos});
     }
     return zor.contains(nodePos);
   }
   auto senderPos = convertToPoint(senderPosTag->getPos());
   
   // is duplicate?
-  if (!as->InsertOrUpdate(name)) {
+  if (as->IsDuplicate(name)) {
     auto registry = ctx->GetDeferredRegistry();
 
-    // if deferred transmission then cancel
+    // check whether pending transmission
     if (registry->IsRegistered(name)) {
-      // if vehicle outside and node is closer than the sender then don't cancel
+
+      // if vehicle outside and sender is closer than the node in references to ZoR 
+      // then cancel
       if (!zor.contains(nodePos)) {
         if (zor.contains(senderPos) || zor.distanceToBoundary(senderPos) < zor.distanceToBoundary(nodePos)) {
           NFD_LOG_DEBUG("in= " << ingress << " alert=" << data.getName() << " timer cancelled because sender closer to ZoR");
           registry->Cancel(name);
         }
-      } else {
-        NFD_LOG_DEBUG("in= " << ingress << " alert=" << data.getName() << " timer cancelled due to retransmission");
-        registry->Cancel(name);
+      } 
+
+      // if vehicle inside and node is closer than the sender in references to original sender
+      // then cancel
+      else {
+        auto entry = as->Get(name);
+        if (entry != nullptr && entry->senderPos.distanceFromPoint(nodePos) < entry->senderPos.distanceFromPoint(senderPos)) {
+          NFD_LOG_DEBUG("in= " << ingress << " alert=" << data.getName() << " timer cancelled because sender farther then node");
+          registry->Cancel(name);
+        }
       }
 
     } else {
       NFD_LOG_DEBUG("in=" << ingress << " alert=" << data.getName() << " decision=drop because duplicate alert");
     }
     return false;
+  } else {
+    as->InsertOrUpdate({name, senderType, senderPos});
   }
   
   // geocast check: prevent alert from moving away from the ZoR
@@ -261,8 +276,8 @@ Forwarder::AlertVehicleHandler(const Data& data, const FaceEndpoint& ingress,
 
   auto ingressCtx = ctx->GetContextFor(ingress.face.getId());
 
-  // if not from V2I face, check whether V2I is active?
-  if (ingressCtx != ctx->V2I_FACE && ctx->IsRsuAvailable()) {
+  // if not from a RSU, check whether RSU is available?
+  if (ingressCtx != ctx->V2I_FACE && senderType != caf::NODE_TYPE_RSU && ctx->IsRsuAvailable()) {
     NFD_LOG_DEBUG("in=" << ingress << " alert=" << data.getName() << " decision=forward to Rsu");
 
     auto v2i = ctx->GetFaceIdFor(ctx->V2I_FACE);
@@ -305,12 +320,17 @@ Forwarder::AlertRsuHandler(const Data& data, const FaceEndpoint& ingress,
                            const ns3::caf::ZoR& zor, ns3::Ptr<ns3::Node> node, ns3::Ptr<ns3::caf::Context> ctx)
 {
   using namespace ns3;
+  
+  auto& name = data.getName();
+  auto as = ctx->GetAlertStore();
 
   // is duplicate?
-  auto as = ctx->GetAlertStore();
-  if (!as->InsertOrUpdate(data.getName())) {
+  if (as->IsDuplicate(name)) {
     NFD_LOG_DEBUG("in=" << ingress << " alert=" << data.getName() << " decision=drop because duplicate alert");
     return false;
+  } else {
+    // don't care about sender type and sender position
+    as->InsertOrUpdate({name, caf::NODE_TYPE_NONE, {}});
   }
 
   auto dstNodesTag = data.getTag<lp::DestinationNodesTag>();

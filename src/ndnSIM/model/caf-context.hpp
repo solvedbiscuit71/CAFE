@@ -65,32 +65,48 @@ using FaceIdContextMap = boost::bimap<
 >;
 
 class AlertStore {
-public:
-    explicit AlertStore(size_t maxSize) : m_maxSize(maxSize) {}
-
-    /**
-     * @brief Checks if a name is a duplicate. 
-     * If not, adds it to the filter and handles LRU eviction.
-     * @return true if exists, false if not.
-     */
-    bool IsDuplicate(const ndn::Name& name);
-
-    /**
-     * @brief Checks if a name is a duplicate. 
-     * If not, adds it to the filter and handles LRU eviction.
-     * @return true if insert, false if update.
-     */
-    bool InsertOrUpdate(const ndn::Name& name);
+private:
+  struct Entry
+  {
+    ndn::Name name;    
+    caf::NodeType senderType;
+    caf::Point senderPos;
     
-    void SetMaxSize(size_t maxSize) { m_maxSize = maxSize; }
-    size_t GetMaxSize() { return m_maxSize; }
+    Entry(const ndn::Name& name, caf::NodeType senderType, const Point& senderPos)
+      : name(name), senderType(senderType), senderPos(senderPos) {}
+  }; 
+
+public:
+  explicit AlertStore(size_t maxSize) : m_maxSize(maxSize) {}
+
+  /**
+   * @brief Checks if a name is a duplicate. 
+   * If not, adds it to the store and handles LRU eviction.
+   * @return true if exists, false if not.
+   */
+  bool IsDuplicate(const ndn::Name& name);
+
+  /**
+   * @brief Checks if an entry is a duplicate. 
+   * If not, adds it to the store and handles LRU eviction.
+   * @return true if insert, false if update.
+   */
+  bool InsertOrUpdate(const Entry& entry);
+  
+  /**
+   * @return pointer to the entry whose entry.name == name otherwise returns nullptr
+   */
+  Entry* Get(const ndn::Name& name);
+  
+  void SetMaxSize(size_t maxSize) { m_maxSize = maxSize; }
+  size_t GetMaxSize() { return m_maxSize; }
 
 private:
-    void evictOldest();
+  void evictOldest();
 
-    size_t m_maxSize;
-    std::list<ndn::Name> m_order;
-    std::unordered_map<ndn::Name, std::list<ndn::Name>::iterator> m_lookup;
+  size_t m_maxSize;
+  std::list<Entry> m_order;
+  std::unordered_map<ndn::Name, std::list<Entry>::iterator> m_lookup;
 };
 
 class DeferredRegistry {
