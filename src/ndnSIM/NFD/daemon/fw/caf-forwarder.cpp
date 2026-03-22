@@ -220,14 +220,27 @@ Forwarder::AlertVehicleHandler(const Data& data, const FaceEndpoint& ingress,
     }
 
     // otherwise it's the producer of the alert message, send immediately
-    auto v2v = ctx->GetFaceIdFor(ctx->V2V_FACE);
-    if (v2v != 0) {
-      auto& face = *m_faceTable.get(v2v);
-      this->OnOutgoingAlert(data, face, node, ctx);
-      
-      // insert to alert store
-      as->InsertOrUpdate({name, caf::NODE_TYPE_VEHICLE, nodePos});
+    if (ctx->IsRsuAvailable()) {
+      NFD_LOG_DEBUG("in=" << ingress << " alert=" << data.getName() << " decision=forward to Rsu");
+
+      auto v2i = ctx->GetFaceIdFor(ctx->V2I_FACE);
+      if (v2i != 0) {
+        auto& face = *m_faceTable.get(v2i);
+        this->OnOutgoingAlert(data, face, node, ctx);
+      }
+    } else {
+      NFD_LOG_DEBUG("in=" << ingress << " alert=" << data.getName() << " decision=forward to vehicles");
+
+      auto v2v = ctx->GetFaceIdFor(ctx->V2V_FACE);
+      if (v2v != 0) {
+        auto& face = *m_faceTable.get(v2v);
+        this->OnOutgoingAlert(data, face, node, ctx);
+      }
     }
+
+    // insert to alert store
+    as->InsertOrUpdate({name, caf::NODE_TYPE_VEHICLE, nodePos});
+
     return zor.contains(nodePos);
   }
   auto senderPos = convertToPoint(senderPosTag->getPos());
