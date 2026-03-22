@@ -1,0 +1,17 @@
+#!/bin/bash
+
+# Define log components
+log_components=(
+  "caf.Forwarder"
+  "ndn.AlertConsumer"
+  "ndn.RandomAlertProducer"
+)
+
+# Save the old IFS, set the new one to ':', join, then restore IFS
+saved_ifs=$IFS
+IFS=":"
+component_names="${log_components[*]}"
+IFS=$saved_ifs
+
+# Run ns3
+NS_LOG="$component_names" ./waf --run="$1" 2> "$2"
