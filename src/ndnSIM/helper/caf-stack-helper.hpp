@@ -6,6 +6,7 @@
 #include "ns3/node-container.h"
 #include "ndn-stack-helper.hpp"
 #include "ns3/nstime.h"
+#include <cstdint>
 
 
 namespace ns3 {
@@ -24,11 +25,17 @@ public:
 StackHelper();
 virtual ~StackHelper();
 
+Time getStartTime() { return m_startTime; };
+void setStartTime(Time startTime) { m_startTime = startTime; };
+
 bool getEnableHello() { return m_enableHello; };
 void setEnableHello(bool enableHello) { m_enableHello = enableHello; };
 
-Time getStartTime() { return m_startTime; };
-void setStartTime(Time startTime) { m_startTime = startTime; };
+Time getHelloInterval() { return m_helloInterval; };
+void setHelloInterval(Time helloInterval) { m_helloInterval = helloInterval; };
+
+uint32_t getPhaseShift() { return m_phaseShift; };
+void setPhaseShift(uint32_t phase) { m_phaseShift = phase % 360; };
 
 void
 Install(NodeContainer nodes,
@@ -46,8 +53,12 @@ void
 SetupBackbone(Ptr<Node> node, Ptr<Context> ctx);
 
 ndn::StackHelper m_helper;
-bool m_enableHello;
 Time m_startTime;
+
+/* proactive hello broadcast */
+bool m_enableHello;
+Time m_helloInterval;
+uint32_t m_phaseShift;
 
 };
 

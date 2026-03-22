@@ -11,6 +11,7 @@
 #include "ns3/string.h"
 #include "ns3/uinteger.h"
 #include <bits/types/struct_timeval.h>
+#include <cmath>
 #include <cstdint>
 #include <string>
 
@@ -20,7 +21,7 @@ namespace ns3 {
 namespace caf {
 
 StackHelper::StackHelper() 
-  : m_helper(), m_enableHello(false), m_startTime(MilliSeconds(50)) {}
+  : m_helper(), m_startTime(Seconds(1)),m_enableHello(false), m_helloInterval(MilliSeconds(400)), m_phaseShift(180) {}
 
 StackHelper::~StackHelper() {}
 
@@ -100,12 +101,13 @@ StackHelper::SetupRSU(Ptr<Node> node, Ptr<Context> ctx)
    * even RSU := 50,    450,    850,     1250, ...
    * odd RSU :=     250,    650,    1050,     1450, ...
    */
-  auto startTime = m_startTime + MilliSeconds(node->GetId() % 2 == 0 ? 0 : 200);
+  auto phaseTime = std::round(m_helloInterval.GetMilliSeconds() * (static_cast<double>(m_phaseShift) / 360.0));
+  auto startTime = m_startTime + MilliSeconds(node->GetId() % 2 == 0 ? 0 : phaseTime);
 
   ndn::AppHelper helloProducer("ns3::ndn::HelloProducer");
   helloProducer.SetAttribute("StartTime", TimeValue(startTime));
   helloProducer.SetAttribute("Prefix", StringValue("/alert/hello/rsu/" + std::to_string(node->GetId())));
-  helloProducer.SetAttribute("Interval", StringValue("400ms"));
+  helloProducer.SetAttribute("Interval", TimeValue(m_helloInterval));
   helloProducer.SetAttribute("PayloadSize", UintegerValue(payloadSize));
 
   ApplicationContainer apps = helloProducer.Install(node);
@@ -123,7 +125,7 @@ StackHelper::SetupVehicle(Ptr<Node> node, Ptr<Context> ctx)
   ndn::AppHelper helloConsumer("ns3::ndn::HelloConsumer");
   helloConsumer.SetAttribute("StartTime", TimeValue(m_startTime));
   helloConsumer.SetAttribute("Prefix", StringValue("/alert/hello/rsu"));
-  helloConsumer.SetAttribute("LifeTime", StringValue("500ms"));
+  helloConsumer.SetAttribute("LifeTime", TimeValue(m_helloInterval + MilliSeconds(10)));
 
   ApplicationContainer apps = helloConsumer.Install(node);
 
