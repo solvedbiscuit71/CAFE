@@ -5,7 +5,7 @@ seed = 47
 startTime = 60
 stopTime = 120
 
-CMD = './tools/sim "scene --RngRun=47 --startTime=60 --stopTime=120 --mode={mode}{enableHello}{disableRsu}" "out/{outFile}"'
+CMD = './tools/sim "scene --RngRun=47 --startTime=60 --stopTime=120 --mode={mode}{enableHello}{disableRsu}" "log/{outFile}"'
 
 def prepare(mode, enableHello, disableRsu, outFile):
     enableHello = " --enableHello" if enableHello else ''
