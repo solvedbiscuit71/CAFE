@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+ xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+
+    <!-- WEST (-E7) -->
+    <flow id="w_straight_l0" begin="0" end="120"
+          probability="0.1"
+          departLane="0" from="-E7" to="E10"/>
+    <flow id="w_right_l0" begin="0" end="120"
+          probability="0.05"
+          departLane="0" from="-E7" to="E9"/>
+    <flow id="w_left_l0" begin="0" end="120"
+          probability="0.05"
+          departLane="0" from="-E7" to="E8"/>
+
+    <flow id="w_straight_l1" begin="0" end="120"
+          probability="0.1"
+          departLane="1" from="-E7" to="E10"/>
+    <flow id="w_right_l1" begin="0" end="120"
+          probability="0.05"
+          departLane="1" from="-E7" to="E9"/>
+    <flow id="w_left_l1" begin="0" end="120"
+          probability="0.05"
+          departLane="1" from="-E7" to="E8"/>
+
+    <!-- EAST (-E10) -->
+    <flow id="e_straight_l0" begin="0" end="120"
+          probability="0.1"
+          departLane="0" from="-E10" to="E7"/>
+    <flow id="e_right_l0" begin="0" end="120"
+          probability="0.05"
+          departLane="0" from="-E10" to="E8"/>
+    <flow id="e_left_l0" begin="0" end="120"
+          probability="0.05"
+          departLane="0" from="-E10" to="E9"/>
+
+    <flow id="e_straight_l1" begin="0" end="120"
+          probability="0.1"
+          departLane="1" from="-E10" to="E7"/>
+    <flow id="e_right_l1" begin="0" end="120"
+          probability="0.05"
+          departLane="1" from="-E10" to="E8"/>
+    <flow id="e_left_l1" begin="0" end="120"
+          probability="0.05"
+          departLane="1" from="-E10" to="E9"/>
+
+    <!-- NORTH (-E8) -->
+    <flow id="n_straight_l0" begin="0" end="120"
+          probability="0.1"
+          departLane="0" from="-E8" to="E9"/>
+    <flow id="n_right_l0" begin="0" end="120"
+          probability="0.05"
+          departLane="0" from="-E8" to="E10"/>
+    <flow id="n_left_l0" begin="0" end="120"
+          probability="0.05"
+          departLane="0" from="-E8" to="E7"/>
+
+    <flow id="n_straight_l1" begin="0" end="120"
+          probability="0.1"
+          departLane="1" from="-E8" to="E9"/>
+    <flow id="n_right_l1" begin="0" end="120"
+          probability="0.05"
+          departLane="1" from="-E8" to="E10"/>
+    <flow id="n_left_l1" begin="0" end="120"
+          probability="0.05"
+          departLane="1" from="-E8" to="E7"/>
+
+    <!-- SOUTH (-E9) -->
+    <flow id="s_straight_l0" begin="0" end="120"
+          probability="0.1"
+          departLane="0" from="-E9" to="E8"/>
+    <flow id="s_right_l0" begin="0" end="120"
+          probability="0.05"
+          departLane="0" from="-E9" to="E7"/>
+    <flow id="s_left_l0" begin="0" end="120"
+          probability="0.05"
+          departLane="0" from="-E9" to="E10"/>
+
+    <flow id="s_straight_l1" begin="0" end="120"
+          probability="0.1"
+          departLane="1" from="-E9" to="E8"/>
+    <flow id="s_right_l1" begin="0" end="120"
+          probability="0.05"
+          departLane="1" from="-E9" to="E7"/>
+    <flow id="s_left_l1" begin="0" end="120"
+          probability="0.05"
+          departLane="1" from="-E9" to="E10"/>
+
+</routes>
+

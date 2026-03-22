@@ -87,39 +87,38 @@ main (int argc, char *argv[])
   const double roadWidth = 21.0;
   const double maxRange = 400.0; // extend 400m in all directions
 
-  std::string traceFile = "trace/scene2.tcl";
-
   // ------------------------------------------------------------
   // Command-line parameter
   // ------------------------------------------------------------
+  double startTime = 60.0;
+  double stopTime = 120.0;
+  std::string mode = "low";
   bool enableHello = false;
   bool disableRsu = false;
-  double startTime = 60.0;
-  double stopTime = 90.0;
   double threshold = 0.5;
 
   CommandLine cmd;
-  cmd.AddValue("enableHello", "Whether to enable hello messages or not (default: false)", enableHello);
-  cmd.AddValue("disableRsu", "Whether to disable RSU or not (default: false)", disableRsu);
   cmd.AddValue("startTime", "Start time (default: 60s)", startTime);
   cmd.AddValue("stopTime", "Stop time (default: 90s)", stopTime);
+  cmd.AddValue("mode", "Vehicle Density Mode (low|medium|high) (default: low)", mode);
+  cmd.AddValue("enableHello", "Whether to enable hello messages or not (default: false)", enableHello);
+  cmd.AddValue("disableRsu", "Whether to disable RSU or not (default: false)", disableRsu);
   cmd.AddValue("threshold", "Probability threshold for alert producer (default: 0.5)", threshold);
   cmd.Parse (argc, argv);
 
   std::cout << "CLI arguments:" << '\n' 
-            << "| enableHello="<<enableHello << '\n'
-            << "| disableRsu="<<disableRsu << '\n'
             << "| startTime="<<startTime << '\n'
             << "| stopTime="<<stopTime << '\n'
+            << "| mode="<<mode << '\n'
+            << "| enableHello="<<enableHello << '\n'
+            << "| disableRsu="<<disableRsu << '\n'
             << "| threshold="<<threshold << std::endl;
 
   // ------------------------------------------------------------
   // Build animation filename
   // ------------------------------------------------------------
-  // std::ostringstream oss;
-  // oss << "netanim/scene2-" << std::fixed << std::setprecision (1) << delta << ".xml";
-
-  std::string animFile = "netanim/scene2.xml";
+  std::string traceFile = "trace/scene-" + mode + ".tcl";
+  std::string animFile = "netanim/scene-" + mode + ".xml";
 
   // ------------------------------------------------------------
   // Generate RSU positions
