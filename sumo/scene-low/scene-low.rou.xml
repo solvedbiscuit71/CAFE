@@ -5,7 +5,7 @@
 
     <!-- WEST (-E7) -->
     <flow id="w_straight_l0" begin="0" end="120"
-          probability="0.1"
+          probability="0.05"
           departLane="0" from="-E7" to="E10"/>
     <flow id="w_right_l0" begin="0" end="120"
           probability="0.05"
@@ -15,7 +15,7 @@
           departLane="0" from="-E7" to="E8"/>
 
     <flow id="w_straight_l1" begin="0" end="120"
-          probability="0.1"
+          probability="0.05"
           departLane="1" from="-E7" to="E10"/>
     <flow id="w_right_l1" begin="0" end="120"
           probability="0.05"
@@ -26,7 +26,7 @@
 
     <!-- EAST (-E10) -->
     <flow id="e_straight_l0" begin="0" end="120"
-          probability="0.1"
+          probability="0.05"
           departLane="0" from="-E10" to="E7"/>
     <flow id="e_right_l0" begin="0" end="120"
           probability="0.05"
@@ -36,7 +36,7 @@
           departLane="0" from="-E10" to="E9"/>
 
     <flow id="e_straight_l1" begin="0" end="120"
-          probability="0.1"
+          probability="0.05"
           departLane="1" from="-E10" to="E7"/>
     <flow id="e_right_l1" begin="0" end="120"
           probability="0.05"
@@ -47,7 +47,7 @@
 
     <!-- NORTH (-E8) -->
     <flow id="n_straight_l0" begin="0" end="120"
-          probability="0.1"
+          probability="0.05"
           departLane="0" from="-E8" to="E9"/>
     <flow id="n_right_l0" begin="0" end="120"
           probability="0.05"
@@ -57,7 +57,7 @@
           departLane="0" from="-E8" to="E7"/>
 
     <flow id="n_straight_l1" begin="0" end="120"
-          probability="0.1"
+          probability="0.05"
           departLane="1" from="-E8" to="E9"/>
     <flow id="n_right_l1" begin="0" end="120"
           probability="0.05"
@@ -68,7 +68,7 @@
 
     <!-- SOUTH (-E9) -->
     <flow id="s_straight_l0" begin="0" end="120"
-          probability="0.1"
+          probability="0.05"
           departLane="0" from="-E9" to="E8"/>
     <flow id="s_right_l0" begin="0" end="120"
           probability="0.05"
@@ -78,7 +78,7 @@
           departLane="0" from="-E9" to="E10"/>
 
     <flow id="s_straight_l1" begin="0" end="120"
-          probability="0.1"
+          probability="0.05"
           departLane="1" from="-E9" to="E8"/>
     <flow id="s_right_l1" begin="0" end="120"
           probability="0.05"
