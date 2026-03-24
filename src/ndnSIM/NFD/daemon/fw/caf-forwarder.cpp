@@ -25,6 +25,7 @@
 
 #include "core/common.hpp"
 #include "face/face-endpoint.hpp"
+#include "face/face.hpp"
 #include "forwarder.hpp"
 
 /**
@@ -287,22 +288,6 @@ Forwarder::AlertVehicleHandler(const Data& data, const FaceEndpoint& ingress,
     }
   }
 
-  auto ingressCtx = ctx->GetContextFor(ingress.face.getId());
-
-  // if not from a RSU, check whether RSU is available?
-  if (ingressCtx != ctx->V2I_FACE && senderType != caf::NODE_TYPE_RSU && ctx->IsRsuAvailable()) {
-    NFD_LOG_DEBUG("in=" << ingress << " alert=" << data.getName() << " decision=forward to Rsu");
-
-    auto v2i = ctx->GetFaceIdFor(ctx->V2I_FACE);
-    if (v2i != 0) {
-      auto& face = *m_faceTable.get(v2i);
-      data.removeTag<lp::DestinationNodesTag>();
-
-      this->OnOutgoingAlert(data, face, node, ctx);
-    }
-    return checkInside(node, zor);
-  }
-  
   // compute tMax
   auto tTx = (data.wireEncode().size() * 8) / ctx->GetTxRate(); // transmission delay
   auto tProp = ctx->GetTxRadius() / (3 * 1e8);                  // propagation delay
@@ -313,18 +298,35 @@ Forwarder::AlertVehicleHandler(const Data& data, const FaceEndpoint& ingress,
   auto dist = nodePos.distanceFromPoint(senderPos);
   auto delay_in_ms = 2 * tMax_in_ms * std::clamp((1 - dist / ctx->GetTxRadius()), 0.0, 1.0); // 2 * ( .. ) because RTT
   
-  NFD_LOG_DEBUG("in=" << ingress << " alert=" << data.getName() << " decision=deferred until "<<delay_in_ms<<"ms");
+  // if not from a RSU, check whether RSU is available?
+  auto ingressCtx = ctx->GetContextFor(ingress.face.getId());
+  nfd::face::Face *face = nullptr;
 
-  auto v2v = ctx->GetFaceIdFor(ctx->V2V_FACE);
-  if (v2v != 0) {
-    auto& face = *m_faceTable.get(v2v);
+  if (ingressCtx != ctx->V2I_FACE && senderType != caf::NODE_TYPE_RSU && ctx->IsRsuAvailable()) {
+    NFD_LOG_DEBUG("in=" << ingress << " alert=" << data.getName() << " decision=forward to Rsu deferred until "<<delay_in_ms<<"ms");
 
+    auto v2i = ctx->GetFaceIdFor(ctx->V2I_FACE);
+    if (v2i != 0) {
+      face = m_faceTable.get(v2i);
+      data.removeTag<lp::DestinationNodesTag>();
+    }
+  } else {
+    NFD_LOG_DEBUG("in=" << ingress << " alert=" << data.getName() << " decision=forward to vehicles deferred until "<<delay_in_ms<<"ms");
+
+    auto v2v = ctx->GetFaceIdFor(ctx->V2V_FACE);
+    if (v2v != 0) {
+      face = m_faceTable.get(v2v);
+    }
+  }
+
+  // schedule forwarding
+  if (face != nullptr) {
     EventId event = Simulator::Schedule(ns3::NanoSeconds(delay_in_ms * 1e6), 
-      &Forwarder::DeferredOutgoingAlert, this, data.shared_from_this(), face.shared_from_this(), node, ctx);
-    
+      &Forwarder::DeferredOutgoingAlert, this, data.shared_from_this(), face->shared_from_this(), node, ctx);
     auto registry = ctx->GetDeferredRegistry();
     registry->Register(name, event);
   }
+  
   return zor.contains(nodePos);
 }
 
