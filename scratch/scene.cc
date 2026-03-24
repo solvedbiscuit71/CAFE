@@ -96,7 +96,6 @@ main (int argc, char *argv[])
   bool enableHello = false;
   bool disableRsu = false;
   double threshold = 0.5;
-  bool enableNetanim = false;
 
   CommandLine cmd;
   cmd.AddValue("startTime", "Start time (default: 60s)", startTime);
@@ -105,7 +104,6 @@ main (int argc, char *argv[])
   cmd.AddValue("enableHello", "Whether to enable hello messages or not (default: false)", enableHello);
   cmd.AddValue("disableRsu", "Whether to disable RSU or not (default: false)", disableRsu);
   cmd.AddValue("threshold", "Probability threshold for alert producer (default: 0.5)", threshold);
-  cmd.AddValue("enableNetanim", "Whether to enable Netanim file generation (default: false)", enableNetanim);
   cmd.Parse (argc, argv);
 
   std::cout << "CLI arguments:" << '\n' 
@@ -114,8 +112,7 @@ main (int argc, char *argv[])
             << "| mode="<<mode << '\n'
             << "| enableHello="<<enableHello << '\n'
             << "| disableRsu="<<disableRsu << '\n'
-            << "| threshold="<<threshold << '\n'
-            << "| enableNetanim="<<enableNetanim << std::endl;
+            << "| threshold="<<threshold << std::endl;
 
   // ------------------------------------------------------------
   // Build animation filename
@@ -273,18 +270,16 @@ main (int argc, char *argv[])
   // ------------------------------------------------------------
   // NetAnim
   // ------------------------------------------------------------
-  if (enableNetanim) {
-    AnimationInterface anim (animFile);
-    if (enableHello) {
-      setNodesColor(anim, rsuNodes, 0, 255, 0); // default: green (active)
-    } else {
-      setNodesColor(anim, rsuNodes, 255, 0, 0); // red (inactive)
-    }
-    if (disableRsu) {
-      setNodesColor(anim, rsuNodes.Get(0), 255, 0, 0); // red (inactive)
-    }
-    setNodesColor(anim, vehicleNodes, 0, 0, 255); // default: blue
-  }
+  // AnimationInterface anim (animFile);
+  // if (enableHello) {
+  //   setNodesColor(anim, rsuNodes, 0, 255, 0); // default: green (active)
+  // } else {
+  //   setNodesColor(anim, rsuNodes, 255, 0, 0); // red (inactive)
+  // }
+  // if (disableRsu) {
+  //   setNodesColor(anim, rsuNodes.Get(0), 255, 0, 0); // red (inactive)
+  // }
+  // setNodesColor(anim, vehicleNodes, 0, 0, 255); // default: blue
 
   Simulator::Stop (Seconds (stopTime));
   std::cout << "Simulator duration set to " << stopTime << " seconds" << std::endl;
