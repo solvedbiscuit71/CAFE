@@ -97,6 +97,7 @@ bool
 Forwarder::OnIncomingAlert(const Data& data, const FaceEndpoint& ingress)
 {
   using namespace ns3;
+  NFD_LOG_DEBUG("in=" << ingress.face.getId() << " alert=" << data.getName());
 
   // extract ZoR
   auto zor = extractZoR(data);
@@ -129,7 +130,6 @@ Forwarder::OnIncomingAlert(const Data& data, const FaceEndpoint& ingress)
   if (zor->getType() == caf::NEIGHBOR) {
     // from a NON_LOCAL face then don't forward
     if (ingress.face.getScope() == ::ndn::nfd::FACE_SCOPE_NON_LOCAL) {
-      NFD_LOG_DEBUG("in=" << ingress << " alert=" << data.getName() << " decision=drop since zor is neighbor-only'");
       return true;
     }
     
@@ -180,8 +180,6 @@ Forwarder::OnOutgoingAlert(const Data& data, Face& egress, ns3::Ptr<ns3::Node> n
 void
 Forwarder::DeferredOutgoingAlert(shared_ptr<const Data> data, shared_ptr<Face> egress, ns3::Ptr<ns3::Node> node, ns3::Ptr<ns3::caf::Context> ctx)
 {
-  NFD_LOG_DEBUG("alert=" << data->getName() << " timer expired");
-
   // mark schedule tranmission as completed
   auto registry = ctx->GetDeferredRegistry();
   registry->Complete(data->getName());

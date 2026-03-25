@@ -4,27 +4,23 @@ from collections import defaultdict
 from statistics import mean, stdev
 
 def analyze_ns3_logs(log_file_path, *, verbose=False):
-    # Data structures to hold our parsed information
     # alert_data[name] = {'start_time': float, 'veh_count': int, 'receivers': set(), 'delays': []}
     alert_data = {}
-    
-    # Global counters for Forwarder metrics
-    duplicate_drops = 0
-    processed_deferred = 0
 
-    # Regex patterns for the three components
+    # params
+    duplicate_drops = 0
+    incoming_alerts = 0
+
+    # Regex patterns
     producer_re = re.compile(r"\+(?P<time>[\d\.]+)s\s+(?P<node>\d+)\s+ndn\.RandomAlertProducer.*Send alert=(?P<name>\S+)\s+vehCount=(?P<vc>\d+)")
     consumer_re = re.compile(r"\+(?P<time>[\d\.]+)s\s+(?P<node>\d+)\s+ndn\.AlertConsumer.*Received alert:\s+(?P<name>\S+)")
+    dup_drop_re = re.compile(r"\+(?P<time>[\d\.]+)s\s+(?P<node>\d+)\s+caf\.Forwarder:AlertVehicleHandler\(\):\s+\[DEBUG\]\s+in=\(\d+,\d+\)\s+alert=(?P<name>/alert/emergency\S+)\s+decision=drop because duplicate alert")
+    incoming_alert_re = re.compile(r"\+(?P<time>[\d\.]+)s\s+(?P<node>\d+)\s+caf\.Forwarder:OnIncomingAlert\(\):\s+\[(?P<level>\w+)\]\s+in=(?P<face>\d+)\s+alert=(?P<name>/alert/emergency\S+)")
     
-    # Forwarder regex
-    dup_drop_re = re.compile(r"decision=drop because duplicate alert")
-    deferred_re = re.compile(r"decision=deferred until")
-
     with open(log_file_path, 'r') as f:
         for line in f:
-            # 1. Check for Producer (Start of a packet lifecycle)
-            p_match = producer_re.search(line)
-            if p_match:
+            # if producer
+            if p_match := producer_re.search(line):
                 name = p_match.group('name')
                 alert_data[name] = {
                     'start_time': float(p_match.group('time')),
@@ -32,11 +28,9 @@ def analyze_ns3_logs(log_file_path, *, verbose=False):
                     'receivers': set(),
                     'delays': []
                 }
-                continue
 
-            # 2. Check for Consumer (Delivery and Delay)
-            c_match = consumer_re.search(line)
-            if c_match:
+            # if consumer
+            elif c_match := consumer_re.search(line):
                 name = c_match.group('name')
                 curr_time = float(c_match.group('time'))
                 node_id = c_match.group('node')
@@ -48,15 +42,15 @@ def analyze_ns3_logs(log_file_path, *, verbose=False):
                         # Calculate delay for this specific receiver
                         delay = curr_time - alert_data[name]['start_time']
                         alert_data[name]['delays'].append(delay)
-                continue
 
-            # 3. Check for Forwarder (Duplicate Rate)
-            if dup_drop_re.search(line):
+            # incoming alert
+            elif incoming_alert_re.search(line):
+                incoming_alerts += 1
+
+            # duplicate alert
+            elif dup_drop_re.search(line):
                 duplicate_drops += 1
-            elif deferred_re.search(line):
-                processed_deferred += 1
 
-    # Final Metric Calculations
     total_packets = len(alert_data)
     failed_packets = 0
     results = []
@@ -70,16 +64,16 @@ def analyze_ns3_logs(log_file_path, *, verbose=False):
 
     for name, data in alert_data.items():
         # PDR Calculation
-        pdr = (len(data['receivers']) / data['veh_count']) * 100 if data['veh_count'] > 0 else 0
+        pdr = min((len(data['receivers']) / data['veh_count']) * 100 if data['veh_count'] > 0 else 0, 100)
         
         # Failure Rate tracking
         if len(data['receivers']) == 0:
             failed_packets += 1
+        else:
+            global_pdr.append(pdr)
             
         # Delay Calculation (in milliseconds)
         avg_delay = (sum(data['delays']) / len(data['delays']) * 1000) if data['delays'] else 0
-
-        global_pdr.append(pdr)
         global_delay.append(avg_delay)
 
         if verbose:
@@ -87,7 +81,7 @@ def analyze_ns3_logs(log_file_path, *, verbose=False):
 
     # Aggregated Metrics
     failure_rate = (failed_packets / total_packets) * 100 if total_packets > 0 else 0
-    duplicate_rate = (duplicate_drops / (duplicate_drops + processed_deferred)) * 100 if processed_deferred > 0 else 0
+    duplicate_rate = (duplicate_drops / incoming_alerts) * 100 if incoming_alerts > 0 else 0
 
     pdr_mean = mean(global_pdr)
     delay_mean = mean(global_delay)
@@ -107,12 +101,12 @@ def analyze_ns3_logs(log_file_path, *, verbose=False):
     scenario, mode = log_file_path.split('/')[1].split('-')
     mode = mode.split('.')[0]
     values = f"{pdr_mean:.2f}%,{delay_mean:.4f} ms ± {delay_std:.4f} ms,{failure_rate:.2f}%,{duplicate_rate:.2f}%"
-    return ','.join([scenario, mode, values])
-
+    return ','.join([mode, scenario, values])
+    
 
 def generate_results(filename):
     with open(filename, 'w') as file:
-        file.write('Network Scenario,Vehicle Density,PDR,Delay,Failure Rate,Duplicate Rate\n')
+        file.write('Vehicle Density,Network Scenario,PDR,Delay,Failure Rate,Duplicate Rate\n')
         for filename in sorted(os.listdir('log')):
             file.write(analyze_ns3_logs('log/' + filename) + '\n')
 
