@@ -107,8 +107,10 @@ def analyze_ns3_logs(log_file_path, *, verbose=False):
 def generate_results(filename):
     with open(filename, 'w') as file:
         file.write('Vehicle Density,Network Scenario,PDR,Delay,Failure Rate,Duplicate Rate\n')
-        for filename in sorted(os.listdir('log')):
-            file.write(analyze_ns3_logs('log/' + filename) + '\n')
+        lines = []
+        for filename in os.listdir('log'):
+            lines.append(analyze_ns3_logs('log/' + filename) + '\n')
+        file.writelines(sorted(lines))
 
 
 if __name__ == "__main__":

@@ -260,6 +260,7 @@ Forwarder::AlertVehicleHandler(const Data& data, const FaceEndpoint& ingress,
         }
       } 
 
+	  // COMMENT THE FOLLOWING ELSE CLAUSE TO DISABLE GEOFORWORDING
       // if vehicle inside and node is closer than the sender in references to original sender
       // then cancel
       else {
@@ -295,6 +296,11 @@ Forwarder::AlertVehicleHandler(const Data& data, const FaceEndpoint& ingress,
   // compute deferred delay
   auto dist = nodePos.distanceFromPoint(senderPos);
   auto delay_in_ms = 2 * tMax_in_ms * std::clamp((1 - dist / ctx->GetTxRadius()), 0.0, 1.0); // 2 * ( .. ) because RTT
+
+  // UNCOMMENT THE FOLLOWING LINES TO DISABLE GEOFORWORDING
+  // if (zor.contains(nodePos)) {
+  //  delay_in_ms = 0.0;
+  // }
   
   // if not from a RSU, check whether RSU is available?
   auto ingressCtx = ctx->GetContextFor(ingress.face.getId());
