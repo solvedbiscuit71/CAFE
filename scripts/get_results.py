@@ -100,13 +100,13 @@ def analyze_ns3_logs(log_file_path, *, verbose=False):
 
     scenario, mode = log_file_path.split('/')[1].split('-')
     mode = mode.split('.')[0]
-    values = f"{pdr_mean:.2f}%,{delay_mean:.4f} ms ± {delay_std:.4f} ms,{failure_rate:.2f}%,{duplicate_rate:.2f}%"
-    return ','.join([mode, scenario, values])
+    values = f"{pdr_mean:.2f},{delay_mean:.3f} ± {delay_std:.3f},{duplicate_rate:.2f},{failure_rate:.2f}"
+    return ','.join([scenario, mode, values])
     
 
 def generate_results(filename):
     with open(filename, 'w') as file:
-        file.write('Vehicle Density,Network Scenario,PDR,Delay,Failure Rate,Duplicate Rate\n')
+        file.write('Network Scenario,Vehicle Density,PDR (%),Delay (ms),Duplicate Rate (%),Failure Rate (%)\n')
         lines = []
         for filename in os.listdir('log'):
             lines.append(analyze_ns3_logs('log/' + filename) + '\n')
