@@ -10,8 +10,6 @@ This project has been tested and verified on the following platforms:
 * **Ubuntu 22.04** (amd64)
 * **Ubuntu 24.04** (amd64)
 
----
-
 ## 1. SUMO Setup
 
 ### Step 1: Install Dependencies
@@ -41,8 +39,6 @@ Apply the changes:
 source ~/.bashrc
 ```
 
----
-
 ## 2. CAFE Setup
 
 ### Step 1: Install Dependencies
@@ -58,9 +54,7 @@ CXXFLAGS="-std=c++17" ./waf configure --disable-python --disable-examples
 ./waf
 ```
 
----
-
-## 3. NetAnim Setup
+## 3. NetAnim Setup (Optional)
 
 ### Step 1: Install Dependencies
 ```bash
@@ -74,8 +68,6 @@ make clean
 qmake NetAnim.pro
 make
 ```
-
----
 
 ## Reproducing Results
 
