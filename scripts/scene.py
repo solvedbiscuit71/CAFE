@@ -1,10 +1,26 @@
 import os
+import sys
 import time
 
 seed = 47
 startTime = 60
 stopTime = 120
 
+# prepare trace files
+print('-' * 50)
+print("Prepare trace files")
+print('-' * 50)
+TRACE_CMD = './tools/exportTrace scene-{mode}'
+
+modes = ['low', 'medium', 'high']
+
+for mode in modes:
+    if os.system(TRACE_CMD.format(mode=mode)) != 0:
+        print("./tools/exportTrace failed")
+        sys.exit()
+    print()
+
+# execute simulation
 CMD = './tools/sim "scene --RngRun=47 --startTime=60 --stopTime=120 --mode={mode}{enableHello}{disableRsu}" "log/{outFile}"'
 
 def prepare(mode, enableHello, disableRsu, outFile):
