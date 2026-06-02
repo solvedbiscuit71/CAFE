@@ -3,6 +3,9 @@ import os
 from collections import defaultdict
 from statistics import mean, stdev
 
+# an alert is considered satisfiable if delay is less than 10ms
+REQUIRED_DELAY_IN_MS = 10
+
 def analyze_ns3_logs(log_file_path, *, verbose=False):
     # alert_data[name] = {'start_time': float, 'veh_count': int, 'receivers': set(), 'delays': []}
     alert_data = {}
@@ -26,6 +29,7 @@ def analyze_ns3_logs(log_file_path, *, verbose=False):
                     'start_time': float(p_match.group('time')),
                     'veh_count': int(p_match.group('vc')),
                     'receivers': set(),
+                    'satisified_receivers': set(),
                     'delays': []
                 }
 
@@ -39,8 +43,13 @@ def analyze_ns3_logs(log_file_path, *, verbose=False):
                     # Only count unique receivers for PDR
                     if node_id not in alert_data[name]['receivers']:
                         alert_data[name]['receivers'].add(node_id)
-                        # Calculate delay for this specific receiver
+                        # Calculate delay for this specific receiver (in seconds)
                         delay = curr_time - alert_data[name]['start_time']
+                        delay_in_ms = delay * 1000
+
+                        if delay_in_ms <= REQUIRED_DELAY_IN_MS:
+                            alert_data[name]['satisified_receivers'].add(node_id)
+
                         alert_data[name]['delays'].append(delay)
 
             # incoming alert
@@ -56,34 +65,40 @@ def analyze_ns3_logs(log_file_path, *, verbose=False):
     results = []
 
     if verbose:
-        print(f"{'Alert Name':<40} | {'PDR (%)':<10} | {'Avg Delay (ms)':<15}")
+        print(f"{'Alert Name':<40} | {'PDR (%)':<10} | {'PSR (%)':<10} | {'Avg Delay (ms)':<15}")
         print("-" * 75)
 
     global_pdr = []
+    global_psr = []
     global_delay = []
 
     for name, data in alert_data.items():
         # PDR Calculation
         pdr = min((len(data['receivers']) / data['veh_count']) * 100 if data['veh_count'] > 0 else 0, 100)
+
+        # PSR Calculation
+        psr = min((len(data['satisified_receivers']) / data['veh_count']) * 100 if data['veh_count'] > 0 else 0, 100)
         
         # Failure Rate tracking
         if len(data['receivers']) == 0:
             failed_packets += 1
         else:
             global_pdr.append(pdr)
+            global_psr.append(psr)
             
         # Delay Calculation (in milliseconds)
         avg_delay = (sum(data['delays']) / len(data['delays']) * 1000) if data['delays'] else 0
         global_delay.append(avg_delay)
 
         if verbose:
-            print(f"{name[:40]:<40} | {pdr:<10.2f} | {avg_delay:<15.4f}")
+            print(f"{name[:40]:<40} | {pdr:<10.2f} | {psr:<10.2f} | {avg_delay:<15.4f}")
 
     # Aggregated Metrics
     failure_rate = (failed_packets / total_packets) * 100 if total_packets > 0 else 0
     duplicate_rate = (duplicate_drops / incoming_alerts) * 100 if incoming_alerts > 0 else 0
 
     pdr_mean = mean(global_pdr)
+    psr_mean = mean(global_psr)
     delay_mean = mean(global_delay)
     delay_std = stdev(global_delay)
 
@@ -95,23 +110,41 @@ def analyze_ns3_logs(log_file_path, *, verbose=False):
         print(f"Global Failure Rate:       {failure_rate:.2f}%")
         print(f"Global Duplicate Rate:     {duplicate_rate:.2f}%")
         print(f"PDR:                       {pdr_mean:.2f}%")
+        print(f"PSR:                       {psr_mean:.2f}%")
         print(f"Delay (Mean ± Std):        {delay_mean:.4f} ms ± {delay_std:.4f} ms")
         print("="*30)
 
     scenario, mode = log_file_path.split('/')[1].split('-')
     mode = mode.split('.')[0]
-    values = f"{pdr_mean:.2f},{delay_mean:.3f} ± {delay_std:.3f},{duplicate_rate:.2f},{failure_rate:.2f}"
-    return ','.join([scenario, mode, values])
+    values = f"{pdr_mean:.2f},{psr_mean:.2f},{delay_mean:.3f} ± {delay_std:.3f},{duplicate_rate:.2f},{failure_rate:.2f}"
+    return [scenario, mode, values]
     
+def order(entry):
+    mode_order = {
+        "low": 1,
+        "medium": 2,
+        "high": 3
+    }
+
+    scenario_order = {
+        "broadcast": 1,
+        "v2v": 2,
+        "hybrid": 3,
+        "v2i": 4
+    }
+    return (scenario_order[entry[0]], mode_order[entry[1]])
 
 def generate_results(filename):
     with open(filename, 'w') as file:
-        file.write('Network Scenario,Vehicle Density,PDR (%),Delay (ms),Duplicate Rate (%),Failure Rate (%)\n')
-        lines = []
-        for filename in os.listdir('log'):
-            lines.append(analyze_ns3_logs('log/' + filename) + '\n')
-        file.writelines(sorted(lines))
+        file.write('Network Scenario,Vehicle Density,PDR (%),PSR (%),Delay (ms),Duplicate Rate (%),Failure Rate (%)\n')
 
+        report = []
+        for filename in os.listdir('log'):
+            report.append(analyze_ns3_logs('log/' + filename))
+
+        report = sorted(report, key=order)
+        for entry in report:
+            file.write(','.join(entry)+'\n')
 
 if __name__ == "__main__":
     generate_results('results.csv')
