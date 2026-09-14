@@ -20,6 +20,7 @@ sudo apt-get install cmake python3 g++ libxerces-c-dev libfox-1.6-dev libgdal-de
 
 ### Step 2: Clone and Build SUMO
 ```bash
+cd $HOME
 git clone --recursive https://github.com/eclipse/sumo
 export SUMO_HOME="$HOME/sumo"
 mkdir -p sumo/build_config/cmake-build
@@ -32,6 +33,7 @@ make -j$(nproc)
 Add the following to your `~/.bashrc`:
 ```bash
 export SUMO_HOME="$HOME/sumo"
+export TRACE_EXPORTER="$SUMO_HOME/tools/traceExporter.py"
 export PATH=$PATH:"$SUMO_HOME/bin"
 ```
 Apply the changes:
@@ -73,13 +75,32 @@ make
 
 To recreate the results presented in the paper (specifically Table 4), run the provided scenario script:
 
+### Step 1: Install Dependencies
+
 ```bash
-python3 scripts/scene.py
+python3 -m venv .venv
+source .venv/bin/active
+pip install scipy
+```
+
+### Step 2: Simulate
+
+```bash
+mkdir trace # sumo will generate .tcl files into trace/ folder
+mkdir log   # simulation log will be placed inside log/ folder
+python scripts/scene.py
+```
+
+### Step 3: Generate Results
+
+```bash
+python scripts/get_results.py
 ```
 
 This will generate a `result.csv` file. 
 
 ### Note on Broadcast Flooding
+
 By default, the simulation includes context-aware logic. To replicate the **broadcast flooding** baseline, you must manually disable the geobroadcast logic:
 1. Open `src/ndnSIM/NFD/daemon/fw/caf-forwarder.cpp`.
 2. Comment out the relevant geobroadcast logic sections.
