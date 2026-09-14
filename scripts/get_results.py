@@ -1,10 +1,27 @@
 import re
 import os
+import math
+import scipy
 from collections import defaultdict
-from statistics import mean, stdev
+import statistics as stats
 
 # an alert is considered satisfiable if delay is less than 10ms
 REQUIRED_DELAY_IN_MS = 10
+
+def compute_moe(data, *, confidence=0.95):
+    n = len(data)
+    mean = stats.mean(data)
+    stdev = stats.stdev(data)  # sample standard deviation (uses n-1)
+
+    # Standard error of the mean
+    sem = stdev / math.sqrt(n)
+
+    # t critical value for 95% confidence, df = n-1
+    confidence = 0.95
+    t_crit = scipy.stats.t.ppf((1 + confidence) / 2, df=n-1)
+
+    margin_of_error = t_crit * sem
+    return margin_of_error
 
 def analyze_ns3_logs(log_file_path, *, verbose=False):
     # alert_data[name] = {'start_time': float, 'veh_count': int, 'receivers': set(), 'delays': []}
@@ -97,10 +114,10 @@ def analyze_ns3_logs(log_file_path, *, verbose=False):
     failure_rate = (failed_packets / total_packets) * 100 if total_packets > 0 else 0
     duplicate_rate = (duplicate_drops / incoming_alerts) * 100 if incoming_alerts > 0 else 0
 
-    pdr_mean = mean(global_pdr)
-    psr_mean = mean(global_psr)
-    delay_mean = mean(global_delay)
-    delay_std = stdev(global_delay)
+    pdr_mean = stats.mean(global_pdr)
+    psr_mean = stats.mean(global_psr)
+    delay_mean = stats.mean(global_delay)
+    delay_moe = compute_moe(global_delay)
 
     if verbose:
         print("\n" + "="*30)
@@ -111,12 +128,12 @@ def analyze_ns3_logs(log_file_path, *, verbose=False):
         print(f"Global Duplicate Rate:     {duplicate_rate:.2f}%")
         print(f"PDR:                       {pdr_mean:.2f}%")
         print(f"PSR:                       {psr_mean:.2f}%")
-        print(f"Delay (Mean ± Std):        {delay_mean:.4f} ms ± {delay_std:.4f} ms")
+        print(f"Delay (Mean ± CI):         {delay_mean:.4f} ms ± {delay_moe:.4f} ms")
         print("="*30)
 
     scenario, mode = log_file_path.split('/')[1].split('-')
     mode = mode.split('.')[0]
-    values = f"{pdr_mean:.2f},{psr_mean:.2f},{delay_mean:.3f} ± {delay_std:.3f},{duplicate_rate:.2f},{failure_rate:.2f}"
+    values = f"{pdr_mean:.2f},{psr_mean:.2f},{delay_mean:.3f} ± {delay_moe:.3f},{duplicate_rate:.2f},{failure_rate:.2f}"
     return [scenario, mode, values]
     
 def order(entry):
