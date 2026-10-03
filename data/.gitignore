@@ -1,0 +1,4 @@
+*.csv
+
+# Include the logs
+!*.log

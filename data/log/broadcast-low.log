@@ -1,0 +1,1374 @@
+/home/crackedcookie53/Project/ns-3/bindings/python/wscript:333: SyntaxWarning: invalid escape sequence '\d'
+  m = re.match( "^castxml version (\d\.\d)(-)?(\w+)?", castxml_version_line)
++60.000000000s 17 ndn.AlertConsumer:StartApplication(): [DEBUG] StartApplication()
++60.000000000s 18 ndn.AlertConsumer:StartApplication(): [DEBUG] StartApplication()
++60.000000000s 19 ndn.AlertConsumer:StartApplication(): [DEBUG] StartApplication()
++60.000000000s 20 ndn.AlertConsumer:StartApplication(): [DEBUG] StartApplication()
++60.000000000s 21 ndn.AlertConsumer:StartApplication(): [DEBUG] StartApplication()
++60.000000000s 22 ndn.AlertConsumer:StartApplication(): [DEBUG] StartApplication()
++60.000000000s 23 ndn.AlertConsumer:StartApplication(): [DEBUG] StartApplication()
++60.000000000s 24 ndn.AlertConsumer:StartApplication(): [DEBUG] StartApplication()
++60.000000000s 25 ndn.AlertConsumer:StartApplication(): [DEBUG] StartApplication()
++60.000000000s 26 ndn.AlertConsumer:StartApplication(): [DEBUG] StartApplication()
++60.000000000s 27 ndn.AlertConsumer:StartApplication(): [DEBUG] StartApplication()
++60.000000000s 28 ndn.AlertConsumer:StartApplication(): [DEBUG] StartApplication()
++60.000000000s 29 ndn.AlertConsumer:StartApplication(): [DEBUG] StartApplication()
++60.000000000s 30 ndn.AlertConsumer:StartApplication(): [DEBUG] StartApplication()
++60.000000000s 31 ndn.AlertConsumer:StartApplication(): [DEBUG] StartApplication()
++60.000000000s 32 ndn.AlertConsumer:StartApplication(): [DEBUG] StartApplication()
++60.000000000s 33 ndn.AlertConsumer:StartApplication(): [DEBUG] StartApplication()
++60.000000000s 34 ndn.AlertConsumer:StartApplication(): [DEBUG] StartApplication()
++60.000000000s 35 ndn.AlertConsumer:StartApplication(): [DEBUG] StartApplication()
++60.000000000s 36 ndn.AlertConsumer:StartApplication(): [DEBUG] StartApplication()
++60.000000000s 37 ndn.AlertConsumer:StartApplication(): [DEBUG] StartApplication()
++60.000000000s 38 ndn.AlertConsumer:StartApplication(): [DEBUG] StartApplication()
++60.000000000s 39 ndn.AlertConsumer:StartApplication(): [DEBUG] StartApplication()
++60.000000000s 40 ndn.AlertConsumer:StartApplication(): [DEBUG] StartApplication()
++60.000000000s 41 ndn.AlertConsumer:StartApplication(): [DEBUG] StartApplication()
++60.000000000s 42 ndn.AlertConsumer:StartApplication(): [DEBUG] StartApplication()
++60.000000000s 43 ndn.AlertConsumer:StartApplication(): [DEBUG] StartApplication()
++60.000000000s 44 ndn.AlertConsumer:StartApplication(): [DEBUG] StartApplication()
++60.000000000s 45 ndn.AlertConsumer:StartApplication(): [DEBUG] StartApplication()
++60.000000000s 46 ndn.AlertConsumer:StartApplication(): [DEBUG] StartApplication()
++60.000000000s 47 ndn.AlertConsumer:StartApplication(): [DEBUG] StartApplication()
++60.000000000s 48 ndn.AlertConsumer:StartApplication(): [DEBUG] StartApplication()
++60.000000000s 49 ndn.AlertConsumer:StartApplication(): [DEBUG] StartApplication()
++60.000000000s 50 ndn.AlertConsumer:StartApplication(): [DEBUG] StartApplication()
++60.000000000s 51 ndn.AlertConsumer:StartApplication(): [DEBUG] StartApplication()
++60.000000000s 52 ndn.AlertConsumer:StartApplication(): [DEBUG] StartApplication()
++60.000000000s 53 ndn.AlertConsumer:StartApplication(): [DEBUG] StartApplication()
++60.000000000s 54 ndn.AlertConsumer:StartApplication(): [DEBUG] StartApplication()
++60.000000000s 55 ndn.AlertConsumer:StartApplication(): [DEBUG] StartApplication()
++60.000000000s 56 ndn.AlertConsumer:StartApplication(): [DEBUG] StartApplication()
++60.000000000s 57 ndn.AlertConsumer:StartApplication(): [DEBUG] StartApplication()
++60.000000000s 58 ndn.AlertConsumer:StartApplication(): [DEBUG] StartApplication()
++60.000000000s 59 ndn.AlertConsumer:StartApplication(): [DEBUG] StartApplication()
++60.000000000s 60 ndn.AlertConsumer:StartApplication(): [DEBUG] StartApplication()
++60.000000000s 61 ndn.AlertConsumer:StartApplication(): [DEBUG] StartApplication()
++60.000000000s 62 ndn.AlertConsumer:StartApplication(): [DEBUG] StartApplication()
++60.000000000s 63 ndn.AlertConsumer:StartApplication(): [DEBUG] StartApplication()
++60.000000000s 64 ndn.AlertConsumer:StartApplication(): [DEBUG] StartApplication()
++60.000000000s 65 ndn.AlertConsumer:StartApplication(): [DEBUG] StartApplication()
++60.000000000s 66 ndn.AlertConsumer:StartApplication(): [DEBUG] StartApplication()
++60.000000000s 67 ndn.AlertConsumer:StartApplication(): [DEBUG] StartApplication()
++60.000000000s 68 ndn.AlertConsumer:StartApplication(): [DEBUG] StartApplication()
++60.000000000s 69 ndn.AlertConsumer:StartApplication(): [DEBUG] StartApplication()
++60.000000000s 70 ndn.AlertConsumer:StartApplication(): [DEBUG] StartApplication()
++60.000000000s 71 ndn.AlertConsumer:StartApplication(): [DEBUG] StartApplication()
++60.000000000s 72 ndn.AlertConsumer:StartApplication(): [DEBUG] StartApplication()
++60.000000000s 73 ndn.AlertConsumer:StartApplication(): [DEBUG] StartApplication()
++60.000000000s 74 ndn.AlertConsumer:StartApplication(): [DEBUG] StartApplication()
++60.000000000s 75 ndn.AlertConsumer:StartApplication(): [DEBUG] StartApplication()
++60.000000000s 76 ndn.AlertConsumer:StartApplication(): [DEBUG] StartApplication()
++60.000000000s 77 ndn.AlertConsumer:StartApplication(): [DEBUG] StartApplication()
++60.000000000s 78 ndn.AlertConsumer:StartApplication(): [DEBUG] StartApplication()
++60.000000000s 79 ndn.AlertConsumer:StartApplication(): [DEBUG] StartApplication()
++60.000000000s 80 ndn.AlertConsumer:StartApplication(): [DEBUG] StartApplication()
++60.000000000s 81 ndn.AlertConsumer:StartApplication(): [DEBUG] StartApplication()
++60.000000000s 82 ndn.AlertConsumer:StartApplication(): [DEBUG] StartApplication()
++60.000000000s 83 ndn.AlertConsumer:StartApplication(): [DEBUG] StartApplication()
++60.000000000s 84 ndn.AlertConsumer:StartApplication(): [DEBUG] StartApplication()
++60.000000000s 85 ndn.AlertConsumer:StartApplication(): [DEBUG] StartApplication()
++60.000000000s 86 ndn.AlertConsumer:StartApplication(): [DEBUG] StartApplication()
++60.000000000s 87 ndn.AlertConsumer:StartApplication(): [DEBUG] StartApplication()
++60.000000000s 88 ndn.AlertConsumer:StartApplication(): [DEBUG] StartApplication()
++60.000000000s 89 ndn.AlertConsumer:StartApplication(): [DEBUG] StartApplication()
++60.000000000s 90 ndn.AlertConsumer:StartApplication(): [DEBUG] StartApplication()
++60.000000000s 91 ndn.AlertConsumer:StartApplication(): [DEBUG] StartApplication()
++60.000000000s 92 ndn.AlertConsumer:StartApplication(): [DEBUG] StartApplication()
++60.000000000s 93 ndn.AlertConsumer:StartApplication(): [DEBUG] StartApplication()
++60.000000000s 94 ndn.AlertConsumer:StartApplication(): [DEBUG] StartApplication()
++60.000000000s 95 ndn.AlertConsumer:StartApplication(): [DEBUG] StartApplication()
++60.000000000s 96 ndn.AlertConsumer:StartApplication(): [DEBUG] StartApplication()
++60.000000000s 97 ndn.AlertConsumer:StartApplication(): [DEBUG] StartApplication()
++60.000000000s 98 ndn.AlertConsumer:StartApplication(): [DEBUG] StartApplication()
++60.000000000s 99 ndn.AlertConsumer:StartApplication(): [DEBUG] StartApplication()
++60.000000000s 100 ndn.AlertConsumer:StartApplication(): [DEBUG] StartApplication()
++60.000000000s 101 ndn.AlertConsumer:StartApplication(): [DEBUG] StartApplication()
++60.000000000s 102 ndn.AlertConsumer:StartApplication(): [DEBUG] StartApplication()
++60.000000000s 103 ndn.AlertConsumer:StartApplication(): [DEBUG] StartApplication()
++60.000000000s 104 ndn.AlertConsumer:StartApplication(): [DEBUG] StartApplication()
++60.000000000s 105 ndn.AlertConsumer:StartApplication(): [DEBUG] StartApplication()
++60.000000000s 106 ndn.AlertConsumer:StartApplication(): [DEBUG] StartApplication()
++60.000000000s 107 ndn.AlertConsumer:StartApplication(): [DEBUG] StartApplication()
++60.000000000s 108 ndn.AlertConsumer:StartApplication(): [DEBUG] StartApplication()
++60.000000000s 109 ndn.AlertConsumer:StartApplication(): [DEBUG] StartApplication()
++60.000000000s 110 ndn.AlertConsumer:StartApplication(): [DEBUG] StartApplication()
++60.000000000s 111 ndn.AlertConsumer:StartApplication(): [DEBUG] StartApplication()
++60.000000000s 112 ndn.AlertConsumer:StartApplication(): [DEBUG] StartApplication()
++60.000000000s 113 ndn.AlertConsumer:StartApplication(): [DEBUG] StartApplication()
++60.000000000s 114 ndn.AlertConsumer:StartApplication(): [DEBUG] StartApplication()
++60.000000000s 115 ndn.AlertConsumer:StartApplication(): [DEBUG] StartApplication()
++60.000000000s 116 ndn.AlertConsumer:StartApplication(): [DEBUG] StartApplication()
++60.000000000s 117 ndn.AlertConsumer:StartApplication(): [DEBUG] StartApplication()
++60.000000000s 118 ndn.AlertConsumer:StartApplication(): [DEBUG] StartApplication()
++60.000000000s 119 ndn.AlertConsumer:StartApplication(): [DEBUG] StartApplication()
++60.000000000s 120 ndn.AlertConsumer:StartApplication(): [DEBUG] StartApplication()
++60.000000000s 121 ndn.AlertConsumer:StartApplication(): [DEBUG] StartApplication()
++60.000000000s 122 ndn.AlertConsumer:StartApplication(): [DEBUG] StartApplication()
++60.000000000s 123 ndn.AlertConsumer:StartApplication(): [DEBUG] StartApplication()
++60.000000000s 124 ndn.AlertConsumer:StartApplication(): [DEBUG] StartApplication()
++60.000000000s 125 ndn.AlertConsumer:StartApplication(): [DEBUG] StartApplication()
++60.000000000s 126 ndn.AlertConsumer:StartApplication(): [DEBUG] StartApplication()
++60.000000000s 127 ndn.AlertConsumer:StartApplication(): [DEBUG] StartApplication()
++60.000000000s 128 ndn.AlertConsumer:StartApplication(): [DEBUG] StartApplication()
++60.000000000s 129 ndn.AlertConsumer:StartApplication(): [DEBUG] StartApplication()
++60.000000000s 130 ndn.AlertConsumer:StartApplication(): [DEBUG] StartApplication()
++61.882688230s 64 ndn.RandomAlertProducer:SendAlert(): [LOGIC] Don't send alert; condition failed
++63.561056120s 66 ndn.RandomAlertProducer:SendAlert(): [LOGIC] Don't send alert; condition failed
++63.584012796s 65 ndn.RandomAlertProducer:SendAlert(): [LOGIC] Don't send alert; condition failed
++64.052324039s 67 ndn.RandomAlertProducer:AlertSupplier(): [LOGIC] Send alert=/alert/emergency/veh/67/seq=0/zor=[MASKED] vehCount=36 rsuCount=9
++64.052324039s 67 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=260 alert=/alert/emergency/veh/67/seq=0/zor=[MASKED]
++64.052324039s 67 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(260,0) alert=/alert/emergency/veh/67/seq=0/zor=[MASKED] decision=forward to vehicles
++64.052324039s 67 caf.Forwarder:OnOutgoingAlert(): [DEBUG] out=257 alert=/alert/emergency/veh/67/seq=0/zor=[MASKED]
++64.053194096s 69 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/67/seq=0/zor=[MASKED]
++64.053194096s 69 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/67/seq=0/zor=[MASKED] decision=drop since sender is closer
++64.053194118s 66 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/67/seq=0/zor=[MASKED]
++64.053194118s 66 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/67/seq=0/zor=[MASKED] decision=forward to vehicles deferred until 2.65942ms
++64.055853541s 66 caf.Forwarder:OnOutgoingAlert(): [DEBUG] out=257 alert=/alert/emergency/veh/67/seq=0/zor=[MASKED]
++64.056723620s 67 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/67/seq=0/zor=[MASKED]
++64.056723620s 67 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/67/seq=0/zor=[MASKED] decision=drop because duplicate alert
++64.056723676s 69 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/67/seq=0/zor=[MASKED]
++64.056723676s 69 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/67/seq=0/zor=[MASKED] decision=drop because duplicate alert
++64.617855689s 69 ndn.RandomAlertProducer:SendAlert(): [LOGIC] Don't send alert; condition failed
++64.823009911s 68 ndn.RandomAlertProducer:AlertSupplier(): [LOGIC] Send alert=/alert/emergency/veh/68/seq=0/zor=[MASKED] vehCount=36 rsuCount=9
++64.823009911s 68 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=260 alert=/alert/emergency/veh/68/seq=0/zor=[MASKED]
++64.823009911s 68 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(260,0) alert=/alert/emergency/veh/68/seq=0/zor=[MASKED] decision=forward to vehicles
++64.823009911s 68 caf.Forwarder:OnOutgoingAlert(): [DEBUG] out=257 alert=/alert/emergency/veh/68/seq=0/zor=[MASKED]
++64.823880035s 70 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/68/seq=0/zor=[MASKED]
++64.823880035s 70 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/68/seq=0/zor=[MASKED] decision=drop since sender is closer
++64.823880052s 65 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/68/seq=0/zor=[MASKED]
++64.823880052s 65 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/68/seq=0/zor=[MASKED] decision=forward to vehicles deferred until 0.78219ms
++64.824662241s 65 caf.Forwarder:OnOutgoingAlert(): [DEBUG] out=257 alert=/alert/emergency/veh/68/seq=0/zor=[MASKED]
++64.825532382s 68 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/68/seq=0/zor=[MASKED]
++64.825532382s 68 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/68/seq=0/zor=[MASKED] decision=drop because duplicate alert
++64.825532392s 63 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/68/seq=0/zor=[MASKED]
++64.825532392s 63 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/68/seq=0/zor=[MASKED] decision=forward to vehicles deferred until 0.473571ms
++64.825532396s 17 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/68/seq=0/zor=[MASKED]
++64.825532396s 17 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/68/seq=0/zor=[MASKED] decision=forward to vehicles deferred until 0.368085ms
++64.825900481s 17 caf.Forwarder:OnOutgoingAlert(): [DEBUG] out=257 alert=/alert/emergency/veh/68/seq=0/zor=[MASKED]
++64.826005963s 63 caf.Forwarder:OnOutgoingAlert(): [DEBUG] out=257 alert=/alert/emergency/veh/68/seq=0/zor=[MASKED]
++64.826770513s 63 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/68/seq=0/zor=[MASKED]
++64.826770513s 63 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/68/seq=0/zor=[MASKED] decision=drop because duplicate alert
++64.826770636s 65 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/68/seq=0/zor=[MASKED]
++64.826770636s 65 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/68/seq=0/zor=[MASKED] decision=drop because duplicate alert
++64.827705545s 17 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/68/seq=0/zor=[MASKED]
++64.827705545s 17 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/68/seq=0/zor=[MASKED] decision=drop because duplicate alert
++64.827705664s 65 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/68/seq=0/zor=[MASKED]
++64.827705664s 65 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/68/seq=0/zor=[MASKED] decision=drop because duplicate alert
++65.670693519s 70 ndn.RandomAlertProducer:SendAlert(): [LOGIC] Don't send alert; condition failed
++68.088126442s 71 ndn.RandomAlertProducer:SendAlert(): [LOGIC] Don't send alert; condition failed
++68.869225616s 72 ndn.RandomAlertProducer:AlertSupplier(): [LOGIC] Send alert=/alert/emergency/veh/72/seq=0/zor=[MASKED] vehCount=38 rsuCount=9
++68.869225616s 72 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=260 alert=/alert/emergency/veh/72/seq=0/zor=[MASKED]
++68.869225616s 72 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(260,0) alert=/alert/emergency/veh/72/seq=0/zor=[MASKED] decision=forward to vehicles
++68.869225616s 72 caf.Forwarder:OnOutgoingAlert(): [DEBUG] out=257 alert=/alert/emergency/veh/72/seq=0/zor=[MASKED]
++68.870095720s 79 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/72/seq=0/zor=[MASKED]
++68.870095720s 79 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/72/seq=0/zor=[MASKED] decision=drop since sender is closer
++68.870095743s 78 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/72/seq=0/zor=[MASKED]
++68.870095743s 78 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/72/seq=0/zor=[MASKED] decision=drop since sender is closer
++68.870095777s 71 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/72/seq=0/zor=[MASKED]
++68.870095777s 71 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/72/seq=0/zor=[MASKED] decision=forward to vehicles deferred until 0.165693ms
++68.870095787s 80 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/72/seq=0/zor=[MASKED]
++68.870095787s 80 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/72/seq=0/zor=[MASKED] decision=drop since sender is closer
++68.870261469s 71 caf.Forwarder:OnOutgoingAlert(): [DEBUG] out=257 alert=/alert/emergency/veh/72/seq=0/zor=[MASKED]
++68.871131583s 69 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/72/seq=0/zor=[MASKED]
++68.871131583s 69 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/72/seq=0/zor=[MASKED] decision=forward to vehicles deferred until 1.58728ms
++68.871131624s 67 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/72/seq=0/zor=[MASKED]
++68.871131624s 67 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/72/seq=0/zor=[MASKED] decision=forward to vehicles deferred until 0.356122ms
++68.871131630s 72 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/72/seq=0/zor=[MASKED]
++68.871131630s 72 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/72/seq=0/zor=[MASKED] decision=drop because duplicate alert
++68.871487745s 67 caf.Forwarder:OnOutgoingAlert(): [DEBUG] out=257 alert=/alert/emergency/veh/72/seq=0/zor=[MASKED]
++68.872357787s 69 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/72/seq=0/zor=[MASKED]
++68.872357787s 69 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in= (257,0) alert=/alert/emergency/veh/72/seq=0/zor=[MASKED] timer cancelled because sender closer to ZoR
++68.872357813s 66 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/72/seq=0/zor=[MASKED]
++68.872357813s 66 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/72/seq=0/zor=[MASKED] decision=forward to vehicles deferred until 2.99443ms
++68.872357900s 71 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/72/seq=0/zor=[MASKED]
++68.872357900s 71 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/72/seq=0/zor=[MASKED] decision=drop because duplicate alert
++68.875352247s 66 caf.Forwarder:OnOutgoingAlert(): [DEBUG] out=257 alert=/alert/emergency/veh/72/seq=0/zor=[MASKED]
++68.876222315s 67 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/72/seq=0/zor=[MASKED]
++68.876222315s 67 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/72/seq=0/zor=[MASKED] decision=drop because duplicate alert
++68.876222356s 69 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/72/seq=0/zor=[MASKED]
++68.876222356s 69 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/72/seq=0/zor=[MASKED] decision=drop because duplicate alert
++69.600451111s 73 ndn.RandomAlertProducer:SendAlert(): [LOGIC] Don't send alert; condition failed
++70.101081900s 74 ndn.RandomAlertProducer:SendAlert(): [LOGIC] Don't send alert; condition failed
++72.063561882s 75 ndn.RandomAlertProducer:SendAlert(): [LOGIC] Don't send alert; condition failed
++73.599541185s 76 ndn.RandomAlertProducer:SendAlert(): [LOGIC] Don't send alert; condition failed
++74.775808952s 77 ndn.RandomAlertProducer:SendAlert(): [LOGIC] Don't send alert; condition failed
++75.225324670s 78 ndn.RandomAlertProducer:AlertSupplier(): [LOGIC] Send alert=/alert/emergency/veh/78/seq=0/zor=[MASKED] vehCount=36 rsuCount=9
++75.225324670s 78 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=260 alert=/alert/emergency/veh/78/seq=0/zor=[MASKED]
++75.225324670s 78 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(260,0) alert=/alert/emergency/veh/78/seq=0/zor=[MASKED] decision=forward to vehicles
++75.225324670s 78 caf.Forwarder:OnOutgoingAlert(): [DEBUG] out=257 alert=/alert/emergency/veh/78/seq=0/zor=[MASKED]
++75.226194732s 79 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/78/seq=0/zor=[MASKED]
++75.226194732s 79 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/78/seq=0/zor=[MASKED] decision=forward to vehicles deferred until 3.16537ms
++75.226194748s 80 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/78/seq=0/zor=[MASKED]
++75.226194748s 80 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/78/seq=0/zor=[MASKED] decision=drop since sender is closer
++75.229360099s 79 caf.Forwarder:OnOutgoingAlert(): [DEBUG] out=257 alert=/alert/emergency/veh/78/seq=0/zor=[MASKED]
++75.230230161s 78 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/78/seq=0/zor=[MASKED]
++75.230230161s 78 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/78/seq=0/zor=[MASKED] decision=drop because duplicate alert
++75.230230214s 72 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/78/seq=0/zor=[MASKED]
++75.230230214s 72 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/78/seq=0/zor=[MASKED] decision=forward to vehicles deferred until 1.56056ms
++75.230230237s 80 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/78/seq=0/zor=[MASKED]
++75.230230237s 80 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/78/seq=0/zor=[MASKED] decision=drop because duplicate alert
++75.231790773s 72 caf.Forwarder:OnOutgoingAlert(): [DEBUG] out=257 alert=/alert/emergency/veh/78/seq=0/zor=[MASKED]
++75.232660888s 79 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/78/seq=0/zor=[MASKED]
++75.232660888s 79 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/78/seq=0/zor=[MASKED] decision=drop because duplicate alert
++75.979082639s 79 ndn.RandomAlertProducer:SendAlert(): [LOGIC] Don't send alert; condition failed
++78.878474512s 80 ndn.RandomAlertProducer:SendAlert(): [LOGIC] Don't send alert; condition failed
++79.230216942s 81 ndn.RandomAlertProducer:SendAlert(): [LOGIC] Don't send alert; condition failed
++81.615998453s 83 ndn.RandomAlertProducer:SendAlert(): [LOGIC] Don't send alert; condition failed
++81.775983150s 82 ndn.RandomAlertProducer:SendAlert(): [LOGIC] Don't send alert; condition failed
++83.859300508s 84 ndn.RandomAlertProducer:AlertSupplier(): [LOGIC] Send alert=/alert/emergency/veh/84/seq=0/zor=[MASKED] vehCount=32 rsuCount=9
++83.859300508s 84 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=260 alert=/alert/emergency/veh/84/seq=0/zor=[MASKED]
++83.859300508s 84 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(260,0) alert=/alert/emergency/veh/84/seq=0/zor=[MASKED] decision=forward to vehicles
++83.859300508s 84 caf.Forwarder:OnOutgoingAlert(): [DEBUG] out=257 alert=/alert/emergency/veh/84/seq=0/zor=[MASKED]
++83.860170541s 87 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/84/seq=0/zor=[MASKED]
++83.860170541s 87 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/84/seq=0/zor=[MASKED] decision=drop since sender is closer
++83.860170617s 28 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/84/seq=0/zor=[MASKED]
++83.860170617s 28 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/84/seq=0/zor=[MASKED] decision=forward to vehicles deferred until 1.74639ms
++83.861917007s 28 caf.Forwarder:OnOutgoingAlert(): [DEBUG] out=257 alert=/alert/emergency/veh/84/seq=0/zor=[MASKED]
++83.862787094s 22 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/84/seq=0/zor=[MASKED]
++83.862787094s 22 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/84/seq=0/zor=[MASKED] decision=forward to vehicles deferred until 2.42067ms
++83.862787116s 84 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/84/seq=0/zor=[MASKED]
++83.862787116s 84 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/84/seq=0/zor=[MASKED] decision=drop because duplicate alert
++83.862787146s 87 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/84/seq=0/zor=[MASKED]
++83.862787146s 87 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/84/seq=0/zor=[MASKED] decision=drop because duplicate alert
++83.865207760s 22 caf.Forwarder:OnOutgoingAlert(): [DEBUG] out=257 alert=/alert/emergency/veh/84/seq=0/zor=[MASKED]
++83.866077846s 31 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/84/seq=0/zor=[MASKED]
++83.866077846s 31 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/84/seq=0/zor=[MASKED] decision=forward to vehicles deferred until 2.44703ms
++83.866077847s 28 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/84/seq=0/zor=[MASKED]
++83.866077847s 28 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/84/seq=0/zor=[MASKED] decision=drop because duplicate alert
++83.866077869s 43 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/84/seq=0/zor=[MASKED]
++83.866077869s 43 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/84/seq=0/zor=[MASKED] decision=forward to vehicles deferred until 1.75803ms
++83.867835896s 43 caf.Forwarder:OnOutgoingAlert(): [DEBUG] out=257 alert=/alert/emergency/veh/84/seq=0/zor=[MASKED]
++83.868524880s 31 caf.Forwarder:OnOutgoingAlert(): [DEBUG] out=257 alert=/alert/emergency/veh/84/seq=0/zor=[MASKED]
++83.868705921s 31 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/84/seq=0/zor=[MASKED]
++83.868705921s 31 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/84/seq=0/zor=[MASKED] decision=drop because duplicate alert
++83.868705985s 76 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/84/seq=0/zor=[MASKED]
++83.868705985s 76 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/84/seq=0/zor=[MASKED] decision=forward to vehicles deferred until 2.34033ms
++83.868706005s 22 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/84/seq=0/zor=[MASKED]
++83.868706005s 22 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/84/seq=0/zor=[MASKED] decision=drop because duplicate alert
++83.868706017s 75 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/84/seq=0/zor=[MASKED]
++83.868706017s 75 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/84/seq=0/zor=[MASKED] decision=forward to vehicles deferred until 1.37102ms
++83.868706065s 73 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/84/seq=0/zor=[MASKED]
++83.868706065s 73 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/84/seq=0/zor=[MASKED] decision=forward to vehicles deferred until 0ms
++83.868706065s 73 caf.Forwarder:OnOutgoingAlert(): [DEBUG] out=257 alert=/alert/emergency/veh/84/seq=0/zor=[MASKED]
++83.869576112s 75 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/84/seq=0/zor=[MASKED]
++83.869576112s 75 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in= (257,0) alert=/alert/emergency/veh/84/seq=0/zor=[MASKED] timer cancelled because sender closer to ZoR
++83.869576145s 76 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/84/seq=0/zor=[MASKED]
++83.869576145s 76 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in= (257,0) alert=/alert/emergency/veh/84/seq=0/zor=[MASKED] timer cancelled because sender closer to ZoR
++83.869667007s 22 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/84/seq=0/zor=[MASKED]
++83.869667007s 22 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/84/seq=0/zor=[MASKED] decision=drop because duplicate alert
++84.037405359s 85 ndn.RandomAlertProducer:AlertSupplier(): [LOGIC] Send alert=/alert/emergency/veh/85/seq=0/zor=[MASKED] vehCount=32 rsuCount=9
++84.037405359s 85 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=260 alert=/alert/emergency/veh/85/seq=0/zor=[MASKED]
++84.037405359s 85 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(260,0) alert=/alert/emergency/veh/85/seq=0/zor=[MASKED] decision=forward to vehicles
++84.037405359s 85 caf.Forwarder:OnOutgoingAlert(): [DEBUG] out=257 alert=/alert/emergency/veh/85/seq=0/zor=[MASKED]
++84.038275389s 86 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/85/seq=0/zor=[MASKED]
++84.038275389s 86 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/85/seq=0/zor=[MASKED] decision=drop since sender is closer
++84.038275433s 20 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/85/seq=0/zor=[MASKED]
++84.038275433s 20 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/85/seq=0/zor=[MASKED] decision=forward to vehicles deferred until 2.8181ms
++84.038275514s 32 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/85/seq=0/zor=[MASKED]
++84.038275514s 32 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/85/seq=0/zor=[MASKED] decision=drop since sender is closer
++84.041093533s 20 caf.Forwarder:OnOutgoingAlert(): [DEBUG] out=257 alert=/alert/emergency/veh/85/seq=0/zor=[MASKED]
++84.041963606s 85 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/85/seq=0/zor=[MASKED]
++84.041963606s 85 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/85/seq=0/zor=[MASKED] decision=drop because duplicate alert
++84.041963637s 86 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/85/seq=0/zor=[MASKED]
++84.041963637s 86 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/85/seq=0/zor=[MASKED] decision=drop because duplicate alert
++85.588723381s 86 ndn.RandomAlertProducer:AlertSupplier(): [LOGIC] Send alert=/alert/emergency/veh/86/seq=0/zor=[MASKED] vehCount=32 rsuCount=9
++85.588723381s 86 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=260 alert=/alert/emergency/veh/86/seq=0/zor=[MASKED]
++85.588723381s 86 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(260,0) alert=/alert/emergency/veh/86/seq=0/zor=[MASKED] decision=forward to vehicles
++85.588723381s 86 caf.Forwarder:OnOutgoingAlert(): [DEBUG] out=257 alert=/alert/emergency/veh/86/seq=0/zor=[MASKED]
++85.589593410s 85 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/86/seq=0/zor=[MASKED]
++85.589593410s 85 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/86/seq=0/zor=[MASKED] decision=forward to vehicles deferred until 4.18363ms
++85.589593433s 20 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/86/seq=0/zor=[MASKED]
++85.589593433s 20 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/86/seq=0/zor=[MASKED] decision=drop since sender is closer
++85.589593537s 89 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/86/seq=0/zor=[MASKED]
++85.589593537s 89 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/86/seq=0/zor=[MASKED] decision=drop since sender is closer
++85.593777042s 85 caf.Forwarder:OnOutgoingAlert(): [DEBUG] out=257 alert=/alert/emergency/veh/86/seq=0/zor=[MASKED]
++85.594647071s 86 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/86/seq=0/zor=[MASKED]
++85.594647071s 86 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/86/seq=0/zor=[MASKED] decision=drop because duplicate alert
++85.594647113s 20 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/86/seq=0/zor=[MASKED]
++85.594647113s 20 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/86/seq=0/zor=[MASKED] decision=drop because duplicate alert
++85.594647205s 36 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/86/seq=0/zor=[MASKED]
++85.594647205s 36 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/86/seq=0/zor=[MASKED] decision=forward to vehicles deferred until 0.130298ms
++85.594777502s 36 caf.Forwarder:OnOutgoingAlert(): [DEBUG] out=257 alert=/alert/emergency/veh/86/seq=0/zor=[MASKED]
++85.595647636s 39 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/86/seq=0/zor=[MASKED]
++85.595647636s 39 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/86/seq=0/zor=[MASKED] decision=forward to vehicles deferred until 1.00831ms
++85.595647664s 85 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/86/seq=0/zor=[MASKED]
++85.595647664s 85 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/86/seq=0/zor=[MASKED] decision=drop because duplicate alert
++85.596655946s 39 caf.Forwarder:OnOutgoingAlert(): [DEBUG] out=257 alert=/alert/emergency/veh/86/seq=0/zor=[MASKED]
++85.597526054s 26 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/86/seq=0/zor=[MASKED]
++85.597526054s 26 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/86/seq=0/zor=[MASKED] decision=forward to vehicles deferred until 1.78507ms
++85.597526080s 36 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/86/seq=0/zor=[MASKED]
++85.597526080s 36 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/86/seq=0/zor=[MASKED] decision=drop because duplicate alert
++85.599311120s 26 caf.Forwarder:OnOutgoingAlert(): [DEBUG] out=257 alert=/alert/emergency/veh/86/seq=0/zor=[MASKED]
++85.600181228s 39 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/86/seq=0/zor=[MASKED]
++85.600181228s 39 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/86/seq=0/zor=[MASKED] decision=drop because duplicate alert
++85.600181266s 24 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/86/seq=0/zor=[MASKED]
++85.600181266s 24 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/86/seq=0/zor=[MASKED] decision=forward to vehicles deferred until 0ms
++85.600181266s 24 caf.Forwarder:OnOutgoingAlert(): [DEBUG] out=257 alert=/alert/emergency/veh/86/seq=0/zor=[MASKED]
++85.600181266s 24 ndn.AlertConsumer:doReceive(): [INFO ] Received alert: /alert/emergency/veh/86/seq=0/zor=[MASKED]
++85.601051386s 33 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/86/seq=0/zor=[MASKED]
++85.601051386s 33 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/86/seq=0/zor=[MASKED] decision=forward to vehicles deferred until 0ms
++85.601051386s 33 caf.Forwarder:OnOutgoingAlert(): [DEBUG] out=257 alert=/alert/emergency/veh/86/seq=0/zor=[MASKED]
++85.601051386s 33 ndn.AlertConsumer:doReceive(): [INFO ] Received alert: /alert/emergency/veh/86/seq=0/zor=[MASKED]
++85.601051412s 26 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/86/seq=0/zor=[MASKED]
++85.601051412s 26 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/86/seq=0/zor=[MASKED] decision=drop because duplicate alert
++85.601051412s 52 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/86/seq=0/zor=[MASKED]
++85.601051412s 52 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/86/seq=0/zor=[MASKED] decision=forward to vehicles deferred until 0ms
++85.601051412s 52 caf.Forwarder:OnOutgoingAlert(): [DEBUG] out=257 alert=/alert/emergency/veh/86/seq=0/zor=[MASKED]
++85.601051412s 52 ndn.AlertConsumer:doReceive(): [INFO ] Received alert: /alert/emergency/veh/86/seq=0/zor=[MASKED]
++88.384659613s 88 ndn.RandomAlertProducer:SendAlert(): [LOGIC] Don't send alert; condition failed
++88.833735226s 87 ndn.RandomAlertProducer:SendAlert(): [LOGIC] Don't send alert; condition failed
++90.158435781s 89 ndn.RandomAlertProducer:SendAlert(): [LOGIC] Don't send alert; condition failed
++91.229967419s 91 ndn.RandomAlertProducer:AlertSupplier(): [LOGIC] Send alert=/alert/emergency/veh/91/seq=0/zor=[MASKED] vehCount=35 rsuCount=9
++91.229967419s 91 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=260 alert=/alert/emergency/veh/91/seq=0/zor=[MASKED]
++91.229967419s 91 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(260,0) alert=/alert/emergency/veh/91/seq=0/zor=[MASKED] decision=forward to vehicles
++91.229967419s 91 caf.Forwarder:OnOutgoingAlert(): [DEBUG] out=257 alert=/alert/emergency/veh/91/seq=0/zor=[MASKED]
++91.230837466s 36 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/91/seq=0/zor=[MASKED]
++91.230837466s 36 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/91/seq=0/zor=[MASKED] decision=forward to vehicles deferred until 3.63902ms
++91.230837535s 93 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/91/seq=0/zor=[MASKED]
++91.230837535s 93 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/91/seq=0/zor=[MASKED] decision=drop since sender is closer
++91.230837581s 39 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/91/seq=0/zor=[MASKED]
++91.230837581s 39 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/91/seq=0/zor=[MASKED] decision=forward to vehicles deferred until 0.140403ms
++91.230977983s 39 caf.Forwarder:OnOutgoingAlert(): [DEBUG] out=257 alert=/alert/emergency/veh/91/seq=0/zor=[MASKED]
++91.231848022s 89 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/91/seq=0/zor=[MASKED]
++91.231848022s 89 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/91/seq=0/zor=[MASKED] decision=forward to vehicles deferred until 3.86046ms
++91.231848102s 26 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/91/seq=0/zor=[MASKED]
++91.231848102s 26 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/91/seq=0/zor=[MASKED] decision=forward to vehicles deferred until 1.45163ms
++91.231848108s 36 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/91/seq=0/zor=[MASKED]
++91.231848108s 36 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in= (257,0) alert=/alert/emergency/veh/91/seq=0/zor=[MASKED] timer cancelled because sender closer to ZoR
++91.231848145s 91 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/91/seq=0/zor=[MASKED]
++91.231848145s 91 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/91/seq=0/zor=[MASKED] decision=drop because duplicate alert
++91.233299728s 26 caf.Forwarder:OnOutgoingAlert(): [DEBUG] out=257 alert=/alert/emergency/veh/91/seq=0/zor=[MASKED]
++91.234169798s 86 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/91/seq=0/zor=[MASKED]
++91.234169798s 86 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/91/seq=0/zor=[MASKED] decision=forward to vehicles deferred until 2.93477ms
++91.234169812s 85 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/91/seq=0/zor=[MASKED]
++91.234169812s 85 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/91/seq=0/zor=[MASKED] decision=forward to vehicles deferred until 2.51933ms
++91.234169816s 89 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/91/seq=0/zor=[MASKED]
++91.234169816s 89 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in= (257,0) alert=/alert/emergency/veh/91/seq=0/zor=[MASKED] timer cancelled because sender closer to ZoR
++91.234169847s 39 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/91/seq=0/zor=[MASKED]
++91.234169847s 39 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/91/seq=0/zor=[MASKED] decision=drop because duplicate alert
++91.234169882s 24 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/91/seq=0/zor=[MASKED]
++91.234169882s 24 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/91/seq=0/zor=[MASKED] decision=forward to vehicles deferred until 0.383338ms
++91.234553220s 24 caf.Forwarder:OnOutgoingAlert(): [DEBUG] out=257 alert=/alert/emergency/veh/91/seq=0/zor=[MASKED]
++91.235423292s 52 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/91/seq=0/zor=[MASKED]
++91.235423292s 52 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/91/seq=0/zor=[MASKED] decision=forward to vehicles deferred until 2.87464ms
++91.235423296s 85 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/91/seq=0/zor=[MASKED]
++91.235423296s 85 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in= (257,0) alert=/alert/emergency/veh/91/seq=0/zor=[MASKED] timer cancelled because sender closer to ZoR
++91.235423317s 86 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/91/seq=0/zor=[MASKED]
++91.235423317s 86 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in= (257,0) alert=/alert/emergency/veh/91/seq=0/zor=[MASKED] timer cancelled because sender closer to ZoR
++91.235423345s 33 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/91/seq=0/zor=[MASKED]
++91.235423345s 33 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/91/seq=0/zor=[MASKED] decision=forward to vehicles deferred until 1.25171ms
++91.235423374s 26 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/91/seq=0/zor=[MASKED]
++91.235423374s 26 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/91/seq=0/zor=[MASKED] decision=drop because duplicate alert
++91.236675059s 33 caf.Forwarder:OnOutgoingAlert(): [DEBUG] out=257 alert=/alert/emergency/veh/91/seq=0/zor=[MASKED]
++91.237545114s 52 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/91/seq=0/zor=[MASKED]
++91.237545114s 52 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in= (257,0) alert=/alert/emergency/veh/91/seq=0/zor=[MASKED] timer cancelled because sender closer to ZoR
++91.237545184s 24 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/91/seq=0/zor=[MASKED]
++91.237545184s 24 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/91/seq=0/zor=[MASKED] decision=drop because duplicate alert
++91.532136494s 90 ndn.RandomAlertProducer:SendAlert(): [LOGIC] Don't send alert; condition failed
++93.846210281s 92 ndn.RandomAlertProducer:AlertSupplier(): [LOGIC] Send alert=/alert/emergency/veh/92/seq=0/zor=[MASKED] vehCount=34 rsuCount=9
++93.846210281s 92 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=260 alert=/alert/emergency/veh/92/seq=0/zor=[MASKED]
++93.846210281s 92 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(260,0) alert=/alert/emergency/veh/92/seq=0/zor=[MASKED] decision=forward to vehicles
++93.846210281s 92 caf.Forwarder:OnOutgoingAlert(): [DEBUG] out=257 alert=/alert/emergency/veh/92/seq=0/zor=[MASKED]
++93.847080305s 38 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/92/seq=0/zor=[MASKED]
++93.847080305s 38 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/92/seq=0/zor=[MASKED] decision=drop since sender is closer
++93.847080371s 94 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/92/seq=0/zor=[MASKED]
++93.847080371s 94 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/92/seq=0/zor=[MASKED] decision=drop since sender is closer
++93.847080393s 47 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/92/seq=0/zor=[MASKED]
++93.847080393s 47 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/92/seq=0/zor=[MASKED] decision=forward to vehicles deferred until 1.67457ms
++93.847080395s 95 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/92/seq=0/zor=[MASKED]
++93.847080395s 95 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/92/seq=0/zor=[MASKED] decision=drop since sender is closer
++93.847080400s 90 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/92/seq=0/zor=[MASKED]
++93.847080400s 90 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/92/seq=0/zor=[MASKED] decision=forward to vehicles deferred until 1.43243ms
++93.847080433s 25 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/92/seq=0/zor=[MASKED]
++93.847080433s 25 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/92/seq=0/zor=[MASKED] decision=drop since sender is closer
++93.847080443s 37 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/92/seq=0/zor=[MASKED]
++93.847080443s 37 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/92/seq=0/zor=[MASKED] decision=drop since sender is closer
++93.848512825s 90 caf.Forwarder:OnOutgoingAlert(): [DEBUG] out=257 alert=/alert/emergency/veh/92/seq=0/zor=[MASKED]
++93.848754960s 47 caf.Forwarder:OnOutgoingAlert(): [DEBUG] out=257 alert=/alert/emergency/veh/92/seq=0/zor=[MASKED]
++93.849382848s 47 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/92/seq=0/zor=[MASKED]
++93.849382848s 47 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/92/seq=0/zor=[MASKED] decision=drop because duplicate alert
++93.849382944s 92 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/92/seq=0/zor=[MASKED]
++93.849382944s 92 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/92/seq=0/zor=[MASKED] decision=drop because duplicate alert
++93.849382959s 38 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/92/seq=0/zor=[MASKED]
++93.849382959s 38 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/92/seq=0/zor=[MASKED] decision=drop because duplicate alert
++93.849382963s 88 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/92/seq=0/zor=[MASKED]
++93.849382963s 88 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/92/seq=0/zor=[MASKED] decision=forward to vehicles deferred until 0.863621ms
++93.849382969s 41 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/92/seq=0/zor=[MASKED]
++93.849382969s 41 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/92/seq=0/zor=[MASKED] decision=forward to vehicles deferred until 0.70492ms
++93.850087888s 41 caf.Forwarder:OnOutgoingAlert(): [DEBUG] out=257 alert=/alert/emergency/veh/92/seq=0/zor=[MASKED]
++93.850246584s 88 caf.Forwarder:OnOutgoingAlert(): [DEBUG] out=257 alert=/alert/emergency/veh/92/seq=0/zor=[MASKED]
++93.850278871s 90 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/92/seq=0/zor=[MASKED]
++93.850278871s 90 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/92/seq=0/zor=[MASKED] decision=drop because duplicate alert
++93.850278959s 92 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/92/seq=0/zor=[MASKED]
++93.850278959s 92 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/92/seq=0/zor=[MASKED] decision=drop because duplicate alert
++93.850278971s 38 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/92/seq=0/zor=[MASKED]
++93.850278971s 38 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/92/seq=0/zor=[MASKED] decision=drop because duplicate alert
++93.850278996s 41 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/92/seq=0/zor=[MASKED]
++93.850278996s 41 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/92/seq=0/zor=[MASKED] decision=drop because duplicate alert
++93.850278996s 88 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/92/seq=0/zor=[MASKED]
++93.850278996s 88 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/92/seq=0/zor=[MASKED] decision=drop because duplicate alert
++93.851188028s 41 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/92/seq=0/zor=[MASKED]
++93.851188028s 41 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/92/seq=0/zor=[MASKED] decision=drop because duplicate alert
++93.851188134s 90 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/92/seq=0/zor=[MASKED]
++93.851188134s 90 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/92/seq=0/zor=[MASKED] decision=drop because duplicate alert
++93.851188144s 47 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/92/seq=0/zor=[MASKED]
++93.851188144s 47 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/92/seq=0/zor=[MASKED] decision=drop because duplicate alert
++93.851188164s 46 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/92/seq=0/zor=[MASKED]
++93.851188164s 46 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/92/seq=0/zor=[MASKED] decision=forward to vehicles deferred until 0ms
++93.851188164s 46 caf.Forwarder:OnOutgoingAlert(): [DEBUG] out=257 alert=/alert/emergency/veh/92/seq=0/zor=[MASKED]
++93.852058210s 82 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/92/seq=0/zor=[MASKED]
++93.852058210s 82 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/92/seq=0/zor=[MASKED] decision=forward to vehicles deferred until 3.65384ms
++93.852058313s 49 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/92/seq=0/zor=[MASKED]
++93.852058313s 49 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/92/seq=0/zor=[MASKED] decision=forward to vehicles deferred until 0ms
++93.852058313s 49 caf.Forwarder:OnOutgoingAlert(): [DEBUG] out=257 alert=/alert/emergency/veh/92/seq=0/zor=[MASKED]
++93.852058313s 49 ndn.AlertConsumer:doReceive(): [INFO ] Received alert: /alert/emergency/veh/92/seq=0/zor=[MASKED]
++93.852058328s 41 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/92/seq=0/zor=[MASKED]
++93.852058328s 41 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/92/seq=0/zor=[MASKED] decision=drop because duplicate alert
++93.852058332s 88 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/92/seq=0/zor=[MASKED]
++93.852058332s 88 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/92/seq=0/zor=[MASKED] decision=drop because duplicate alert
++93.852058335s 40 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/92/seq=0/zor=[MASKED]
++93.852058335s 40 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/92/seq=0/zor=[MASKED] decision=forward to vehicles deferred until 0ms
++93.852058335s 40 caf.Forwarder:OnOutgoingAlert(): [DEBUG] out=257 alert=/alert/emergency/veh/92/seq=0/zor=[MASKED]
++93.852058335s 40 ndn.AlertConsumer:doReceive(): [INFO ] Received alert: /alert/emergency/veh/92/seq=0/zor=[MASKED]
++93.852928363s 78 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/92/seq=0/zor=[MASKED]
++93.852928363s 78 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/92/seq=0/zor=[MASKED] decision=forward to vehicles deferred until 0ms
++93.852928363s 78 caf.Forwarder:OnOutgoingAlert(): [DEBUG] out=257 alert=/alert/emergency/veh/92/seq=0/zor=[MASKED]
++93.852928363s 78 ndn.AlertConsumer:doReceive(): [INFO ] Received alert: /alert/emergency/veh/92/seq=0/zor=[MASKED]
++93.853084360s 88 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/92/seq=0/zor=[MASKED]
++93.853084360s 88 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/92/seq=0/zor=[MASKED] decision=drop because duplicate alert
++93.853084471s 90 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/92/seq=0/zor=[MASKED]
++93.853084471s 90 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/92/seq=0/zor=[MASKED] decision=drop because duplicate alert
++93.853084477s 47 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/92/seq=0/zor=[MASKED]
++93.853084477s 47 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/92/seq=0/zor=[MASKED] decision=drop because duplicate alert
++93.853798391s 40 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/92/seq=0/zor=[MASKED]
++93.853798391s 40 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/92/seq=0/zor=[MASKED] decision=drop because duplicate alert
++93.853798405s 49 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/92/seq=0/zor=[MASKED]
++93.853798405s 49 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/92/seq=0/zor=[MASKED] decision=drop because duplicate alert
++93.853798459s 80 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/92/seq=0/zor=[MASKED]
++93.853798459s 80 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/92/seq=0/zor=[MASKED] decision=forward to vehicles deferred until 0ms
++93.853798459s 80 caf.Forwarder:OnOutgoingAlert(): [DEBUG] out=257 alert=/alert/emergency/veh/92/seq=0/zor=[MASKED]
++93.853798459s 80 ndn.AlertConsumer:doReceive(): [INFO ] Received alert: /alert/emergency/veh/92/seq=0/zor=[MASKED]
++93.853798474s 79 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/92/seq=0/zor=[MASKED]
++93.853798474s 79 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/92/seq=0/zor=[MASKED] decision=forward to vehicles deferred until 0ms
++93.853798474s 79 caf.Forwarder:OnOutgoingAlert(): [DEBUG] out=257 alert=/alert/emergency/veh/92/seq=0/zor=[MASKED]
++93.853798474s 79 ndn.AlertConsumer:doReceive(): [INFO ] Received alert: /alert/emergency/veh/92/seq=0/zor=[MASKED]
++93.855712054s 82 caf.Forwarder:OnOutgoingAlert(): [DEBUG] out=257 alert=/alert/emergency/veh/92/seq=0/zor=[MASKED]
++93.856582100s 46 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/92/seq=0/zor=[MASKED]
++93.856582100s 46 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/92/seq=0/zor=[MASKED] decision=drop because duplicate alert
++93.856582163s 49 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/92/seq=0/zor=[MASKED]
++93.856582163s 49 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/92/seq=0/zor=[MASKED] decision=drop because duplicate alert
++93.856582186s 40 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/92/seq=0/zor=[MASKED]
++93.856582186s 40 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/92/seq=0/zor=[MASKED] decision=drop because duplicate alert
++93.856582203s 78 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/92/seq=0/zor=[MASKED]
++93.856582203s 78 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/92/seq=0/zor=[MASKED] decision=drop because duplicate alert
++94.059302744s 94 ndn.RandomAlertProducer:AlertSupplier(): [LOGIC] Send alert=/alert/emergency/veh/94/seq=0/zor=[MASKED] vehCount=34 rsuCount=9
++94.059302744s 94 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=260 alert=/alert/emergency/veh/94/seq=0/zor=[MASKED]
++94.059302744s 94 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(260,0) alert=/alert/emergency/veh/94/seq=0/zor=[MASKED] decision=forward to vehicles
++94.059302744s 94 caf.Forwarder:OnOutgoingAlert(): [DEBUG] out=257 alert=/alert/emergency/veh/94/seq=0/zor=[MASKED]
++94.060172771s 95 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/94/seq=0/zor=[MASKED]
++94.060172771s 95 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/94/seq=0/zor=[MASKED] decision=drop since sender is closer
++94.060172811s 38 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/94/seq=0/zor=[MASKED]
++94.060172811s 38 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/94/seq=0/zor=[MASKED] decision=forward to vehicles deferred until 3.02564ms
++94.060172829s 25 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/94/seq=0/zor=[MASKED]
++94.060172829s 25 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/94/seq=0/zor=[MASKED] decision=drop since sender is closer
++94.060172833s 92 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/94/seq=0/zor=[MASKED]
++94.060172833s 92 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/94/seq=0/zor=[MASKED] decision=forward to vehicles deferred until 2.34147ms
++94.060172838s 37 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/94/seq=0/zor=[MASKED]
++94.060172838s 37 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/94/seq=0/zor=[MASKED] decision=drop since sender is closer
++94.060172902s 99 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/94/seq=0/zor=[MASKED]
++94.060172902s 99 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/94/seq=0/zor=[MASKED] decision=drop since sender is closer
++94.060172910s 100 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/94/seq=0/zor=[MASKED]
++94.060172910s 100 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/94/seq=0/zor=[MASKED] decision=drop since sender is closer
++94.062514307s 92 caf.Forwarder:OnOutgoingAlert(): [DEBUG] out=257 alert=/alert/emergency/veh/94/seq=0/zor=[MASKED]
++94.063198448s 38 caf.Forwarder:OnOutgoingAlert(): [DEBUG] out=257 alert=/alert/emergency/veh/94/seq=0/zor=[MASKED]
++94.063384344s 38 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/94/seq=0/zor=[MASKED]
++94.063384344s 38 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/94/seq=0/zor=[MASKED] decision=drop because duplicate alert
++94.063384396s 94 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/94/seq=0/zor=[MASKED]
++94.063384396s 94 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/94/seq=0/zor=[MASKED] decision=drop because duplicate alert
++94.063384398s 47 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/94/seq=0/zor=[MASKED]
++94.063384398s 47 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/94/seq=0/zor=[MASKED] decision=forward to vehicles deferred until 2.30551ms
++94.063384420s 95 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/94/seq=0/zor=[MASKED]
++94.063384420s 95 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/94/seq=0/zor=[MASKED] decision=drop because duplicate alert
++94.063384425s 90 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/94/seq=0/zor=[MASKED]
++94.063384425s 90 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/94/seq=0/zor=[MASKED] decision=forward to vehicles deferred until 1.46491ms
++94.063384477s 25 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/94/seq=0/zor=[MASKED]
++94.063384477s 25 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/94/seq=0/zor=[MASKED] decision=drop because duplicate alert
++94.064423381s 92 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/94/seq=0/zor=[MASKED]
++94.064423381s 92 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/94/seq=0/zor=[MASKED] decision=drop because duplicate alert
++94.064423411s 94 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/94/seq=0/zor=[MASKED]
++94.064423411s 94 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/94/seq=0/zor=[MASKED] decision=drop because duplicate alert
++94.064423430s 95 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/94/seq=0/zor=[MASKED]
++94.064423430s 95 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/94/seq=0/zor=[MASKED] decision=drop because duplicate alert
++94.064423465s 47 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/94/seq=0/zor=[MASKED]
++94.064423482s 25 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/94/seq=0/zor=[MASKED]
++94.064423482s 25 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/94/seq=0/zor=[MASKED] decision=drop because duplicate alert
++94.064423495s 37 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/94/seq=0/zor=[MASKED]
++94.064423495s 37 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/94/seq=0/zor=[MASKED] decision=drop because duplicate alert
++94.064423496s 90 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/94/seq=0/zor=[MASKED]
++94.064849339s 90 caf.Forwarder:OnOutgoingAlert(): [DEBUG] out=257 alert=/alert/emergency/veh/94/seq=0/zor=[MASKED]
++94.065689907s 47 caf.Forwarder:OnOutgoingAlert(): [DEBUG] out=257 alert=/alert/emergency/veh/94/seq=0/zor=[MASKED]
++94.065719374s 47 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/94/seq=0/zor=[MASKED]
++94.065719374s 47 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/94/seq=0/zor=[MASKED] decision=drop because duplicate alert
++94.065719457s 92 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/94/seq=0/zor=[MASKED]
++94.065719457s 92 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/94/seq=0/zor=[MASKED] decision=drop because duplicate alert
++94.065719466s 41 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/94/seq=0/zor=[MASKED]
++94.065719466s 41 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/94/seq=0/zor=[MASKED] decision=forward to vehicles deferred until 1.21558ms
++94.065719478s 88 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/94/seq=0/zor=[MASKED]
++94.065719478s 88 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/94/seq=0/zor=[MASKED] decision=forward to vehicles deferred until 0.835813ms
++94.065719491s 38 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/94/seq=0/zor=[MASKED]
++94.065719491s 38 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/94/seq=0/zor=[MASKED] decision=drop because duplicate alert
++94.066555291s 88 caf.Forwarder:OnOutgoingAlert(): [DEBUG] out=257 alert=/alert/emergency/veh/94/seq=0/zor=[MASKED]
++94.066719409s 90 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/94/seq=0/zor=[MASKED]
++94.066719409s 90 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/94/seq=0/zor=[MASKED] decision=drop because duplicate alert
++94.066719464s 92 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/94/seq=0/zor=[MASKED]
++94.066719464s 92 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/94/seq=0/zor=[MASKED] decision=drop because duplicate alert
++94.066719495s 38 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/94/seq=0/zor=[MASKED]
++94.066719495s 38 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/94/seq=0/zor=[MASKED] decision=drop because duplicate alert
++94.066719525s 41 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/94/seq=0/zor=[MASKED]
++94.066719543s 88 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/94/seq=0/zor=[MASKED]
++94.066719543s 88 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/94/seq=0/zor=[MASKED] decision=drop because duplicate alert
++94.066935044s 41 caf.Forwarder:OnOutgoingAlert(): [DEBUG] out=257 alert=/alert/emergency/veh/94/seq=0/zor=[MASKED]
++94.067615579s 41 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/94/seq=0/zor=[MASKED]
++94.067615579s 41 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/94/seq=0/zor=[MASKED] decision=drop because duplicate alert
++94.067615682s 90 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/94/seq=0/zor=[MASKED]
++94.067615682s 90 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/94/seq=0/zor=[MASKED] decision=drop because duplicate alert
++94.067615693s 46 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/94/seq=0/zor=[MASKED]
++94.067615693s 46 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/94/seq=0/zor=[MASKED] decision=forward to vehicles deferred until 0.508376ms
++94.067615712s 47 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/94/seq=0/zor=[MASKED]
++94.067615712s 47 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/94/seq=0/zor=[MASKED] decision=drop because duplicate alert
++94.068124069s 46 caf.Forwarder:OnOutgoingAlert(): [DEBUG] out=257 alert=/alert/emergency/veh/94/seq=0/zor=[MASKED]
++94.068589615s 88 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/94/seq=0/zor=[MASKED]
++94.068589615s 88 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/94/seq=0/zor=[MASKED] decision=drop because duplicate alert
++94.068589705s 90 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/94/seq=0/zor=[MASKED]
++94.068589705s 90 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/94/seq=0/zor=[MASKED] decision=drop because duplicate alert
++94.068589730s 47 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/94/seq=0/zor=[MASKED]
++94.068589730s 47 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/94/seq=0/zor=[MASKED] decision=drop because duplicate alert
++94.068589742s 46 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/94/seq=0/zor=[MASKED]
++94.068589742s 46 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/94/seq=0/zor=[MASKED] decision=drop because duplicate alert
++94.069615804s 82 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/94/seq=0/zor=[MASKED]
++94.069615804s 82 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/94/seq=0/zor=[MASKED] decision=forward to vehicles deferred until 3.16658ms
++94.069615888s 49 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/94/seq=0/zor=[MASKED]
++94.069615888s 49 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/94/seq=0/zor=[MASKED] decision=forward to vehicles deferred until 0ms
++94.069615888s 49 caf.Forwarder:OnOutgoingAlert(): [DEBUG] out=257 alert=/alert/emergency/veh/94/seq=0/zor=[MASKED]
++94.069615888s 49 ndn.AlertConsumer:doReceive(): [INFO ] Received alert: /alert/emergency/veh/94/seq=0/zor=[MASKED]
++94.069615892s 88 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/94/seq=0/zor=[MASKED]
++94.069615892s 88 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/94/seq=0/zor=[MASKED] decision=drop because duplicate alert
++94.069615905s 41 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/94/seq=0/zor=[MASKED]
++94.069615905s 41 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/94/seq=0/zor=[MASKED] decision=drop because duplicate alert
++94.069615914s 40 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/94/seq=0/zor=[MASKED]
++94.069615914s 40 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/94/seq=0/zor=[MASKED] decision=forward to vehicles deferred until 0ms
++94.069615914s 40 caf.Forwarder:OnOutgoingAlert(): [DEBUG] out=257 alert=/alert/emergency/veh/94/seq=0/zor=[MASKED]
++94.069615914s 40 ndn.AlertConsumer:doReceive(): [INFO ] Received alert: /alert/emergency/veh/94/seq=0/zor=[MASKED]
++94.070485956s 78 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/94/seq=0/zor=[MASKED]
++94.070485956s 78 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/94/seq=0/zor=[MASKED] decision=forward to vehicles deferred until 0ms
++94.070485956s 78 caf.Forwarder:OnOutgoingAlert(): [DEBUG] out=257 alert=/alert/emergency/veh/94/seq=0/zor=[MASKED]
++94.070485956s 78 ndn.AlertConsumer:doReceive(): [INFO ] Received alert: /alert/emergency/veh/94/seq=0/zor=[MASKED]
++94.071355998s 40 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/94/seq=0/zor=[MASKED]
++94.071355998s 40 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/94/seq=0/zor=[MASKED] decision=drop because duplicate alert
++94.071356018s 49 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/94/seq=0/zor=[MASKED]
++94.071356018s 49 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/94/seq=0/zor=[MASKED] decision=drop because duplicate alert
++94.071356054s 80 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/94/seq=0/zor=[MASKED]
++94.071356054s 80 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/94/seq=0/zor=[MASKED] decision=forward to vehicles deferred until 0ms
++94.071356054s 80 caf.Forwarder:OnOutgoingAlert(): [DEBUG] out=257 alert=/alert/emergency/veh/94/seq=0/zor=[MASKED]
++94.071356054s 80 ndn.AlertConsumer:doReceive(): [INFO ] Received alert: /alert/emergency/veh/94/seq=0/zor=[MASKED]
++94.071356067s 79 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/94/seq=0/zor=[MASKED]
++94.071356067s 79 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/94/seq=0/zor=[MASKED] decision=forward to vehicles deferred until 0ms
++94.071356067s 79 caf.Forwarder:OnOutgoingAlert(): [DEBUG] out=257 alert=/alert/emergency/veh/94/seq=0/zor=[MASKED]
++94.071356067s 79 ndn.AlertConsumer:doReceive(): [INFO ] Received alert: /alert/emergency/veh/94/seq=0/zor=[MASKED]
++94.071356105s 82 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/94/seq=0/zor=[MASKED]
++94.071356105s 82 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in= (257,0) alert=/alert/emergency/veh/94/seq=0/zor=[MASKED] timer cancelled because sender closer to ZoR
++94.329858174s 96 ndn.RandomAlertProducer:SendAlert(): [LOGIC] Don't send alert; condition failed
++94.478318501s 95 ndn.RandomAlertProducer:SendAlert(): [LOGIC] Don't send alert; condition failed
++94.784921669s 93 ndn.RandomAlertProducer:SendAlert(): [LOGIC] Don't send alert; condition failed
++97.047337217s 97 ndn.RandomAlertProducer:SendAlert(): [LOGIC] Don't send alert; condition failed
++99.421626198s 99 ndn.RandomAlertProducer:AlertSupplier(): [LOGIC] Send alert=/alert/emergency/veh/99/seq=0/zor=[MASKED] vehCount=33 rsuCount=9
++99.421626198s 99 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=260 alert=/alert/emergency/veh/99/seq=0/zor=[MASKED]
++99.421626198s 99 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(260,0) alert=/alert/emergency/veh/99/seq=0/zor=[MASKED] decision=forward to vehicles
++99.421626198s 99 caf.Forwarder:OnOutgoingAlert(): [DEBUG] out=257 alert=/alert/emergency/veh/99/seq=0/zor=[MASKED]
++99.422496209s 100 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/99/seq=0/zor=[MASKED]
++99.422496209s 100 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/99/seq=0/zor=[MASKED] decision=forward to vehicles deferred until 4.72289ms
++99.422496250s 41 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/99/seq=0/zor=[MASKED]
++99.422496250s 41 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/99/seq=0/zor=[MASKED] decision=forward to vehicles deferred until 3.48856ms
++99.422496334s 95 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/99/seq=0/zor=[MASKED]
++99.422496334s 95 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/99/seq=0/zor=[MASKED] decision=forward to vehicles deferred until 0.933081ms
++99.423429415s 95 caf.Forwarder:OnOutgoingAlert(): [DEBUG] out=257 alert=/alert/emergency/veh/99/seq=0/zor=[MASKED]
++99.424299458s 94 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/99/seq=0/zor=[MASKED]
++99.424299458s 94 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/99/seq=0/zor=[MASKED] decision=forward to vehicles deferred until 3.7613ms
++99.424299475s 46 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/99/seq=0/zor=[MASKED]
++99.424299475s 46 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/99/seq=0/zor=[MASKED] decision=forward to vehicles deferred until 3.23782ms
++99.424299513s 41 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/99/seq=0/zor=[MASKED]
++99.424299513s 41 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in= (257,0) alert=/alert/emergency/veh/99/seq=0/zor=[MASKED] timer cancelled because sender closer to ZoR
++99.424299532s 92 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/99/seq=0/zor=[MASKED]
++99.424299532s 92 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/99/seq=0/zor=[MASKED] decision=forward to vehicles deferred until 1.5047ms
++99.424299549s 100 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/99/seq=0/zor=[MASKED]
++99.424299549s 100 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in= (257,0) alert=/alert/emergency/veh/99/seq=0/zor=[MASKED] timer cancelled because sender closer to ZoR
++99.424299551s 99 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/99/seq=0/zor=[MASKED]
++99.424299551s 99 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/99/seq=0/zor=[MASKED] decision=drop because duplicate alert
++99.424299563s 49 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/99/seq=0/zor=[MASKED]
++99.424299563s 49 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/99/seq=0/zor=[MASKED] decision=forward to vehicles deferred until 0.557375ms
++99.424856937s 49 caf.Forwarder:OnOutgoingAlert(): [DEBUG] out=257 alert=/alert/emergency/veh/99/seq=0/zor=[MASKED]
++99.425726970s 92 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/99/seq=0/zor=[MASKED]
++99.425726970s 92 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in= (257,0) alert=/alert/emergency/veh/99/seq=0/zor=[MASKED] timer cancelled because sender closer to ZoR
++99.425727006s 90 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/99/seq=0/zor=[MASKED]
++99.425727006s 90 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/99/seq=0/zor=[MASKED] decision=forward to vehicles deferred until 2.96515ms
++99.425727030s 46 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/99/seq=0/zor=[MASKED]
++99.425727030s 46 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in= (257,0) alert=/alert/emergency/veh/99/seq=0/zor=[MASKED] timer cancelled because sender closer to ZoR
++99.425727036s 40 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/99/seq=0/zor=[MASKED]
++99.425727036s 40 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/99/seq=0/zor=[MASKED] decision=forward to vehicles deferred until 2.05198ms
++99.425727046s 94 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/99/seq=0/zor=[MASKED]
++99.425727046s 94 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in= (257,0) alert=/alert/emergency/veh/99/seq=0/zor=[MASKED] timer cancelled because sender closer to ZoR
++99.425727085s 95 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/99/seq=0/zor=[MASKED]
++99.425727085s 95 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/99/seq=0/zor=[MASKED] decision=drop because duplicate alert
++99.427779016s 40 caf.Forwarder:OnOutgoingAlert(): [DEBUG] out=257 alert=/alert/emergency/veh/99/seq=0/zor=[MASKED]
++99.428649062s 90 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/99/seq=0/zor=[MASKED]
++99.428649062s 90 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in= (257,0) alert=/alert/emergency/veh/99/seq=0/zor=[MASKED] timer cancelled because sender closer to ZoR
++99.428649115s 49 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/99/seq=0/zor=[MASKED]
++99.428649115s 49 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/99/seq=0/zor=[MASKED] decision=drop because duplicate alert
++99.428649135s 88 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/99/seq=0/zor=[MASKED]
++99.428649135s 88 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/99/seq=0/zor=[MASKED] decision=forward to vehicles deferred until 1.44873ms
++99.428649147s 92 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/99/seq=0/zor=[MASKED]
++99.428649147s 92 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/99/seq=0/zor=[MASKED] decision=drop because duplicate alert
++99.430097863s 88 caf.Forwarder:OnOutgoingAlert(): [DEBUG] out=257 alert=/alert/emergency/veh/99/seq=0/zor=[MASKED]
++99.430967948s 58 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/99/seq=0/zor=[MASKED]
++99.430967948s 58 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/99/seq=0/zor=[MASKED] decision=forward to vehicles deferred until 0ms
++99.430967948s 58 caf.Forwarder:OnOutgoingAlert(): [DEBUG] out=257 alert=/alert/emergency/veh/99/seq=0/zor=[MASKED]
++99.430967948s 58 ndn.AlertConsumer:doReceive(): [INFO ] Received alert: /alert/emergency/veh/99/seq=0/zor=[MASKED]
++99.430967982s 40 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/99/seq=0/zor=[MASKED]
++99.430967982s 40 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/99/seq=0/zor=[MASKED] decision=drop because duplicate alert
++99.430968010s 90 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/99/seq=0/zor=[MASKED]
++99.430968010s 90 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/99/seq=0/zor=[MASKED] decision=drop because duplicate alert
++99.431838033s 88 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/99/seq=0/zor=[MASKED]
++99.431838033s 88 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/99/seq=0/zor=[MASKED] decision=drop because duplicate alert
++99.431838088s 82 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/99/seq=0/zor=[MASKED]
++99.431838088s 82 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/99/seq=0/zor=[MASKED] decision=forward to vehicles deferred until 0ms
++99.431838088s 82 caf.Forwarder:OnOutgoingAlert(): [DEBUG] out=257 alert=/alert/emergency/veh/99/seq=0/zor=[MASKED]
++99.431838088s 82 ndn.AlertConsumer:doReceive(): [INFO ] Received alert: /alert/emergency/veh/99/seq=0/zor=[MASKED]
++99.432708217s 78 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/99/seq=0/zor=[MASKED]
++99.432708217s 78 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/99/seq=0/zor=[MASKED] decision=forward to vehicles deferred until 0ms
++99.432708217s 78 caf.Forwarder:OnOutgoingAlert(): [DEBUG] out=257 alert=/alert/emergency/veh/99/seq=0/zor=[MASKED]
++99.432708217s 78 ndn.AlertConsumer:doReceive(): [INFO ] Received alert: /alert/emergency/veh/99/seq=0/zor=[MASKED]
++99.432708228s 58 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/99/seq=0/zor=[MASKED]
++99.432708228s 58 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/99/seq=0/zor=[MASKED] decision=drop because duplicate alert
++99.433578326s 79 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/99/seq=0/zor=[MASKED]
++99.433578326s 79 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/99/seq=0/zor=[MASKED] decision=forward to vehicles deferred until 0ms
++99.433578326s 79 caf.Forwarder:OnOutgoingAlert(): [DEBUG] out=257 alert=/alert/emergency/veh/99/seq=0/zor=[MASKED]
++99.433578326s 79 ndn.AlertConsumer:doReceive(): [INFO ] Received alert: /alert/emergency/veh/99/seq=0/zor=[MASKED]
++99.433578333s 80 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/99/seq=0/zor=[MASKED]
++99.433578333s 80 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/99/seq=0/zor=[MASKED] decision=forward to vehicles deferred until 0ms
++99.433578333s 80 caf.Forwarder:OnOutgoingAlert(): [DEBUG] out=257 alert=/alert/emergency/veh/99/seq=0/zor=[MASKED]
++99.433578333s 80 ndn.AlertConsumer:doReceive(): [INFO ] Received alert: /alert/emergency/veh/99/seq=0/zor=[MASKED]
++99.433578346s 82 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/99/seq=0/zor=[MASKED]
++99.433578346s 82 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/99/seq=0/zor=[MASKED] decision=drop because duplicate alert
++99.433578383s 54 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/99/seq=0/zor=[MASKED]
++99.433578383s 54 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/99/seq=0/zor=[MASKED] decision=forward to vehicles deferred until 0ms
++99.433578383s 54 caf.Forwarder:OnOutgoingAlert(): [DEBUG] out=257 alert=/alert/emergency/veh/99/seq=0/zor=[MASKED]
++99.433578383s 54 ndn.AlertConsumer:doReceive(): [INFO ] Received alert: /alert/emergency/veh/99/seq=0/zor=[MASKED]
++99.434448412s 72 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/99/seq=0/zor=[MASKED]
++99.434448412s 72 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/99/seq=0/zor=[MASKED] decision=forward to vehicles deferred until 0ms
++99.434448412s 72 caf.Forwarder:OnOutgoingAlert(): [DEBUG] out=257 alert=/alert/emergency/veh/99/seq=0/zor=[MASKED]
++99.434448412s 72 ndn.AlertConsumer:doReceive(): [INFO ] Received alert: /alert/emergency/veh/99/seq=0/zor=[MASKED]
++99.435318441s 54 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/99/seq=0/zor=[MASKED]
++99.435318441s 54 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/99/seq=0/zor=[MASKED] decision=drop because duplicate alert
++99.435318477s 80 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/99/seq=0/zor=[MASKED]
++99.435318477s 80 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/99/seq=0/zor=[MASKED] decision=drop because duplicate alert
++99.435318486s 79 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/99/seq=0/zor=[MASKED]
++99.435318486s 79 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/99/seq=0/zor=[MASKED] decision=drop because duplicate alert
++99.435318522s 71 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/99/seq=0/zor=[MASKED]
++99.435318522s 71 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/99/seq=0/zor=[MASKED] decision=forward to vehicles deferred until 0ms
++99.435318522s 71 caf.Forwarder:OnOutgoingAlert(): [DEBUG] out=257 alert=/alert/emergency/veh/99/seq=0/zor=[MASKED]
++99.435318522s 71 ndn.AlertConsumer:doReceive(): [INFO ] Received alert: /alert/emergency/veh/99/seq=0/zor=[MASKED]
++99.435318528s 65 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/99/seq=0/zor=[MASKED]
++99.435318528s 65 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/99/seq=0/zor=[MASKED] decision=forward to vehicles deferred until 0ms
++99.435318528s 65 caf.Forwarder:OnOutgoingAlert(): [DEBUG] out=257 alert=/alert/emergency/veh/99/seq=0/zor=[MASKED]
++99.435318528s 65 ndn.AlertConsumer:doReceive(): [INFO ] Received alert: /alert/emergency/veh/99/seq=0/zor=[MASKED]
++99.435318536s 67 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/99/seq=0/zor=[MASKED]
++99.435318536s 67 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/99/seq=0/zor=[MASKED] decision=forward to vehicles deferred until 0ms
++99.435318536s 67 caf.Forwarder:OnOutgoingAlert(): [DEBUG] out=257 alert=/alert/emergency/veh/99/seq=0/zor=[MASKED]
++99.435318536s 67 ndn.AlertConsumer:doReceive(): [INFO ] Received alert: /alert/emergency/veh/99/seq=0/zor=[MASKED]
++99.435318548s 64 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/99/seq=0/zor=[MASKED]
++99.435318548s 64 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/99/seq=0/zor=[MASKED] decision=forward to vehicles deferred until 0ms
++99.435318548s 64 caf.Forwarder:OnOutgoingAlert(): [DEBUG] out=257 alert=/alert/emergency/veh/99/seq=0/zor=[MASKED]
++99.435318548s 64 ndn.AlertConsumer:doReceive(): [INFO ] Received alert: /alert/emergency/veh/99/seq=0/zor=[MASKED]
++99.603151911s 98 ndn.RandomAlertProducer:SendAlert(): [LOGIC] Don't send alert; condition failed
++100.111218696s 100 ndn.RandomAlertProducer:AlertSupplier(): [LOGIC] Send alert=/alert/emergency/veh/100/seq=0/zor=[MASKED] vehCount=33 rsuCount=9
++100.111218696s 100 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=260 alert=/alert/emergency/veh/100/seq=0/zor=[MASKED]
++100.111218696s 100 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(260,0) alert=/alert/emergency/veh/100/seq=0/zor=[MASKED] decision=forward to vehicles
++100.111218696s 100 caf.Forwarder:OnOutgoingAlert(): [DEBUG] out=257 alert=/alert/emergency/veh/100/seq=0/zor=[MASKED]
++100.112092707s 99 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/100/seq=0/zor=[MASKED]
++100.112092707s 99 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/100/seq=0/zor=[MASKED] decision=drop since sender is closer
++100.112092725s 41 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/100/seq=0/zor=[MASKED]
++100.112092725s 41 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/100/seq=0/zor=[MASKED] decision=drop since sender is closer
++100.112092828s 46 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/100/seq=0/zor=[MASKED]
++100.112092828s 46 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/100/seq=0/zor=[MASKED] decision=forward to vehicles deferred until 1.06047ms
++100.112092830s 95 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/100/seq=0/zor=[MASKED]
++100.112092830s 95 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/100/seq=0/zor=[MASKED] decision=forward to vehicles deferred until 0.986432ms
++100.113079262s 95 caf.Forwarder:OnOutgoingAlert(): [DEBUG] out=257 alert=/alert/emergency/veh/100/seq=0/zor=[MASKED]
++100.113153298s 46 caf.Forwarder:OnOutgoingAlert(): [DEBUG] out=257 alert=/alert/emergency/veh/100/seq=0/zor=[MASKED]
++100.113953284s 46 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/100/seq=0/zor=[MASKED]
++100.113953284s 46 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/100/seq=0/zor=[MASKED] decision=drop because duplicate alert
++100.113953306s 94 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/100/seq=0/zor=[MASKED]
++100.113953306s 94 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/100/seq=0/zor=[MASKED] decision=forward to vehicles deferred until 3.73037ms
++100.113953343s 49 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/100/seq=0/zor=[MASKED]
++100.113953343s 49 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/100/seq=0/zor=[MASKED] decision=forward to vehicles deferred until 2.60518ms
++100.113953380s 92 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/100/seq=0/zor=[MASKED]
++100.113953380s 92 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/100/seq=0/zor=[MASKED] decision=forward to vehicles deferred until 1.47511ms
++100.113953396s 100 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/100/seq=0/zor=[MASKED]
++100.113953396s 100 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/100/seq=0/zor=[MASKED] decision=drop because duplicate alert
++100.113953400s 99 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/100/seq=0/zor=[MASKED]
++100.113953400s 99 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/100/seq=0/zor=[MASKED] decision=drop because duplicate alert
++100.113953417s 41 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/100/seq=0/zor=[MASKED]
++100.113953417s 41 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/100/seq=0/zor=[MASKED] decision=drop because duplicate alert
++100.114944306s 95 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/100/seq=0/zor=[MASKED]
++100.114944306s 95 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/100/seq=0/zor=[MASKED] decision=drop because duplicate alert
++100.114944341s 94 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/100/seq=0/zor=[MASKED]
++100.114944369s 49 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/100/seq=0/zor=[MASKED]
++100.114944408s 92 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/100/seq=0/zor=[MASKED]
++100.114944416s 100 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/100/seq=0/zor=[MASKED]
++100.114944416s 100 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/100/seq=0/zor=[MASKED] decision=drop because duplicate alert
++100.114944421s 99 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/100/seq=0/zor=[MASKED]
++100.114944421s 99 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/100/seq=0/zor=[MASKED] decision=drop because duplicate alert
++100.114944433s 41 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/100/seq=0/zor=[MASKED]
++100.114944433s 41 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/100/seq=0/zor=[MASKED] decision=drop because duplicate alert
++100.115428490s 92 caf.Forwarder:OnOutgoingAlert(): [DEBUG] out=257 alert=/alert/emergency/veh/100/seq=0/zor=[MASKED]
++100.116302530s 49 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/100/seq=0/zor=[MASKED]
++100.116302530s 49 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in= (257,0) alert=/alert/emergency/veh/100/seq=0/zor=[MASKED] timer cancelled because sender closer to ZoR
++100.116302565s 40 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/100/seq=0/zor=[MASKED]
++100.116302565s 40 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/100/seq=0/zor=[MASKED] decision=forward to vehicles deferred until 2.79624ms
++100.116302566s 94 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/100/seq=0/zor=[MASKED]
++100.116302566s 94 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in= (257,0) alert=/alert/emergency/veh/100/seq=0/zor=[MASKED] timer cancelled because sender closer to ZoR
++100.116302583s 90 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/100/seq=0/zor=[MASKED]
++100.116302583s 90 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/100/seq=0/zor=[MASKED] decision=forward to vehicles deferred until 2.23636ms
++100.116302608s 95 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/100/seq=0/zor=[MASKED]
++100.116302608s 95 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/100/seq=0/zor=[MASKED] decision=drop because duplicate alert
++100.116302614s 46 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/100/seq=0/zor=[MASKED]
++100.116302614s 46 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/100/seq=0/zor=[MASKED] decision=drop because duplicate alert
++100.118538939s 90 caf.Forwarder:OnOutgoingAlert(): [DEBUG] out=257 alert=/alert/emergency/veh/100/seq=0/zor=[MASKED]
++100.119098806s 40 caf.Forwarder:OnOutgoingAlert(): [DEBUG] out=257 alert=/alert/emergency/veh/100/seq=0/zor=[MASKED]
++100.119412977s 40 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/100/seq=0/zor=[MASKED]
++100.119412977s 40 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/100/seq=0/zor=[MASKED] decision=drop because duplicate alert
++100.119413032s 92 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/100/seq=0/zor=[MASKED]
++100.119413032s 92 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/100/seq=0/zor=[MASKED] decision=drop because duplicate alert
++100.119413072s 49 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/100/seq=0/zor=[MASKED]
++100.119413072s 49 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/100/seq=0/zor=[MASKED] decision=drop because duplicate alert
++100.119413087s 88 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/100/seq=0/zor=[MASKED]
++100.119413087s 88 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/100/seq=0/zor=[MASKED] decision=forward to vehicles deferred until 0.553694ms
++100.119413107s 94 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/100/seq=0/zor=[MASKED]
++100.119413107s 94 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/100/seq=0/zor=[MASKED] decision=drop because duplicate alert
++100.119413109s 58 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/100/seq=0/zor=[MASKED]
++100.119413109s 58 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/100/seq=0/zor=[MASKED] decision=forward to vehicles deferred until 0ms
++100.119413109s 58 caf.Forwarder:OnOutgoingAlert(): [DEBUG] out=257 alert=/alert/emergency/veh/100/seq=0/zor=[MASKED]
++100.119413109s 58 ndn.AlertConsumer:doReceive(): [INFO ] Received alert: /alert/emergency/veh/100/seq=0/zor=[MASKED]
++100.119966780s 88 caf.Forwarder:OnOutgoingAlert(): [DEBUG] out=257 alert=/alert/emergency/veh/100/seq=0/zor=[MASKED]
++100.120287146s 88 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/100/seq=0/zor=[MASKED]
++100.120287146s 88 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/100/seq=0/zor=[MASKED] decision=drop because duplicate alert
++100.120313051s 92 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/100/seq=0/zor=[MASKED]
++100.120313051s 92 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/100/seq=0/zor=[MASKED] decision=drop because duplicate alert
++100.120313087s 49 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/100/seq=0/zor=[MASKED]
++100.120313087s 49 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/100/seq=0/zor=[MASKED] decision=drop because duplicate alert
++100.120313127s 94 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/100/seq=0/zor=[MASKED]
++100.120313127s 94 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/100/seq=0/zor=[MASKED] decision=drop because duplicate alert
++100.121330183s 58 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/100/seq=0/zor=[MASKED]
++100.121330183s 58 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/100/seq=0/zor=[MASKED] decision=drop because duplicate alert
++100.121330294s 90 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/100/seq=0/zor=[MASKED]
++100.121330294s 90 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/100/seq=0/zor=[MASKED] decision=drop because duplicate alert
++102.678242688s 101 ndn.RandomAlertProducer:AlertSupplier(): [LOGIC] Send alert=/alert/emergency/veh/101/seq=0/zor=[MASKED] vehCount=35 rsuCount=9
++102.678242688s 101 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=260 alert=/alert/emergency/veh/101/seq=0/zor=[MASKED]
++102.678242688s 101 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(260,0) alert=/alert/emergency/veh/101/seq=0/zor=[MASKED] decision=forward to vehicles
++102.678242688s 101 caf.Forwarder:OnOutgoingAlert(): [DEBUG] out=257 alert=/alert/emergency/veh/101/seq=0/zor=[MASKED]
++102.679116722s 33 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/101/seq=0/zor=[MASKED]
++102.679116722s 33 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/101/seq=0/zor=[MASKED] decision=drop since sender is closer
++102.679116775s 106 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/101/seq=0/zor=[MASKED]
++102.679116775s 106 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/101/seq=0/zor=[MASKED] decision=drop since sender is closer
++102.679116818s 96 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/101/seq=0/zor=[MASKED]
++102.679116818s 96 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/101/seq=0/zor=[MASKED] decision=forward to vehicles deferred until 1.11581ms
++102.679116835s 24 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/101/seq=0/zor=[MASKED]
++102.679116835s 24 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/101/seq=0/zor=[MASKED] decision=drop since sender is closer
++102.679116838s 105 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/101/seq=0/zor=[MASKED]
++102.679116838s 105 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/101/seq=0/zor=[MASKED] decision=drop since sender is closer
++102.680232623s 96 caf.Forwarder:OnOutgoingAlert(): [DEBUG] out=257 alert=/alert/emergency/veh/101/seq=0/zor=[MASKED]
++102.681106675s 98 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/101/seq=0/zor=[MASKED]
++102.681106675s 98 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/101/seq=0/zor=[MASKED] decision=forward to vehicles deferred until 3.48146ms
++102.681106747s 93 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/101/seq=0/zor=[MASKED]
++102.681106747s 93 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/101/seq=0/zor=[MASKED] decision=forward to vehicles deferred until 1.29288ms
++102.681106753s 101 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/101/seq=0/zor=[MASKED]
++102.681106753s 101 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/101/seq=0/zor=[MASKED] decision=drop because duplicate alert
++102.681106767s 33 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/101/seq=0/zor=[MASKED]
++102.681106767s 33 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/101/seq=0/zor=[MASKED] decision=drop because duplicate alert
++102.681106773s 42 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/101/seq=0/zor=[MASKED]
++102.681106773s 42 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/101/seq=0/zor=[MASKED] decision=forward to vehicles deferred until 0.513092ms
++102.681619865s 42 caf.Forwarder:OnOutgoingAlert(): [DEBUG] out=257 alert=/alert/emergency/veh/101/seq=0/zor=[MASKED]
++102.682399622s 93 caf.Forwarder:OnOutgoingAlert(): [DEBUG] out=257 alert=/alert/emergency/veh/101/seq=0/zor=[MASKED]
++102.682493896s 93 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/101/seq=0/zor=[MASKED]
++102.682493896s 93 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/101/seq=0/zor=[MASKED] decision=drop because duplicate alert
++102.682493951s 91 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/101/seq=0/zor=[MASKED]
++102.682493951s 91 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/101/seq=0/zor=[MASKED] decision=forward to vehicles deferred until 2.4554ms
++102.682493965s 98 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/101/seq=0/zor=[MASKED]
++102.682493965s 98 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in= (257,0) alert=/alert/emergency/veh/101/seq=0/zor=[MASKED] timer cancelled because sender closer to ZoR
++102.682494015s 96 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/101/seq=0/zor=[MASKED]
++102.682494015s 96 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/101/seq=0/zor=[MASKED] decision=drop because duplicate alert
++102.683484927s 42 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/101/seq=0/zor=[MASKED]
++102.683484927s 42 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/101/seq=0/zor=[MASKED] decision=drop because duplicate alert
++102.683484969s 98 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/101/seq=0/zor=[MASKED]
++102.683484969s 98 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/101/seq=0/zor=[MASKED] decision=drop because duplicate alert
++102.683484999s 91 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/101/seq=0/zor=[MASKED]
++102.683485020s 96 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/101/seq=0/zor=[MASKED]
++102.683485020s 96 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/101/seq=0/zor=[MASKED] decision=drop because duplicate alert
++102.684949350s 91 caf.Forwarder:OnOutgoingAlert(): [DEBUG] out=257 alert=/alert/emergency/veh/101/seq=0/zor=[MASKED]
++102.685823436s 42 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/101/seq=0/zor=[MASKED]
++102.685823436s 42 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/101/seq=0/zor=[MASKED] decision=drop because duplicate alert
++102.685823453s 93 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/101/seq=0/zor=[MASKED]
++102.685823453s 93 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/101/seq=0/zor=[MASKED] decision=drop because duplicate alert
++102.923307256s 102 ndn.RandomAlertProducer:SendAlert(): [LOGIC] Don't send alert; condition failed
++102.977315569s 103 ndn.RandomAlertProducer:SendAlert(): [LOGIC] Don't send alert; condition failed
++103.365811597s 104 ndn.RandomAlertProducer:SendAlert(): [LOGIC] Don't send alert; condition failed
++104.128341441s 105 ndn.RandomAlertProducer:SendAlert(): [LOGIC] Don't send alert; condition failed
++106.499437291s 107 ndn.RandomAlertProducer:AlertSupplier(): [LOGIC] Send alert=/alert/emergency/veh/107/seq=0/zor=[MASKED] vehCount=35 rsuCount=9
++106.499437291s 107 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=260 alert=/alert/emergency/veh/107/seq=0/zor=[MASKED]
++106.499437291s 107 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(260,0) alert=/alert/emergency/veh/107/seq=0/zor=[MASKED] decision=forward to vehicles
++106.499437291s 107 caf.Forwarder:OnOutgoingAlert(): [DEBUG] out=257 alert=/alert/emergency/veh/107/seq=0/zor=[MASKED]
++106.500311366s 49 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/107/seq=0/zor=[MASKED]
++106.500311366s 49 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/107/seq=0/zor=[MASKED] decision=drop since sender is closer
++106.500311391s 46 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/107/seq=0/zor=[MASKED]
++106.500311391s 46 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/107/seq=0/zor=[MASKED] decision=drop since sender is closer
++106.500311394s 104 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/107/seq=0/zor=[MASKED]
++106.500311394s 104 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/107/seq=0/zor=[MASKED] decision=forward to vehicles deferred until 1.93428ms
++106.500311413s 40 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/107/seq=0/zor=[MASKED]
++106.500311413s 40 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/107/seq=0/zor=[MASKED] decision=forward to vehicles deferred until 1.34674ms
++106.500311423s 103 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/107/seq=0/zor=[MASKED]
++106.500311423s 103 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/107/seq=0/zor=[MASKED] decision=forward to vehicles deferred until 1.05513ms
++106.500311442s 110 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/107/seq=0/zor=[MASKED]
++106.500311442s 110 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/107/seq=0/zor=[MASKED] decision=drop since sender is closer
++106.501366549s 103 caf.Forwarder:OnOutgoingAlert(): [DEBUG] out=257 alert=/alert/emergency/veh/107/seq=0/zor=[MASKED]
++106.501658150s 40 caf.Forwarder:OnOutgoingAlert(): [DEBUG] out=257 alert=/alert/emergency/veh/107/seq=0/zor=[MASKED]
++106.502240573s 40 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/107/seq=0/zor=[MASKED]
++106.502240573s 40 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/107/seq=0/zor=[MASKED] decision=drop because duplicate alert
++106.502240580s 104 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/107/seq=0/zor=[MASKED]
++106.502240580s 104 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in= (257,0) alert=/alert/emergency/veh/107/seq=0/zor=[MASKED] timer cancelled because sender closer to ZoR
++106.502240680s 58 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/107/seq=0/zor=[MASKED]
++106.502240680s 58 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/107/seq=0/zor=[MASKED] decision=forward to vehicles deferred until 1.0998ms
++106.502240681s 107 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/107/seq=0/zor=[MASKED]
++106.502240681s 107 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/107/seq=0/zor=[MASKED] decision=drop because duplicate alert
++106.503231597s 103 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/107/seq=0/zor=[MASKED]
++106.503231597s 103 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/107/seq=0/zor=[MASKED] decision=drop because duplicate alert
++106.503231610s 104 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/107/seq=0/zor=[MASKED]
++106.503231610s 104 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/107/seq=0/zor=[MASKED] decision=drop because duplicate alert
++106.503231695s 107 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/107/seq=0/zor=[MASKED]
++106.503231695s 107 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/107/seq=0/zor=[MASKED] decision=drop because duplicate alert
++106.503231713s 58 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/107/seq=0/zor=[MASKED]
++106.503340479s 58 caf.Forwarder:OnOutgoingAlert(): [DEBUG] out=257 alert=/alert/emergency/veh/107/seq=0/zor=[MASKED]
++106.504214546s 99 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/107/seq=0/zor=[MASKED]
++106.504214546s 99 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/107/seq=0/zor=[MASKED] decision=forward to vehicles deferred until 3.03217ms
++106.504214546s 100 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/107/seq=0/zor=[MASKED]
++106.504214546s 100 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/107/seq=0/zor=[MASKED] decision=forward to vehicles deferred until 3.00904ms
++106.504214609s 103 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/107/seq=0/zor=[MASKED]
++106.504214609s 103 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/107/seq=0/zor=[MASKED] decision=drop because duplicate alert
++106.504214619s 40 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/107/seq=0/zor=[MASKED]
++106.504214619s 40 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/107/seq=0/zor=[MASKED] decision=drop because duplicate alert
++106.504214640s 104 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/107/seq=0/zor=[MASKED]
++106.504214640s 104 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/107/seq=0/zor=[MASKED] decision=drop because duplicate alert
++106.507223582s 100 caf.Forwarder:OnOutgoingAlert(): [DEBUG] out=257 alert=/alert/emergency/veh/107/seq=0/zor=[MASKED]
++106.507246712s 99 caf.Forwarder:OnOutgoingAlert(): [DEBUG] out=257 alert=/alert/emergency/veh/107/seq=0/zor=[MASKED]
++106.508097594s 99 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/107/seq=0/zor=[MASKED]
++106.508097594s 99 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/107/seq=0/zor=[MASKED] decision=drop because duplicate alert
++106.508097650s 58 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/107/seq=0/zor=[MASKED]
++106.508097650s 58 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/107/seq=0/zor=[MASKED] decision=drop because duplicate alert
++106.508097712s 95 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/107/seq=0/zor=[MASKED]
++106.508097712s 95 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/107/seq=0/zor=[MASKED] decision=forward to vehicles deferred until 1.09966ms
++106.508971606s 100 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/107/seq=0/zor=[MASKED]
++106.508971606s 100 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/107/seq=0/zor=[MASKED] decision=drop because duplicate alert
++106.508971661s 58 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/107/seq=0/zor=[MASKED]
++106.508971661s 58 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/107/seq=0/zor=[MASKED] decision=drop because duplicate alert
++106.508971730s 95 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/107/seq=0/zor=[MASKED]
++106.509197376s 95 caf.Forwarder:OnOutgoingAlert(): [DEBUG] out=257 alert=/alert/emergency/veh/107/seq=0/zor=[MASKED]
++106.510071442s 94 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/107/seq=0/zor=[MASKED]
++106.510071442s 94 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/107/seq=0/zor=[MASKED] decision=forward to vehicles deferred until 3.06336ms
++106.510071494s 92 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/107/seq=0/zor=[MASKED]
++106.510071494s 92 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/107/seq=0/zor=[MASKED] decision=forward to vehicles deferred until 0ms
++106.510071494s 92 caf.Forwarder:OnOutgoingAlert(): [DEBUG] out=257 alert=/alert/emergency/veh/107/seq=0/zor=[MASKED]
++106.510071494s 92 ndn.AlertConsumer:doReceive(): [INFO ] Received alert: /alert/emergency/veh/107/seq=0/zor=[MASKED]
++106.510071506s 100 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/107/seq=0/zor=[MASKED]
++106.510071506s 100 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/107/seq=0/zor=[MASKED] decision=drop because duplicate alert
++106.510071512s 99 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/107/seq=0/zor=[MASKED]
++106.510071512s 99 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/107/seq=0/zor=[MASKED] decision=drop because duplicate alert
++106.510945547s 94 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/107/seq=0/zor=[MASKED]
++106.510945547s 94 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in= (257,0) alert=/alert/emergency/veh/107/seq=0/zor=[MASKED] timer cancelled because sender closer to ZoR
++106.510945569s 90 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/107/seq=0/zor=[MASKED]
++106.510945569s 90 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/107/seq=0/zor=[MASKED] decision=forward to vehicles deferred until 0ms
++106.510945569s 90 caf.Forwarder:OnOutgoingAlert(): [DEBUG] out=257 alert=/alert/emergency/veh/107/seq=0/zor=[MASKED]
++106.510945569s 90 ndn.AlertConsumer:doReceive(): [INFO ] Received alert: /alert/emergency/veh/107/seq=0/zor=[MASKED]
++106.510945583s 54 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/107/seq=0/zor=[MASKED]
++106.510945583s 54 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/107/seq=0/zor=[MASKED] decision=forward to vehicles deferred until 0ms
++106.510945583s 54 caf.Forwarder:OnOutgoingAlert(): [DEBUG] out=257 alert=/alert/emergency/veh/107/seq=0/zor=[MASKED]
++106.510945583s 54 ndn.AlertConsumer:doReceive(): [INFO ] Received alert: /alert/emergency/veh/107/seq=0/zor=[MASKED]
++106.510945612s 95 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/107/seq=0/zor=[MASKED]
++106.510945612s 95 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/107/seq=0/zor=[MASKED] decision=drop because duplicate alert
++106.673911775s 106 ndn.RandomAlertProducer:AlertSupplier(): [LOGIC] Send alert=/alert/emergency/veh/106/seq=0/zor=[MASKED] vehCount=36 rsuCount=9
++106.673911775s 106 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=260 alert=/alert/emergency/veh/106/seq=0/zor=[MASKED]
++106.673911775s 106 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(260,0) alert=/alert/emergency/veh/106/seq=0/zor=[MASKED] decision=forward to vehicles
++106.673911775s 106 caf.Forwarder:OnOutgoingAlert(): [DEBUG] out=257 alert=/alert/emergency/veh/106/seq=0/zor=[MASKED]
++106.674785826s 42 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/106/seq=0/zor=[MASKED]
++106.674785826s 42 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/106/seq=0/zor=[MASKED] decision=forward to vehicles deferred until 3.51166ms
++106.674785860s 101 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/106/seq=0/zor=[MASKED]
++106.674785860s 101 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/106/seq=0/zor=[MASKED] decision=forward to vehicles deferred until 2.48899ms
++106.674785869s 105 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/106/seq=0/zor=[MASKED]
++106.674785869s 105 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/106/seq=0/zor=[MASKED] decision=drop since sender is closer
++106.677274851s 101 caf.Forwarder:OnOutgoingAlert(): [DEBUG] out=257 alert=/alert/emergency/veh/106/seq=0/zor=[MASKED]
++106.678148906s 42 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/106/seq=0/zor=[MASKED]
++106.678148906s 42 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in= (257,0) alert=/alert/emergency/veh/106/seq=0/zor=[MASKED] timer cancelled because sender closer to ZoR
++106.678148936s 106 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/106/seq=0/zor=[MASKED]
++106.678148936s 106 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/106/seq=0/zor=[MASKED] decision=drop because duplicate alert
++106.678148974s 96 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/106/seq=0/zor=[MASKED]
++106.678148974s 96 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/106/seq=0/zor=[MASKED] decision=forward to vehicles deferred until 1.32101ms
++106.679469981s 96 caf.Forwarder:OnOutgoingAlert(): [DEBUG] out=257 alert=/alert/emergency/veh/106/seq=0/zor=[MASKED]
++106.680344047s 98 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/106/seq=0/zor=[MASKED]
++106.680344047s 98 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/106/seq=0/zor=[MASKED] decision=forward to vehicles deferred until 3.04692ms
++106.680344104s 101 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/106/seq=0/zor=[MASKED]
++106.680344104s 101 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/106/seq=0/zor=[MASKED] decision=drop because duplicate alert
++106.680344107s 93 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/106/seq=0/zor=[MASKED]
++106.680344107s 93 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/106/seq=0/zor=[MASKED] decision=forward to vehicles deferred until 1.22585ms
++106.680344138s 59 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/106/seq=0/zor=[MASKED]
++106.680344138s 59 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/106/seq=0/zor=[MASKED] decision=forward to vehicles deferred until 0.297675ms
++106.680344153s 42 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/106/seq=0/zor=[MASKED]
++106.680344153s 42 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/106/seq=0/zor=[MASKED] decision=drop because duplicate alert
++106.680641812s 59 caf.Forwarder:OnOutgoingAlert(): [DEBUG] out=257 alert=/alert/emergency/veh/106/seq=0/zor=[MASKED]
++106.681515851s 93 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/106/seq=0/zor=[MASKED]
++106.681515851s 93 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in= (257,0) alert=/alert/emergency/veh/106/seq=0/zor=[MASKED] timer cancelled because sender closer to ZoR
++106.681515887s 91 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/106/seq=0/zor=[MASKED]
++106.681515887s 91 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/106/seq=0/zor=[MASKED] decision=forward to vehicles deferred until 0ms
++106.681515887s 91 caf.Forwarder:OnOutgoingAlert(): [DEBUG] out=257 alert=/alert/emergency/veh/106/seq=0/zor=[MASKED]
++106.681515887s 91 ndn.AlertConsumer:doReceive(): [INFO ] Received alert: /alert/emergency/veh/106/seq=0/zor=[MASKED]
++106.681515905s 98 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/106/seq=0/zor=[MASKED]
++106.681515905s 98 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in= (257,0) alert=/alert/emergency/veh/106/seq=0/zor=[MASKED] timer cancelled because sender closer to ZoR
++106.681515969s 96 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/106/seq=0/zor=[MASKED]
++106.681515969s 96 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/106/seq=0/zor=[MASKED] decision=drop because duplicate alert
++106.682389962s 59 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/106/seq=0/zor=[MASKED]
++106.682389962s 59 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/106/seq=0/zor=[MASKED] decision=drop because duplicate alert
++106.682389982s 93 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/106/seq=0/zor=[MASKED]
++106.682389982s 93 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/106/seq=0/zor=[MASKED] decision=drop because duplicate alert
++106.682390042s 98 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/106/seq=0/zor=[MASKED]
++106.682390042s 98 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/106/seq=0/zor=[MASKED] decision=drop because duplicate alert
++106.682390050s 56 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/106/seq=0/zor=[MASKED]
++106.682390050s 56 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/106/seq=0/zor=[MASKED] decision=forward to vehicles deferred until 0ms
++106.682390050s 56 caf.Forwarder:OnOutgoingAlert(): [DEBUG] out=257 alert=/alert/emergency/veh/106/seq=0/zor=[MASKED]
++106.682390050s 56 ndn.AlertConsumer:doReceive(): [INFO ] Received alert: /alert/emergency/veh/106/seq=0/zor=[MASKED]
++106.683264098s 63 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/106/seq=0/zor=[MASKED]
++106.683264098s 63 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/106/seq=0/zor=[MASKED] decision=forward to vehicles deferred until 0ms
++106.683264098s 63 caf.Forwarder:OnOutgoingAlert(): [DEBUG] out=257 alert=/alert/emergency/veh/106/seq=0/zor=[MASKED]
++106.683264098s 63 ndn.AlertConsumer:doReceive(): [INFO ] Received alert: /alert/emergency/veh/106/seq=0/zor=[MASKED]
++106.683264160s 89 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/106/seq=0/zor=[MASKED]
++106.683264160s 89 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/106/seq=0/zor=[MASKED] decision=forward to vehicles deferred until 0ms
++106.683264160s 89 caf.Forwarder:OnOutgoingAlert(): [DEBUG] out=257 alert=/alert/emergency/veh/106/seq=0/zor=[MASKED]
++106.683264160s 89 ndn.AlertConsumer:doReceive(): [INFO ] Received alert: /alert/emergency/veh/106/seq=0/zor=[MASKED]
++106.683264212s 91 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/106/seq=0/zor=[MASKED]
++106.683264212s 91 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/106/seq=0/zor=[MASKED] decision=drop because duplicate alert
++106.684138146s 56 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/106/seq=0/zor=[MASKED]
++106.684138146s 56 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/106/seq=0/zor=[MASKED] decision=drop because duplicate alert
++106.684138245s 86 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/106/seq=0/zor=[MASKED]
++106.684138245s 86 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/106/seq=0/zor=[MASKED] decision=forward to vehicles deferred until 0ms
++106.684138245s 86 caf.Forwarder:OnOutgoingAlert(): [DEBUG] out=257 alert=/alert/emergency/veh/106/seq=0/zor=[MASKED]
++106.684138245s 86 ndn.AlertConsumer:doReceive(): [INFO ] Received alert: /alert/emergency/veh/106/seq=0/zor=[MASKED]
++106.684138255s 71 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/106/seq=0/zor=[MASKED]
++106.684138255s 71 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/106/seq=0/zor=[MASKED] decision=forward to vehicles deferred until 0ms
++106.684138255s 71 caf.Forwarder:OnOutgoingAlert(): [DEBUG] out=257 alert=/alert/emergency/veh/106/seq=0/zor=[MASKED]
++106.684138255s 71 ndn.AlertConsumer:doReceive(): [INFO ] Received alert: /alert/emergency/veh/106/seq=0/zor=[MASKED]
++106.684138291s 85 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/106/seq=0/zor=[MASKED]
++106.684138291s 85 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/106/seq=0/zor=[MASKED] decision=forward to vehicles deferred until 0ms
++106.684138291s 85 caf.Forwarder:OnOutgoingAlert(): [DEBUG] out=257 alert=/alert/emergency/veh/106/seq=0/zor=[MASKED]
++106.684138291s 85 ndn.AlertConsumer:doReceive(): [INFO ] Received alert: /alert/emergency/veh/106/seq=0/zor=[MASKED]
++109.113556558s 108 ndn.RandomAlertProducer:SendAlert(): [LOGIC] Don't send alert; condition failed
++110.702054899s 109 ndn.RandomAlertProducer:SendAlert(): [LOGIC] Don't send alert; condition failed
++112.033633356s 111 ndn.RandomAlertProducer:AlertSupplier(): [LOGIC] Send alert=/alert/emergency/veh/111/seq=0/zor=[MASKED] vehCount=37 rsuCount=9
++112.033633356s 111 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=260 alert=/alert/emergency/veh/111/seq=0/zor=[MASKED]
++112.033633356s 111 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(260,0) alert=/alert/emergency/veh/111/seq=0/zor=[MASKED] decision=forward to vehicles
++112.033633356s 111 caf.Forwarder:OnOutgoingAlert(): [DEBUG] out=257 alert=/alert/emergency/veh/111/seq=0/zor=[MASKED]
++112.034507523s 117 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/111/seq=0/zor=[MASKED]
++112.034507523s 117 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/111/seq=0/zor=[MASKED] decision=drop since sender is closer
++112.597686212s 110 ndn.RandomAlertProducer:AlertSupplier(): [LOGIC] Send alert=/alert/emergency/veh/110/seq=0/zor=[MASKED] vehCount=38 rsuCount=9
++112.597686212s 110 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=260 alert=/alert/emergency/veh/110/seq=0/zor=[MASKED]
++112.597686212s 110 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(260,0) alert=/alert/emergency/veh/110/seq=0/zor=[MASKED] decision=forward to vehicles
++112.597686212s 110 caf.Forwarder:OnOutgoingAlert(): [DEBUG] out=257 alert=/alert/emergency/veh/110/seq=0/zor=[MASKED]
++112.598560279s 114 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/110/seq=0/zor=[MASKED]
++112.598560279s 114 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/110/seq=0/zor=[MASKED] decision=drop since sender is closer
++112.598560300s 113 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/110/seq=0/zor=[MASKED]
++112.598560300s 113 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/110/seq=0/zor=[MASKED] decision=drop since sender is closer
++112.598560331s 58 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/110/seq=0/zor=[MASKED]
++112.598560331s 58 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/110/seq=0/zor=[MASKED] decision=drop since sender is closer
++113.571963704s 112 ndn.RandomAlertProducer:SendAlert(): [LOGIC] Don't send alert; condition failed
++115.002059261s 113 ndn.RandomAlertProducer:AlertSupplier(): [LOGIC] Send alert=/alert/emergency/veh/113/seq=0/zor=[MASKED] vehCount=37 rsuCount=9
++115.002059261s 113 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=260 alert=/alert/emergency/veh/113/seq=0/zor=[MASKED]
++115.002059261s 113 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(260,0) alert=/alert/emergency/veh/113/seq=0/zor=[MASKED] decision=forward to vehicles
++115.002059261s 113 caf.Forwarder:OnOutgoingAlert(): [DEBUG] out=257 alert=/alert/emergency/veh/113/seq=0/zor=[MASKED]
++115.002933307s 114 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/113/seq=0/zor=[MASKED]
++115.002933307s 114 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/113/seq=0/zor=[MASKED] decision=forward to vehicles deferred until 3.66218ms
++115.002933351s 110 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/113/seq=0/zor=[MASKED]
++115.002933351s 110 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/113/seq=0/zor=[MASKED] decision=forward to vehicles deferred until 2.33555ms
++115.002933380s 54 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/113/seq=0/zor=[MASKED]
++115.002933380s 54 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/113/seq=0/zor=[MASKED] decision=forward to vehicles deferred until 1.44239ms
++115.004375765s 54 caf.Forwarder:OnOutgoingAlert(): [DEBUG] out=257 alert=/alert/emergency/veh/113/seq=0/zor=[MASKED]
++115.005249806s 110 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/113/seq=0/zor=[MASKED]
++115.005249806s 110 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in= (257,0) alert=/alert/emergency/veh/113/seq=0/zor=[MASKED] timer cancelled because sender closer to ZoR
++115.005249838s 114 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/113/seq=0/zor=[MASKED]
++115.005249838s 114 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in= (257,0) alert=/alert/emergency/veh/113/seq=0/zor=[MASKED] timer cancelled because sender closer to ZoR
++115.005249884s 113 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/113/seq=0/zor=[MASKED]
++115.005249884s 113 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/113/seq=0/zor=[MASKED] decision=drop because duplicate alert
++115.005249928s 107 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/113/seq=0/zor=[MASKED]
++115.005249928s 107 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/113/seq=0/zor=[MASKED] decision=forward to vehicles deferred until 0.103117ms
++115.005353044s 107 caf.Forwarder:OnOutgoingAlert(): [DEBUG] out=257 alert=/alert/emergency/veh/113/seq=0/zor=[MASKED]
++115.006227128s 104 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/113/seq=0/zor=[MASKED]
++115.006227128s 104 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/113/seq=0/zor=[MASKED] decision=forward to vehicles deferred until 2.50646ms
++115.006227154s 103 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/113/seq=0/zor=[MASKED]
++115.006227154s 103 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/113/seq=0/zor=[MASKED] decision=forward to vehicles deferred until 1.7259ms
++115.006227207s 54 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/113/seq=0/zor=[MASKED]
++115.006227207s 54 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/113/seq=0/zor=[MASKED] decision=drop because duplicate alert
++115.007953050s 103 caf.Forwarder:OnOutgoingAlert(): [DEBUG] out=257 alert=/alert/emergency/veh/113/seq=0/zor=[MASKED]
++115.008733587s 104 caf.Forwarder:OnOutgoingAlert(): [DEBUG] out=257 alert=/alert/emergency/veh/113/seq=0/zor=[MASKED]
++115.008827079s 104 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/113/seq=0/zor=[MASKED]
++115.008827079s 104 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/113/seq=0/zor=[MASKED] decision=drop because duplicate alert
++115.008827143s 74 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/113/seq=0/zor=[MASKED]
++115.008827143s 74 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/113/seq=0/zor=[MASKED] decision=forward to vehicles deferred until 0ms
++115.008827143s 74 caf.Forwarder:OnOutgoingAlert(): [DEBUG] out=257 alert=/alert/emergency/veh/113/seq=0/zor=[MASKED]
++115.008827143s 74 ndn.AlertConsumer:doReceive(): [INFO ] Received alert: /alert/emergency/veh/113/seq=0/zor=[MASKED]
++115.008827160s 107 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/113/seq=0/zor=[MASKED]
++115.008827160s 107 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/113/seq=0/zor=[MASKED] decision=drop because duplicate alert
++115.008827215s 99 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/113/seq=0/zor=[MASKED]
++115.008827215s 99 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/113/seq=0/zor=[MASKED] decision=forward to vehicles deferred until 0ms
++115.008827215s 99 caf.Forwarder:OnOutgoingAlert(): [DEBUG] out=257 alert=/alert/emergency/veh/113/seq=0/zor=[MASKED]
++115.008827215s 99 ndn.AlertConsumer:doReceive(): [INFO ] Received alert: /alert/emergency/veh/113/seq=0/zor=[MASKED]
++115.009701236s 103 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/113/seq=0/zor=[MASKED]
++115.009701236s 103 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/113/seq=0/zor=[MASKED] decision=drop because duplicate alert
++115.009701264s 104 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/113/seq=0/zor=[MASKED]
++115.009701264s 104 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/113/seq=0/zor=[MASKED] decision=drop because duplicate alert
++115.009701276s 100 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/113/seq=0/zor=[MASKED]
++115.009701276s 100 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/113/seq=0/zor=[MASKED] decision=forward to vehicles deferred until 0ms
++115.009701276s 100 caf.Forwarder:OnOutgoingAlert(): [DEBUG] out=257 alert=/alert/emergency/veh/113/seq=0/zor=[MASKED]
++115.009701276s 100 ndn.AlertConsumer:doReceive(): [INFO ] Received alert: /alert/emergency/veh/113/seq=0/zor=[MASKED]
++115.009701386s 95 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/113/seq=0/zor=[MASKED]
++115.009701386s 95 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/113/seq=0/zor=[MASKED] decision=forward to vehicles deferred until 0ms
++115.009701386s 95 caf.Forwarder:OnOutgoingAlert(): [DEBUG] out=257 alert=/alert/emergency/veh/113/seq=0/zor=[MASKED]
++115.009701386s 95 ndn.AlertConsumer:doReceive(): [INFO ] Received alert: /alert/emergency/veh/113/seq=0/zor=[MASKED]
++115.010575337s 99 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/113/seq=0/zor=[MASKED]
++115.010575337s 99 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/113/seq=0/zor=[MASKED] decision=drop because duplicate alert
++115.010575490s 92 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/113/seq=0/zor=[MASKED]
++115.010575490s 92 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/113/seq=0/zor=[MASKED] decision=forward to vehicles deferred until 0ms
++115.010575490s 92 caf.Forwarder:OnOutgoingAlert(): [DEBUG] out=257 alert=/alert/emergency/veh/113/seq=0/zor=[MASKED]
++115.010575490s 92 ndn.AlertConsumer:doReceive(): [INFO ] Received alert: /alert/emergency/veh/113/seq=0/zor=[MASKED]
++115.010575497s 94 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/113/seq=0/zor=[MASKED]
++115.010575497s 94 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/113/seq=0/zor=[MASKED] decision=forward to vehicles deferred until 0ms
++115.010575497s 94 caf.Forwarder:OnOutgoingAlert(): [DEBUG] out=257 alert=/alert/emergency/veh/113/seq=0/zor=[MASKED]
++115.010575497s 94 ndn.AlertConsumer:doReceive(): [INFO ] Received alert: /alert/emergency/veh/113/seq=0/zor=[MASKED]
++115.010640293s 103 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/113/seq=0/zor=[MASKED]
++115.010640293s 103 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/113/seq=0/zor=[MASKED] decision=drop because duplicate alert
++115.010640348s 107 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/113/seq=0/zor=[MASKED]
++115.010640348s 107 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/113/seq=0/zor=[MASKED] decision=drop because duplicate alert
++116.611129044s 116 ndn.RandomAlertProducer:AlertSupplier(): [LOGIC] Send alert=/alert/emergency/veh/116/seq=0/zor=[MASKED] vehCount=38 rsuCount=9
++116.611129044s 116 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=260 alert=/alert/emergency/veh/116/seq=0/zor=[MASKED]
++116.611129044s 116 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(260,0) alert=/alert/emergency/veh/116/seq=0/zor=[MASKED] decision=forward to vehicles
++116.611129044s 116 caf.Forwarder:OnOutgoingAlert(): [DEBUG] out=257 alert=/alert/emergency/veh/116/seq=0/zor=[MASKED]
++116.612003095s 44 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/116/seq=0/zor=[MASKED]
++116.612003095s 44 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/116/seq=0/zor=[MASKED] decision=forward to vehicles deferred until 3.49969ms
++116.612003149s 50 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/116/seq=0/zor=[MASKED]
++116.612003149s 50 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/116/seq=0/zor=[MASKED] decision=forward to vehicles deferred until 1.87665ms
++116.613879802s 50 caf.Forwarder:OnOutgoingAlert(): [DEBUG] out=257 alert=/alert/emergency/veh/116/seq=0/zor=[MASKED]
++116.614753865s 44 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/116/seq=0/zor=[MASKED]
++116.614753865s 44 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in= (257,0) alert=/alert/emergency/veh/116/seq=0/zor=[MASKED] timer cancelled because sender closer to ZoR
++116.614753887s 61 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/116/seq=0/zor=[MASKED]
++116.614753887s 61 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/116/seq=0/zor=[MASKED] decision=forward to vehicles deferred until 2.48159ms
++116.614753907s 116 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/116/seq=0/zor=[MASKED]
++116.614753907s 116 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/116/seq=0/zor=[MASKED] decision=drop because duplicate alert
++116.617235475s 61 caf.Forwarder:OnOutgoingAlert(): [DEBUG] out=257 alert=/alert/emergency/veh/116/seq=0/zor=[MASKED]
++116.618109560s 50 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/116/seq=0/zor=[MASKED]
++116.618109560s 50 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/116/seq=0/zor=[MASKED] decision=drop because duplicate alert
++116.618109580s 60 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/116/seq=0/zor=[MASKED]
++116.618109580s 60 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/116/seq=0/zor=[MASKED] decision=forward to vehicles deferred until 1.88727ms
++116.618109601s 108 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/116/seq=0/zor=[MASKED]
++116.618109601s 108 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/116/seq=0/zor=[MASKED] decision=forward to vehicles deferred until 1.22541ms
++116.618109622s 44 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/116/seq=0/zor=[MASKED]
++116.618109622s 44 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/116/seq=0/zor=[MASKED] decision=drop because duplicate alert
++116.619335012s 108 caf.Forwarder:OnOutgoingAlert(): [DEBUG] out=257 alert=/alert/emergency/veh/116/seq=0/zor=[MASKED]
++116.619996853s 60 caf.Forwarder:OnOutgoingAlert(): [DEBUG] out=257 alert=/alert/emergency/veh/116/seq=0/zor=[MASKED]
++116.620209041s 60 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/116/seq=0/zor=[MASKED]
++116.620209041s 60 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/116/seq=0/zor=[MASKED] decision=drop because duplicate alert
++116.620209099s 102 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/116/seq=0/zor=[MASKED]
++116.620209099s 102 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/116/seq=0/zor=[MASKED] decision=forward to vehicles deferred until 2.41982ms
++116.620209139s 61 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/116/seq=0/zor=[MASKED]
++116.620209139s 61 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/116/seq=0/zor=[MASKED] decision=drop because duplicate alert
++116.620209142s 69 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/116/seq=0/zor=[MASKED]
++116.620209142s 69 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/116/seq=0/zor=[MASKED] decision=forward to vehicles deferred until 0ms
++116.620209142s 69 caf.Forwarder:OnOutgoingAlert(): [DEBUG] out=257 alert=/alert/emergency/veh/116/seq=0/zor=[MASKED]
++116.620209142s 69 ndn.AlertConsumer:doReceive(): [INFO ] Received alert: /alert/emergency/veh/116/seq=0/zor=[MASKED]
++116.621083188s 102 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/116/seq=0/zor=[MASKED]
++116.621083188s 102 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in= (257,0) alert=/alert/emergency/veh/116/seq=0/zor=[MASKED] timer cancelled because sender closer to ZoR
++116.621083272s 108 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/116/seq=0/zor=[MASKED]
++116.621083272s 108 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/116/seq=0/zor=[MASKED] decision=drop because duplicate alert
++116.621083290s 60 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/116/seq=0/zor=[MASKED]
++116.621083290s 60 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/116/seq=0/zor=[MASKED] decision=drop because duplicate alert
++116.621083310s 97 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/116/seq=0/zor=[MASKED]
++116.621083310s 97 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/116/seq=0/zor=[MASKED] decision=forward to vehicles deferred until 0ms
++116.621083310s 97 caf.Forwarder:OnOutgoingAlert(): [DEBUG] out=257 alert=/alert/emergency/veh/116/seq=0/zor=[MASKED]
++116.621083310s 97 ndn.AlertConsumer:doReceive(): [INFO ] Received alert: /alert/emergency/veh/116/seq=0/zor=[MASKED]
++116.621957334s 66 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/116/seq=0/zor=[MASKED]
++116.621957334s 66 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/116/seq=0/zor=[MASKED] decision=forward to vehicles deferred until 0ms
++116.621957334s 66 caf.Forwarder:OnOutgoingAlert(): [DEBUG] out=257 alert=/alert/emergency/veh/116/seq=0/zor=[MASKED]
++116.621957334s 66 ndn.AlertConsumer:doReceive(): [INFO ] Received alert: /alert/emergency/veh/116/seq=0/zor=[MASKED]
++116.621957367s 67 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/116/seq=0/zor=[MASKED]
++116.621957367s 67 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/116/seq=0/zor=[MASKED] decision=forward to vehicles deferred until 0ms
++116.621957367s 67 caf.Forwarder:OnOutgoingAlert(): [DEBUG] out=257 alert=/alert/emergency/veh/116/seq=0/zor=[MASKED]
++116.621957367s 67 ndn.AlertConsumer:doReceive(): [INFO ] Received alert: /alert/emergency/veh/116/seq=0/zor=[MASKED]
++116.622074319s 108 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/116/seq=0/zor=[MASKED]
++116.622074319s 108 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/116/seq=0/zor=[MASKED] decision=drop because duplicate alert
++116.622074395s 61 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/116/seq=0/zor=[MASKED]
++116.622074395s 61 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/116/seq=0/zor=[MASKED] decision=drop because duplicate alert
++116.622074399s 102 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/116/seq=0/zor=[MASKED]
++116.622074399s 102 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/116/seq=0/zor=[MASKED] decision=drop because duplicate alert
++116.622831358s 97 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/116/seq=0/zor=[MASKED]
++116.622831358s 97 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/116/seq=0/zor=[MASKED] decision=drop because duplicate alert
++116.624890567s 117 ndn.RandomAlertProducer:AlertSupplier(): [LOGIC] Send alert=/alert/emergency/veh/117/seq=0/zor=[MASKED] vehCount=38 rsuCount=9
++116.624890567s 117 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=260 alert=/alert/emergency/veh/117/seq=0/zor=[MASKED]
++116.624890567s 117 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(260,0) alert=/alert/emergency/veh/117/seq=0/zor=[MASKED] decision=forward to vehicles
++116.624890567s 117 caf.Forwarder:OnOutgoingAlert(): [DEBUG] out=257 alert=/alert/emergency/veh/117/seq=0/zor=[MASKED]
++116.625764599s 57 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/117/seq=0/zor=[MASKED]
++116.625764599s 57 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/117/seq=0/zor=[MASKED] decision=drop since sender is closer
++116.625764727s 111 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/117/seq=0/zor=[MASKED]
++116.625764727s 111 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/117/seq=0/zor=[MASKED] decision=forward to vehicles deferred until 0.21824ms
++116.625982966s 111 caf.Forwarder:OnOutgoingAlert(): [DEBUG] out=257 alert=/alert/emergency/veh/117/seq=0/zor=[MASKED]
++116.626857126s 117 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/117/seq=0/zor=[MASKED]
++116.626857126s 117 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/117/seq=0/zor=[MASKED] decision=drop because duplicate alert
++116.626857134s 57 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/117/seq=0/zor=[MASKED]
++116.626857134s 57 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/117/seq=0/zor=[MASKED] decision=drop because duplicate alert
++116.745219349s 114 ndn.RandomAlertProducer:AlertSupplier(): [LOGIC] Send alert=/alert/emergency/veh/114/seq=0/zor=[MASKED] vehCount=38 rsuCount=9
++116.745219349s 114 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=260 alert=/alert/emergency/veh/114/seq=0/zor=[MASKED]
++116.745219349s 114 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(260,0) alert=/alert/emergency/veh/114/seq=0/zor=[MASKED] decision=forward to vehicles
++116.745219349s 114 caf.Forwarder:OnOutgoingAlert(): [DEBUG] out=257 alert=/alert/emergency/veh/114/seq=0/zor=[MASKED]
++116.746093378s 110 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/114/seq=0/zor=[MASKED]
++116.746093378s 110 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/114/seq=0/zor=[MASKED] decision=forward to vehicles deferred until 4.16798ms
++116.746093414s 113 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/114/seq=0/zor=[MASKED]
++116.746093414s 113 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/114/seq=0/zor=[MASKED] decision=drop since sender is closer
++116.746093461s 54 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/114/seq=0/zor=[MASKED]
++116.746093461s 54 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/114/seq=0/zor=[MASKED] decision=drop since sender is closer
++116.750261362s 110 caf.Forwarder:OnOutgoingAlert(): [DEBUG] out=257 alert=/alert/emergency/veh/114/seq=0/zor=[MASKED]
++116.751135391s 114 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/114/seq=0/zor=[MASKED]
++116.751135391s 114 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/114/seq=0/zor=[MASKED] decision=drop because duplicate alert
++116.751135453s 113 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/114/seq=0/zor=[MASKED]
++116.751135453s 113 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/114/seq=0/zor=[MASKED] decision=drop because duplicate alert
++116.751135503s 54 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/114/seq=0/zor=[MASKED]
++116.751135503s 54 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/114/seq=0/zor=[MASKED] decision=drop because duplicate alert
++116.995841271s 115 ndn.RandomAlertProducer:AlertSupplier(): [LOGIC] Send alert=/alert/emergency/veh/115/seq=0/zor=[MASKED] vehCount=38 rsuCount=9
++116.995841271s 115 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=260 alert=/alert/emergency/veh/115/seq=0/zor=[MASKED]
++116.995841271s 115 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(260,0) alert=/alert/emergency/veh/115/seq=0/zor=[MASKED] decision=forward to vehicles
++116.995841271s 115 caf.Forwarder:OnOutgoingAlert(): [DEBUG] out=257 alert=/alert/emergency/veh/115/seq=0/zor=[MASKED]
++116.996715362s 109 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/115/seq=0/zor=[MASKED]
++116.996715362s 109 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/115/seq=0/zor=[MASKED] decision=forward to vehicles deferred until 2.30346ms
++116.996715367s 112 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/115/seq=0/zor=[MASKED]
++116.996715367s 112 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/115/seq=0/zor=[MASKED] decision=forward to vehicles deferred until 2.14988ms
++116.996715391s 63 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/115/seq=0/zor=[MASKED]
++116.996715391s 63 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/115/seq=0/zor=[MASKED] decision=forward to vehicles deferred until 1.41039ms
++116.996715395s 56 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/115/seq=0/zor=[MASKED]
++116.996715395s 56 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/115/seq=0/zor=[MASKED] decision=forward to vehicles deferred until 1.29392ms
++116.998009310s 56 caf.Forwarder:OnOutgoingAlert(): [DEBUG] out=257 alert=/alert/emergency/veh/115/seq=0/zor=[MASKED]
++116.998125776s 63 caf.Forwarder:OnOutgoingAlert(): [DEBUG] out=257 alert=/alert/emergency/veh/115/seq=0/zor=[MASKED]
++116.998865244s 112 caf.Forwarder:OnOutgoingAlert(): [DEBUG] out=257 alert=/alert/emergency/veh/115/seq=0/zor=[MASKED]
++116.998883321s 63 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/115/seq=0/zor=[MASKED]
++116.998883321s 63 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/115/seq=0/zor=[MASKED] decision=drop because duplicate alert
++116.998883343s 112 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/115/seq=0/zor=[MASKED]
++116.998883343s 112 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/115/seq=0/zor=[MASKED] decision=drop because duplicate alert
++116.998883353s 109 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/115/seq=0/zor=[MASKED]
++116.998883353s 109 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in= (257,0) alert=/alert/emergency/veh/115/seq=0/zor=[MASKED] timer cancelled because sender closer to ZoR
++116.998883410s 71 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/115/seq=0/zor=[MASKED]
++116.998883410s 71 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/115/seq=0/zor=[MASKED] decision=forward to vehicles deferred until 2.02782ms
++116.998883434s 115 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/115/seq=0/zor=[MASKED]
++116.998883434s 115 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/115/seq=0/zor=[MASKED] decision=drop because duplicate alert
++116.998883438s 105 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/115/seq=0/zor=[MASKED]
++116.998883438s 105 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/115/seq=0/zor=[MASKED] decision=forward to vehicles deferred until 1.18527ms
++116.999783332s 56 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/115/seq=0/zor=[MASKED]
++116.999783332s 56 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/115/seq=0/zor=[MASKED] decision=drop because duplicate alert
++116.999783346s 112 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/115/seq=0/zor=[MASKED]
++116.999783346s 112 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/115/seq=0/zor=[MASKED] decision=drop because duplicate alert
++116.999783356s 109 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/115/seq=0/zor=[MASKED]
++116.999783356s 109 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/115/seq=0/zor=[MASKED] decision=drop because duplicate alert
++116.999783423s 71 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/115/seq=0/zor=[MASKED]
++116.999783441s 115 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/115/seq=0/zor=[MASKED]
++116.999783441s 115 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/115/seq=0/zor=[MASKED] decision=drop because duplicate alert
++116.999783449s 105 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/115/seq=0/zor=[MASKED]
++117.000068703s 105 caf.Forwarder:OnOutgoingAlert(): [DEBUG] out=257 alert=/alert/emergency/veh/115/seq=0/zor=[MASKED]
++117.000826358s 109 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/115/seq=0/zor=[MASKED]
++117.000826358s 109 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/115/seq=0/zor=[MASKED] decision=drop because duplicate alert
++117.000826371s 63 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/115/seq=0/zor=[MASKED]
++117.000826371s 63 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/115/seq=0/zor=[MASKED] decision=drop because duplicate alert
++117.000826378s 56 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/115/seq=0/zor=[MASKED]
++117.000826378s 56 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/115/seq=0/zor=[MASKED] decision=drop because duplicate alert
++117.000826442s 115 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/115/seq=0/zor=[MASKED]
++117.000826442s 115 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/115/seq=0/zor=[MASKED] decision=drop because duplicate alert
++117.000826472s 71 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/115/seq=0/zor=[MASKED]
++117.000826496s 105 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/115/seq=0/zor=[MASKED]
++117.000826496s 105 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/115/seq=0/zor=[MASKED] decision=drop because duplicate alert
++117.000911225s 71 caf.Forwarder:OnOutgoingAlert(): [DEBUG] out=257 alert=/alert/emergency/veh/115/seq=0/zor=[MASKED]
++117.001726530s 71 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/115/seq=0/zor=[MASKED]
++117.001726530s 71 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/115/seq=0/zor=[MASKED] decision=drop because duplicate alert
++117.001726624s 56 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/115/seq=0/zor=[MASKED]
++117.001726624s 56 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/115/seq=0/zor=[MASKED] decision=drop because duplicate alert
++117.001726624s 63 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/115/seq=0/zor=[MASKED]
++117.001726624s 63 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/115/seq=0/zor=[MASKED] decision=drop because duplicate alert
++117.001726646s 112 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/115/seq=0/zor=[MASKED]
++117.001726646s 112 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/115/seq=0/zor=[MASKED] decision=drop because duplicate alert
++117.001726651s 109 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/115/seq=0/zor=[MASKED]
++117.001726651s 109 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/115/seq=0/zor=[MASKED] decision=drop because duplicate alert
++117.001726660s 106 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/115/seq=0/zor=[MASKED]
++117.001726660s 106 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/115/seq=0/zor=[MASKED] decision=forward to vehicles deferred until 0ms
++117.001726660s 106 caf.Forwarder:OnOutgoingAlert(): [DEBUG] out=257 alert=/alert/emergency/veh/115/seq=0/zor=[MASKED]
++117.001726660s 106 ndn.AlertConsumer:doReceive(): [INFO ] Received alert: /alert/emergency/veh/115/seq=0/zor=[MASKED]
++117.002600564s 105 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/115/seq=0/zor=[MASKED]
++117.002600564s 105 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/115/seq=0/zor=[MASKED] decision=drop because duplicate alert
++117.002600630s 56 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/115/seq=0/zor=[MASKED]
++117.002600630s 56 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/115/seq=0/zor=[MASKED] decision=drop because duplicate alert
++117.002600632s 63 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/115/seq=0/zor=[MASKED]
++117.002600632s 63 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/115/seq=0/zor=[MASKED] decision=drop because duplicate alert
++117.002600656s 112 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/115/seq=0/zor=[MASKED]
++117.002600656s 112 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/115/seq=0/zor=[MASKED] decision=drop because duplicate alert
++117.002600663s 109 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/115/seq=0/zor=[MASKED]
++117.002600663s 109 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/115/seq=0/zor=[MASKED] decision=drop because duplicate alert
++117.002600728s 101 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/115/seq=0/zor=[MASKED]
++117.002600728s 101 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/115/seq=0/zor=[MASKED] decision=forward to vehicles deferred until 0ms
++117.002600728s 101 caf.Forwarder:OnOutgoingAlert(): [DEBUG] out=257 alert=/alert/emergency/veh/115/seq=0/zor=[MASKED]
++117.002600728s 101 ndn.AlertConsumer:doReceive(): [INFO ] Received alert: /alert/emergency/veh/115/seq=0/zor=[MASKED]
++117.002600831s 96 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/115/seq=0/zor=[MASKED]
++117.002600831s 96 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/115/seq=0/zor=[MASKED] decision=forward to vehicles deferred until 0ms
++117.002600831s 96 caf.Forwarder:OnOutgoingAlert(): [DEBUG] out=257 alert=/alert/emergency/veh/115/seq=0/zor=[MASKED]
++117.002600831s 96 ndn.AlertConsumer:doReceive(): [INFO ] Received alert: /alert/emergency/veh/115/seq=0/zor=[MASKED]
++117.003474796s 106 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/115/seq=0/zor=[MASKED]
++117.003474796s 106 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/115/seq=0/zor=[MASKED] decision=drop because duplicate alert
++117.003474937s 98 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/115/seq=0/zor=[MASKED]
++117.003474937s 98 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/115/seq=0/zor=[MASKED] decision=forward to vehicles deferred until 0ms
++117.003474937s 98 caf.Forwarder:OnOutgoingAlert(): [DEBUG] out=257 alert=/alert/emergency/veh/115/seq=0/zor=[MASKED]
++117.003474937s 98 ndn.AlertConsumer:doReceive(): [INFO ] Received alert: /alert/emergency/veh/115/seq=0/zor=[MASKED]
++117.003474970s 93 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/115/seq=0/zor=[MASKED]
++117.003474970s 93 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/115/seq=0/zor=[MASKED] decision=forward to vehicles deferred until 0ms
++117.003474970s 93 caf.Forwarder:OnOutgoingAlert(): [DEBUG] out=257 alert=/alert/emergency/veh/115/seq=0/zor=[MASKED]
++117.003474970s 93 ndn.AlertConsumer:doReceive(): [INFO ] Received alert: /alert/emergency/veh/115/seq=0/zor=[MASKED]
++117.004349032s 64 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/115/seq=0/zor=[MASKED]
++117.004349032s 64 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/115/seq=0/zor=[MASKED] decision=forward to vehicles deferred until 0ms
++117.004349032s 64 caf.Forwarder:OnOutgoingAlert(): [DEBUG] out=257 alert=/alert/emergency/veh/115/seq=0/zor=[MASKED]
++117.004349032s 64 ndn.AlertConsumer:doReceive(): [INFO ] Received alert: /alert/emergency/veh/115/seq=0/zor=[MASKED]
++117.004349053s 91 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/115/seq=0/zor=[MASKED]
++117.004349053s 91 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/115/seq=0/zor=[MASKED] decision=forward to vehicles deferred until 0ms
++117.004349053s 91 caf.Forwarder:OnOutgoingAlert(): [DEBUG] out=257 alert=/alert/emergency/veh/115/seq=0/zor=[MASKED]
++117.004349053s 91 ndn.AlertConsumer:doReceive(): [INFO ] Received alert: /alert/emergency/veh/115/seq=0/zor=[MASKED]
++118.984185417s 118 ndn.RandomAlertProducer:AlertSupplier(): [LOGIC] Send alert=/alert/emergency/veh/118/seq=0/zor=[MASKED] vehCount=40 rsuCount=9
++118.984185417s 118 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=260 alert=/alert/emergency/veh/118/seq=0/zor=[MASKED]
++118.984185417s 118 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(260,0) alert=/alert/emergency/veh/118/seq=0/zor=[MASKED] decision=forward to vehicles
++118.984185417s 118 caf.Forwarder:OnOutgoingAlert(): [DEBUG] out=257 alert=/alert/emergency/veh/118/seq=0/zor=[MASKED]
++118.985059522s 44 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/118/seq=0/zor=[MASKED]
++118.985059522s 44 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/118/seq=0/zor=[MASKED] decision=forward to vehicles deferred until 1.88105ms
++118.985059574s 50 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/118/seq=0/zor=[MASKED]
++118.985059574s 50 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/118/seq=0/zor=[MASKED] decision=forward to vehicles deferred until 0.300673ms
++118.985360247s 50 caf.Forwarder:OnOutgoingAlert(): [DEBUG] out=257 alert=/alert/emergency/veh/118/seq=0/zor=[MASKED]
++118.986234304s 44 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/118/seq=0/zor=[MASKED]
++118.986234304s 44 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in= (257,0) alert=/alert/emergency/veh/118/seq=0/zor=[MASKED] timer cancelled because sender closer to ZoR
++118.986234323s 61 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/118/seq=0/zor=[MASKED]
++118.986234323s 61 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/118/seq=0/zor=[MASKED] decision=forward to vehicles deferred until 2.7414ms
++118.986234365s 116 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/118/seq=0/zor=[MASKED]
++118.986234365s 116 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/118/seq=0/zor=[MASKED] decision=forward to vehicles deferred until 1.48451ms
++118.986234404s 118 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/118/seq=0/zor=[MASKED]
++118.986234404s 118 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/118/seq=0/zor=[MASKED] decision=drop because duplicate alert
++118.987718872s 116 caf.Forwarder:OnOutgoingAlert(): [DEBUG] out=257 alert=/alert/emergency/veh/118/seq=0/zor=[MASKED]
++118.988592924s 61 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/118/seq=0/zor=[MASKED]
++118.988592924s 61 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in= (257,0) alert=/alert/emergency/veh/118/seq=0/zor=[MASKED] timer cancelled because sender closer to ZoR
++118.988592947s 60 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/118/seq=0/zor=[MASKED]
++118.988592947s 60 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/118/seq=0/zor=[MASKED] decision=forward to vehicles deferred until 2.79227ms
++118.988592990s 50 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/118/seq=0/zor=[MASKED]
++118.988592990s 50 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/118/seq=0/zor=[MASKED] decision=drop because duplicate alert
++118.991385213s 60 caf.Forwarder:OnOutgoingAlert(): [DEBUG] out=257 alert=/alert/emergency/veh/118/seq=0/zor=[MASKED]
++118.992259287s 116 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/118/seq=0/zor=[MASKED]
++118.992259287s 116 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/118/seq=0/zor=[MASKED] decision=drop because duplicate alert
++118.992259321s 61 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/118/seq=0/zor=[MASKED]
++118.992259321s 61 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/118/seq=0/zor=[MASKED] decision=drop because duplicate alert
++118.992259363s 69 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/118/seq=0/zor=[MASKED]
++118.992259363s 69 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/118/seq=0/zor=[MASKED] decision=forward to vehicles deferred until 0.522084ms
++118.992781447s 69 caf.Forwarder:OnOutgoingAlert(): [DEBUG] out=257 alert=/alert/emergency/veh/118/seq=0/zor=[MASKED]
++118.993655532s 108 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/118/seq=0/zor=[MASKED]
++118.993655532s 108 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/118/seq=0/zor=[MASKED] decision=forward to vehicles deferred until 2.4901ms
++118.993655597s 60 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/118/seq=0/zor=[MASKED]
++118.993655597s 60 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/118/seq=0/zor=[MASKED] decision=drop because duplicate alert
++118.993655615s 102 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/118/seq=0/zor=[MASKED]
++118.993655615s 102 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/118/seq=0/zor=[MASKED] decision=forward to vehicles deferred until 0ms
++118.993655615s 102 caf.Forwarder:OnOutgoingAlert(): [DEBUG] out=257 alert=/alert/emergency/veh/118/seq=0/zor=[MASKED]
++118.993655615s 102 ndn.AlertConsumer:doReceive(): [INFO ] Received alert: /alert/emergency/veh/118/seq=0/zor=[MASKED]
++118.994529647s 66 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/118/seq=0/zor=[MASKED]
++118.994529647s 66 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/118/seq=0/zor=[MASKED] decision=forward to vehicles deferred until 0ms
++118.994529647s 66 caf.Forwarder:OnOutgoingAlert(): [DEBUG] out=257 alert=/alert/emergency/veh/118/seq=0/zor=[MASKED]
++118.994529647s 66 ndn.AlertConsumer:doReceive(): [INFO ] Received alert: /alert/emergency/veh/118/seq=0/zor=[MASKED]
++118.994529654s 67 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/118/seq=0/zor=[MASKED]
++118.994529654s 67 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/118/seq=0/zor=[MASKED] decision=forward to vehicles deferred until 0ms
++118.994529654s 67 caf.Forwarder:OnOutgoingAlert(): [DEBUG] out=257 alert=/alert/emergency/veh/118/seq=0/zor=[MASKED]
++118.994529654s 67 ndn.AlertConsumer:doReceive(): [INFO ] Received alert: /alert/emergency/veh/118/seq=0/zor=[MASKED]
++118.994529700s 108 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/118/seq=0/zor=[MASKED]
++118.994529700s 108 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in= (257,0) alert=/alert/emergency/veh/118/seq=0/zor=[MASKED] timer cancelled because sender closer to ZoR
++118.994529783s 69 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/118/seq=0/zor=[MASKED]
++118.994529783s 69 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/118/seq=0/zor=[MASKED] decision=drop because duplicate alert
++119.803276546s 119 ndn.RandomAlertProducer:SendAlert(): [LOGIC] Don't send alert; condition failed
++119.921681157s 120 ndn.RandomAlertProducer:AlertSupplier(): [LOGIC] Send alert=/alert/emergency/veh/120/seq=0/zor=[MASKED] vehCount=41 rsuCount=9
++119.921681157s 120 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=260 alert=/alert/emergency/veh/120/seq=0/zor=[MASKED]
++119.921681157s 120 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(260,0) alert=/alert/emergency/veh/120/seq=0/zor=[MASKED] decision=forward to vehicles
++119.921681157s 120 caf.Forwarder:OnOutgoingAlert(): [DEBUG] out=257 alert=/alert/emergency/veh/120/seq=0/zor=[MASKED]
++119.922555316s 124 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/120/seq=0/zor=[MASKED]
++119.922555316s 124 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/120/seq=0/zor=[MASKED] decision=drop since sender is closer
++119.922555329s 118 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/120/seq=0/zor=[MASKED]
++119.922555329s 118 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/120/seq=0/zor=[MASKED] decision=forward to vehicles deferred until 0ms
++119.922555329s 118 caf.Forwarder:OnOutgoingAlert(): [DEBUG] out=257 alert=/alert/emergency/veh/120/seq=0/zor=[MASKED]
++119.923429367s 44 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/120/seq=0/zor=[MASKED]
++119.923429367s 44 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/120/seq=0/zor=[MASKED] decision=forward to vehicles deferred until 3.91122ms
++119.923429406s 50 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/120/seq=0/zor=[MASKED]
++119.923429406s 50 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/120/seq=0/zor=[MASKED] decision=forward to vehicles deferred until 2.71139ms
++119.923429480s 61 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/120/seq=0/zor=[MASKED]
++119.923429480s 61 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/120/seq=0/zor=[MASKED] decision=forward to vehicles deferred until 0.478216ms
++119.923429501s 120 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/120/seq=0/zor=[MASKED]
++119.923429501s 120 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/120/seq=0/zor=[MASKED] decision=drop because duplicate alert
++119.923907695s 61 caf.Forwarder:OnOutgoingAlert(): [DEBUG] out=257 alert=/alert/emergency/veh/120/seq=0/zor=[MASKED]
++119.924781769s 50 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/120/seq=0/zor=[MASKED]
++119.924781769s 50 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in= (257,0) alert=/alert/emergency/veh/120/seq=0/zor=[MASKED] timer cancelled because sender closer to ZoR
++119.924781802s 60 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/120/seq=0/zor=[MASKED]
++119.924781802s 60 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/120/seq=0/zor=[MASKED] decision=forward to vehicles deferred until 1.82005ms
++119.924781823s 44 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/120/seq=0/zor=[MASKED]
++119.924781823s 44 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in= (257,0) alert=/alert/emergency/veh/120/seq=0/zor=[MASKED] timer cancelled because sender closer to ZoR
++119.924781829s 116 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/120/seq=0/zor=[MASKED]
++119.924781829s 116 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/120/seq=0/zor=[MASKED] decision=forward to vehicles deferred until 1.00447ms
++119.924781846s 118 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/120/seq=0/zor=[MASKED]
++119.924781846s 118 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/120/seq=0/zor=[MASKED] decision=drop because duplicate alert
++119.925786298s 116 caf.Forwarder:OnOutgoingAlert(): [DEBUG] out=257 alert=/alert/emergency/veh/120/seq=0/zor=[MASKED]
++119.926601853s 60 caf.Forwarder:OnOutgoingAlert(): [DEBUG] out=257 alert=/alert/emergency/veh/120/seq=0/zor=[MASKED]
++119.926660337s 60 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/120/seq=0/zor=[MASKED]
++119.926660337s 60 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/120/seq=0/zor=[MASKED] decision=drop because duplicate alert
++119.926660430s 69 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/120/seq=0/zor=[MASKED]
++119.926660430s 69 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/120/seq=0/zor=[MASKED] decision=forward to vehicles deferred until 1.04182ms
++119.926660432s 61 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/120/seq=0/zor=[MASKED]
++119.926660432s 61 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/120/seq=0/zor=[MASKED] decision=drop because duplicate alert
++119.927702254s 69 caf.Forwarder:OnOutgoingAlert(): [DEBUG] out=257 alert=/alert/emergency/veh/120/seq=0/zor=[MASKED]
++119.927703377s 116 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/120/seq=0/zor=[MASKED]
++119.927703377s 116 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/120/seq=0/zor=[MASKED] decision=drop because duplicate alert
++119.927703444s 61 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/120/seq=0/zor=[MASKED]
++119.927703444s 61 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/120/seq=0/zor=[MASKED] decision=drop because duplicate alert
++119.927703489s 69 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/120/seq=0/zor=[MASKED]
++119.927703489s 69 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/120/seq=0/zor=[MASKED] decision=drop because duplicate alert
++119.928733621s 116 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/120/seq=0/zor=[MASKED]
++119.928733621s 116 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/120/seq=0/zor=[MASKED] decision=drop because duplicate alert
++119.928733641s 60 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/120/seq=0/zor=[MASKED]
++119.928733641s 60 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/120/seq=0/zor=[MASKED] decision=drop because duplicate alert
++119.928733657s 108 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/120/seq=0/zor=[MASKED]
++119.928733657s 108 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/120/seq=0/zor=[MASKED] decision=forward to vehicles deferred until 0ms
++119.928733657s 108 caf.Forwarder:OnOutgoingAlert(): [DEBUG] out=257 alert=/alert/emergency/veh/120/seq=0/zor=[MASKED]
++119.928733657s 108 ndn.AlertConsumer:doReceive(): [INFO ] Received alert: /alert/emergency/veh/120/seq=0/zor=[MASKED]
++119.929607691s 67 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/120/seq=0/zor=[MASKED]
++119.929607691s 67 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/120/seq=0/zor=[MASKED] decision=forward to vehicles deferred until 0ms
++119.929607691s 67 caf.Forwarder:OnOutgoingAlert(): [DEBUG] out=257 alert=/alert/emergency/veh/120/seq=0/zor=[MASKED]
++119.929607691s 67 ndn.AlertConsumer:doReceive(): [INFO ] Received alert: /alert/emergency/veh/120/seq=0/zor=[MASKED]
++119.929607693s 66 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/120/seq=0/zor=[MASKED]
++119.929607693s 66 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/120/seq=0/zor=[MASKED] decision=forward to vehicles deferred until 0ms
++119.929607693s 66 caf.Forwarder:OnOutgoingAlert(): [DEBUG] out=257 alert=/alert/emergency/veh/120/seq=0/zor=[MASKED]
++119.929607693s 66 ndn.AlertConsumer:doReceive(): [INFO ] Received alert: /alert/emergency/veh/120/seq=0/zor=[MASKED]
++119.929607740s 102 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/120/seq=0/zor=[MASKED]
++119.929607740s 102 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/120/seq=0/zor=[MASKED] decision=forward to vehicles deferred until 0ms
++119.929607740s 102 caf.Forwarder:OnOutgoingAlert(): [DEBUG] out=257 alert=/alert/emergency/veh/120/seq=0/zor=[MASKED]
++119.929607740s 102 ndn.AlertConsumer:doReceive(): [INFO ] Received alert: /alert/emergency/veh/120/seq=0/zor=[MASKED]
++119.929607825s 69 caf.Forwarder:OnIncomingAlert(): [DEBUG] in=257 alert=/alert/emergency/veh/120/seq=0/zor=[MASKED]
++119.929607825s 69 caf.Forwarder:AlertVehicleHandler(): [DEBUG] in=(257,0) alert=/alert/emergency/veh/120/seq=0/zor=[MASKED] decision=drop because duplicate alert
