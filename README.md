@@ -1,9 +1,9 @@
-# CAFE: Context-Aware Forwarding Engine for Autonomous Vehicular Communication
+# Infrastructure-Aware Named-Data Networking for Autonomous Vehicular Communication
 
 ⚠️ **Disclaimer:** This is a custom, unsupported fork of the [ndnSIM 2.x simulator](https://github.com/named-data-ndnSIM/ns-3-dev).
 
 ## Overview
-This repository contains the codebase for **CAFE**, designed to support research in context-aware vehicular networking. We have open-sourced this project under the **GNU General Public License v2.0** to ensure the reproducibility of our published results and to encourage further academic exploration.
+This repository contains the codebase for the paper titled "Infrastructure-Aware Named-Data Networking for Autonomous Vehicular Communication". We have open-sourced this project under the **GNU General Public License v2.0** to ensure the reproducibility of our published results and to encourage further academic exploration.
 
 ## Prerequisites
 This project has been tested and verified on the following platforms:
@@ -41,14 +41,14 @@ Apply the changes:
 source ~/.bashrc
 ```
 
-## 2. CAFE Setup
+## 2. Setup
 
 ### Step 1: Install Dependencies
 ```bash
 sudo apt install build-essential libsqlite3-dev libboost-all-dev libssl-dev git python3-setuptools castxml
 ```
 
-### Step 2: Clone and Build CAFE
+### Step 2: Clone and Build
 ```bash
 git clone https://github.com/solvedbiscuit71/CAFE.git
 cd CAFE
@@ -71,9 +71,9 @@ qmake NetAnim.pro
 make
 ```
 
-## Reproducing Results
+## Generate results
 
-To recreate the results presented in the paper (specifically Table 4), run the provided scenario script:
+To generate the table 4 presented in the paper, we have provided the logs and traces files in the data folder, run the following commands:
 
 ### Step 1: Install Dependencies
 
@@ -83,7 +83,16 @@ source .venv/bin/active
 pip install scipy
 ```
 
-### Step 2: Simulate
+### Step 2: Run Script
+
+```bash
+cd data
+python generate_table4.py
+```
+
+## Simulate results
+
+To simulate and generate the logs and traces in the data folder, run the provided scenario script:
 
 ```bash
 mkdir trace # sumo will generate .tcl files into trace/ folder
@@ -91,17 +100,9 @@ mkdir log   # simulation log will be placed inside log/ folder
 python scripts/scene.py
 ```
 
-### Step 3: Generate Results
-
-```bash
-python scripts/get_results.py
-```
-
-This will generate a `result.csv` file. 
-
 ### Note on Broadcast Flooding
 
-By default, the simulation includes context-aware logic. To replicate the **broadcast flooding** baseline, you must manually disable the geobroadcast logic:
+By default, the simulation includes geobroadcast logic. To replicate the **broadcast flooding** baseline, you must manually disable the geobroadcast logic:
 1. Open `src/ndnSIM/NFD/daemon/fw/caf-forwarder.cpp`.
 2. Comment out the relevant geobroadcast logic sections.
 3. Re-run `./waf` and the simulation script.
