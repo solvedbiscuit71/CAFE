@@ -94,3 +94,5 @@ version.cache
 *.ipynb
 
 .venv/
+
+*.tcl

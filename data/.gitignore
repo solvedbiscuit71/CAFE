@@ -1,4 +1,6 @@
+# Ignore the table4.csv file
 *.csv
 
-# Include the logs
+# Include the logs and traces
 !*.log
+!*.tcl
