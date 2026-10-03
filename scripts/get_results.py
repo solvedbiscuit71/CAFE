@@ -115,7 +115,9 @@ def analyze_ns3_logs(log_file_path, *, verbose=False):
     duplicate_rate = (duplicate_drops / incoming_alerts) * 100 if incoming_alerts > 0 else 0
 
     pdr_mean = stats.mean(global_pdr)
+    pdr_moe = compute_moe(global_pdr)
     psr_mean = stats.mean(global_psr)
+    psr_moe = compute_moe(global_psr)
     delay_mean = stats.mean(global_delay)
     delay_moe = compute_moe(global_delay)
 
@@ -126,14 +128,14 @@ def analyze_ns3_logs(log_file_path, *, verbose=False):
         print(f"Total Unique Packets Sent: {total_packets}")
         print(f"Global Failure Rate:       {failure_rate:.2f}%")
         print(f"Global Duplicate Rate:     {duplicate_rate:.2f}%")
-        print(f"PDR:                       {pdr_mean:.2f}%")
-        print(f"PSR:                       {psr_mean:.2f}%")
+        print(f"PDR:                       {pdr_mean:.2f}% ± {pdr_moe:.2f}%")
+        print(f"PSR:                       {psr_mean:.2f}% ± {psr_moe:.2f}%")
         print(f"Delay (Mean ± CI):         {delay_mean:.4f} ms ± {delay_moe:.4f} ms")
         print("="*30)
 
     scenario, mode = log_file_path.split('/')[1].split('-')
     mode = mode.split('.')[0]
-    values = f"{pdr_mean:.2f},{psr_mean:.2f},{delay_mean:.3f} ± {delay_moe:.3f},{duplicate_rate:.2f},{failure_rate:.2f}"
+    values = f"{pdr_mean:.2f} ± {pdr_moe:.2f},{psr_mean:.2f} ± {psr_moe:.2f},{delay_mean:.3f} ± {delay_moe:.3f},{duplicate_rate:.2f},{failure_rate:.2f}"
     return [scenario, mode, values]
     
 def order(entry):
